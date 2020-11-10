@@ -133,4 +133,5 @@ int main() {
 ```
 
 ## Safety
-Both FLTK and the wrapper are exception safe. The wrapper doesn't perform null checks on pointers returned from FLTK nor on pointers passed to it. Allocation failure should also be checked manually by the consuming user/consumer of the wrapper. 
+Both FLTK and the wrapper are exception safe. Widget, image and Fl_Text_Buffer mutating wrapper functions are thread-safe. FLTK manages the lifetime of widgets, which would delete any child widgets when the parent is deleted. The wrapper also provides an Fl_Widget_Tracker object which can be used to prevent use-after-free errors. 
+The wrapper itself doesn't perform null checks on pointers returned from FLTK nor on pointers passed to it. Allocation failure should also be checked manually by the consuming user of the wrapper.  
