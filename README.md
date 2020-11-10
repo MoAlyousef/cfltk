@@ -51,7 +51,7 @@ target_link_libraries(main PRIVATE pthread X11 Xext Xinerama Xcursor Xrender Xfi
 target_link_libraries(main PRIVATE log android c++_shared)
 ```
 
-Options which can be use with cmake:
+Options which can be used with cmake:
 ```
 $ cmake -B bin -S . \
     -DCMAKE_BUILD_TYPE=Release \
