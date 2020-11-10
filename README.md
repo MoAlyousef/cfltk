@@ -1,6 +1,6 @@
 # cfltk
 
-C bindings for the FLTK gui library.
+C89 bindings for the FLTK gui library, which can be used as basis for C applications or for other bindings in other languages.
 
 To add to your project, you can add this project as a submodule:
 ```
@@ -70,3 +70,29 @@ Otherwise, these options can be added to the CMakeLists.txt file:
     set(OPTION_BUILD_HTML_DOCUMENTATION OFF CACHE BOOL " " FORCE)
     set(OPTION_BUILD_PDF_DOCUMENTATION OFF CACHE BOOL " " FORCE)
 ```
+
+## Dependencies
+
+CMake (version > 3.0), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
+
+- Windows: No dependencies.
+- MacOS: No dependencies.
+- Linux: X11 and OpenGL development headers need to be installed for development. The libraries themselves are available on linux distros with a graphical user interface.
+
+For Debian-based GUI distributions, that means running:
+```
+$ sudo apt-get install libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libpango1.0-dev libgl1-mesa-dev libglu1-mesa-dev
+```
+For RHEL-based GUI distributions, that means running:
+```
+$ sudo yum groupinstall "X Software Development" 
+```
+For Arch-based GUI distributions, that means running:
+```
+$ sudo pacman -S libx11 libxext libxft libxinerama libxcursor libxrender libxfixes pango libgl mesa --needed
+```
+For Alpine linux:
+```
+$ apk add pango-dev fontconfig-dev libxinerama-dev libxfixes-dev libxcursor-dev
+```
+- Android: Android Studio, Android Sdk, Android Ndk.
