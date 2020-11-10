@@ -1,7 +1,11 @@
 #include <stdlib.h>
 
-#if defined(_MSC_VER) && _MSC_VER < 1900
-#define noexcept
+#if __cplusplus >= 201103L
+#define NOEXCEPT noexcept
+#elif defined(_MSC_VER) && _MSC_VER >= 1900
+#define NOEXCEPT noexcept
+#else
+#define NOEXCEPT
 #endif
 
 void *operator new(size_t size) {
@@ -12,11 +16,11 @@ void *operator new[](size_t size) {
     return malloc(size);
 }
 
-void operator delete(void *val) noexcept {
+void operator delete(void *val)NOEXCEPT {
     free(val);
 }
 
-void operator delete[](void *val) noexcept {
+void operator delete[](void *val) NOEXCEPT {
     free(val);
 }
 
