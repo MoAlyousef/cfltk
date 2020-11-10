@@ -46,13 +46,13 @@
         int handle(int event) override {                                                           \
             int ret = table::handle(event);                                                        \
             int local = 0;                                                                         \
-            if (ev_data_ && inner_handler) {                                                       \
+            if (inner_handler) {                                                       \
                 local = inner_handler(event, ev_data_);                                            \
                 if (local == 0)                                                                    \
                     return ret;                                                                    \
                 else                                                                               \
                     return local;                                                                  \
-            } else if (ev_data_ && inner_handler2) {                                               \
+            } else if (inner_handler2) {                                               \
                 local = inner_handler2(this, event, ev_data_);                                     \
                 if (local == 0)                                                                    \
                     return ret;                                                                    \
@@ -82,18 +82,18 @@
         }                                                                                          \
         void draw() override {                                                                     \
             table::draw();                                                                         \
-            if (draw_data_ && inner_drawer)                                                        \
+            if (inner_drawer)                                                        \
                 inner_drawer(draw_data_);                                                          \
-            else if (draw_data_ && inner_drawer2)                                                  \
+            else if (inner_drawer2)                                                  \
                 inner_drawer2(this, draw_data_);                                                   \
             else {                                                                                 \
             }                                                                                      \
         }                                                                                          \
         void draw_cell(TableContext context, int R, int C, int X, int Y, int W, int H) override {  \
             table::draw_cell(context, R, C, X, Y, W, H);                                           \
-            if (draw_cell_data_ && inner_cell_drawer)                                              \
+            if (inner_cell_drawer)                                              \
                 inner_cell_drawer(context, R, C, X, Y, W, H, draw_cell_data_);                     \
-            else if (draw_cell_data_ && inner_cell_drawer2)                                        \
+            else if (inner_cell_drawer2)                                        \
                 inner_cell_drawer2(this, context, R, C, X, Y, W, H, draw_cell_data_);              \
             else {                                                                                 \
             }                                                                                      \
