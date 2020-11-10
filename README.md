@@ -8,6 +8,16 @@ $ git submodule add https://github.com/moalyousef/cfltk
 $ git submodule update --init --recursive
 $ cd cfltk/fltk
 $ git apply ../fltk.patch # Needed for Android builds or to disable building FLUID
+$ cd ../..
+```
+or by cloning the repo:
+```
+$ git clone add https://github.com/moalyousef/cfltk
+$ cd cfktk
+$ git submodule update --init --recursive
+$ cd fltk
+$ git apply ../fltk.patch # Needed for Android builds or to disable building FLUID
+$ cd ../..
 ```
 
 You can build your project using cmake on the command line or gui:
@@ -20,7 +30,9 @@ An example CMakeLists.txt file:
 ```cmake
 cmake_minimum_required(VERSION 3.14)
 project(app)
+
 add_subdirectory(cfltk)
+
 add_executable(main main.c)
 target_include_directories(main PRIVATE cfltk/include)
 target_link_libraries(main PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png)
