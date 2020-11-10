@@ -46,13 +46,13 @@ struct Fl_Widget_Derived : public Fl_Widget {
     int handle(int event) override {
         int ret = Fl_Widget::handle(event);
         int local = 0;
-        if (ev_data_ && inner_handler) {
+        if (inner_handler) {
             local = inner_handler(event, ev_data_);
             if (local == 0)
                 return ret;
             else
                 return local;
-        } else if (ev_data_ && inner_handler2) {
+        } else if (inner_handler2) {
             local = inner_handler2(this, event, ev_data_);
             if (local == 0)
                 return ret;
@@ -76,9 +76,9 @@ struct Fl_Widget_Derived : public Fl_Widget {
     }
 
     void draw() override {
-        if (draw_data_ && inner_drawer)
+        if (inner_drawer)
             inner_drawer(draw_data_);
-        else if (draw_data_ && inner_drawer2)
+        else if (inner_drawer2)
             inner_drawer2(this, draw_data_);
         else {
         }
