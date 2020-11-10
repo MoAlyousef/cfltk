@@ -1,5 +1,13 @@
 #pragma once
 
+#if __cplusplus >= 201103L
+#define CFL_OVERRIDE override
+#elif defined(_MSC_VER) && _MSC_VER > 1600
+#define CFL_OVERRIDE override
+#else
+#define CFL_OVERRIDE
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -132,7 +140,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         void set_handler_data(void *data) {                                                        \
             ev_data_ = data;                                                                       \
         }                                                                                          \
-        int handle(int event) override {                                                           \
+        int handle(int event) CFL_OVERRIDE {                                                       \
             int ret = widget::handle(event);                                                       \
             int local = 0;                                                                         \
             if (inner_handler) {                                                                   \
@@ -160,7 +168,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         void set_drawer_data(void *data) {                                                         \
             draw_data_ = data;                                                                     \
         }                                                                                          \
-        void draw() override {                                                                     \
+        void draw() CFL_OVERRIDE {                                                                 \
             widget::draw();                                                                        \
             if (inner_drawer)                                                                      \
                 inner_drawer(draw_data_);                                                          \

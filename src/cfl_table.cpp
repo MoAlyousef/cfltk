@@ -46,7 +46,7 @@
         void set_handler_data(void *data) {                                                        \
             ev_data_ = data;                                                                       \
         }                                                                                          \
-        int handle(int event) override {                                                           \
+        int handle(int event) CFL_OVERRIDE {                                                       \
             int ret = table::handle(event);                                                        \
             int local = 0;                                                                         \
             if (inner_handler) {                                                                   \
@@ -83,7 +83,7 @@
         void set_cell_drawer_data(void *data) {                                                    \
             draw_cell_data_ = data;                                                                \
         }                                                                                          \
-        void draw() override {                                                                     \
+        void draw() CFL_OVERRIDE {                                                                 \
             table::draw();                                                                         \
             if (inner_drawer)                                                                      \
                 inner_drawer(draw_data_);                                                          \
@@ -92,7 +92,8 @@
             else {                                                                                 \
             }                                                                                      \
         }                                                                                          \
-        void draw_cell(TableContext context, int R, int C, int X, int Y, int W, int H) override {  \
+        void draw_cell(TableContext context, int R, int C, int X, int Y, int W,                    \
+                       int H) CFL_OVERRIDE {                                                       \
             table::draw_cell(context, R, C, X, Y, W, H);                                           \
             if (inner_cell_drawer)                                                                 \
                 inner_cell_drawer(context, R, C, X, Y, W, H, draw_cell_data_);                     \
