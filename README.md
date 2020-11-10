@@ -131,3 +131,6 @@ int main() {
     return Fl_run();
 }
 ```
+
+## Safety
+Both FLTK and the wrapper are exception safe. The wrapper doesn't perform null checks on pointers returned from FLTK nor on pointers passed to it. Allocation failure should also be checked manually by the consuming user/consumer of the wrapper. 
