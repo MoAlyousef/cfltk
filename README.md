@@ -31,12 +31,11 @@ An example CMakeLists.txt file:
 cmake_minimum_required(VERSION 3.14)
 project(app)
 
-set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}) # needed
 add_subdirectory(cfltk)
 
 add_executable(main main.c)
 target_include_directories(main PRIVATE cfltk/include)
-target_link_libraries(main PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png)
+target_link_libraries(main PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png) # as needed
 
 # for windows
 target_link_libraries(main PRIVATE ws2_32 comctl32 gdi32 oleaut32 ole32 uuid shell32 advapi32 comdlg32 winspool user32 kernel32 odbc32)
@@ -67,7 +66,7 @@ $ cmake -B bin -S . \
     -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
 ```
-For pango support on linux (for rtl and cjk text), you can use -DOPTION_USE_PANGO=ON.
+For pango support on linux (for rtl and cjk text), you can use `-DOPTION_USE_PANGO=ON`.
 
 Otherwise, these options can be added to the CMakeLists.txt file:
 ```cmake
@@ -110,7 +109,7 @@ $ apk add pango-dev fontconfig-dev libxinerama-dev libxfixes-dev libxcursor-dev
 ```
 - Android: Android Studio, Android Sdk, Android Ndk.
 
-## Example code
+## Usage
 ```c
 #include <cfl.h>
 #include <cfl_button.h>

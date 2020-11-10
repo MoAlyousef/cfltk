@@ -16,7 +16,6 @@ else()
 endif()
 
 option(CFLTK_BUILD_SHARED "Builds a shared library" OFF)
-option(CFLTK_BUILD_TESTS "Builds C++ tests" OFF)
 option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
 option(CFLTK_USE_OPENGL "Uses OpenGL" OFF)
 option(CFLTK_LINK_IMAGES "Links image libraries" ON)

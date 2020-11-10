@@ -1,7 +1,6 @@
-# Remove OPTION_USE_PANGO off on Windows and MacOS
+# Remove OPTION_USE_PANGO on Windows and MacOS
 
 # cmake -B bin -S cfltk \
--DCMAKE_BUILD_TYPE=Release \
 -DOPTION_USE_SYSTEM_LIBPNG=OFF \
 -DOPTION_USE_SYSTEM_LIBJPEG=OFF \
 -DOPTION_USE_SYSTEM_ZLIB=OFF \
