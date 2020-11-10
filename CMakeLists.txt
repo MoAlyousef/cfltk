@@ -15,13 +15,6 @@ else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
 endif()
 
-if (NOT ${CMAKE_INSTALL_PREFIX} STREQUAL ${CMAKE_CURRENT_BINARY_DIR}/..)
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
-endif()
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib)
-
 option(CFLTK_BUILD_SHARED "Builds a shared library" OFF)
 option(CFLTK_BUILD_TESTS "Builds C++ tests" OFF)
 option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
@@ -94,13 +87,4 @@ if(USE_SYSTEM_FLTK)
     install(TARGETS cfltk
         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
         )
-endif()
-
-if(CFLTK_BUILD_TESTS)
-    enable_testing()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/tests)
-    add_executable(test1 tests/test1.cpp)
-    target_include_directories(test1 PUBLIC fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk ${CMAKE_CURRENT_LIST_DIR})
-    target_link_libraries(test1 PUBLIC cfltk ${CFLTK_LIBS})
-    add_test(cfltk_tests test1)
 endif()
