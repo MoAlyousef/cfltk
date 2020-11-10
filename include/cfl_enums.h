@@ -1,5 +1,36 @@
 #pragma once
 
+const char *const EventNames[] = {
+    "Event_None",
+    "Event_Push",
+    "Event_Released",
+    "Event_Enter",
+    "Event_Leave",
+    "Event_Drag",
+    "Event_Focus",
+    "Event_Unfocus",
+    "Event_KeyDown",
+    "Event_KeyUp",
+    "Event_Close",
+    "Event_Move",
+    "Event_Shortcut",
+    "Event_Deactivate",
+    "Event_Activate",
+    "Event_Hide",
+    "Event_Show",
+    "Event_Paste",
+    "Event_SelectionClear",
+    "Event_MouseWheel",
+    "Event_DndEnter",
+    "Event_DndDrag",
+    "Event_DndLeave",
+    "Event_DndRelease",
+    "Event_ScreenConfigChanged",
+    "Event_Fullscreen",
+    "Event_ZoomGesture",
+    "Event_ZoomEvent",
+};
+
 enum BrowserType {
     BrowserType_Normal = 0,
     BrowserType_Select = 1,

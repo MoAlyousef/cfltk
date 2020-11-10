@@ -85,7 +85,7 @@ Otherwise, these options can be added to the CMakeLists.txt file:
 
 ## Dependencies
 
-CMake (version > 3.0), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
+CMake (version > 3.0), Git and a C++98 compiler need to be installed and in your PATH for a crossplatform build from source.
 
 - Windows: No dependencies.
 - MacOS: No dependencies.
@@ -119,7 +119,7 @@ $ apk add pango-dev fontconfig-dev libxinerama-dev libxfixes-dev libxcursor-dev
 
 void cb(Fl_Widget *w, void *data) { Fl_Widget_set_label(w, "Works!"); }
 
-int main() {
+int main(void) {
     Fl_init_all(); // init all styles
     Fl_register_images(); // necessary for image support
     Fl_lock(); // necessary for multithreaded support

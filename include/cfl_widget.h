@@ -120,6 +120,9 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
             Fl_Widget::resize(x, y, w, h);                                                         \
             redraw();                                                                              \
         }                                                                                          \
+        void set_type(int t) {                                                                     \
+            widget::type(t);                                                                       \
+        }                                                                                          \
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \
         }                                                                                          \
@@ -132,13 +135,13 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         int handle(int event) override {                                                           \
             int ret = widget::handle(event);                                                       \
             int local = 0;                                                                         \
-            if (inner_handler) {                                                       \
+            if (inner_handler) {                                                                   \
                 local = inner_handler(event, ev_data_);                                            \
                 if (local == 0)                                                                    \
                     return ret;                                                                    \
                 else                                                                               \
                     return local;                                                                  \
-            } else if (inner_handler2) {                                               \
+            } else if (inner_handler2) {                                                           \
                 local = inner_handler2(this, event, ev_data_);                                     \
                 if (local == 0)                                                                    \
                     return ret;                                                                    \
@@ -159,9 +162,9 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         }                                                                                          \
         void draw() override {                                                                     \
             widget::draw();                                                                        \
-            if (inner_drawer)                                                        \
+            if (inner_drawer)                                                                      \
                 inner_drawer(draw_data_);                                                          \
-            else if (inner_drawer2)                                                  \
+            else if (inner_drawer2)                                                                \
                 inner_drawer2(this, draw_data_);                                                   \
             else {                                                                                 \
             }                                                                                      \
@@ -240,7 +243,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         return self->type();                                                                       \
     }                                                                                              \
     void widget##_set_type(widget *self, int typ) {                                                \
-        LOCK(auto val = self->type(); self->type((decltype(val))typ);)                             \
+        LOCK(((widget##_Derived *)self)->set_type(typ);)                                           \
     }                                                                                              \
     unsigned int widget##_color(widget *self) {                                                    \
         return self->color();                                                                      \

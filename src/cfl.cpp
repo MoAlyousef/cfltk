@@ -31,16 +31,20 @@ int Fl_run(void) {
     return Fl::run();
 }
 
-int Fl_lock() {
+int Fl_lock(void) {
     return Fl::lock();
 }
 
-void Fl_unlock() {
+void Fl_unlock(void) {
     Fl::unlock();
 }
 
 int Fl_awake(Fl_Awake_Handler handler, void *data) {
     return Fl::awake(handler, data);
+}
+
+void Fl_awake2(void) {
+    Fl::awake();
 }
 
 void Fl_set_scrollbar_size(int v) {
@@ -179,10 +183,10 @@ class Buffer {
         cv_.notify_one();
     }
 
-    item recv() {
+    item recv(void) {
         if (!queue_.empty()) {
             std::unique_lock<std::mutex> lock(m_);
-            cv_.wait(lock, [&]() { return !queue_.empty(); });
+            cv_.wait(lock, [&](void) { return !queue_.empty(); });
             item result = queue_.front();
             queue_.pop();
             return result;
@@ -254,7 +258,7 @@ int Fl_event_inside(int x, int y, int w, int h) {
     return Fl::event_inside(x, y, w, h);
 }
 
-Fl_Widget *Fl_belowmouse() {
+Fl_Widget *Fl_belowmouse(void) {
     return Fl::belowmouse();
 }
 
@@ -418,31 +422,31 @@ const char *Fl_load_font(const char *path) {
         fclose(fptr);
         return nullptr;
     }
-    auto fsize = ftell(fptr);
+    long fsize = ftell(fptr);
     rewind(fptr);
     unsigned char *buffer = (unsigned char *)malloc(fsize);
     if (!buffer) {
         fclose(fptr);
         return nullptr;
     }
-    auto sz = fread(buffer, 1, fsize, fptr);
+    size_t sz = fread(buffer, 1, fsize, fptr);
     fclose(fptr);
     if (sz != fsize) {
         free(buffer);
         return nullptr;
     }
-    auto init_ret = stbtt_InitFont(&font, buffer, stbtt_GetFontOffsetForIndex(buffer, 0));
+    int init_ret = stbtt_InitFont(&font, buffer, stbtt_GetFontOffsetForIndex(buffer, 0));
     if (!init_ret) {
         free(buffer);
         return nullptr;
     }
     int length = 0;
-    auto info = stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
+    const char *info = stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
                                         STBTT_UNICODE_EID_UNICODE_1_0, STBTT_MAC_EID_ROMAN, 1);
-    auto str = (char *)malloc(length + 1);
+    char *str = (char *)malloc(length + 1);
     snprintf(str, length + 1, "%s", info);
-    auto ret = i_load_private_font(path);
-    auto f = 16;
+    int ret = i_load_private_font(path);
+    int f = 16;
     if (ret) {
         Fl::set_font(f, str);
     }

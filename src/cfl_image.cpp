@@ -151,13 +151,13 @@ Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
 IMAGE_DEFINE(Fl_RGB_Image)
 
 Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth) {
-    auto img = new Fl_RGB_Image(bits, W, H, depth);
+    Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth);
     img->alloc_array = 1;
     return img;
 }
 
 Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth) {
-    auto img = new Fl_RGB_Image(bits, W, H, depth);
+    Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth);
     img->alloc_array = 0;
     return img;
 }
@@ -227,6 +227,6 @@ void Fl_Shared_Image_inactive(Fl_Shared_Image *self) {
     LOCK(self->inactive();)
 }
 
-void Fl_register_images() {
+void Fl_register_images(void) {
     fl_register_images();
 }

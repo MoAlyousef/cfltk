@@ -31,6 +31,10 @@ struct Fl_Widget_Derived : public Fl_Widget {
         redraw();
     }
 
+    void set_type(int t) {                                                                     
+        Fl_Widget::type(t);                                      
+    }                                                                                          
+
     void set_handler(handler h) {
         inner_handler = h;
     }
