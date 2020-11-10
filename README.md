@@ -31,6 +31,7 @@ An example CMakeLists.txt file:
 cmake_minimum_required(VERSION 3.14)
 project(app)
 
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}) # needed
 add_subdirectory(cfltk)
 
 add_executable(main main.c)
