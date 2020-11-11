@@ -1,6 +1,7 @@
 #define FL_INTERNALS
 
 #include "cfl_window.h"
+
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Gl_Window.H>
