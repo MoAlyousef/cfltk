@@ -1,4 +1,6 @@
 #include "cfl_printer.h"
+#include "cfl_global.hpp"
+
 #include "FL/Fl_Widget.H"
 #include "FL/Fl_Window.H"
 #include <FL/Fl_Printer.H>
@@ -74,4 +76,80 @@ void Fl_Printer_print_widget(Fl_Printer *self, void *widget, int delta_x, int de
 
 void Fl_Printer_print_window(Fl_Printer *self, void *win, int x_offset, int y_offset) {
     self->print_window((Fl_Window *)win, x_offset, y_offset);
+}
+
+void Fl_Printer_set_dialog_title(const char *msg) {
+    LOCK(Fl_Printer::dialog_title = msg)
+}
+
+void Fl_Printer_set_dialog_printer(const char *msg) {
+    LOCK(Fl_Printer::dialog_printer = msg)
+}
+
+void Fl_Printer_set_dialog_range(const char *msg) {
+    LOCK(Fl_Printer::dialog_range = msg)
+}
+
+void Fl_Printer_set_dialog_copies(const char *msg) {
+    LOCK(Fl_Printer::dialog_copies = msg)
+}
+
+void Fl_Printer_set_dialog_all(const char *msg) {
+    LOCK(Fl_Printer::dialog_all = msg)
+}
+
+void Fl_Printer_set_dialog_pages(const char *msg) {
+    LOCK(Fl_Printer::dialog_pages = msg)
+}
+
+void Fl_Printer_set_dialog_from(const char *msg) {
+    LOCK(Fl_Printer::dialog_from = msg)
+}
+
+void Fl_Printer_set_dialog_to(const char *msg) {
+    LOCK(Fl_Printer::dialog_to = msg)
+}
+
+void Fl_Printer_set_dialog_properties(const char *msg) {
+    LOCK(Fl_Printer::dialog_properties = msg)
+}
+
+void Fl_Printer_set_dialog_copyNo(const char *msg) {
+    LOCK(Fl_Printer::dialog_copyNo = msg)
+}
+
+void Fl_Printer_set_dialog_print_button(const char *msg) {
+    LOCK(Fl_Printer::dialog_print_button = msg)
+}
+
+void Fl_Printer_set_dialog_cancel_button(const char *msg) {
+    LOCK(Fl_Printer::dialog_cancel_button = msg)
+}
+
+void Fl_Printer_set_dialog_print_to_file(const char *msg) {
+    LOCK(Fl_Printer::dialog_print_to_file = msg)
+}
+
+void Fl_Printer_set_property_title(const char *msg) {
+    LOCK(Fl_Printer::property_title = msg)
+}
+
+void Fl_Printer_set_property_pagesize(const char *msg) {
+    LOCK(Fl_Printer::property_pagesize = msg)
+}
+
+void Fl_Printer_set_property_mode(const char *msg) {
+    LOCK(Fl_Printer::property_mode = msg)
+}
+
+void Fl_Printer_set_property_use(const char *msg) {
+    LOCK(Fl_Printer::property_use = msg)
+}
+
+void Fl_Printer_set_property_save(const char *msg) {
+    LOCK(Fl_Printer::property_save = msg)
+}
+
+void Fl_Printer_set_property_cancel(const char *msg) {
+    LOCK(Fl_Printer::property_cancel = msg)
 }

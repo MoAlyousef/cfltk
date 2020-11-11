@@ -1,4 +1,6 @@
 #include "cfl_image.h"
+#include "cfl_global.hpp"
+
 #include <FL/Fl.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_GIF_Image.H>
@@ -13,14 +15,6 @@
 #include <FL/Fl_Tiled_Image.H>
 #include <FL/Fl_XBM_Image.H>
 #include <FL/Fl_XPM_Image.H>
-
-#ifndef LOCK
-#define LOCK(x)                                                                                    \
-    Fl::lock();                                                                                    \
-    x;                                                                                             \
-    Fl::unlock();                                                                                  \
-    Fl::awake();
-#endif
 
 #define IMAGE_DEFINE(image)                                                                        \
     void image##_draw(image *self, int X, int Y, int W, int H) {                                   \

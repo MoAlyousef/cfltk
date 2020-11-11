@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(cfltk)
+project(cfltk VERSION 0.10.7)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 

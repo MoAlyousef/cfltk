@@ -165,6 +165,34 @@ void Fl_File_Chooser_set_value(Fl_File_Chooser *self, const char *filename);
 
 int Fl_File_Chooser_visible(Fl_File_Chooser *self);
 
+void Fl_File_Chooser_set_add_favorites_label(const char *msg);
+
+void Fl_File_Chooser_set_all_files_label(const char *msg);
+
+void Fl_File_Chooser_set_custom_filter_label(const char *msg);
+
+void Fl_File_Chooser_set_existing_file_label(const char *msg);
+
+void Fl_File_Chooser_set_favorites_label(const char *msg);
+
+void Fl_File_Chooser_set_filename_label(const char *msg);
+
+void Fl_File_Chooser_set_filesystems_label(const char *msg);
+
+void Fl_File_Chooser_set_manage_favorites_label(const char *msg);
+
+void Fl_File_Chooser_set_new_directory_label(const char *msg);
+
+void Fl_File_Chooser_set_new_directory_tooltip(const char *msg);
+
+void Fl_File_Chooser_set_preview_label(const char *msg);
+
+void Fl_File_Chooser_set_save_label(const char *msg);
+
+void Fl_File_Chooser_set_show_label(const char *msg);
+
+void Fl_File_Chooser_set_hidden_label(const char *msg);
+
 char *Fl_dir_chooser(const char *message, const char *fname, int relative);
 
 char *Fl_file_chooser(const char *message, const char *pat, const char *fname, int relative);

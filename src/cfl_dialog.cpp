@@ -1,4 +1,6 @@
 #include "cfl_dialog.h"
+#include "cfl_global.hpp"
+
 #include <FL/Fl.H>
 #include <FL/Fl_Color_Chooser.H>
 #include <FL/Fl_File_Chooser.H>
@@ -9,13 +11,6 @@
 #include <FL/platform.H>
 #include <string.h>
 
-#ifndef LOCK
-#define LOCK(x)                                                                                    \
-    Fl::lock();                                                                                    \
-    x;                                                                                             \
-    Fl::unlock();                                                                                  \
-    Fl::awake();
-#endif
 
 Fl_Native_File_Chooser *Fl_Native_File_Chooser_new(int val) {
 #ifndef __ANDROID__
@@ -347,6 +342,62 @@ void Fl_File_Chooser_set_value(Fl_File_Chooser *self, const char *filename) {
 
 int Fl_File_Chooser_visible(Fl_File_Chooser *self) {
     return self->visible();
+}
+
+void Fl_File_Chooser_set_add_favorites_label(const char *msg) {
+    LOCK(Fl_File_Chooser::add_favorites_label = msg)
+}
+
+void Fl_File_Chooser_set_all_files_label(const char *msg) {
+    LOCK(Fl_File_Chooser::all_files_label = msg)
+}
+
+void Fl_File_Chooser_set_custom_filter_label(const char *msg) {
+    LOCK(Fl_File_Chooser::custom_filter_label = msg)
+}
+
+void Fl_File_Chooser_set_existing_file_label(const char *msg) {
+    LOCK(Fl_File_Chooser::existing_file_label = msg)
+}
+
+void Fl_File_Chooser_set_favorites_label(const char *msg) {
+    LOCK(Fl_File_Chooser::favorites_label = msg)
+}
+
+void Fl_File_Chooser_set_filename_label(const char *msg) {
+    LOCK(Fl_File_Chooser::filename_label = msg)
+}
+
+void Fl_File_Chooser_set_filesystems_label(const char *msg) {
+    LOCK(Fl_File_Chooser::filesystems_label = msg)
+}
+
+void Fl_File_Chooser_set_manage_favorites_label(const char *msg) {
+    LOCK(Fl_File_Chooser::manage_favorites_label = msg)
+}
+
+void Fl_File_Chooser_set_new_directory_label(const char *msg) {
+    LOCK(Fl_File_Chooser::new_directory_label = msg)
+}
+
+void Fl_File_Chooser_set_new_directory_tooltip(const char *msg) {
+    LOCK(Fl_File_Chooser::new_directory_tooltip = msg)
+}
+
+void Fl_File_Chooser_set_preview_label(const char *msg) {
+    LOCK(Fl_File_Chooser::preview_label = msg)
+}
+
+void Fl_File_Chooser_set_save_label(const char *msg) {
+    LOCK(Fl_File_Chooser::save_label = msg)
+}
+
+void Fl_File_Chooser_set_show_label(const char *msg) {
+    LOCK(Fl_File_Chooser::show_label = msg)
+}
+
+void Fl_File_Chooser_set_hidden_label(const char *msg) {
+    LOCK(Fl_File_Chooser::hidden_label = msg)
 }
 
 char *Fl_dir_chooser(const char *message, const char *fname, int relative) {
