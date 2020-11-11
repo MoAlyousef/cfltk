@@ -45,10 +45,22 @@ target_link_libraries(main PRIVATE -framework Cocoa)
 
 # for linux
 target_link_libraries(main PRIVATE pthread X11 Xext Xinerama Xcursor Xrender Xfixes Xft fontconfig pango-1.0 pangoxft-1.0 gobject-2.0 cairo pangocairo-1.0)
-
-# for android
-target_link_libraries(main PRIVATE log android c++_shared)
 ```
+
+For Android:
+```cmake
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_onCreate")
+
+add_subdirectory(cfltk)
+
+add_library(native-lib SHARED native-lib.cpp)
+target_include_directories(native-lib PRIVATE cfltk/include)
+target_link_libraries(native-lib PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png)
+target_link_libraries(native-lib PUBLIC log android)
+```
+Needs setting the activity to a native activity in the AndroidManifest.xml. See [here](https://github.com/MoAlyousef/cfltk-android) for an example project.
 
 Options which can be used with cmake:
 ```
