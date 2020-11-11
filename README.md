@@ -85,7 +85,7 @@ Otherwise, these options can be added to the CMakeLists.txt file:
 
 ## Dependencies
 
-CMake (version > 3.0), Git and a C++98 compiler need to be installed and in your PATH for a crossplatform build from source.
+CMake (version > 3.0), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
 
 - Windows: No dependencies.
 - MacOS: No dependencies.

@@ -441,11 +441,12 @@ const char *Fl_load_font(const char *path) {
         return nullptr;
     }
     int length = 0;
-    const char *info = stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
-                                        STBTT_UNICODE_EID_UNICODE_1_0, STBTT_MAC_EID_ROMAN, 1);
+    const char *info =
+        stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
+                                STBTT_UNICODE_EID_UNICODE_1_0, STBTT_MAC_EID_ROMAN, 1);
     char *str = (char *)malloc(length + 1);
     snprintf(str, length + 1, "%s", info);
-    int ret = i_load_private_font(path);
+    auto ret = i_load_private_font(path);
     int f = 16;
     if (ret) {
         Fl::set_font(f, str);

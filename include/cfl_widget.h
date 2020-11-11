@@ -1,13 +1,5 @@
 #pragma once
 
-#if __cplusplus >= 201103L
-#define CFL_OVERRIDE override
-#elif defined(_MSC_VER) && _MSC_VER > 1600
-#define CFL_OVERRIDE override
-#else
-#define CFL_OVERRIDE
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -128,9 +120,6 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
             Fl_Widget::resize(x, y, w, h);                                                         \
             redraw();                                                                              \
         }                                                                                          \
-        void set_type(int t) {                                                                     \
-            widget::type(t);                                                                       \
-        }                                                                                          \
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \
         }                                                                                          \
@@ -140,7 +129,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         void set_handler_data(void *data) {                                                        \
             ev_data_ = data;                                                                       \
         }                                                                                          \
-        int handle(int event) CFL_OVERRIDE {                                                       \
+        int handle(int event) override {                                                           \
             int ret = widget::handle(event);                                                       \
             int local = 0;                                                                         \
             if (inner_handler) {                                                                   \
@@ -168,7 +157,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         void set_drawer_data(void *data) {                                                         \
             draw_data_ = data;                                                                     \
         }                                                                                          \
-        void draw() CFL_OVERRIDE {                                                                 \
+        void draw() override {                                                                     \
             widget::draw();                                                                        \
             if (inner_drawer)                                                                      \
                 inner_drawer(draw_data_);                                                          \
@@ -251,7 +240,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         return self->type();                                                                       \
     }                                                                                              \
     void widget##_set_type(widget *self, int typ) {                                                \
-        LOCK(((widget##_Derived *)self)->set_type(typ);)                                           \
+        LOCK(self->type((decltype(self->type()))typ);)                                             \
     }                                                                                              \
     unsigned int widget##_color(widget *self) {                                                    \
         return self->color();                                                                      \

@@ -31,10 +31,6 @@ struct Fl_Widget_Derived : public Fl_Widget {
         redraw();
     }
 
-    void set_type(int t) {
-        Fl_Widget::type(t);
-    }
-
     void set_handler(handler h) {
         inner_handler = h;
     }
@@ -47,7 +43,7 @@ struct Fl_Widget_Derived : public Fl_Widget {
         ev_data_ = data;
     }
 
-    int handle(int event) CFL_OVERRIDE {
+    int handle(int event) override {
         int ret = Fl_Widget::handle(event);
         int local = 0;
         if (inner_handler) {
@@ -79,7 +75,7 @@ struct Fl_Widget_Derived : public Fl_Widget {
         draw_data_ = data;
     }
 
-    void draw() CFL_OVERRIDE {
+    void draw() override {
         if (inner_drawer)
             inner_drawer(draw_data_);
         else if (inner_drawer2)
