@@ -269,21 +269,21 @@
     int table##_tab_cell_nav(const table *self) {                                                  \
         return self->tab_cell_nav();                                                               \
     }                                                                                              \
-    void table##_set_draw_cell(table *self, void (*cb)(int, int, int, int, int, int, int, void *), \
-                               void *data) {                                                       \
+    void table##_draw_cell(table *self, void (*cb)(int, int, int, int, int, int, int, void *),     \
+                           void *data) {                                                           \
         LOCK(((table##_Derived *)self)->set_cell_drawer_data(data);                                \
              ((table##_Derived *)self)->set_cell_drawer(cb);)                                      \
     }                                                                                              \
-    void table##_set_draw_cell2(                                                                   \
-        table *self, void (*cb)(Fl_Widget *, int, int, int, int, int, int, int, void *),           \
-        void *data) {                                                                              \
+    void table##_draw_cell2(table *self,                                                           \
+                            void (*cb)(Fl_Widget *, int, int, int, int, int, int, int, void *),    \
+                            void *data) {                                                          \
         LOCK(((table##_Derived *)self)->set_cell_drawer_data(data);                                \
              ((table##_Derived *)self)->set_cell_drawer2(cb);)                                     \
     }                                                                                              \
     void *table##_draw_cell_data(const table *self) {                                              \
         return ((table##_Derived *)self)->draw_cell_data_;                                         \
     }                                                                                              \
-    void table##_set_draw_cell_data(table *self, void *data) {                                     \
+    void table##_draw_cell_data(table *self, void *data) {                                         \
         LOCK(((table##_Derived *)self)->draw_cell_data_ = data)                                    \
     }
 

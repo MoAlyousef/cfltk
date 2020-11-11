@@ -23,6 +23,6 @@ int main() {
     Fl_Button *b = Fl_Button_new(160, 210, 80, 40, "Click me");
     Fl_Window_end(w);
     Fl_Window_show(w);
-    Fl_Button_set_handler(b, cb, f);
+    Fl_Button_handle(b, cb, f);
     return Fl_run();
 }

@@ -60,10 +60,10 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     void widget##_set_align(widget *, int typ);                                                    \
     void widget##_delete(widget *);                                                                \
     void widget##_set_image(widget *, void *);                                                     \
-    void widget##_set_handler(widget *self, custom_handler_callback cb, void *data);               \
-    void widget##_set_handler2(widget *self, custom_handler_callback2 cb, void *data);             \
-    void widget##_set_draw(widget *self, custom_draw_callback cb, void *data);                     \
-    void widget##_set_draw2(widget *self, custom_draw_callback2 cb, void *data);                   \
+    void widget##_handle(widget *self, custom_handler_callback cb, void *data);                    \
+    void widget##_handle2(widget *self, custom_handler_callback2 cb, void *data);                  \
+    void widget##_draw(widget *self, custom_draw_callback cb, void *data);                         \
+    void widget##_draw2(widget *self, custom_draw_callback2 cb, void *data);                       \
     void widget##_set_trigger(widget *, int);                                                      \
     void *widget##_image(const widget *);                                                          \
     void *widget##_parent(const widget *self);                                                     \
@@ -302,11 +302,11 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     void widget##_set_image(widget *self, void *image) {                                           \
         LOCK(self->image(((Fl_Image *)image)))                                                     \
     }                                                                                              \
-    void widget##_set_handler(widget *self, custom_handler_callback cb, void *data) {              \
+    void widget##_handle(widget *self, custom_handler_callback cb, void *data) {                   \
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
              ((widget##_Derived *)self)->set_handler(cb);)                                         \
     }                                                                                              \
-    void widget##_set_handler2(widget *self, custom_handler_callback2 cb, void *data) {            \
+    void widget##_handle2(widget *self, custom_handler_callback2 cb, void *data) {                 \
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
              ((widget##_Derived *)self)->set_handler2(cb);)                                        \
     }                                                                                              \
@@ -316,11 +316,11 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     void *widget##_image(const widget *self) {                                                     \
         return (Fl_Image *)self->image();                                                          \
     }                                                                                              \
-    void widget##_set_draw(widget *self, custom_draw_callback cb, void *data) {                    \
+    void widget##_draw(widget *self, custom_draw_callback cb, void *data) {                        \
         LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
              ((widget##_Derived *)self)->set_drawer(cb);)                                          \
     }                                                                                              \
-    void widget##_set_draw2(widget *self, custom_draw_callback2 cb, void *data) {                  \
+    void widget##_draw2(widget *self, custom_draw_callback2 cb, void *data) {                      \
         LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
              ((widget##_Derived *)self)->set_drawer2(cb);)                                         \
     }                                                                                              \
