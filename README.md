@@ -13,7 +13,7 @@ $ cd ../..
 or by cloning the repo:
 ```
 $ git clone https://github.com/moalyousef/cfltk
-$ cd cfktk
+$ cd cfltk
 $ git submodule update --init --recursive
 $ cd fltk
 $ git apply ../fltk.patch # Needed for Android builds or to disable building FLUID
