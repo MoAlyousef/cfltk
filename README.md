@@ -12,7 +12,7 @@ $ cd ../..
 ```
 or by cloning the repo:
 ```
-$ git clone add https://github.com/moalyousef/cfltk
+$ git clone https://github.com/moalyousef/cfltk
 $ cd cfktk
 $ git submodule update --init --recursive
 $ cd fltk
@@ -55,7 +55,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_o
 
 add_subdirectory(cfltk)
 
-add_library(native-lib SHARED native-lib.cpp)
+add_library(native-lib SHARED native-lib.c)
 target_include_directories(native-lib PRIVATE cfltk/include)
 target_link_libraries(native-lib PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png)
 target_link_libraries(native-lib PUBLIC log android)
