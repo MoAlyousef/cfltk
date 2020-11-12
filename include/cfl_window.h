@@ -18,7 +18,6 @@ typedef union {
     void widget##_make_current(widget *);                                                          \
     void widget##_set_icon(widget *, const void *);                                                \
     void *widget##_icon(const widget *);                                                           \
-    void widget##_make_resizable(widget *self, void *);                                            \
     void widget##_set_cursor(widget *self, int cursor);                                            \
     int widget##_shown(widget *self);                                                              \
     void *widget##_raw_handle(const widget *w);                                                    \

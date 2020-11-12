@@ -25,9 +25,6 @@
     void widget##_set_icon(widget *self, const void *image) {                                      \
         LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image));)                               \
     }                                                                                              \
-    void widget##_make_resizable(widget *self, void *wid) {                                        \
-        LOCK(self->resizable((Fl_Widget *)wid);)                                                   \
-    }                                                                                              \
     void *widget##_icon(const widget *self) {                                                      \
         return (Fl_Image *)self->icon();                                                           \
     }                                                                                              \
