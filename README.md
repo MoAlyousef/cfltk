@@ -37,13 +37,13 @@ add_executable(main main.c)
 target_include_directories(main PRIVATE cfltk/include)
 target_link_libraries(main PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png) # as needed
 
-# for windows-msvc, for windows-gnu, no need
+# for windows, might be needed in some setups
 target_link_libraries(main PRIVATE ws2_32 comctl32 gdi32 oleaut32 ole32 uuid shell32 advapi32 comdlg32 winspool user32 kernel32 odbc32)
 
-# for apple
+# for apple, might be needed in some setups
 target_link_libraries(main PRIVATE -framework Cocoa)
 
-# for linux
+# for linux, might be needed in some setups
 target_link_libraries(main PRIVATE pthread X11 Xext Xinerama Xcursor Xrender Xfixes Xft fontconfig pango-1.0 pangoxft-1.0 gobject-2.0 cairo pangocairo-1.0)
 ```
 
@@ -58,6 +58,8 @@ add_subdirectory(cfltk)
 add_library(native-lib SHARED native-lib.c)
 target_include_directories(native-lib PRIVATE cfltk/include)
 target_link_libraries(native-lib PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png)
+
+# needed on Android
 target_link_libraries(native-lib PUBLIC log android)
 ```
 Needs setting the activity to a native activity in the AndroidManifest.xml. See [here](https://github.com/MoAlyousef/cfltk-android) for an example project.
