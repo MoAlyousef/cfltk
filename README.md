@@ -1,6 +1,8 @@
 # cfltk
 
 C89 bindings for the FLTK gui library, which can be used as basis for C applications or for other bindings in other languages.
+- The official fltk [docs](https://www.fltk.org/doc-1.4/annotated.html).
+- The official fltk [repo](https://github.com/fltk/fltk).
 
 To add to your project, you can add this project as a submodule:
 ```
@@ -37,13 +39,13 @@ add_executable(main main.c)
 target_include_directories(main PRIVATE cfltk/include)
 target_link_libraries(main PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png) # as needed
 
-# for windows, might be needed in some setups
+# for windows, might be needed in some setups like creating a library
 target_link_libraries(main PRIVATE ws2_32 comctl32 gdi32 oleaut32 ole32 uuid shell32 advapi32 comdlg32 winspool user32 kernel32 odbc32)
 
-# for apple, might be needed in some setups
+# for apple, might be needed in some setups like creating a library
 target_link_libraries(main PRIVATE -framework Cocoa)
 
-# for linux, might be needed in some setups
+# for linux, might be needed in some setups like creating a library
 target_link_libraries(main PRIVATE pthread X11 Xext Xinerama Xcursor Xrender Xfixes Xft fontconfig pango-1.0 pangoxft-1.0 gobject-2.0 cairo pangocairo-1.0)
 ```
 
