@@ -1,6 +1,8 @@
 # cfltk
 
 C89 bindings for the FLTK gui library, which can be used as basis for C applications or for other bindings in other languages.
+- The official fltk [docs](https://www.fltk.org/doc-1.4/annotated.html).
+- The official fltk [repo](https://github.com/fltk/fltk).
 
 To add to your project, you can add this project as a submodule:
 ```
