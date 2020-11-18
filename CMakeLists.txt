@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(cfltk VERSION 0.10.9)
+project(cfltk VERSION 0.10.10)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -87,3 +87,7 @@ if(USE_SYSTEM_FLTK)
         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
         )
 endif()
+
+add_custom_command(TARGET cfltk POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cfltk> ${CMAKE_CURRENT_BINARY_DIR}/fltk/lib
+)
