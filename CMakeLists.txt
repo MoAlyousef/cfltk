@@ -28,6 +28,8 @@ else()
     add_subdirectory(fltk)
 endif()
 
+file(GLOB_RECURSE CFLTK_HEADER_FILES "include/*.h*")
+
 set(CFLTK_SRCS
     src/cfl_new.cpp
     src/cfl.cpp 
@@ -86,8 +88,6 @@ install(TARGETS cfltk
     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
     )
 
-install(
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include
-    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/include
-    FILES_MATCHING PATTERN "*.h*"
+install(FILES ${CFLTK_HEADER_FILES}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/cfltk
     )
