@@ -82,8 +82,12 @@ if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
     target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
 endif()
 
-if(USE_SYSTEM_FLTK)
-    install(TARGETS cfltk
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-        )
-endif()
+install(TARGETS cfltk
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    )
+
+install(
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/include
+    FILES_MATCHING PATTERN "*.h*"
+    )
