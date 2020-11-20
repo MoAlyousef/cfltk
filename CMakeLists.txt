@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
-project(cfltk VERSION 0.10.11)
+set(CFLTK_PROJECT_VERSION 0.10.12)
+project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -89,6 +90,14 @@ endif()
 
 set_target_properties(cfltk PROPERTIES PUBLIC_HEADER "${CFLTK_HEADER_FILES}")
 
+set_target_properties(cfltk PROPERTIES VERSION ${CFLTK_PROJECT_VERSION})
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake
+                                 VERSION ${CFLTK_PROJECT_VERSION}
+                                 COMPATIBILITY SameMajorVersion)
+
 install(TARGETS cfltk
     EXPORT cfltkConfig
     ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
@@ -104,6 +113,10 @@ export(TARGETS
 
 install(EXPORT
         cfltkConfig
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/CMake"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk"
     NAMESPACE cfltk::
+    )
+
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk
     )
