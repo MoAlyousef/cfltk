@@ -64,7 +64,8 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     void widget##_handle2(widget *self, custom_handler_callback2 cb, void *data);                  \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data);                         \
     void widget##_draw2(widget *self, custom_draw_callback2 cb, void *data);                       \
-    void widget##_set_trigger(widget *, int);                                                      \
+    void widget##_set_when(widget *, int);                                                         \
+    int widget##_when(const widget *, int);                                                        \
     void *widget##_image(const widget *);                                                          \
     void *widget##_parent(const widget *self);                                                     \
     unsigned int widget##_selection_color(widget *);                                               \
@@ -310,8 +311,11 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
              ((widget##_Derived *)self)->set_handler2(cb);)                                        \
     }                                                                                              \
-    void widget##_set_trigger(widget *self, int val) {                                             \
+    void widget##_set_when(widget *self, int val) {                                                \
         LOCK(self->when(val);)                                                                     \
+    }                                                                                              \
+    int widget##_when(const widget *self) {                                                        \
+        return self->when();                                                                       \
     }                                                                                              \
     void *widget##_image(const widget *self) {                                                     \
         return (Fl_Image *)self->image();                                                          \
