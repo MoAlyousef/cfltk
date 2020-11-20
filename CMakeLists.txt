@@ -66,7 +66,10 @@ endif()
 if(USE_SYSTEM_FLTK)
     target_include_directories(cfltk PUBLIC include ${FLTK_INCLUDE_DIRS})
 else()
-    target_include_directories(cfltk PUBLIC include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk)
+    target_include_directories(cfltk PUBLIC 
+    $<BUILD_INTERFACE:include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk>  
+    $<INSTALL_INTERFACE:include/cfltk>
+    )
 endif()
 
 set(CFLTK_LIBS fltk)
@@ -84,10 +87,23 @@ if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
     target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
 endif()
 
+set_target_properties(cfltk PROPERTIES PUBLIC_HEADER "${CFLTK_HEADER_FILES}")
+
 install(TARGETS cfltk
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    EXPORT cfltkConfig
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include/cfltk
     )
 
-install(FILES ${CFLTK_HEADER_FILES}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/cfltk
+export(TARGETS
+        cfltk
+    NAMESPACE cfltk::
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfig.cmake"
+    )
+
+install(EXPORT
+        cfltkConfig
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/CMake"
+    NAMESPACE cfltk::
     )
