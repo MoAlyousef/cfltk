@@ -67,6 +67,12 @@
     }                                                                                              \
     void widget##_free_position(widget *self) {                                                    \
         LOCK(self->free_position())                                                                \
+    }                                                                                              \
+    int widget##_decorated_w(const widget *self) {                                                 \
+        return self->decorated_w();                                                                \
+    }                                                                                              \
+    int widget##_decorated_h(const widget *self) {                                                 \
+        return self->decorated_h();                                                                \
     }
 
 WIDGET_CLASS(Fl_Window)
