@@ -27,7 +27,9 @@ typedef union {
     void widget##_set_region(widget *self, void *r);                                               \
     void widget##_iconize(widget *self);                                                           \
     unsigned int widget##_fullscreen_active(const widget *self);                                   \
-    void widget##_free_position(widget *self);
+    void widget##_free_position(widget *self);                                                     \
+    int widget##_decorated_w(const widget *self);                                                  \
+    int widget##_decorated_h(const widget *self);
 
 WIDGET_DECLARE(Fl_Window)
 
