@@ -4,6 +4,25 @@ C89 bindings for the FLTK gui library, which can be used as basis for C applicat
 - The official fltk [docs](https://www.fltk.org/doc-1.4/annotated.html).
 - The official fltk [repo](https://github.com/fltk/fltk).
 
+## Api
+
+The cfltk api follows the FLTK api mostly, which would make it easier to refer to the FLTK docs. 
+As an example:
+```c++
+Fl_Window *w = new Fl_Window(100, 100, 400, 300, "name");
+w->end();
+w->show();
+```
+becomes:
+```c
+Fl_Window *w = Fl_Window_new(100, 100, 400, 300, "name");
+Fl_Window_end(w);
+Fl_Window_show(w);
+```
+The fltk-rs repo shows an example wrapper around cfltk.
+
+## Usage
+
 To add to your project, you can add this project as a submodule:
 ```
 $ git submodule add https://github.com/moalyousef/cfltk
@@ -99,6 +118,29 @@ Otherwise, these options can be added to the CMakeLists.txt file:
     set(OPTION_BUILD_PDF_DOCUMENTATION OFF CACHE BOOL " " FORCE)
 ```
 
+An example app:
+```c
+#include <cfl.h>
+#include <cfl_button.h>
+#include <cfl_image.h>
+#include <cfl_window.h>
+#include <stdlib.h>
+
+void cb(Fl_Widget *w, void *data) { Fl_Widget_set_label(w, "Works!"); }
+
+int main(void) {
+    Fl_init_all(); // init all styles
+    Fl_register_images(); // necessary for image support
+    Fl_lock(); // necessary for multithreaded support
+    Fl_Window *w = Fl_Window_new(100, 100, 400, 300, NULL);
+    Fl_Button *b = Fl_Button_new(160, 210, 80, 40, "Click me");
+    Fl_Window_end(w);
+    Fl_Window_show(w);
+    Fl_Button_set_callback(b, cb, NULL);
+    return Fl_run();
+}
+```
+
 ## Dependencies
 
 CMake (version > 3.0), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
@@ -125,29 +167,7 @@ $ apk add pango-dev fontconfig-dev libxinerama-dev libxfixes-dev libxcursor-dev
 ```
 - Android: Android Studio, Android Sdk, Android Ndk.
 
-## Usage
-```c
-#include <cfl.h>
-#include <cfl_button.h>
-#include <cfl_image.h>
-#include <cfl_window.h>
-#include <stdlib.h>
-
-void cb(Fl_Widget *w, void *data) { Fl_Widget_set_label(w, "Works!"); }
-
-int main(void) {
-    Fl_init_all(); // init all styles
-    Fl_register_images(); // necessary for image support
-    Fl_lock(); // necessary for multithreaded support
-    Fl_Window *w = Fl_Window_new(100, 100, 400, 300, NULL);
-    Fl_Button *b = Fl_Button_new(160, 210, 80, 40, "Click me");
-    Fl_Window_end(w);
-    Fl_Window_show(w);
-    Fl_Button_set_callback(b, cb, NULL);
-    return Fl_run();
-}
-```
-
 ## Safety
+
 Both FLTK and the wrapper are exception safe. Widget, image and Fl_Text_Buffer mutating wrapper functions are thread-safe. FLTK manages the lifetime of widgets, which would delete any child widgets when the parent is deleted. The wrapper also provides an Fl_Widget_Tracker object which can be used to prevent use-after-free errors. 
 The wrapper itself doesn't perform null checks on pointers returned from FLTK nor on pointers passed to it. Allocation failure should also be checked manually by the consuming user of the wrapper.  

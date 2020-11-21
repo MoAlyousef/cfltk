@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
-project(cfltk VERSION 0.10.11)
+set(CFLTK_PROJECT_VERSION 0.10.12)
+project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -66,7 +67,10 @@ endif()
 if(USE_SYSTEM_FLTK)
     target_include_directories(cfltk PUBLIC include ${FLTK_INCLUDE_DIRS})
 else()
-    target_include_directories(cfltk PUBLIC include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk)
+    target_include_directories(cfltk PUBLIC 
+    $<BUILD_INTERFACE:include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk>  
+    $<INSTALL_INTERFACE:include/cfltk>
+    )
 endif()
 
 set(CFLTK_LIBS fltk)
@@ -84,10 +88,35 @@ if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
     target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
 endif()
 
+set_target_properties(cfltk PROPERTIES PUBLIC_HEADER "${CFLTK_HEADER_FILES}")
+
+set_target_properties(cfltk PROPERTIES VERSION ${CFLTK_PROJECT_VERSION})
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake
+                                 VERSION ${CFLTK_PROJECT_VERSION}
+                                 COMPATIBILITY SameMajorVersion)
+
 install(TARGETS cfltk
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    EXPORT cfltkConfig
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include/cfltk
     )
 
-install(FILES ${CFLTK_HEADER_FILES}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/cfltk
+export(TARGETS
+        cfltk
+    NAMESPACE cfltk::
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfig.cmake"
+    )
+
+install(EXPORT
+        cfltkConfig
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk"
+    NAMESPACE cfltk::
+    )
+
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk
     )
