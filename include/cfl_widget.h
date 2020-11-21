@@ -65,7 +65,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     void widget##_draw(widget *self, custom_draw_callback cb, void *data);                         \
     void widget##_draw2(widget *self, custom_draw_callback2 cb, void *data);                       \
     void widget##_set_when(widget *, int);                                                         \
-    int widget##_when(const widget *, int);                                                        \
+    int widget##_when(const widget *);                                                             \
     void *widget##_image(const widget *);                                                          \
     void *widget##_parent(const widget *self);                                                     \
     unsigned int widget##_selection_color(widget *);                                               \
