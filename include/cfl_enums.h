@@ -186,6 +186,23 @@ enum Fl_Align {
     Fl_Align_Bottom = 2,
     Fl_Align_Left = 4,
     Fl_Align_Right = 8,
+    Fl_Align_Inside = 16,
+    Fl_Align_TextOverImage = 20,
+    Fl_Align_Clip = 40,
+    Fl_Align_Wrap = 80,
+    Fl_Align_ImageNextToText = 100,
+    Fl_Align_TextNextToImage = 120,
+    Fl_Align_ImageBackdrop = 200,
+    Fl_Align_TopLeft = 1 | 4,
+    Fl_Align_TopRight = 1 | 8,
+    Fl_Align_BottomLeft = 2 | 4,
+    Fl_Align_BottomRight = 2 | 8,
+    Fl_Align_LeftTop = 7,
+    Fl_Align_RightTop = 11,
+    Fl_Align_LeftBottom = 13,
+    Fl_Align_RightBottom = 14,
+    Fl_Align_PositionMask = 15,
+    Fl_Align_ImageMask = 320,
 };
 
 enum Fl_Font {
