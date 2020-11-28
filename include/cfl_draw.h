@@ -128,7 +128,7 @@ void Fl_transformed_vertex(double xf, double yf);
 
 void Fl_end_offscreen(void);
 
-void Fl_set_font(int face, int fsize);
+void Fl_set_draw_font(int face, int fsize);
 
 int Fl_font(void);
 
