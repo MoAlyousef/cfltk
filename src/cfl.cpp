@@ -152,8 +152,28 @@ int Fl_scheme(void) {
     }
 }
 
+const char *Fl_scheme_string(void) {
+    return Fl::scheme();
+}
+
+int Fl_visible_focus(void) {
+    return Fl::visible_focus();
+}
+
+void Fl_set_visible_focus(int f) {
+    Fl::visible_focus(f);
+}
+
+void Fl_set_box_type(int o, int n) {
+    Fl::set_boxtype((Fl_Boxtype)o, (Fl_Boxtype)n);
+}
+
 unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b) {
     return fl_rgb_color(r, g, b);
+}
+
+void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned char b) {
+    Fl::set_color(c, r, g, b);
 }
 
 const char *Fl_get_font(int idx) {
