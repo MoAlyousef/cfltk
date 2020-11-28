@@ -251,7 +251,7 @@ void Fl_transformed_vertex(double xf, double yf) {
     fl_transformed_vertex(xf, yf);
 }
 
-void Fl_set_font(int face, int fsize) {
+void Fl_set_draw_font(int face, int fsize) {
     fl_font(face, fsize);
 }
 

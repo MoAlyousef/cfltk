@@ -164,6 +164,10 @@ unsigned char Fl_set_fonts(const char *c) {
     return Fl::set_fonts(c);
 }
 
+void Fl_set_font(int o, int n) {
+    Fl::set_font(o, n);
+}
+
 void Fl_add_handler(int (*ev_handler)(int ev)) {
     Fl::add_handler(ev_handler);
 }
