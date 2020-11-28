@@ -64,7 +64,17 @@ void Fl_set_scheme(const char *scheme);
 
 int Fl_scheme(void);
 
+const char *Fl_scheme_string(void);
+
+int Fl_visible_focus(void);
+
+void Fl_set_visible_focus(int);
+
+void Fl_set_box_type(int, int);
+
 unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b);
+
+void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned char b);
 
 const char *Fl_get_font(int idx);
 
