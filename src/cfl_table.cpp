@@ -308,12 +308,12 @@ int Fl_Table_Row_row_selected(Fl_Table_Row *self, int row) {
     return self->row_selected(row);
 }
 
-int Fl_Table_Row_select_row(Fl_Table_Row *self, int row) {
+int Fl_Table_Row_select_row(Fl_Table_Row *self, int row, int flag) {
     int ret = 0;
-    LOCK(ret = self->select_row(row);)
+    LOCK(ret = self->select_row(row, flag);)
     return ret;
 }
 
-void Fl_Table_Row_select_all_rows(Fl_Table_Row *self) {
-    LOCK(self->select_all_rows();)
+void Fl_Table_Row_select_all_rows(Fl_Table_Row *self, int flag) {
+    LOCK(self->select_all_rows(flag);)
 }
