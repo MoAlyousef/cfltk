@@ -82,9 +82,9 @@ TABLE_DECLARE(Fl_Table_Row)
 
 int Fl_Table_Row_row_selected(Fl_Table_Row *self, int row);
 
-int Fl_Table_Row_select_row(Fl_Table_Row *self, int row);
+int Fl_Table_Row_select_row(Fl_Table_Row *self, int row, int flag);
 
-void Fl_Table_Row_select_all_rows(Fl_Table_Row *self);
+void Fl_Table_Row_select_all_rows(Fl_Table_Row *self, int flag);
 
 #ifdef __cplusplus
 }
