@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_H__
+#define __CFL_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -160,6 +161,13 @@ const char *Fl_load_font(const char *path);
 
 void Fl_unload_font(const char *path);
 
+void Fl_foreground(unsigned char r, unsigned char g, unsigned char b);
+
+void Fl_background(unsigned char r, unsigned char g, unsigned char b);
+
+void Fl_background2(unsigned char r, unsigned char g, unsigned char b);
+
 #ifdef __cplusplus
 }
+#endif
 #endif

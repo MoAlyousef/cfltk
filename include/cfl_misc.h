@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_MISC_H__
+#define __CFL_MISC_H__
 
 #include "cfl_widget.h"
 
@@ -150,4 +151,5 @@ void *Fl_Tooltip_current_window(void);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

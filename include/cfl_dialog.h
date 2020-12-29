@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_DIALOG_H__
+#define __CFL_DIALOG_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -202,4 +203,5 @@ int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g, unsig
 
 #ifdef __cplusplus
 }
+#endif
 #endif

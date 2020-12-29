@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_PRINTER_H__
+#define __CFL_PRINTER_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -83,4 +84,5 @@ void Fl_Printer_set_property_cancel(const char *msg);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

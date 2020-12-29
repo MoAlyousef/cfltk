@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_BROWSER_H__
+#define __CFL_BROWSER_H__
 
 #include "cfl_widget.h"
 
@@ -84,4 +85,5 @@ BROWSER_DECLARE(Fl_File_Browser)
 
 #ifdef __cplusplus
 }
+#endif
 #endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_BUTTON_H__
+#define __CFL_BUTTON_H__
 
 #include "cfl_widget.h"
 
@@ -83,4 +84,5 @@ BUTTON_DECLARE(Fl_Return_Button)
 
 #ifdef __cplusplus
 }
+#endif
 #endif

@@ -386,6 +386,18 @@ int Fl_abi_version(void) {
     return Fl::abi_version();
 }
 
+void Fl_foreground(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::foreground(r, g, b);
+}
+
+void Fl_background(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::background(r, g, b);
+}
+
+void Fl_background2(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::background2(r, g, b);
+}
+
 #ifdef _WIN32
 
 #define i_load_private_font(PATH) AddFontResourceEx((PATH), FR_PRIVATE, 0)

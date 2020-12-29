@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_INPUT_H__
+#define __CFL_INPUT_H__
 
 #include "cfl_widget.h"
 
@@ -150,4 +151,5 @@ INPUT_DECLARE(Fl_File_Input)
 
 #ifdef __cplusplus
 }
+#endif
 #endif
