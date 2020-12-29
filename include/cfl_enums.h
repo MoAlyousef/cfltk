@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_ENUMS_H__
+#define __CFL_ENUMS_H__
 
 const char *const Fl_EventNames[] = {
     "Fl_Event_None",

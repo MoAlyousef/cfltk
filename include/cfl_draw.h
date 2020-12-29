@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_DRAW_H__
+#define __CFL_DRAW_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -243,4 +244,5 @@ void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

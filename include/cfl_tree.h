@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_TREE_H__
+#define __CFL_TREE_H__
 
 #include "cfl_widget.h"
 
@@ -412,4 +413,5 @@ void Fl_Tree_Item_Array_delete(Fl_Tree_Item_Array *self);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

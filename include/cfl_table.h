@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_TABLE_H__
+#define __CFL_TABLE_H__
 
 #include "cfl_group.h"
 
@@ -88,4 +89,5 @@ void Fl_Table_Row_select_all_rows(Fl_Table_Row *self, int flag);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

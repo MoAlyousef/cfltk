@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_MENU_H__
+#define __CFL_MENU_H__
 
 #include "cfl_widget.h"
 
@@ -111,4 +112,5 @@ void Fl_Menu_Item_set_user_data(Fl_Menu_Item *, void *data);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_GROUP_H__
+#define __CFL_GROUP_H__
 
 #include "cfl_widget.h"
 
@@ -126,4 +127,5 @@ void Fl_Pack_set_spacing(Fl_Pack *self, int spacing);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

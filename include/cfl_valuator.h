@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_VALUATOR_H__
+#define __CFL_VALUATOR_H__
 
 #include "cfl_widget.h"
 
@@ -93,4 +94,5 @@ VALUATOR_DECLARE(Fl_Hor_Value_Slider)
 
 #ifdef __cplusplus
 }
+#endif
 #endif

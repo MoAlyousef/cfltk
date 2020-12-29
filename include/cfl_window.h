@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_WINDOW_H__
+#define __CFL_WINDOW_H__
 
 #include "cfl_group.h"
 #include "cfl_widget.h"
@@ -115,4 +116,5 @@ void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

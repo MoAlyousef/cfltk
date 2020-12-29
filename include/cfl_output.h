@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_OUTPUT_H__
+#define __CFL_OUTPUT_H__
 
 #include "cfl_input.h"
 #include "cfl_widget.h"
@@ -17,4 +18,5 @@ INPUT_DECLARE(Fl_Multiline_Output)
 
 #ifdef __cplusplus
 }
+#endif
 #endif

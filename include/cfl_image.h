@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_IMAGE_H__
+#define __CFL_IMAGE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -91,4 +92,5 @@ void Fl_register_images(void);
 
 #ifdef __cplusplus
 }
+#endif
 #endif

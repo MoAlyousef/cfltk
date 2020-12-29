@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_SURFACE_H__
+#define __CFL_SURFACE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,4 +59,5 @@ void Fl_SVG_File_Surface_draw_decorated_window(Fl_SVG_File_Surface *self, void *
 
 #ifdef __cplusplus
 }
+#endif
 #endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CFL_TEXT_H__
+#define __CFL_TEXT_H__
 
 #include "cfl_widget.h"
 
@@ -265,4 +266,5 @@ void Fl_delete_stable(void *);
 
 #ifdef __cplusplus
 }
+#endif
 #endif
