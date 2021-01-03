@@ -28,7 +28,7 @@ To add to your project, you can add this project as a submodule:
 $ git submodule add https://github.com/moalyousef/cfltk
 $ git submodule update --init --recursive
 $ cd cfltk/fltk
-$ git apply ../fltk.patch # Needed for Android builds or to disable building FLUID
+$ git apply ../fltk.patch # Needed for Android builds
 $ cd ../..
 ```
 or by cloning the repo:
@@ -37,7 +37,7 @@ $ git clone https://github.com/moalyousef/cfltk
 $ cd cfltk
 $ git submodule update --init --recursive
 $ cd fltk
-$ git apply ../fltk.patch # Needed for Android builds or to disable building FLUID
+$ git apply ../fltk.patch # Needed for Android builds
 $ cd ../..
 ```
 
@@ -95,7 +95,6 @@ $ cmake -B bin -S . \
     -DOPTION_USE_GL=OFF \
     -DFLTK_BUILD_EXAMPLES=OFF \
     -DFLTK_BUILD_TEST=OFF \
-    -DFLTK_BUILD_FLUID=OFF \
     -DOPTION_USE_THREADS=ON \
     -DOPTION_LARGE_FILE=ON \
     -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
@@ -111,7 +110,6 @@ Otherwise, these options can be added to the CMakeLists.txt file:
     set(OPTION_USE_GL OFF CACHE BOOL " " FORCE)
     set(FLTK_BUILD_EXAMPLES OFF CACHE BOOL " " FORCE)
     set(FLTK_BUILD_TEST OFF CACHE BOOL " " FORCE)
-    set(FLTK_BUILD_FLUID OFF CACHE BOOL " " FORCE)
     set(OPTION_USE_THREADS ON CACHE BOOL " " FORCE)
     set(OPTION_LARGE_FILE ON CACHE BOOL " " FORCE)
     set(OPTION_BUILD_HTML_DOCUMENTATION OFF CACHE BOOL " " FORCE)
