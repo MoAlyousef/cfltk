@@ -286,6 +286,15 @@
     }                                                                                              \
     void table##_draw_cell_data(table *self, void *data) {                                         \
         LOCK(((table##_Derived *)self)->draw_cell_data_ = data)                                    \
+    }                                                                                              \
+    int table##_callback_col(table *self) {                                                        \
+        return self->callback_col();                                                               \
+    }                                                                                              \
+    int table##_callback_row(table *self) {                                                        \
+        return self->callback_row();                                                               \
+    }                                                                                              \
+    int table##_callback_context(table *self) {                                                    \
+        return self->callback_context();                                                           \
     }
 
 TABLE_CLASS(Fl_Table)

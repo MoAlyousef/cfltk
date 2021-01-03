@@ -67,7 +67,10 @@ extern "C" {
                             void (*)(Fl_Widget *, int, int, int, int, int, int, int, void *),      \
                             void *data);                                                           \
     void *table##_draw_cell_data(const table *self);                                               \
-    void table##_set_draw_cell_data(table *self, void *data);
+    void table##_set_draw_cell_data(table *self, void *data);                                      \
+    int table##_callback_col(table *);                                                             \
+    int table##_callback_row(table *);                                                             \
+    int table##_callback_context(table *);
 
 WIDGET_DECLARE(Fl_Table)
 
