@@ -30,7 +30,8 @@ typedef union {
     unsigned int widget##_fullscreen_active(const widget *self);                                   \
     void widget##_free_position(widget *self);                                                     \
     int widget##_decorated_w(const widget *self);                                                  \
-    int widget##_decorated_h(const widget *self);
+    int widget##_decorated_h(const widget *self);                                                  \
+    void widget##_size_range(widget *self, int, int, int, int);
 
 WIDGET_DECLARE(Fl_Window)
 
