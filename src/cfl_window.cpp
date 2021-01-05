@@ -14,10 +14,12 @@
 
 #define WINDOW_DEFINE(widget)                                                                      \
     void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
-        LOCK(if (boolean) { self->set_modal(); } else { self->set_non_modal(); })                  \
+        LOCK(                                                                                      \
+            if (boolean) { self->set_modal(); } else { self->set_non_modal(); })                   \
     }                                                                                              \
     void widget##_fullscreen(widget *self, unsigned int boolean) {                                 \
-        LOCK(if (boolean) { self->fullscreen(); } else { self->fullscreen_off(); })                \
+        LOCK(                                                                                      \
+            if (boolean) { self->fullscreen(); } else { self->fullscreen_off(); })                 \
     }                                                                                              \
     void widget##_make_current(widget *self) {                                                     \
         LOCK(((Fl_Window *)self)->make_current();)                                                 \
@@ -73,6 +75,9 @@
     }                                                                                              \
     int widget##_decorated_h(const widget *self) {                                                 \
         return self->decorated_h();                                                                \
+    }                                                                                              \
+    void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
+        LOCK(self->size_range(minw, minh, maxw, maxh))                                             \
     }
 
 WIDGET_CLASS(Fl_Window)
