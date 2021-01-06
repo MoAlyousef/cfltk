@@ -15,11 +15,26 @@ WIDGET_CLASS(Fl_Group)
 
 WIDGET_DEFINE(Fl_Group)
 
+Fl_Group *Fl_Group_current(void) {
+    return Fl_Group::current();
+}
+
+void Fl_Group_set_current(Fl_Group *grp) {
+    LOCK(Fl_Group::current(grp));
+}
+
 GROUP_DEFINE(Fl_Group)
 
 WIDGET_CLASS(Fl_Pack)
 
 WIDGET_DEFINE(Fl_Pack)
+
+int Fl_Pack_spacing(Fl_Pack *self) {
+    return self->spacing();
+}
+void Fl_Pack_set_spacing(Fl_Pack *self, int spacing) {
+    self->spacing(spacing);
+}
 
 GROUP_DEFINE(Fl_Pack)
 
@@ -140,10 +155,3 @@ double Fl_Color_Chooser_b(Fl_Color_Chooser *self) {
 }
 
 GROUP_DEFINE(Fl_Color_Chooser)
-
-int Fl_Pack_spacing(Fl_Pack *self) {
-    return self->spacing();
-}
-void Fl_Pack_set_spacing(Fl_Pack *self, int spacing) {
-    self->spacing(spacing);
-}

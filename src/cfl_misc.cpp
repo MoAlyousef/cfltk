@@ -2,8 +2,11 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Chart.H>
+#include <FL/Fl_Check_Browser.H>
 #include <FL/Fl_Clock.H>
+#include <FL/Fl_Help_View.H>
 #include <FL/Fl_Image.H>
+#include <FL/Fl_Input_Choice.H>
 #include <FL/Fl_Progress.H>
 #include <FL/Fl_Spinner.H>
 #include <FL/Fl_Tooltip.H>
@@ -283,3 +286,22 @@ void Fl_Tooltip_set_wrap_width(int v) {
 void *Fl_Tooltip_current_window(void) {
     return (void *)Fl_Tooltip::current_window();
 }
+
+WIDGET_CLASS(Fl_Help_View)
+
+WIDGET_DEFINE(Fl_Help_View)
+
+WIDGET_CLASS(Fl_Input_Choice)
+
+WIDGET_DEFINE(Fl_Input_Choice)
+
+void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box) {
+    LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));
+}
+int Fl_Input_Choice_down_box(const Fl_Input_Choice *self) {
+    return self->down_box();
+}
+
+WIDGET_CLASS(Fl_Check_Browser)
+
+WIDGET_DECLARE(Fl_Check_Browser)
