@@ -382,8 +382,57 @@ WIDGET_DEFINE(Fl_Input_Choice)
 void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box) {
     LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));
 }
+
 int Fl_Input_Choice_down_box(const Fl_Input_Choice *self) {
     return self->down_box();
+}
+
+void Fl_Input_Choice_add(Fl_Input_Choice *self, const char *s) {
+    LOCK(self->add(s));
+}
+
+void Fl_Input_Choice_clear(Fl_Input_Choice *self) {
+    LOCK(self->clear());
+}
+
+const char* Fl_Input_Choice_value(const Fl_Input_Choice *self) {
+    return self->value();
+}
+
+void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val) {
+    LOCK(self->value(val));
+}
+
+void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val) {
+    LOCK(self->value(val));
+}
+
+void *Fl_Input_Choice_menubutton(Fl_Input_Choice *self) {
+    return self->menubutton();
+}
+
+void Fl_Input_Choice_set_textcolor(Fl_Input_Choice *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Input_Choice_textcolor(Fl_Input_Choice *self) {
+    return self->textcolor();
+}
+
+void Fl_Input_Choice_set_textfont(Fl_Input_Choice *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Input_Choice_textfont(Fl_Input_Choice *self) {
+    return self->textfont();
+}
+
+void Fl_Input_Choice_set_textsize(Fl_Input_Choice *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Input_Choice_textsize(Fl_Input_Choice *self) {
+    return self->textsize();
 }
 
 WIDGET_CLASS(Fl_Check_Browser)

@@ -199,6 +199,30 @@ void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box);
 
 int Fl_Input_Choice_down_box(const Fl_Input_Choice *self);
 
+void Fl_Input_Choice_add(Fl_Input_Choice *self, const char *s);
+
+void Fl_Input_Choice_clear(Fl_Input_Choice *self);
+
+const char* Fl_Input_Choice_value(const Fl_Input_Choice *self);
+
+void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val);
+
+void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val);
+
+void *Fl_Input_Choice_menubutton(Fl_Input_Choice *self);
+
+void Fl_Input_Choice_set_textcolor(Fl_Input_Choice *self, unsigned int c);
+
+unsigned int Fl_Input_Choice_textcolor(Fl_Input_Choice *self);
+
+void Fl_Input_Choice_set_textfont(Fl_Input_Choice *self, int f);
+
+int Fl_Input_Choice_textfont(Fl_Input_Choice *self);
+
+void Fl_Input_Choice_set_textsize(Fl_Input_Choice *self, int s);
+
+int Fl_Input_Choice_textsize(Fl_Input_Choice *self);
+
 WIDGET_DECLARE(Fl_Check_Browser)
 
 #ifdef __cplusplus
