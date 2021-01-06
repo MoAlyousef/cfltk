@@ -398,6 +398,10 @@ void Fl_background2(unsigned char r, unsigned char g, unsigned char b) {
     Fl::background2(r, g, b);
 }
 
+void Fl_get_system_colors(void) {
+    Fl::get_system_colors();
+}
+
 #ifdef _WIN32
 
 #define i_load_private_font(PATH) AddFontResourceEx((PATH), FR_PRIVATE, 0)
