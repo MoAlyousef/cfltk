@@ -32,7 +32,7 @@ typedef union {
     int widget##_decorated_w(const widget *self);                                                  \
     int widget##_decorated_h(const widget *self);                                                  \
     void widget##_size_range(widget *self, int, int, int, int);                                    \
-    void widget##_hotpsot(widget *self, Fl_Widget *wid);
+    void widget##_hotspot(widget *self, Fl_Widget *wid);
 
 WIDGET_DECLARE(Fl_Window)
 
