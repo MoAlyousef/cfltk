@@ -551,10 +551,10 @@ void Fl_Check_Browser_sort(Fl_Check_Browser *self) {
     LOCK(self->sort();)
 }
 
-void *Fl_Check_Browser_scrollbar(Fl_Check_Browser *self) {
+const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self) {
     return &self->scrollbar;
 }
 
-void *Fl_Check_Browser_hscrollbar(Fl_Check_Browser *self) {
+const void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self) {
     return &self->hscrollbar;
 }

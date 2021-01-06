@@ -255,11 +255,11 @@ int Fl_Check_Browser_hposition(const Fl_Check_Browser *self);
 
 void Fl_Check_Browser_set_hposition(Fl_Check_Browser *self, int);
 
-unsigned char Fl_Check_Browser_has_scrollbar(Fl_Check_Browser *self);
+unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self);
 
 const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self);
 
-void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self);
+const void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self);
 
 void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self, unsigned char mode);
 
