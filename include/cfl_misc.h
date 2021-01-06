@@ -203,7 +203,7 @@ void Fl_Input_Choice_add(Fl_Input_Choice *self, const char *s);
 
 void Fl_Input_Choice_clear(Fl_Input_Choice *self);
 
-const char* Fl_Input_Choice_value(const Fl_Input_Choice *self);
+const char *Fl_Input_Choice_value(const Fl_Input_Choice *self);
 
 void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val);
 
@@ -224,6 +224,62 @@ void Fl_Input_Choice_set_textsize(Fl_Input_Choice *self, int s);
 int Fl_Input_Choice_textsize(Fl_Input_Choice *self);
 
 WIDGET_DECLARE(Fl_Check_Browser)
+
+int Fl_Check_Browser_add(Fl_Check_Browser *self, const char *s, int b);
+
+int Fl_Check_Browser_remove(Fl_Check_Browser *self, int item);
+
+void Fl_Check_Browser_clear(Fl_Check_Browser *self);
+
+int Fl_Check_Browser_nitems(const Fl_Check_Browser *self);
+
+int Fl_Check_Browser_nchecked(const Fl_Check_Browser *self);
+
+int Fl_Check_Browser_checked(const Fl_Check_Browser *self, int item);
+
+void Fl_Check_Browser_set_checked(Fl_Check_Browser *self, int item);
+
+void Fl_Check_Browser_check_all(Fl_Check_Browser *self);
+
+void Fl_Check_Browser_check_none(Fl_Check_Browser *self);
+
+int Fl_Check_Browser_value(const Fl_Check_Browser *self);
+
+const char *Fl_Check_Browser_text(const Fl_Check_Browser *self, int item);
+
+int Fl_Check_Browser_position(const Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_position(Fl_Check_Browser *self, int pos);
+
+int Fl_Check_Browser_hposition(const Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_hposition(Fl_Check_Browser *self, int);
+
+unsigned char Fl_Check_Browser_has_scrollbar(Fl_Check_Browser *self);
+
+const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self);
+
+void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self, unsigned char mode);
+
+int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_scrollbar_size(Fl_Check_Browser *self, int newSize);
+
+void Fl_Check_Browser_sort(Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_textcolor(Fl_Check_Browser *self, unsigned int c);
+
+unsigned int Fl_Check_Browser_textcolor(Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_textfont(Fl_Check_Browser *self, int f);
+
+int Fl_Check_Browser_textfont(Fl_Check_Browser *self);
+
+void Fl_Check_Browser_set_textsize(Fl_Check_Browser *self, int s);
+
+int Fl_Check_Browser_textsize(Fl_Check_Browser *self);
 
 #ifdef __cplusplus
 }

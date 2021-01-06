@@ -300,7 +300,9 @@ const char *Fl_Help_View_filename(const Fl_Help_View *self) {
 }
 
 int Fl_Help_View_find(Fl_Help_View *self, const char *s, int p) {
-    int ret = 0; LOCK(ret = self->find(s, p)); return ret;
+    int ret = 0;
+    LOCK(ret = self->find(s, p));
+    return ret;
 }
 
 const char *Fl_Help_View_value(const Fl_Help_View *self) {
@@ -372,7 +374,9 @@ void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize) {
 }
 
 int Fl_Help_View_load(Fl_Help_View *self, const char *f) {
-    int ret = 0; LOCK(ret = self->load(f)); return ret;
+    int ret = 0;
+    LOCK(ret = self->load(f));
+    return ret;
 }
 
 WIDGET_CLASS(Fl_Input_Choice)
@@ -395,7 +399,7 @@ void Fl_Input_Choice_clear(Fl_Input_Choice *self) {
     LOCK(self->clear());
 }
 
-const char* Fl_Input_Choice_value(const Fl_Input_Choice *self) {
+const char *Fl_Input_Choice_value(const Fl_Input_Choice *self) {
     return self->value();
 }
 
@@ -438,3 +442,119 @@ int Fl_Input_Choice_textsize(Fl_Input_Choice *self) {
 WIDGET_CLASS(Fl_Check_Browser)
 
 WIDGET_DEFINE(Fl_Check_Browser)
+
+int Fl_Check_Browser_add(Fl_Check_Browser *self, const char *s, int b) {
+    int ret = 0;
+    LOCK(ret = self->add(s, b));
+    return ret;
+}
+
+int Fl_Check_Browser_remove(Fl_Check_Browser *self, int item) {
+    int ret = 0;
+    LOCK(ret = self->remove(item));
+    return ret;
+}
+
+void Fl_Check_Browser_clear(Fl_Check_Browser *self) {
+    LOCK(self->clear());
+}
+
+int Fl_Check_Browser_nitems(const Fl_Check_Browser *self) {
+    return self->nitems();
+}
+
+int Fl_Check_Browser_nchecked(const Fl_Check_Browser *self) {
+    return self->nchecked();
+}
+
+int Fl_Check_Browser_checked(const Fl_Check_Browser *self, int item) {
+    return self->checked(item);
+}
+
+void Fl_Check_Browser_set_checked(Fl_Check_Browser *self, int item) {
+    LOCK(self->set_checked(item));
+}
+
+void Fl_Check_Browser_check_all(Fl_Check_Browser *self) {
+    LOCK(self->check_all());
+}
+
+void Fl_Check_Browser_check_none(Fl_Check_Browser *self) {
+    LOCK(self->check_none());
+}
+
+int Fl_Check_Browser_value(const Fl_Check_Browser *self) {
+    return self->value();
+}
+
+const char *Fl_Check_Browser_text(const Fl_Check_Browser *self, int item) {
+    return self->text(item);
+}
+
+void Fl_Check_Browser_set_textcolor(Fl_Check_Browser *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Check_Browser_textcolor(Fl_Check_Browser *self) {
+    return self->textcolor();
+}
+
+void Fl_Check_Browser_set_textfont(Fl_Check_Browser *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Check_Browser_textfont(Fl_Check_Browser *self) {
+    return self->textfont();
+}
+
+void Fl_Check_Browser_set_textsize(Fl_Check_Browser *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Check_Browser_textsize(Fl_Check_Browser *self) {
+    return self->textsize();
+}
+
+int Fl_Check_Browser_position(const Fl_Check_Browser *self) {
+    return self->position();
+}
+
+void Fl_Check_Browser_set_position(Fl_Check_Browser *self, int pos) {
+    LOCK(self->position(pos);)
+}
+
+int Fl_Check_Browser_hposition(const Fl_Check_Browser *self) {
+    return self->hposition();
+}
+
+void Fl_Check_Browser_set_hposition(Fl_Check_Browser *self, int pos) {
+    LOCK(self->hposition(pos);)
+}
+
+unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self) {
+    return self->has_scrollbar();
+}
+
+void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self, unsigned char mode) {
+    LOCK(self->has_scrollbar(mode);)
+}
+
+int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self) {
+    return self->scrollbar_size();
+}
+
+void Fl_Check_Browser_set_scrollbar_size(Fl_Check_Browser *self, int newSize) {
+    LOCK(self->scrollbar_size(newSize);)
+}
+
+void Fl_Check_Browser_sort(Fl_Check_Browser *self) {
+    LOCK(self->sort();)
+}
+
+void *Fl_Check_Browser_scrollbar(Fl_Check_Browser *self) {
+    return &self->scrollbar;
+}
+
+void *Fl_Check_Browser_hscrollbar(Fl_Check_Browser *self) {
+    return &self->hscrollbar;
+}
