@@ -151,6 +151,48 @@ void *Fl_Tooltip_current_window(void);
 
 WIDGET_DECLARE(Fl_Help_View)
 
+const char *Fl_Help_View_directory(const Fl_Help_View *self);
+
+const char *Fl_Help_View_filename(const Fl_Help_View *self);
+
+int Fl_Help_View_find(Fl_Help_View *self, const char *s, int p);
+
+const char *Fl_Help_View_value(const Fl_Help_View *self);
+
+void Fl_Help_View_set_value(Fl_Help_View *self, const char *val);
+
+void Fl_Help_View_clear_selection(Fl_Help_View *self);
+
+void Fl_Help_View_select_all(Fl_Help_View *self);
+
+void Fl_Help_View_set_topline(Fl_Help_View *self, const char *n);
+
+void Fl_Help_View_set_topline2(Fl_Help_View *self, int);
+
+int Fl_Help_View_topline(const Fl_Help_View *self);
+
+void Fl_Help_View_set_leftline(Fl_Help_View *self, int);
+
+int Fl_Help_View_leftline(const Fl_Help_View *self);
+
+void Fl_Help_View_set_textcolor(Fl_Help_View *self, unsigned int c);
+
+unsigned int Fl_Help_View_textcolor(Fl_Help_View *self);
+
+void Fl_Help_View_set_textfont(Fl_Help_View *self, int f);
+
+int Fl_Help_View_textfont(Fl_Help_View *self);
+
+void Fl_Help_View_set_textsize(Fl_Help_View *self, int s);
+
+int Fl_Help_View_textsize(Fl_Help_View *self);
+
+int Fl_Help_View_scrollbar_size(const Fl_Help_View *self);
+
+void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize);
+
+int Fl_Help_View_load(Fl_Help_View *self, const char *f);
+
 WIDGET_DECLARE(Fl_Input_Choice)
 
 void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box);

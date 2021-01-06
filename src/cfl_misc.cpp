@@ -291,6 +291,90 @@ WIDGET_CLASS(Fl_Help_View)
 
 WIDGET_DEFINE(Fl_Help_View)
 
+const char *Fl_Help_View_directory(const Fl_Help_View *self) {
+    return self->directory();
+}
+
+const char *Fl_Help_View_filename(const Fl_Help_View *self) {
+    return self->filename();
+}
+
+int Fl_Help_View_find(Fl_Help_View *self, const char *s, int p) {
+    int ret = 0; LOCK(ret = self->find(s, p)); return ret;
+}
+
+const char *Fl_Help_View_value(const Fl_Help_View *self) {
+    return self->value();
+}
+
+void Fl_Help_View_set_value(Fl_Help_View *self, const char *val) {
+    LOCK(self->value(val));
+}
+
+void Fl_Help_View_clear_selection(Fl_Help_View *self) {
+    LOCK(self->clear_selection());
+}
+
+void Fl_Help_View_select_all(Fl_Help_View *self) {
+    LOCK(self->select_all());
+}
+
+void Fl_Help_View_set_topline(Fl_Help_View *self, const char *n) {
+    LOCK(self->topline(n));
+}
+
+void Fl_Help_View_set_topline2(Fl_Help_View *self, int v) {
+    LOCK(self->topline(v));
+}
+
+int Fl_Help_View_topline(const Fl_Help_View *self) {
+    return self->topline();
+}
+
+void Fl_Help_View_set_leftline(Fl_Help_View *self, int v) {
+    LOCK(self->leftline(v));
+}
+
+int Fl_Help_View_leftline(const Fl_Help_View *self) {
+    return self->leftline();
+}
+
+void Fl_Help_View_set_textcolor(Fl_Help_View *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Help_View_textcolor(Fl_Help_View *self) {
+    return self->textcolor();
+}
+
+void Fl_Help_View_set_textfont(Fl_Help_View *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Help_View_textfont(Fl_Help_View *self) {
+    return self->textfont();
+}
+
+void Fl_Help_View_set_textsize(Fl_Help_View *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Help_View_textsize(Fl_Help_View *self) {
+    return self->textsize();
+}
+
+int Fl_Help_View_scrollbar_size(const Fl_Help_View *self) {
+    return self->scrollbar_size();
+}
+
+void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize) {
+    LOCK(self->scrollbar_size(newSize));
+}
+
+int Fl_Help_View_load(Fl_Help_View *self, const char *f) {
+    int ret = 0; LOCK(ret = self->load(f)); return ret;
+}
+
 WIDGET_CLASS(Fl_Input_Choice)
 
 WIDGET_DEFINE(Fl_Input_Choice)
