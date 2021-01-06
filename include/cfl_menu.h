@@ -32,7 +32,9 @@ extern "C" {
     int widget##_mode(const widget *self, int i);                                                  \
     int widget##_find_index(const widget *self, const char *label);                                \
     const Fl_Menu_Item *widget##_menu(const widget *self);                                         \
-    void widget##_remove(widget *self, int idx);
+    void widget##_remove(widget *self, int idx);                                                   \
+    void widget##_set_down_box(widget *self, int box);                                             \
+    int widget##_down_box(const widget *self);
 
 typedef struct Fl_Menu_Item Fl_Menu_Item;
 

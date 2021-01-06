@@ -147,6 +147,10 @@ INPUT_DECLARE(Fl_Secret_Input)
 
 WIDGET_DECLARE(Fl_File_Input)
 
+void Fl_File_Input_set_down_box(Fl_File_Input *self, int box);
+
+int Fl_File_Input_down_box(const Fl_File_Input *self);
+
 INPUT_DECLARE(Fl_File_Input)
 
 #ifdef __cplusplus

@@ -149,6 +149,16 @@ void Fl_Tooltip_set_wrap_width(int v);
 
 void *Fl_Tooltip_current_window(void);
 
+WIDGET_DECLARE(Fl_Help_View)
+
+WIDGET_DECLARE(Fl_Input_Choice)
+
+void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box);
+
+int Fl_Input_Choice_down_box(const Fl_Input_Choice *self);
+
+WIDGET_DECLARE(Fl_Check_Browser)
+
 #ifdef __cplusplus
 }
 #endif

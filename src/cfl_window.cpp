@@ -78,6 +78,9 @@
     }                                                                                              \
     void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
         LOCK(self->size_range(minw, minh, maxw, maxh))                                             \
+    }                                                                                              \
+    void widget##_hotspot(widget *self, Fl_Widget *wid) {                                          \
+        LOCK(self->hotspot(wid))                                                                   \
     }
 
 WIDGET_CLASS(Fl_Window)

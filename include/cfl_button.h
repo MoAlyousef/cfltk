@@ -12,7 +12,9 @@ extern "C" {
     void widget##_set_shortcut(widget *self, int shortcut);                                        \
     int widget##_clear(widget *self);                                                              \
     int widget##_value(widget *self);                                                              \
-    void widget##_set_value(widget *self, int flag);
+    void widget##_set_value(widget *self, int flag);                                               \
+    void widget##_set_down_box(widget *self, int);                                                 \
+    int widget##_down_box(const widget *self);
 
 WIDGET_DECLARE(Fl_Button)
 

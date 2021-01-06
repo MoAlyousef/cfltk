@@ -53,9 +53,17 @@ extern "C" {
 
 WIDGET_DECLARE(Fl_Group)
 
+Fl_Group *Fl_Group_current(void);
+
+void Fl_Group_set_current(Fl_Group *grp);
+
 GROUP_DECLARE(Fl_Group)
 
 WIDGET_DECLARE(Fl_Pack)
+
+int Fl_Pack_spacing(Fl_Pack *self);
+
+void Fl_Pack_set_spacing(Fl_Pack *self, int spacing);
 
 GROUP_DECLARE(Fl_Pack)
 
@@ -120,10 +128,6 @@ double Fl_Color_Chooser_g(Fl_Color_Chooser *self);
 double Fl_Color_Chooser_b(Fl_Color_Chooser *self);
 
 GROUP_DECLARE(Fl_Color_Chooser)
-
-int Fl_Pack_spacing(Fl_Pack *self);
-
-void Fl_Pack_set_spacing(Fl_Pack *self, int spacing);
 
 #ifdef __cplusplus
 }

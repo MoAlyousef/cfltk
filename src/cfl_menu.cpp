@@ -1,7 +1,7 @@
 #include "cfl_menu.h"
 
-#include <FL/Fl.H>
 #include "FL/Fl_Sys_Menu_Bar.H"
+#include <FL/Fl.H>
 #include <FL/Fl_Choice.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Menu_Bar.H>
@@ -94,6 +94,12 @@
     }                                                                                              \
     void widget##_remove(widget *self, int idx) {                                                  \
         LOCK(self->remove(idx);)                                                                   \
+    }                                                                                              \
+    void widget##_set_down_box(widget *self, int box) {                                            \
+        LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));                                        \
+    }                                                                                              \
+    int widget##_down_box(const widget *self) {                                                    \
+        return self->down_box();                                                                   \
     }
 
 WIDGET_CLASS(Fl_Menu_Bar)

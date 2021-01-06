@@ -30,6 +30,12 @@
     }                                                                                              \
     void widget##_set_value(widget *self, int flag) {                                              \
         LOCK(self->value(flag);)                                                                   \
+    }                                                                                              \
+    void widget##_set_down_box(widget *self, int box) {                                            \
+        LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));                                        \
+    }                                                                                              \
+    int widget##_down_box(const widget *self) {                                                    \
+        return self->down_box();                                                                   \
     }
 
 WIDGET_CLASS(Fl_Button)
