@@ -291,6 +291,94 @@ WIDGET_CLASS(Fl_Help_View)
 
 WIDGET_DEFINE(Fl_Help_View)
 
+const char *Fl_Help_View_directory(const Fl_Help_View *self) {
+    return self->directory();
+}
+
+const char *Fl_Help_View_filename(const Fl_Help_View *self) {
+    return self->filename();
+}
+
+int Fl_Help_View_find(Fl_Help_View *self, const char *s, int p) {
+    int ret = 0;
+    LOCK(ret = self->find(s, p));
+    return ret;
+}
+
+const char *Fl_Help_View_value(const Fl_Help_View *self) {
+    return self->value();
+}
+
+void Fl_Help_View_set_value(Fl_Help_View *self, const char *val) {
+    LOCK(self->value(val));
+}
+
+void Fl_Help_View_clear_selection(Fl_Help_View *self) {
+    LOCK(self->clear_selection());
+}
+
+void Fl_Help_View_select_all(Fl_Help_View *self) {
+    LOCK(self->select_all());
+}
+
+void Fl_Help_View_set_topline(Fl_Help_View *self, const char *n) {
+    LOCK(self->topline(n));
+}
+
+void Fl_Help_View_set_topline2(Fl_Help_View *self, int v) {
+    LOCK(self->topline(v));
+}
+
+int Fl_Help_View_topline(const Fl_Help_View *self) {
+    return self->topline();
+}
+
+void Fl_Help_View_set_leftline(Fl_Help_View *self, int v) {
+    LOCK(self->leftline(v));
+}
+
+int Fl_Help_View_leftline(const Fl_Help_View *self) {
+    return self->leftline();
+}
+
+void Fl_Help_View_set_textcolor(Fl_Help_View *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Help_View_textcolor(Fl_Help_View *self) {
+    return self->textcolor();
+}
+
+void Fl_Help_View_set_textfont(Fl_Help_View *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Help_View_textfont(Fl_Help_View *self) {
+    return self->textfont();
+}
+
+void Fl_Help_View_set_textsize(Fl_Help_View *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Help_View_textsize(Fl_Help_View *self) {
+    return self->textsize();
+}
+
+int Fl_Help_View_scrollbar_size(const Fl_Help_View *self) {
+    return self->scrollbar_size();
+}
+
+void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize) {
+    LOCK(self->scrollbar_size(newSize));
+}
+
+int Fl_Help_View_load(Fl_Help_View *self, const char *f) {
+    int ret = 0;
+    LOCK(ret = self->load(f));
+    return ret;
+}
+
 WIDGET_CLASS(Fl_Input_Choice)
 
 WIDGET_DEFINE(Fl_Input_Choice)
@@ -298,10 +386,175 @@ WIDGET_DEFINE(Fl_Input_Choice)
 void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box) {
     LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));
 }
+
 int Fl_Input_Choice_down_box(const Fl_Input_Choice *self) {
     return self->down_box();
+}
+
+void Fl_Input_Choice_add(Fl_Input_Choice *self, const char *s) {
+    LOCK(self->add(s));
+}
+
+void Fl_Input_Choice_clear(Fl_Input_Choice *self) {
+    LOCK(self->clear());
+}
+
+const char *Fl_Input_Choice_value(const Fl_Input_Choice *self) {
+    return self->value();
+}
+
+void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val) {
+    LOCK(self->value(val));
+}
+
+void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val) {
+    LOCK(self->value(val));
+}
+
+void *Fl_Input_Choice_menubutton(Fl_Input_Choice *self) {
+    return self->menubutton();
+}
+
+void Fl_Input_Choice_set_textcolor(Fl_Input_Choice *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Input_Choice_textcolor(Fl_Input_Choice *self) {
+    return self->textcolor();
+}
+
+void Fl_Input_Choice_set_textfont(Fl_Input_Choice *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Input_Choice_textfont(Fl_Input_Choice *self) {
+    return self->textfont();
+}
+
+void Fl_Input_Choice_set_textsize(Fl_Input_Choice *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Input_Choice_textsize(Fl_Input_Choice *self) {
+    return self->textsize();
 }
 
 WIDGET_CLASS(Fl_Check_Browser)
 
 WIDGET_DEFINE(Fl_Check_Browser)
+
+int Fl_Check_Browser_add(Fl_Check_Browser *self, const char *s, int b) {
+    int ret = 0;
+    LOCK(ret = self->add(s, b));
+    return ret;
+}
+
+int Fl_Check_Browser_remove(Fl_Check_Browser *self, int item) {
+    int ret = 0;
+    LOCK(ret = self->remove(item));
+    return ret;
+}
+
+void Fl_Check_Browser_clear(Fl_Check_Browser *self) {
+    LOCK(self->clear());
+}
+
+int Fl_Check_Browser_nitems(const Fl_Check_Browser *self) {
+    return self->nitems();
+}
+
+int Fl_Check_Browser_nchecked(const Fl_Check_Browser *self) {
+    return self->nchecked();
+}
+
+int Fl_Check_Browser_checked(const Fl_Check_Browser *self, int item) {
+    return self->checked(item);
+}
+
+void Fl_Check_Browser_set_checked(Fl_Check_Browser *self, int item) {
+    LOCK(self->set_checked(item));
+}
+
+void Fl_Check_Browser_check_all(Fl_Check_Browser *self) {
+    LOCK(self->check_all());
+}
+
+void Fl_Check_Browser_check_none(Fl_Check_Browser *self) {
+    LOCK(self->check_none());
+}
+
+int Fl_Check_Browser_value(const Fl_Check_Browser *self) {
+    return self->value();
+}
+
+const char *Fl_Check_Browser_text(const Fl_Check_Browser *self, int item) {
+    return self->text(item);
+}
+
+void Fl_Check_Browser_set_textcolor(Fl_Check_Browser *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Check_Browser_textcolor(Fl_Check_Browser *self) {
+    return self->textcolor();
+}
+
+void Fl_Check_Browser_set_textfont(Fl_Check_Browser *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Check_Browser_textfont(Fl_Check_Browser *self) {
+    return self->textfont();
+}
+
+void Fl_Check_Browser_set_textsize(Fl_Check_Browser *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Check_Browser_textsize(Fl_Check_Browser *self) {
+    return self->textsize();
+}
+
+int Fl_Check_Browser_position(const Fl_Check_Browser *self) {
+    return self->position();
+}
+
+void Fl_Check_Browser_set_position(Fl_Check_Browser *self, int pos) {
+    LOCK(self->position(pos);)
+}
+
+int Fl_Check_Browser_hposition(const Fl_Check_Browser *self) {
+    return self->hposition();
+}
+
+void Fl_Check_Browser_set_hposition(Fl_Check_Browser *self, int pos) {
+    LOCK(self->hposition(pos);)
+}
+
+unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self) {
+    return self->has_scrollbar();
+}
+
+void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self, unsigned char mode) {
+    LOCK(self->has_scrollbar(mode);)
+}
+
+int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self) {
+    return self->scrollbar_size();
+}
+
+void Fl_Check_Browser_set_scrollbar_size(Fl_Check_Browser *self, int newSize) {
+    LOCK(self->scrollbar_size(newSize);)
+}
+
+void Fl_Check_Browser_sort(Fl_Check_Browser *self) {
+    LOCK(self->sort();)
+}
+
+void *Fl_Check_Browser_scrollbar(Fl_Check_Browser *self) {
+    return &self->scrollbar;
+}
+
+void *Fl_Check_Browser_hscrollbar(Fl_Check_Browser *self) {
+    return &self->hscrollbar;
+}

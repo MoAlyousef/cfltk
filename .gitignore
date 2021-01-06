@@ -14,3 +14,4 @@ temp.*
 compile_commands.json
 /.clangd
 /bin
+/temp
