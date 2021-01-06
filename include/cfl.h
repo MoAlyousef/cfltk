@@ -167,6 +167,8 @@ void Fl_background(unsigned char r, unsigned char g, unsigned char b);
 
 void Fl_background2(unsigned char r, unsigned char g, unsigned char b);
 
+void Fl_get_system_colors(void);
+
 #ifdef __cplusplus
 }
 #endif

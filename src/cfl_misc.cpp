@@ -304,4 +304,4 @@ int Fl_Input_Choice_down_box(const Fl_Input_Choice *self) {
 
 WIDGET_CLASS(Fl_Check_Browser)
 
-WIDGET_DECLARE(Fl_Check_Browser)
+WIDGET_DEFINE(Fl_Check_Browser)
