@@ -2,6 +2,7 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Browser.H>
+#include <FL/Fl_Check_Browser.H>
 #include <FL/Fl_File_Browser.H>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Image.H>
@@ -191,3 +192,123 @@ void Fl_File_Browser_set_filetype(Fl_File_Browser *self, int t) {
 }
 
 BROWSER_DEFINE(Fl_File_Browser)
+
+WIDGET_CLASS(Fl_Check_Browser)
+
+WIDGET_DEFINE(Fl_Check_Browser)
+
+int Fl_Check_Browser_add(Fl_Check_Browser *self, const char *s, int b) {
+    int ret = 0;
+    LOCK(ret = self->add(s, b));
+    return ret;
+}
+
+int Fl_Check_Browser_remove(Fl_Check_Browser *self, int item) {
+    int ret = 0;
+    LOCK(ret = self->remove(item));
+    return ret;
+}
+
+void Fl_Check_Browser_clear(Fl_Check_Browser *self) {
+    LOCK(self->clear());
+}
+
+int Fl_Check_Browser_nitems(const Fl_Check_Browser *self) {
+    return self->nitems();
+}
+
+int Fl_Check_Browser_nchecked(const Fl_Check_Browser *self) {
+    return self->nchecked();
+}
+
+int Fl_Check_Browser_checked(const Fl_Check_Browser *self, int item) {
+    return self->checked(item);
+}
+
+void Fl_Check_Browser_set_checked(Fl_Check_Browser *self, int item) {
+    LOCK(self->set_checked(item));
+}
+
+void Fl_Check_Browser_check_all(Fl_Check_Browser *self) {
+    LOCK(self->check_all());
+}
+
+void Fl_Check_Browser_check_none(Fl_Check_Browser *self) {
+    LOCK(self->check_none());
+}
+
+int Fl_Check_Browser_value(const Fl_Check_Browser *self) {
+    return self->value();
+}
+
+const char *Fl_Check_Browser_text(const Fl_Check_Browser *self, int item) {
+    return self->text(item);
+}
+
+void Fl_Check_Browser_set_textcolor(Fl_Check_Browser *self, unsigned int c) {
+    LOCK(self->textcolor(c));
+}
+
+unsigned int Fl_Check_Browser_textcolor(Fl_Check_Browser *self) {
+    return self->textcolor();
+}
+
+void Fl_Check_Browser_set_textfont(Fl_Check_Browser *self, int f) {
+    LOCK(self->textfont(f));
+}
+
+int Fl_Check_Browser_textfont(Fl_Check_Browser *self) {
+    return self->textfont();
+}
+
+void Fl_Check_Browser_set_textsize(Fl_Check_Browser *self, int s) {
+    LOCK(self->textsize(s));
+}
+
+int Fl_Check_Browser_textsize(Fl_Check_Browser *self) {
+    return self->textsize();
+}
+
+int Fl_Check_Browser_position(const Fl_Check_Browser *self) {
+    return self->position();
+}
+
+void Fl_Check_Browser_set_position(Fl_Check_Browser *self, int pos) {
+    LOCK(self->position(pos);)
+}
+
+int Fl_Check_Browser_hposition(const Fl_Check_Browser *self) {
+    return self->hposition();
+}
+
+void Fl_Check_Browser_set_hposition(Fl_Check_Browser *self, int pos) {
+    LOCK(self->hposition(pos);)
+}
+
+unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self) {
+    return self->has_scrollbar();
+}
+
+void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self, unsigned char mode) {
+    LOCK(self->has_scrollbar(mode);)
+}
+
+int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self) {
+    return self->scrollbar_size();
+}
+
+void Fl_Check_Browser_set_scrollbar_size(Fl_Check_Browser *self, int newSize) {
+    LOCK(self->scrollbar_size(newSize);)
+}
+
+void Fl_Check_Browser_sort(Fl_Check_Browser *self) {
+    LOCK(self->sort();)
+}
+
+const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self) {
+    return &self->scrollbar;
+}
+
+const void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self) {
+    return &self->hscrollbar;
+}
