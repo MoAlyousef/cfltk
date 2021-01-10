@@ -227,7 +227,7 @@ enum Fl_Font {
 
 enum Fl_Color {
     Fl_Color_ForeGround = 0,
-    Fl_Color_BackGround = 7,
+    Fl_Color_BackGround2 = 7,
     Fl_Color_Inactive = 8,
     Fl_Color_Selection = 15,
     Fl_Color_Gray0 = 32,
@@ -235,6 +235,7 @@ enum Fl_Color {
     Fl_Color_Dark2 = 45,
     Fl_Color_Dark1 = 47,
     Fl_Color_FrameDefault = 49,
+    Fl_Color_BackGround = 49,
     Fl_Color_Light1 = 50,
     Fl_Color_Light2 = 52,
     Fl_Color_Light3 = 54,
