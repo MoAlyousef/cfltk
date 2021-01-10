@@ -455,9 +455,9 @@ enum Fl_TableContext {
 };
 
 enum Fl_TableRowSelectMode {
-    Fl_TableRowSelectMode_SelectNone,
-    Fl_TableRowSelectMode_SelectSingle,
-    Fl_TableRowSelectMode_SelectMulti,
+    Fl_TableRowSelectMode_None,
+    Fl_TableRowSelectMode_Single,
+    Fl_TableRowSelectMode_Multi,
 };
 
 enum Fl_TreeSort {
