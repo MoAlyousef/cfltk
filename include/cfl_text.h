@@ -29,12 +29,10 @@ extern "C" {
                                         int *fontsz, int sz);                                      \
     void widget##_set_cursor_style(widget *, int style);                                           \
     void widget##_set_cursor_color(widget *, unsigned int color);                                  \
-    void widget##_set_scrollbar_width(widget *, int width);                                        \
     void widget##_set_scrollbar_size(widget *, int newSize);                                       \
     void widget##_set_scrollbar_align(widget *, int align);                                        \
     int widget##_cursor_style(widget *);                                                           \
     unsigned int widget##_cursor_color(widget *);                                                  \
-    int widget##_scrollbar_width(widget *);                                                        \
     int widget##_scrollbar_size(widget *);                                                         \
     int widget##_scrollbar_align(widget *);                                                        \
     int widget##_line_start(const widget *self, int pos);                                          \

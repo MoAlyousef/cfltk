@@ -123,12 +123,6 @@
     void widget##_set_scrollbar_size(widget *self, int newSize) {                                  \
         LOCK(self->scrollbar_size(newSize);)                                                       \
     }                                                                                              \
-    int widget##_scrollbar_width(const widget *self) {                                             \
-        return self->scrollbar_width();                                                            \
-    }                                                                                              \
-    void widget##_set_scrollbar_width(widget *self, int width) {                                   \
-        LOCK(self->scrollbar_width(width);)                                                        \
-    }                                                                                              \
     void widget##_sort(widget *self) {                                                             \
         LOCK(self->sort();)                                                                        \
     }                                                                                              \

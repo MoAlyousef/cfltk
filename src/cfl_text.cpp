@@ -85,9 +85,6 @@
     void widget##_set_cursor_color(widget *self, unsigned int color) {                             \
         LOCK(self->cursor_color(color);)                                                           \
     }                                                                                              \
-    void widget##_set_scrollbar_width(widget *self, int width) {                                   \
-        LOCK(self->scrollbar_width(width);)                                                        \
-    }                                                                                              \
     void widget##_set_scrollbar_size(widget *self, int newSize) {                                  \
         LOCK(self->scrollbar_size(newSize);)                                                       \
     }                                                                                              \
@@ -99,9 +96,6 @@
     }                                                                                              \
     unsigned int widget##_cursor_color(widget *self) {                                             \
         return self->cursor_color();                                                               \
-    }                                                                                              \
-    int widget##_scrollbar_width(widget *self) {                                                   \
-        return self->scrollbar_width();                                                            \
     }                                                                                              \
     int widget##_scrollbar_size(widget *self) {                                                    \
         return self->scrollbar_size();                                                             \

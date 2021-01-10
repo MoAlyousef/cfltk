@@ -45,8 +45,6 @@ extern "C" {
     void widget##_set_has_scrollbar(widget *self, unsigned char mode);                             \
     int widget##_scrollbar_size(const widget *self);                                               \
     void widget##_set_scrollbar_size(widget *self, int newSize);                                   \
-    int widget##_scrollbar_width(const widget *self);                                              \
-    void widget##_set_scrollbar_width(widget *self, int width);                                    \
     void widget##_sort(widget *self);                                                              \
     void *widget##_scrollbar(widget *self);                                                        \
     void *widget##_hscrollbar(widget *self);
