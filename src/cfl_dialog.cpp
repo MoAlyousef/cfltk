@@ -292,27 +292,27 @@ int Fl_File_Chooser_shown(Fl_File_Chooser *self) {
     return self->shown();
 }
 
-void Fl_File_Chooser_set_textcolor(Fl_File_Chooser *self, unsigned int c) {
+void Fl_File_Chooser_set_text_color(Fl_File_Chooser *self, unsigned int c) {
     LOCK(self->textcolor(c);)
 }
 
-unsigned int Fl_File_Chooser_textcolor(Fl_File_Chooser *self) {
+unsigned int Fl_File_Chooser_text_color(Fl_File_Chooser *self) {
     return self->textcolor();
 }
 
-void Fl_File_Chooser_set_textfont(Fl_File_Chooser *self, int f) {
+void Fl_File_Chooser_set_text_font(Fl_File_Chooser *self, int f) {
     LOCK(self->textfont(f);)
 }
 
-int Fl_File_Chooser_textfont(Fl_File_Chooser *self) {
+int Fl_File_Chooser_text_font(Fl_File_Chooser *self) {
     return self->textfont();
 }
 
-void Fl_File_Chooser_set_textsize(Fl_File_Chooser *self, int s) {
+void Fl_File_Chooser_set_text_size(Fl_File_Chooser *self, int s) {
     LOCK(self->textsize(s);)
 }
 
-int Fl_File_Chooser_textsize(Fl_File_Chooser *self) {
+int Fl_File_Chooser_text_size(Fl_File_Chooser *self) {
     return self->textsize();
 }
 

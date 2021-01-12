@@ -239,11 +239,11 @@ void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag) {
     LOCK(self->canUndo(flag);)
 }
 
-int Fl_Text_Buffer_loadfile(Fl_Text_Buffer *self, const char *file) {
+int Fl_Text_Buffer_load_file(Fl_Text_Buffer *self, const char *file) {
     return self->loadfile(file);
 }
 
-int Fl_Text_Buffer_savefile(Fl_Text_Buffer *self, const char *file) {
+int Fl_Text_Buffer_save_file(Fl_Text_Buffer *self, const char *file) {
     return self->savefile(file);
 }
 

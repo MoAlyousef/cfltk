@@ -127,17 +127,17 @@ void Fl_Check_Browser_set_scrollbar_size(Fl_Check_Browser *self, int newSize);
 
 void Fl_Check_Browser_sort(Fl_Check_Browser *self);
 
-void Fl_Check_Browser_set_textcolor(Fl_Check_Browser *self, unsigned int c);
+void Fl_Check_Browser_set_text_color(Fl_Check_Browser *self, unsigned int c);
 
-unsigned int Fl_Check_Browser_textcolor(Fl_Check_Browser *self);
+unsigned int Fl_Check_Browser_text_color(Fl_Check_Browser *self);
 
-void Fl_Check_Browser_set_textfont(Fl_Check_Browser *self, int f);
+void Fl_Check_Browser_set_text_font(Fl_Check_Browser *self, int f);
 
-int Fl_Check_Browser_textfont(Fl_Check_Browser *self);
+int Fl_Check_Browser_text_font(Fl_Check_Browser *self);
 
-void Fl_Check_Browser_set_textsize(Fl_Check_Browser *self, int s);
+void Fl_Check_Browser_set_text_size(Fl_Check_Browser *self, int s);
 
-int Fl_Check_Browser_textsize(Fl_Check_Browser *self);
+int Fl_Check_Browser_text_size(Fl_Check_Browser *self);
 
 #ifdef __cplusplus
 }

@@ -33,7 +33,7 @@ void Fl_Spinner_set_text_font(Fl_Spinner *self, int s);
 
 int Fl_Spinner_text_size(const Fl_Spinner *self);
 
-void Fl_Spinner_set_textsize(Fl_Spinner *self, int s);
+void Fl_Spinner_set_text_size(Fl_Spinner *self, int s);
 
 unsigned int Fl_Spinner_text_color(const Fl_Spinner *self);
 
@@ -67,7 +67,7 @@ void Fl_Chart_set_text_font(Fl_Chart *self, int s);
 
 int Fl_Chart_text_size(const Fl_Chart *self);
 
-void Fl_Chart_set_textsize(Fl_Chart *self, int s);
+void Fl_Chart_set_text_size(Fl_Chart *self, int s);
 
 unsigned int Fl_Chart_text_color(const Fl_Chart *self);
 
@@ -175,17 +175,17 @@ void Fl_Help_View_set_leftline(Fl_Help_View *self, int);
 
 int Fl_Help_View_leftline(const Fl_Help_View *self);
 
-void Fl_Help_View_set_textcolor(Fl_Help_View *self, unsigned int c);
+void Fl_Help_View_set_text_color(Fl_Help_View *self, unsigned int c);
 
-unsigned int Fl_Help_View_textcolor(Fl_Help_View *self);
+unsigned int Fl_Help_View_text_color(Fl_Help_View *self);
 
-void Fl_Help_View_set_textfont(Fl_Help_View *self, int f);
+void Fl_Help_View_set_text_font(Fl_Help_View *self, int f);
 
-int Fl_Help_View_textfont(Fl_Help_View *self);
+int Fl_Help_View_text_font(Fl_Help_View *self);
 
-void Fl_Help_View_set_textsize(Fl_Help_View *self, int s);
+void Fl_Help_View_set_text_size(Fl_Help_View *self, int s);
 
-int Fl_Help_View_textsize(Fl_Help_View *self);
+int Fl_Help_View_text_size(Fl_Help_View *self);
 
 int Fl_Help_View_scrollbar_size(const Fl_Help_View *self);
 
@@ -209,19 +209,19 @@ void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val);
 
 void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val);
 
-void *Fl_Input_Choice_menubutton(Fl_Input_Choice *self);
+void *Fl_Input_Choice_menu_button(Fl_Input_Choice *self);
 
-void Fl_Input_Choice_set_textcolor(Fl_Input_Choice *self, unsigned int c);
+void Fl_Input_Choice_set_text_color(Fl_Input_Choice *self, unsigned int c);
 
-unsigned int Fl_Input_Choice_textcolor(Fl_Input_Choice *self);
+unsigned int Fl_Input_Choice_text_color(Fl_Input_Choice *self);
 
-void Fl_Input_Choice_set_textfont(Fl_Input_Choice *self, int f);
+void Fl_Input_Choice_set_text_font(Fl_Input_Choice *self, int f);
 
-int Fl_Input_Choice_textfont(Fl_Input_Choice *self);
+int Fl_Input_Choice_text_font(Fl_Input_Choice *self);
 
-void Fl_Input_Choice_set_textsize(Fl_Input_Choice *self, int s);
+void Fl_Input_Choice_set_text_size(Fl_Input_Choice *self, int s);
 
-int Fl_Input_Choice_textsize(Fl_Input_Choice *self);
+int Fl_Input_Choice_text_size(Fl_Input_Choice *self);
 
 #ifdef __cplusplus
 }
