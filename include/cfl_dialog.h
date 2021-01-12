@@ -140,17 +140,17 @@ void Fl_File_Chooser_show(Fl_File_Chooser *self);
 
 int Fl_File_Chooser_shown(Fl_File_Chooser *self);
 
-void Fl_File_Chooser_set_textcolor(Fl_File_Chooser *self, unsigned int c);
+void Fl_File_Chooser_set_text_color(Fl_File_Chooser *self, unsigned int c);
 
-unsigned int Fl_File_Chooser_textcolor(Fl_File_Chooser *self);
+unsigned int Fl_File_Chooser_text_color(Fl_File_Chooser *self);
 
-void Fl_File_Chooser_set_textfont(Fl_File_Chooser *self, int f);
+void Fl_File_Chooser_set_text_font(Fl_File_Chooser *self, int f);
 
-int Fl_File_Chooser_textfont(Fl_File_Chooser *self);
+int Fl_File_Chooser_text_font(Fl_File_Chooser *self);
 
-void Fl_File_Chooser_set_textsize(Fl_File_Chooser *self, int s);
+void Fl_File_Chooser_set_text_size(Fl_File_Chooser *self, int s);
 
-int Fl_File_Chooser_textsize(Fl_File_Chooser *self);
+int Fl_File_Chooser_text_size(Fl_File_Chooser *self);
 
 void Fl_File_Chooser_set_type(Fl_File_Chooser *self, int t);
 

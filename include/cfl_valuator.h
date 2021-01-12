@@ -54,6 +54,18 @@ VALUATOR_DECLARE(Fl_Scrollbar)
 
 WIDGET_DECLARE(Fl_Value_Slider)
 
+void Fl_Value_Slider_set_text_color(Fl_Value_Slider *self, unsigned int c);
+
+unsigned int Fl_Value_Slider_text_color(Fl_Value_Slider *self);
+
+void Fl_Value_Slider_set_text_font(Fl_Value_Slider *self, int f);
+
+int Fl_Value_Slider_text_font(Fl_Value_Slider *self);
+
+void Fl_Value_Slider_set_text_size(Fl_Value_Slider *self, int s);
+
+int Fl_Value_Slider_text_size(Fl_Value_Slider *self);
+
 VALUATOR_DECLARE(Fl_Value_Slider)
 
 WIDGET_DECLARE(Fl_Adjuster)
@@ -62,9 +74,33 @@ VALUATOR_DECLARE(Fl_Adjuster)
 
 WIDGET_DECLARE(Fl_Value_Input)
 
+void Fl_Value_Input_set_text_color(Fl_Value_Input *self, unsigned int c);
+
+unsigned int Fl_Value_Input_text_color(Fl_Value_Input *self);
+
+void Fl_Value_Input_set_text_font(Fl_Value_Input *self, int f);
+
+int Fl_Value_Input_text_font(Fl_Value_Input *self);
+
+void Fl_Value_Input_set_text_size(Fl_Value_Input *self, int s);
+
+int Fl_Value_Input_text_size(Fl_Value_Input *self);
+
 VALUATOR_DECLARE(Fl_Value_Input)
 
 WIDGET_DECLARE(Fl_Value_Output)
+
+void Fl_Value_Output_set_text_color(Fl_Value_Output *self, unsigned int c);
+
+unsigned int Fl_Value_Output_text_color(Fl_Value_Output *self);
+
+void Fl_Value_Output_set_text_font(Fl_Value_Output *self, int f);
+
+int Fl_Value_Output_text_font(Fl_Value_Output *self);
+
+void Fl_Value_Output_set_text_size(Fl_Value_Output *self, int s);
+
+int Fl_Value_Output_text_size(Fl_Value_Output *self);
 
 VALUATOR_DECLARE(Fl_Value_Output)
 
@@ -89,6 +125,18 @@ WIDGET_DECLARE(Fl_Hor_Nice_Slider)
 VALUATOR_DECLARE(Fl_Hor_Nice_Slider)
 
 WIDGET_DECLARE(Fl_Hor_Value_Slider)
+
+void Fl_Hor_Value_Slider_set_text_color(Fl_Hor_Value_Slider *self, unsigned int c);
+
+unsigned int Fl_Hor_Value_Slider_text_color(Fl_Hor_Value_Slider *self);
+
+void Fl_Hor_Value_Slider_set_text_font(Fl_Hor_Value_Slider *self, int f);
+
+int Fl_Hor_Value_Slider_text_font(Fl_Hor_Value_Slider *self);
+
+void Fl_Hor_Value_Slider_set_text_size(Fl_Hor_Value_Slider *self, int s);
+
+int Fl_Hor_Value_Slider_text_size(Fl_Hor_Value_Slider *self);
 
 VALUATOR_DECLARE(Fl_Hor_Value_Slider)
 
