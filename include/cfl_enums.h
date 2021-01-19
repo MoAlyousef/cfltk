@@ -554,3 +554,5 @@ enum Fl_DragType {
     Fl_Drag_Word = 1,
     Fl_Drag_Line = 2,
 };
+
+#endif
