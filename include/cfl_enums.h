@@ -1,7 +1,7 @@
 #ifndef __CFL_ENUMS_H__
 #define __CFL_ENUMS_H__
 
-const char *const Fl_EventNames[] = {
+const char *const Fl_EventNames[28] = {
     "Fl_Event_None",
     "Fl_Event_Push",
     "Fl_Event_Released",
