@@ -11,13 +11,13 @@
 #define MENU_DEFINE(widget)                                                                        \
     void widget##_add(widget *self, const char *name, int shortcut, Fl_Callback *cb, void *data,   \
                       int flag) {                                                                  \
-        if (!cb || !data)                                                                          \
+        if (!cb)                                                                          \
             return;                                                                                \
         LOCK(self->add(name, shortcut, cb, data, flag);)                                           \
     }                                                                                              \
     void widget##_insert(widget *self, int index, const char *name, int shortcut, Fl_Callback *cb, \
                          void *data, int flag) {                                                   \
-        if (!cb || !data)                                                                          \
+        if (!cb)                                                                          \
             return;                                                                                \
         LOCK(self->insert(index, name, shortcut, cb, data, flag);)                                 \
     }                                                                                              \
