@@ -12,7 +12,9 @@
 #include <string.h>
 
 #ifdef _WIN32
+#ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0501 /* need at least WinXP for this API, I think */
+#endif
 #include <windows.h>
 #elif __APPLE__
 #include <ApplicationServices/ApplicationServices.h>

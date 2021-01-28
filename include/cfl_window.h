@@ -116,6 +116,8 @@ int Fl_Gl_Window_mode(const Fl_Gl_Window *self);
 
 void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode);
 
+void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s);
+
 #ifdef __cplusplus
 }
 #endif

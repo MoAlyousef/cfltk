@@ -167,6 +167,8 @@ WINDOW_DEFINE(Fl_Menu_Window)
 
 #ifdef CFLTK_USE_GL
 
+#include <FL/glut.H>
+
 WIDGET_CLASS(Fl_Gl_Window)
 
 WIDGET_DEFINE(Fl_Gl_Window)
@@ -249,6 +251,10 @@ int Fl_Gl_Window_mode(const Fl_Gl_Window *self) {
 
 void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode) {
     self->mode(mode);
+}
+
+void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
+    return (void *)glutGetProcAddress(s);
 }
 
 #endif
