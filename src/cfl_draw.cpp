@@ -5,6 +5,7 @@
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Window.H>
 #include <FL/fl_draw.H>
+#include <FL/platform.H>
 #include <FL/fl_show_colormap.H>
 #include <jpeg/jpeglib.h>
 #include <png/png.h>
@@ -62,83 +63,103 @@ void Fl_line_style(int style, int width, char *dashes) {
 }
 
 void Fl_rect(int x, int y, int w, int h) {
+    fl_open_display();
     fl_rect(x, y, w, h);
 }
 
 void Fl_focus_rect(int x, int y, int w, int h) {
+    fl_open_display();
     fl_focus_rect(x, y, w, h);
 }
 
 void Fl_rect_with_color(int x, int y, int w, int h, unsigned int c) {
+    fl_open_display();
     fl_rect(x, y, w, h, c);
 }
 
 void Fl_rectf(int x, int y, int w, int h) {
+    fl_open_display();
     fl_rectf(x, y, w, h);
 }
 
 void Fl_rectf_with_color(int x, int y, int w, int h, unsigned int c) {
+    fl_open_display();
     fl_rectf(x, y, w, h, c);
 }
 
 void Fl_rectf_with_rgb(int x, int y, int w, int h, unsigned char r, unsigned char g,
                        unsigned char b) {
+    fl_open_display();
     fl_rectf(x, y, w, h, r, g, b);
 }
 
 void Fl_line(int x, int y, int x1, int y1) {
+    fl_open_display();
     fl_line(x, y, x1, y1);
 }
 
 void Fl_line2(int x, int y, int x1, int y1, int x2, int y2) {
+    fl_open_display();
     fl_line(x, y, x1, y1, x2, y2);
 }
 
 void Fl_loop(int x, int y, int x1, int y1, int x2, int y2) {
+    fl_open_display();
     fl_loop(x, y, x1, y1, x2, y2);
 }
 
 void Fl_loop2(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
+    fl_open_display();
     fl_loop(x, y, x1, y1, x2, y2, x3, y3);
 }
 
 void Fl_polygon(int x, int y, int x1, int y1, int x2, int y2) {
+    fl_open_display();
     fl_polygon(x, y, x1, y1, x2, y2);
 }
 
 void Fl_polygon2(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
+    fl_open_display();
     fl_polygon(x, y, x1, y1, x2, y2, x3, y3);
 }
 
 void Fl_xyline(int x, int y, int x1) {
+    fl_open_display();
     fl_xyline(x, y, x1);
 }
 
 void Fl_xyline2(int x, int y, int x1, int y2) {
+    fl_open_display();
     fl_xyline(x, y, x1, y2);
 }
 
 void Fl_xyline3(int x, int y, int x1, int y2, int x3) {
+    fl_open_display();
     fl_xyline(x, y, x1, y2, x3);
 }
 
 void Fl_yxline(int x, int y, int y1) {
+    fl_open_display();
     fl_yxline(x, y, y1);
 }
 
 void Fl_yxline2(int x, int y, int y1, int x2) {
+    fl_open_display();
     fl_yxline(x, y, y1, x2);
 }
 
 void Fl_yxline3(int x, int y, int y1, int x2, int y3) {
+    fl_open_display();
     fl_yxline(x, y, y1, x2, y3);
 }
 
 void Fl_arc(int x, int y, int w, int h, double a1, double a2) {
+    fl_open_display();
     fl_arc(x, y, w, h, a1, a2);
 }
 
 void Fl_pie(int x, int y, int w, int h, double a1, double a2) {
+    fl_open_display();
     fl_pie(x, y, w, h, a1, a2);
 }
 
@@ -192,14 +213,17 @@ void Fl_vertex(double x, double y) {
 
 void Fl_curve(double X0, double Y0, double X1, double Y1, double X2, double Y2, double X3,
               double Y3) {
+    fl_open_display();
     fl_curve(X0, Y0, X1, Y1, X2, Y2, X3, Y3);
 }
 
 void Fl_arc2(double x, double y, double r, double start, double end) {
+    fl_open_display();
     fl_arc(x, y, r, start, end);
 }
 
 void Fl_circle(double x, double y, double r) {
+    fl_open_display();
     fl_circle(x, y, r);
 }
 
@@ -312,51 +336,63 @@ const char *Fl_local_to_mac_roman(const char *t, int n) {
 }
 
 void Fl_draw(const char *str, int x, int y) {
+    fl_open_display();
     fl_draw(str, x, y);
 }
 
 void Fl_draw2(int angle, const char *str, int x, int y) {
+    fl_open_display();
     fl_draw(angle, str, x, y);
 }
 
 void Fl_draw3(const char *str, int n, int x, int y) {
+    fl_open_display();
     fl_draw(str, n, x, y);
 }
 
 void Fl_draw4(int angle, const char *str, int n, int x, int y) {
+    fl_open_display();
     fl_draw(angle, str, n, x, y);
 }
 
 void Fl_rtl_draw(const char *str, int n, int x, int y) {
+    fl_open_display();
     fl_rtl_draw(str, n, x, y);
 }
 
 void Fl_measure(const char *str, int *x, int *y, int draw_symbols) {
+    fl_open_display();
     fl_measure(str, *x, *y, draw_symbols);
 }
 
 void Fl_draw5(const char *str, int x, int y, int w, int h, int align, void **img,
               int draw_symbols) {
+    fl_open_display();
     fl_draw(str, x, y, w, h, align, (Fl_Image *)*img, draw_symbols);
 }
 
 void Fl_frame(const char *s, int x, int y, int w, int h) {
+    fl_open_display();
     fl_frame(s, x, y, w, h);
 }
 
 void Fl_frame2(const char *s, int x, int y, int w, int h) {
+    fl_open_display();
     fl_frame2(s, x, y, w, h);
 }
 
 void Fl_draw_box(int box_type, int x, int y, int w, int h, unsigned int c) {
+    fl_open_display();
     fl_draw_box((Fl_Boxtype)box_type, x, y, w, h, c);
 }
 
 void Fl_draw_image(const unsigned char *buf, int X, int Y, int W, int H, int D, int L) {
+    fl_open_display();
     fl_draw_image(buf, X, Y, W, H, D, L);
 }
 
 void Fl_draw_image_mono(const unsigned char *buf, int X, int Y, int W, int H, int D, int L) {
+    fl_open_display();
     fl_draw_image_mono(buf, X, Y, W, H, D, L);
 }
 char Fl_can_do_alpha_blending(void) {
@@ -373,10 +409,12 @@ unsigned char *Fl_capture_window_part(void *win, int x, int y, int w, int h) {
 }
 
 int Fl_draw_pixmap(const char *const *data, int x, int y, int bg) {
+    fl_open_display();
     return fl_draw_pixmap(data, x, y, bg);
 }
 
 int Fl_draw_pixmap2(/*const*/ char *const *data, int x, int y, int bg) {
+    fl_open_display();
     return fl_draw_pixmap(data, x, y, bg);
 }
 
@@ -462,6 +500,7 @@ void Fl_rescale_offscreen(void *ctx) {
 }
 
 void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
+    fl_open_display();
     fl_draw(str, x, y, w, h, (Fl_Align)align, 0, 1);
 }
 

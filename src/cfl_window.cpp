@@ -4,7 +4,6 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Gl_Window.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Menu_Window.H>
 #include <FL/Fl_RGB_Image.H>
@@ -167,6 +166,10 @@ WINDOW_DEFINE(Fl_Menu_Window)
 
 #ifdef CFLTK_USE_GL
 
+#include <FL/../src/Fl_Gl_Window_Driver.H>
+
+#include <FL/Fl_Gl_Window.H>
+
 WIDGET_CLASS(Fl_Gl_Window)
 
 WIDGET_DEFINE(Fl_Gl_Window)
@@ -249,6 +252,10 @@ int Fl_Gl_Window_mode(const Fl_Gl_Window *self) {
 
 void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode) {
     self->mode(mode);
+}
+
+void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
+    return self->gl_driver()->GetProcAddress(s);
 }
 
 #endif
