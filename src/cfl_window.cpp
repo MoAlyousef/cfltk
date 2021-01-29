@@ -166,9 +166,8 @@ WINDOW_DEFINE(Fl_Menu_Window)
 
 #ifdef CFLTK_USE_GL
 
-#include <FL/../src/Fl_Gl_Window_Driver.H>
-
 #include <FL/Fl_Gl_Window.H>
+#include <FL/glut.H>
 
 WIDGET_CLASS(Fl_Gl_Window)
 
@@ -255,7 +254,7 @@ void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode) {
 }
 
 void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
-    return self->gl_driver()->GetProcAddress(s);
+    return (void *)glutGetProcAddress(s);
 }
 
 #endif
