@@ -45,6 +45,16 @@ const char *Fl_input(int x, int y, const char *txt, const char *deflt);
 
 const char *Fl_password(int x, int y, const char *txt, const char *deflt);
 
+void Fl_message2(const char *txt);
+
+void Fl_alert2(const char *txt);
+
+int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2);
+
+const char *Fl_input2(const char *txt, const char *deflt);
+
+const char *Fl_password2(const char *txt, const char *deflt);
+
 typedef struct Fl_Help_Dialog Fl_Help_Dialog;
 
 Fl_Help_Dialog *Fl_Help_Dialog_new(void);

@@ -87,8 +87,16 @@ void Fl_message(int x, int y, const char *txt) {
     fl_message("%s", txt);
 }
 
+void Fl_message2(const char *txt) {
+    fl_message("%s", txt);
+}
+
 void Fl_alert(int x, int y, const char *txt) {
     fl_message_position(x, y, 0);
+    fl_alert("%s", txt);
+}
+
+void Fl_alert2(const char *txt) {
     fl_alert("%s", txt);
 }
 
@@ -99,13 +107,27 @@ int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1, con
     return fl_choice("%s", b0, b1, b2, txt);
 }
 
+int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2) {
+    if (strlen(b2) == 0)
+        b2 = NULL;
+    return fl_choice("%s", b0, b1, b2, txt);
+}
+
 const char *Fl_input(int x, int y, const char *txt, const char *deflt) {
     fl_message_position(x, y, 0);
     return fl_input("%s", deflt, txt);
 }
 
+const char *Fl_input2(const char *txt, const char *deflt) {
+    return fl_input("%s", deflt, txt);
+}
+
 const char *Fl_password(int x, int y, const char *txt, const char *deflt) {
     fl_message_position(x, y, 0);
+    return fl_password("%s", deflt, txt);
+}
+
+const char *Fl_password2(const char *txt, const char *deflt) {
     return fl_password("%s", deflt, txt);
 }
 
