@@ -166,7 +166,7 @@ WINDOW_DEFINE(Fl_Menu_Window)
 
 #ifdef CFLTK_USE_GL
 
-#include <FL/Fl_Gl_Window_Driver.H>
+#include <FL/../src/Fl_Gl_Window_Driver.H>
 
 #include <FL/Fl_Gl_Window.H>
 
