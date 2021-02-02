@@ -122,6 +122,11 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
             Fl_Widget::resize(x, y, w, h);                                                         \
             redraw();                                                                              \
         }                                                                                          \
+        virtual void resize(int x, int y, int w, int h) override {                                 \
+            if (this->as_window() == this->top_window())                                           \
+                Fl::handle(28, this->top_window());                                                \
+            Fl_Widget::resize(x, y, w, h);                                                         \
+        }                                                                                          \
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \
         }                                                                                          \
@@ -227,7 +232,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         LOCK(self->redraw_label();)                                                                \
     }                                                                                              \
     void widget##_resize(widget *self, int x, int y, int width, int height) {                      \
-        LOCK(self->resize(x, y, width, height);)                                                   \
+        LOCK(((widget##_Derived *)self)->resize(x, y, width, height);)                             \
     }                                                                                              \
     void widget##_widget_resize(widget *self, int x, int y, int width, int height) {               \
         LOCK(((widget##_Derived *)self)->widget_resize(x, y, width, height))                       \

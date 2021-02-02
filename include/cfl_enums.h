@@ -1,7 +1,7 @@
 #ifndef __CFL_ENUMS_H__
 #define __CFL_ENUMS_H__
 
-const char *const Fl_EventNames[28] = {
+const char *const Fl_EventNames[] = {
     "Fl_Event_None",
     "Fl_Event_Push",
     "Fl_Event_Released",
@@ -30,6 +30,7 @@ const char *const Fl_EventNames[28] = {
     "Fl_Event_Fullscreen",
     "Fl_Event_ZoomGesture",
     "Fl_Event_ZoomEvent",
+    "Fl_Event_Resize",
 };
 
 enum Fl_BrowserType {
@@ -284,6 +285,7 @@ enum Fl_Event {
     Fl_Event_Fullscreen,
     Fl_Event_ZoomGesture,
     Fl_Event_ZoomEvent,
+    Fl_Event_Resize,
 };
 
 enum Fl_Key {
