@@ -226,11 +226,13 @@ class Buffer {
 #endif
 
 void Fl_awake_msg(void *msg) {
+    Fl_lock();
 #ifndef __ANDROID__
     Fl::awake(msg);
 #else
     android_buffer.send(msg);
 #endif
+    Fl_unlock();
 }
 
 void *Fl_thread_msg(void) {
