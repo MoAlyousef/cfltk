@@ -119,13 +119,13 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
             return (widget *)this;                                                                 \
         }                                                                                          \
         void widget_resize(int x, int y, int w, int h) {                                           \
-            Fl_Widget::resize(x, y, w, h);                                                         \
+            Fl_Widget::resize(x, y, w, h);                                                            \
             redraw();                                                                              \
         }                                                                                          \
         virtual void resize(int x, int y, int w, int h) override {                                 \
             if (this->as_window() == this->top_window())                                           \
                 Fl::handle(28, this->top_window());                                                \
-            Fl_Widget::resize(x, y, w, h);                                                         \
+            widget::resize(x, y, w, h);                                                            \
         }                                                                                          \
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \

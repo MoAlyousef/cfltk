@@ -406,6 +406,10 @@ void Fl_get_system_colors(void) {
     Fl::get_system_colors();
 }
 
+int Fl_handle(int ev, void *win) {
+    return Fl::handle(ev, (Fl_Window *)win);
+}
+
 #ifdef _WIN32
 
 #define i_load_private_font(PATH) AddFontResourceEx((PATH), FR_PRIVATE, 0)
