@@ -410,6 +410,10 @@ void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val) {
     LOCK(self->value(val));
 }
 
+void *Fl_Input_Choice_input(Fl_Input_Choice *self) {
+    return self->input();
+}
+
 void *Fl_Input_Choice_menu_button(Fl_Input_Choice *self) {
     return self->menubutton();
 }
