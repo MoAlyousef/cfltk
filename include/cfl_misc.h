@@ -209,6 +209,8 @@ void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val);
 
 void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val);
 
+void *Fl_Input_Choice_input(Fl_Input_Choice *self);
+
 void *Fl_Input_Choice_menu_button(Fl_Input_Choice *self);
 
 void Fl_Input_Choice_set_text_color(Fl_Input_Choice *self, unsigned int c);
