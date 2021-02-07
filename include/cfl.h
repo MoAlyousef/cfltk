@@ -17,9 +17,9 @@ int Fl_lock(void);
 
 void Fl_unlock(void);
 
-int Fl_awake(Fl_Awake_Handler handler, void *data);
+int Fl_awake_callback(Fl_Awake_Handler handler, void *data);
 
-void Fl_awake2(void);
+void Fl_awake(void);
 
 void Fl_set_scrollbar_size(int);
 
@@ -172,6 +172,8 @@ void Fl_background2(unsigned char r, unsigned char g, unsigned char b);
 void Fl_get_system_colors(void);
 
 int Fl_handle(int, void *);
+
+void Fl_add_idle(void (*)(void *), void *);
 
 #ifdef __cplusplus
 }
