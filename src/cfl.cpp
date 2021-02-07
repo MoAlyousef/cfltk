@@ -42,11 +42,11 @@ void Fl_unlock(void) {
     Fl::unlock();
 }
 
-int Fl_awake(Fl_Awake_Handler handler, void *data) {
+int Fl_awake_callback(Fl_Awake_Handler handler, void *data) {
     return Fl::awake(handler, data);
 }
 
-void Fl_awake2(void) {
+void Fl_awake(void) {
     Fl::awake();
 }
 
@@ -412,6 +412,10 @@ void Fl_get_system_colors(void) {
 
 int Fl_handle(int ev, void *win) {
     return Fl::handle(ev, (Fl_Window *)win);
+}
+
+void Fl_add_idle(void (*cb)(void *), void *arg) {
+    Fl::add_idle(cb, arg);
 }
 
 #ifdef _WIN32
