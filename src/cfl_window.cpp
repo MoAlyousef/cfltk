@@ -11,172 +11,7 @@
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
 
-#define WINDOW_CLASS(widget)                                                                       \
-    struct widget##_Derived : public widget {                                                      \
-        void *ev_data_ = NULL;                                                                     \
-        void *draw_data_ = NULL;                                                                   \
-                                                                                                   \
-        typedef int (*handler)(int, void *data);                                                   \
-        handler inner_handler = NULL;                                                              \
-        typedef int (*handler2)(Fl_Widget *, int, void *data);                                     \
-        handler2 inner_handler2 = NULL;                                                            \
-        typedef void (*drawer)(void *data);                                                        \
-        drawer inner_drawer = NULL;                                                                \
-        typedef void (*drawer2)(Fl_Widget *, void *data);                                          \
-        drawer2 inner_drawer2 = NULL;                                                              \
-        typedef void (*deleter_fp)(void *);                                                        \
-        deleter_fp deleter = NULL;                                                                 \
-        widget##_Derived(int x, int y, int w, int h, const char *title = 0)                        \
-            : widget(x, y, w, h, title) {                                                          \
-        }                                                                                          \
-        operator widget *() {                                                                      \
-            return (widget *)this;                                                                 \
-        }                                                                                          \
-        void widget_resize(int x, int y, int w, int h) {                                           \
-            Fl_Widget::resize(x, y, w, h);                                                         \
-            redraw();                                                                              \
-        }                                                                                          \
-        virtual void resize(int x, int y, int w, int h) override {                                 \
-            if (this->as_window() == this->top_window())                                           \
-                Fl::handle(28, this->top_window());                                                \
-            widget::resize(x, y, w, h);                                                            \
-        }                                                                                          \
-        void set_handler(handler h) {                                                              \
-            inner_handler = h;                                                                     \
-        }                                                                                          \
-        void set_handler2(handler2 h) {                                                            \
-            inner_handler2 = h;                                                                    \
-        }                                                                                          \
-        void set_handler_data(void *data) {                                                        \
-            ev_data_ = data;                                                                       \
-        }                                                                                          \
-        int handle(int event) override {                                                           \
-            int ret = widget::handle(event);                                                       \
-            int local = 0;                                                                         \
-            if (inner_handler) {                                                                   \
-                local = inner_handler(event, ev_data_);                                            \
-                if (local == 0)                                                                    \
-                    return ret;                                                                    \
-                else                                                                               \
-                    return local;                                                                  \
-            } else if (inner_handler2) {                                                           \
-                local = inner_handler2(this, event, ev_data_);                                     \
-                if (local == 0)                                                                    \
-                    return ret;                                                                    \
-                else                                                                               \
-                    return local;                                                                  \
-            } else {                                                                               \
-                return ret;                                                                        \
-            }                                                                                      \
-        }                                                                                          \
-        void set_drawer(drawer h) {                                                                \
-            inner_drawer = h;                                                                      \
-        }                                                                                          \
-        void set_drawer2(drawer2 h) {                                                              \
-            inner_drawer2 = h;                                                                     \
-        }                                                                                          \
-        void set_drawer_data(void *data) {                                                         \
-            draw_data_ = data;                                                                     \
-        }                                                                                          \
-        void draw() override {                                                                     \
-            widget::draw();                                                                        \
-            if (inner_drawer)                                                                      \
-                inner_drawer(draw_data_);                                                          \
-            else if (inner_drawer2)                                                                \
-                inner_drawer2(this, draw_data_);                                                   \
-            else {                                                                                 \
-            }                                                                                      \
-        }                                                                                          \
-        ~widget##_Derived() {                                                                      \
-            if (ev_data_)                                                                          \
-                deleter(ev_data_);                                                                 \
-            ev_data_ = NULL;                                                                       \
-            inner_handler = NULL;                                                                  \
-            inner_handler2 = NULL;                                                                 \
-            if (draw_data_)                                                                        \
-                deleter(draw_data_);                                                               \
-            draw_data_ = NULL;                                                                     \
-            inner_drawer = NULL;                                                                   \
-            inner_drawer2 = NULL;                                                                  \
-            if (user_data())                                                                       \
-                deleter(user_data());                                                              \
-            user_data(NULL);                                                                       \
-            callback((void (*)(Fl_Widget *, void *))NULL);                                         \
-        }                                                                                          \
-    };
-
-#define WINDOW_DEFINE(widget)                                                                      \
-    void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
-        LOCK(                                                                                      \
-            if (boolean) { self->set_modal(); } else { self->set_non_modal(); })                   \
-    }                                                                                              \
-    void widget##_fullscreen(widget *self, unsigned int boolean) {                                 \
-        LOCK(                                                                                      \
-            if (boolean) { self->fullscreen(); } else { self->fullscreen_off(); })                 \
-    }                                                                                              \
-    void widget##_make_current(widget *self) {                                                     \
-        LOCK(((Fl_Window *)self)->make_current();)                                                 \
-    }                                                                                              \
-    void widget##_set_icon(widget *self, const void *image) {                                      \
-        LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image));)                               \
-    }                                                                                              \
-    void *widget##_icon(const widget *self) {                                                      \
-        return (Fl_Image *)self->icon();                                                           \
-    }                                                                                              \
-    void widget##_set_cursor(widget *self, int cursor) {                                           \
-        LOCK(self->cursor((Fl_Cursor)cursor);)                                                     \
-    }                                                                                              \
-    int widget##_shown(widget *self) {                                                             \
-        return self->shown();                                                                      \
-    }                                                                                              \
-    void *widget##_raw_handle(const widget *w) {                                                   \
-        Window *xid = (Window *)malloc(sizeof(Window));                                            \
-        if (!xid)                                                                                  \
-            return NULL;                                                                           \
-        Window temp = fl_xid(w);                                                                   \
-        if (!temp)                                                                                 \
-            return NULL;                                                                           \
-        memcpy(xid, &temp, sizeof(Window));                                                        \
-        return xid;                                                                                \
-    }                                                                                              \
-    void widget##_set_border(widget *self, int flag) {                                             \
-        LOCK(self->border(flag);)                                                                  \
-    }                                                                                              \
-    int widget##_border(const widget *self) {                                                      \
-        return self->border();                                                                     \
-    }                                                                                              \
-    void *widget##_region(const widget *self) {                                                    \
-        Fl_X *t = Fl_X::i(self);                                                                   \
-        if (!t)                                                                                    \
-            return NULL;                                                                           \
-        return t->region;                                                                          \
-    }                                                                                              \
-    void widget##_set_region(widget *self, void *r) {                                              \
-        LOCK(Fl_X *t = Fl_X::i(self); if (!t) return; t->region = (Fl_Region)r;)                   \
-    }                                                                                              \
-    void widget##_iconize(widget *self) {                                                          \
-        LOCK(self->iconize())                                                                      \
-    }                                                                                              \
-    unsigned int widget##_fullscreen_active(const widget *self) {                                  \
-        return self->fullscreen_active();                                                          \
-    }                                                                                              \
-    void widget##_free_position(widget *self) {                                                    \
-        LOCK(self->free_position())                                                                \
-    }                                                                                              \
-    int widget##_decorated_w(const widget *self) {                                                 \
-        return self->decorated_w();                                                                \
-    }                                                                                              \
-    int widget##_decorated_h(const widget *self) {                                                 \
-        return self->decorated_h();                                                                \
-    }                                                                                              \
-    void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
-        LOCK(self->size_range(minw, minh, maxw, maxh))                                             \
-    }                                                                                              \
-    void widget##_hotspot(widget *self, Fl_Widget *wid) {                                          \
-        LOCK(self->hotspot(wid))                                                                   \
-    }
-
-WINDOW_CLASS(Fl_Window)
+WIDGET_CLASS(Fl_Window)
 
 WIDGET_DEFINE(Fl_Window)
 
@@ -230,7 +65,7 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #endif
 }
 
-WINDOW_CLASS(Fl_Single_Window)
+WIDGET_CLASS(Fl_Single_Window)
 
 WIDGET_DEFINE(Fl_Single_Window)
 
@@ -238,7 +73,7 @@ GROUP_DEFINE(Fl_Single_Window)
 
 WINDOW_DEFINE(Fl_Single_Window)
 
-WINDOW_CLASS(Fl_Double_Window)
+WIDGET_CLASS(Fl_Double_Window)
 
 WIDGET_DEFINE(Fl_Double_Window)
 
@@ -250,7 +85,7 @@ GROUP_DEFINE(Fl_Double_Window)
 
 WINDOW_DEFINE(Fl_Double_Window)
 
-WINDOW_CLASS(Fl_Menu_Window)
+WIDGET_CLASS(Fl_Menu_Window)
 
 WIDGET_DEFINE(Fl_Menu_Window)
 
@@ -263,7 +98,7 @@ WINDOW_DEFINE(Fl_Menu_Window)
 #include <FL/Fl_Gl_Window.H>
 #include <FL/glut.H>
 
-WINDOW_CLASS(Fl_Gl_Window)
+WIDGET_CLASS(Fl_Gl_Window)
 
 WIDGET_DEFINE(Fl_Gl_Window)
 
