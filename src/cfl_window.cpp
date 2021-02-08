@@ -11,6 +11,100 @@
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
 
+#define WINDOW_CLASS(widget)                                                                       \
+    struct widget##_Derived : public widget {                                                      \
+        void *ev_data_ = NULL;                                                                     \
+        void *draw_data_ = NULL;                                                                   \
+                                                                                                   \
+        typedef int (*handler)(int, void *data);                                                   \
+        handler inner_handler = NULL;                                                              \
+        typedef int (*handler2)(Fl_Widget *, int, void *data);                                     \
+        handler2 inner_handler2 = NULL;                                                            \
+        typedef void (*drawer)(void *data);                                                        \
+        drawer inner_drawer = NULL;                                                                \
+        typedef void (*drawer2)(Fl_Widget *, void *data);                                          \
+        drawer2 inner_drawer2 = NULL;                                                              \
+        typedef void (*deleter_fp)(void *);                                                        \
+        deleter_fp deleter = NULL;                                                                 \
+        widget##_Derived(int x, int y, int w, int h, const char *title = 0)                        \
+            : widget(x, y, w, h, title) {                                                          \
+        }                                                                                          \
+        operator widget *() {                                                                      \
+            return (widget *)this;                                                                 \
+        }                                                                                          \
+        void widget_resize(int x, int y, int w, int h) {                                           \
+            Fl_Widget::resize(x, y, w, h);                                                         \
+            redraw();                                                                              \
+        }                                                                                          \
+        virtual void resize(int x, int y, int w, int h) override {                                 \
+            if (this->as_window() == this->top_window())                                           \
+                Fl::handle(28, this->top_window());                                                \
+            widget::resize(x, y, w, h);                                                            \
+        }                                                                                          \
+        void set_handler(handler h) {                                                              \
+            inner_handler = h;                                                                     \
+        }                                                                                          \
+        void set_handler2(handler2 h) {                                                            \
+            inner_handler2 = h;                                                                    \
+        }                                                                                          \
+        void set_handler_data(void *data) {                                                        \
+            ev_data_ = data;                                                                       \
+        }                                                                                          \
+        int handle(int event) override {                                                           \
+            int ret = widget::handle(event);                                                       \
+            int local = 0;                                                                         \
+            if (inner_handler) {                                                                   \
+                local = inner_handler(event, ev_data_);                                            \
+                if (local == 0)                                                                    \
+                    return ret;                                                                    \
+                else                                                                               \
+                    return local;                                                                  \
+            } else if (inner_handler2) {                                                           \
+                local = inner_handler2(this, event, ev_data_);                                     \
+                if (local == 0)                                                                    \
+                    return ret;                                                                    \
+                else                                                                               \
+                    return local;                                                                  \
+            } else {                                                                               \
+                return ret;                                                                        \
+            }                                                                                      \
+        }                                                                                          \
+        void set_drawer(drawer h) {                                                                \
+            inner_drawer = h;                                                                      \
+        }                                                                                          \
+        void set_drawer2(drawer2 h) {                                                              \
+            inner_drawer2 = h;                                                                     \
+        }                                                                                          \
+        void set_drawer_data(void *data) {                                                         \
+            draw_data_ = data;                                                                     \
+        }                                                                                          \
+        void draw() override {                                                                     \
+            widget::draw();                                                                        \
+            if (inner_drawer)                                                                      \
+                inner_drawer(draw_data_);                                                          \
+            else if (inner_drawer2)                                                                \
+                inner_drawer2(this, draw_data_);                                                   \
+            else {                                                                                 \
+            }                                                                                      \
+        }                                                                                          \
+        ~widget##_Derived() {                                                                      \
+            if (ev_data_)                                                                          \
+                deleter(ev_data_);                                                                 \
+            ev_data_ = NULL;                                                                       \
+            inner_handler = NULL;                                                                  \
+            inner_handler2 = NULL;                                                                 \
+            if (draw_data_)                                                                        \
+                deleter(draw_data_);                                                               \
+            draw_data_ = NULL;                                                                     \
+            inner_drawer = NULL;                                                                   \
+            inner_drawer2 = NULL;                                                                  \
+            if (user_data())                                                                       \
+                deleter(user_data());                                                              \
+            user_data(NULL);                                                                       \
+            callback((void (*)(Fl_Widget *, void *))NULL);                                         \
+        }                                                                                          \
+    };
+
 #define WINDOW_DEFINE(widget)                                                                      \
     void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
         LOCK(                                                                                      \
@@ -82,7 +176,7 @@
         LOCK(self->hotspot(wid))                                                                   \
     }
 
-WIDGET_CLASS(Fl_Window)
+WINDOW_CLASS(Fl_Window)
 
 WIDGET_DEFINE(Fl_Window)
 
@@ -136,7 +230,7 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #endif
 }
 
-WIDGET_CLASS(Fl_Single_Window)
+WINDOW_CLASS(Fl_Single_Window)
 
 WIDGET_DEFINE(Fl_Single_Window)
 
@@ -144,7 +238,7 @@ GROUP_DEFINE(Fl_Single_Window)
 
 WINDOW_DEFINE(Fl_Single_Window)
 
-WIDGET_CLASS(Fl_Double_Window)
+WINDOW_CLASS(Fl_Double_Window)
 
 WIDGET_DEFINE(Fl_Double_Window)
 
@@ -156,7 +250,7 @@ GROUP_DEFINE(Fl_Double_Window)
 
 WINDOW_DEFINE(Fl_Double_Window)
 
-WIDGET_CLASS(Fl_Menu_Window)
+WINDOW_CLASS(Fl_Menu_Window)
 
 WIDGET_DEFINE(Fl_Menu_Window)
 
@@ -169,7 +263,7 @@ WINDOW_DEFINE(Fl_Menu_Window)
 #include <FL/Fl_Gl_Window.H>
 #include <FL/glut.H>
 
-WIDGET_CLASS(Fl_Gl_Window)
+WINDOW_CLASS(Fl_Gl_Window)
 
 WIDGET_DEFINE(Fl_Gl_Window)
 
