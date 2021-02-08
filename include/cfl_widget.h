@@ -119,7 +119,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
             return (widget *)this;                                                                 \
         }                                                                                          \
         void widget_resize(int x, int y, int w, int h) {                                           \
-            Fl_Widget::resize(x, y, w, h);                                                            \
+            Fl_Widget::resize(x, y, w, h);                                                         \
             redraw();                                                                              \
         }                                                                                          \
         virtual void resize(int x, int y, int w, int h) override {                                 \
