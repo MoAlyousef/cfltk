@@ -11,7 +11,6 @@
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
 
-
 #define WINDOW_DEFINE(widget)                                                                      \
     void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
         LOCK(                                                                                      \
