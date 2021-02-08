@@ -11,6 +11,77 @@
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
 
+#define WINDOW_DEFINE(widget)                                                                      \
+    void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
+        LOCK(                                                                                      \
+            if (boolean) { self->set_modal(); } else { self->set_non_modal(); })                   \
+    }                                                                                              \
+    void widget##_fullscreen(widget *self, unsigned int boolean) {                                 \
+        LOCK(                                                                                      \
+            if (boolean) { self->fullscreen(); } else { self->fullscreen_off(); })                 \
+    }                                                                                              \
+    void widget##_make_current(widget *self) {                                                     \
+        LOCK(((Fl_Window *)self)->make_current();)                                                 \
+    }                                                                                              \
+    void widget##_set_icon(widget *self, const void *image) {                                      \
+        LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image));)                               \
+    }                                                                                              \
+    void *widget##_icon(const widget *self) {                                                      \
+        return (Fl_Image *)self->icon();                                                           \
+    }                                                                                              \
+    void widget##_set_cursor(widget *self, int cursor) {                                           \
+        LOCK(self->cursor((Fl_Cursor)cursor);)                                                     \
+    }                                                                                              \
+    int widget##_shown(widget *self) {                                                             \
+        return self->shown();                                                                      \
+    }                                                                                              \
+    void *widget##_raw_handle(const widget *w) {                                                   \
+        Window *xid = (Window *)malloc(sizeof(Window));                                            \
+        if (!xid)                                                                                  \
+            return NULL;                                                                           \
+        Window temp = fl_xid(w);                                                                   \
+        if (!temp)                                                                                 \
+            return NULL;                                                                           \
+        memcpy(xid, &temp, sizeof(Window));                                                        \
+        return xid;                                                                                \
+    }                                                                                              \
+    void widget##_set_border(widget *self, int flag) {                                             \
+        LOCK(self->border(flag);)                                                                  \
+    }                                                                                              \
+    int widget##_border(const widget *self) {                                                      \
+        return self->border();                                                                     \
+    }                                                                                              \
+    void *widget##_region(const widget *self) {                                                    \
+        Fl_X *t = Fl_X::i(self);                                                                   \
+        if (!t)                                                                                    \
+            return NULL;                                                                           \
+        return t->region;                                                                          \
+    }                                                                                              \
+    void widget##_set_region(widget *self, void *r) {                                              \
+        LOCK(Fl_X *t = Fl_X::i(self); if (!t) return; t->region = (Fl_Region)r;)                   \
+    }                                                                                              \
+    void widget##_iconize(widget *self) {                                                          \
+        LOCK(self->iconize())                                                                      \
+    }                                                                                              \
+    unsigned int widget##_fullscreen_active(const widget *self) {                                  \
+        return self->fullscreen_active();                                                          \
+    }                                                                                              \
+    void widget##_free_position(widget *self) {                                                    \
+        LOCK(self->free_position())                                                                \
+    }                                                                                              \
+    int widget##_decorated_w(const widget *self) {                                                 \
+        return self->decorated_w();                                                                \
+    }                                                                                              \
+    int widget##_decorated_h(const widget *self) {                                                 \
+        return self->decorated_h();                                                                \
+    }                                                                                              \
+    void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
+        LOCK(self->size_range(minw, minh, maxw, maxh))                                             \
+    }                                                                                              \
+    void widget##_hotspot(widget *self, Fl_Widget *wid) {                                          \
+        LOCK(self->hotspot(wid))                                                                   \
+    }
+
 WIDGET_CLASS(Fl_Window)
 
 WIDGET_DEFINE(Fl_Window)
