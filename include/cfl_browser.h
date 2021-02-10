@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 #define BROWSER_DECLARE(widget)                                                                    \
+    int widget##_value(widget *);                                                                  \
     void widget##_remove(widget *, int line);                                                      \
     void widget##_add(widget *, const char *newtext);                                              \
     void widget##_insert(widget *, int line, const char *newtext);                                 \
