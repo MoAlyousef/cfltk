@@ -10,6 +10,9 @@
 #include <FL/Fl_Select_Browser.H>
 
 #define BROWSER_DEFINE(widget)                                                                     \
+    int widget##_value(widget *self) {                                                             \
+        return self->value();                                                                      \
+    }                                                                                              \
     void widget##_remove(widget *self, int line) {                                                 \
         LOCK(self->remove(line);)                                                                  \
     }                                                                                              \
