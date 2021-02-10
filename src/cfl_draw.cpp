@@ -23,38 +23,47 @@ unsigned int Fl_get_color(void) {
 }
 
 void Fl_push_clip(int x, int y, int w, int h) {
+    fl_open_display();
     fl_push_clip(x, y, w, h);
 }
 
 void Fl_push_no_clip(void) {
+    fl_open_display();
     fl_push_no_clip();
 }
 
 void Fl_pop_clip(void) {
+    fl_open_display();
     fl_pop_clip();
 }
 
 int Fl_not_clipped(int x, int y, int w, int h) {
+    fl_open_display();
     return fl_not_clipped(x, y, w, h);
 }
 
 int Fl_clip_box(int x, int y, int w, int h, int *X, int *Y, int *W, int *H) {
+    fl_open_display();
     return fl_clip_box(x, y, w, h, *X, *Y, *W, *H);
 }
 
 void Fl_restore_clip(void) {
+    fl_open_display();
     fl_restore_clip();
 }
 
 void Fl_set_clip_region(void *r) {
+    fl_open_display();
     fl_clip_region((Fl_Region)r);
 }
 
 void *Fl_clip_region(void) {
+    fl_open_display();
     return (void *)fl_clip_region();
 }
 
 void Fl_point(int x, int y) {
+    fl_open_display();
     fl_point(x, y);
 }
 
@@ -164,50 +173,62 @@ void Fl_pie(int x, int y, int w, int h, double a1, double a2) {
 }
 
 void Fl_push_matrix(void) {
+    fl_open_display();
     fl_push_matrix();
 }
 
 void Fl_pop_matrix(void) {
+    fl_open_display();
     fl_pop_matrix();
 }
 
 void Fl_scale(double x, double y) {
+    fl_open_display();
     fl_scale(x, y);
 }
 
 void Fl_scale2(double x) {
+    fl_open_display();
     fl_scale(x);
 }
 
 void Fl_translate(double x, double y) {
+    fl_open_display();
     fl_translate(x, y);
 }
 
 void Fl_rotate(double d) {
+    fl_open_display();
     fl_rotate(d);
 }
 
 void Fl_mult_matrix(double a, double b, double c, double d, double x, double y) {
+    fl_open_display();
     fl_mult_matrix(a, b, c, d, x, y);
 }
 
 void Fl_begin_points(void) {
+    fl_open_display();
     fl_begin_points();
 }
 
 void Fl_begin_line(void) {
+    fl_open_display();
     fl_begin_line();
 }
 
 void Fl_begin_loop(void) {
+    fl_open_display();
     fl_begin_loop();
 }
 
 void Fl_begin_polygon(void) {
+    fl_open_display();
     fl_begin_polygon();
 }
 
 void Fl_vertex(double x, double y) {
+    fl_open_display();
     fl_vertex(x, y);
 }
 
@@ -228,50 +249,62 @@ void Fl_circle(double x, double y, double r) {
 }
 
 void Fl_end_points(void) {
+    fl_open_display();
     fl_end_points();
 }
 
 void Fl_end_line(void) {
+    fl_open_display();
     fl_end_line();
 }
 
 void Fl_end_loop(void) {
+    fl_open_display();
     fl_end_loop();
 }
 
 void Fl_end_polygon(void) {
+    fl_open_display();
     fl_end_polygon();
 }
 
 void Fl_begin_complex_polygon(void) {
+    fl_open_display();
     fl_begin_complex_polygon();
 }
 
 void Fl_gap(void) {
+    fl_open_display();
     fl_gap();
 }
 
 void Fl_end_complex_polygon(void) {
+    fl_open_display();
     fl_end_complex_polygon();
 }
 
 double Fl_transform_x(double x, double y) {
+    fl_open_display();
     return fl_transform_x(x, y);
 }
 
 double Fl_transform_y(double x, double y) {
+    fl_open_display();
     return fl_transform_y(x, y);
 }
 
 double Fl_transform_dx(double x, double y) {
+    fl_open_display();
     return fl_transform_dx(x, y);
 }
 
 double Fl_transform_dy(double x, double y) {
+    fl_open_display();
     return fl_transform_dy(x, y);
 }
 
 void Fl_transformed_vertex(double xf, double yf) {
+    fl_open_display();
     fl_transformed_vertex(xf, yf);
 }
 
@@ -296,6 +329,7 @@ int Fl_set_height(int font, int size) {
 }
 
 int Fl_descent(void) {
+    fl_open_display();
     return fl_descent();
 }
 
@@ -395,15 +429,18 @@ void Fl_draw_image_mono(const unsigned char *buf, int X, int Y, int W, int H, in
     fl_open_display();
     fl_draw_image_mono(buf, X, Y, W, H, D, L);
 }
+
 char Fl_can_do_alpha_blending(void) {
     return fl_can_do_alpha_blending();
 }
 
 unsigned char *Fl_read_image(unsigned char *p, int X, int Y, int W, int H, int alpha) {
+    fl_open_display();
     return fl_read_image(p, X, Y, W, H, alpha);
 }
 
 unsigned char *Fl_capture_window_part(void *win, int x, int y, int w, int h) {
+    fl_open_display();
     Fl_RGB_Image *tmp = fl_capture_window_part((Fl_Window *)win, x, y, w, h);
     return (unsigned char *)tmp->data();
 }
@@ -419,10 +456,12 @@ int Fl_draw_pixmap2(/*const*/ char *const *data, int x, int y, int bg) {
 }
 
 int Fl_measure_pixmap(/*const*/ char *const *data, int *w, int *h) {
+    fl_open_display();
     return fl_measure_pixmap(data, *w, *h);
 }
 
 int Fl_measure_pixmap2(const char *const *cdata, int *w, int *h) {
+    fl_open_display();
     return fl_measure_pixmap(cdata, *w, *h);
 }
 
@@ -439,63 +478,78 @@ unsigned int Fl_old_shortcut(const char *s) {
 }
 
 void Fl_overlay_rect(int x, int y, int w, int h) {
+    fl_open_display();
     return fl_overlay_rect(x, y, w, h);
 }
 
 void Fl_overlay_clear(void) {
+    fl_open_display();
     return fl_overlay_clear();
 }
 
 void Fl_set_cursor(int cursor) {
+    fl_open_display();
     return fl_cursor((Fl_Cursor)cursor);
 }
 
 void Fl_set_cursor2(int cursor, int fg, int bg) {
+    fl_open_display();
     return fl_cursor((Fl_Cursor)cursor, fg, bg);
 }
 
 const char *Fl_expand_text(const char *from, char *buf, int maxbuf, double maxw, int *n,
                            double *width, int wrap, int draw_symbols) {
+    fl_open_display();
     return fl_expand_text(from, buf, maxbuf, maxw, *n, *width, wrap, draw_symbols);
 }
 
 void Fl_set_status(int X, int Y, int W, int H) {
+    fl_open_display();
     fl_set_status(X, Y, W, H);
 }
 
 void Fl_set_spot(int font, int size, int X, int Y, int W, int H, void *win) {
+    fl_open_display();
     fl_set_spot(font, size, X, Y, W, H, (Fl_Window *)win);
 }
 
 void Fl_reset_spot(void) {
+    fl_open_display();
     fl_reset_spot();
 }
 
 unsigned int Fl_show_colormap(unsigned int old_col) {
+    fl_open_display();
     return fl_show_colormap((Fl_Color)old_col);
 }
 
 void Fl_copy_offscreen(int x, int y, int w, int h, void *pixmap, int srcx, int srcy) {
+    fl_open_display();
     fl_copy_offscreen(x, y, w, h, (Fl_Offscreen)pixmap, srcx, srcy);
 }
 
 void *Fl_create_offscreen(int w, int h) {
+    fl_open_display();
     return (void *)fl_create_offscreen(w, h);
 }
 
 void Fl_begin_offscreen(void *b) {
+    fl_open_display();
     fl_begin_offscreen((Fl_Offscreen)b);
 }
 
 void Fl_end_offscreen(void) {
+    fl_open_display();
     fl_end_offscreen();
 }
 
 void Fl_delete_offscreen(void *bitmap) {
+    fl_open_display();
     fl_delete_offscreen((Fl_Offscreen)bitmap);
 }
 
 void Fl_rescale_offscreen(void *ctx) {
+    fl_open_display();
     fl_rescale_offscreen(*(Fl_Offscreen *)ctx);
 }
 
