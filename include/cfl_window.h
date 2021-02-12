@@ -72,6 +72,18 @@ GROUP_DECLARE(Fl_Menu_Window)
 
 WINDOW_DECLARE(Fl_Menu_Window)
 
+WIDGET_DECLARE(Fl_Overlay_Window)
+
+GROUP_DECLARE(Fl_Overlay_Window)
+
+void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self, custom_draw_callback cb, void *data);
+
+void Fl_Overlay_Window_draw_overlay2(Fl_Overlay_Window *self, custom_draw_callback2 cb, void *data);
+
+void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self);
+
+WINDOW_DECLARE(Fl_Overlay_Window)
+
 WIDGET_DECLARE(Fl_Gl_Window)
 
 GROUP_DECLARE(Fl_Gl_Window)
