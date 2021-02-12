@@ -118,6 +118,52 @@ void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode);
 
 void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s);
 
+WIDGET_DECLARE(Fl_Glut_Window)
+
+GROUP_DECLARE(Fl_Glut_Window)
+
+WINDOW_DECLARE(Fl_Glut_Window)
+
+void Fl_Glut_Window_flush(Fl_Glut_Window *self);
+
+char Fl_Glut_Window_valid(const Fl_Glut_Window *self);
+
+void Fl_Glut_Window_set_valid(Fl_Glut_Window *self, char v);
+
+char Fl_Glut_Window_context_valid(const Fl_Glut_Window *self);
+
+void Fl_Glut_Window_set_context_valid(Fl_Glut_Window *self, char v);
+
+int Fl_Glut_Window_can_do(Fl_Glut_Window *self);
+
+void *Fl_Glut_Window_context(const Fl_Glut_Window *self);
+
+void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx, int destroy_flag);
+
+void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self);
+
+void Fl_Glut_Window_ortho(Fl_Glut_Window *self);
+
+int Fl_Glut_Window_can_do_overlay(Fl_Glut_Window *self);
+
+void Fl_Glut_Window_redraw_overlay(Fl_Glut_Window *self);
+
+void Fl_Glut_Window_hide_overlay(Fl_Glut_Window *self);
+
+void Fl_Glut_Window_make_overlay_current(Fl_Glut_Window *self);
+
+float Fl_Glut_Window_pixels_per_unit(Fl_Glut_Window *self);
+
+int Fl_Glut_Window_pixel_w(Fl_Glut_Window *self);
+
+int Fl_Glut_Window_pixel_h(Fl_Glut_Window *self);
+
+int Fl_Glut_Window_mode(const Fl_Glut_Window *self);
+
+void Fl_Glut_Window_set_mode(Fl_Glut_Window *self, int mode);
+
+void *Fl_Glut_Window_get_proc_address(Fl_Glut_Window *self, const char *s);
+
 #ifdef __cplusplus
 }
 #endif
