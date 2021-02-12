@@ -257,4 +257,92 @@ void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
     return (void *)glutGetProcAddress(s);
 }
 
+WIDGET_CLASS(Fl_Glut_Window)
+
+WIDGET_DEFINE(Fl_Glut_Window)
+
+GROUP_DEFINE(Fl_Glut_Window)
+
+WINDOW_DEFINE(Fl_Glut_Window)
+
+void Fl_Glut_Window_flush(Fl_Glut_Window *self) {
+    LOCK(self->flush();)
+}
+
+char Fl_Glut_Window_valid(const Fl_Glut_Window *self) {
+    return self->valid();
+}
+
+void Fl_Glut_Window_set_valid(Fl_Glut_Window *self, char v) {
+    LOCK(self->valid(v);)
+}
+
+char Fl_Glut_Window_context_valid(const Fl_Glut_Window *self) {
+    return self->context_valid();
+}
+
+void Fl_Glut_Window_set_context_valid(Fl_Glut_Window *self, char v) {
+    LOCK(self->context_valid(v);)
+}
+
+int Fl_Glut_Window_can_do(Fl_Glut_Window *self) {
+    return self->can_do();
+}
+
+void *Fl_Glut_Window_context(const Fl_Glut_Window *self) {
+    return self->context();
+}
+
+void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx, int destroy_flag) {
+    LOCK(self->context((GLContext)ctx, destroy_flag);)
+}
+
+void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self) {
+    LOCK(self->swap_buffers();)
+}
+
+void Fl_Glut_Window_ortho(Fl_Glut_Window *self) {
+    LOCK(self->ortho();)
+}
+
+int Fl_Glut_Window_can_do_overlay(Fl_Glut_Window *self) {
+    return self->can_do_overlay();
+}
+
+void Fl_Glut_Window_redraw_overlay(Fl_Glut_Window *self) {
+    LOCK(self->redraw_overlay();)
+}
+
+void Fl_Glut_Window_hide_overlay(Fl_Glut_Window *self) {
+    LOCK(self->hide_overlay();)
+}
+
+void Fl_Glut_Window_make_overlay_current(Fl_Glut_Window *self) {
+    LOCK(self->make_overlay_current();)
+}
+
+float Fl_Glut_Window_pixels_per_unit(Fl_Glut_Window *self) {
+    return self->pixels_per_unit();
+}
+
+int Fl_Glut_Window_pixel_w(Fl_Glut_Window *self) {
+    return self->pixel_w();
+}
+
+int Fl_Glut_Window_pixel_h(Fl_Glut_Window *self) {
+    return self->pixel_h();
+}
+
+int Fl_Glut_Window_mode(const Fl_Glut_Window *self) {
+    return self->mode();
+}
+
+void Fl_Glut_Window_set_mode(Fl_Glut_Window *self, int mode) {
+    self->mode(mode);
+}
+
+void *Fl_Glut_Window_get_proc_address(Fl_Glut_Window *self, const char *s) {
+    return (void *)glutGetProcAddress(s);
+}
+
 #endif
