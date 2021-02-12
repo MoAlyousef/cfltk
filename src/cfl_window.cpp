@@ -6,6 +6,7 @@
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Menu_Window.H>
+#include <FL/Fl_Overlay_Window.H>
 #include <FL/Fl_RGB_Image.H>
 #include <FL/Fl_Single_Window.H>
 #include <FL/Fl_Window.H>
@@ -163,6 +164,165 @@ WIDGET_DEFINE(Fl_Menu_Window)
 GROUP_DEFINE(Fl_Menu_Window)
 
 WINDOW_DEFINE(Fl_Menu_Window)
+
+struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
+    void *ev_data_ = NULL;
+    void *draw_data_ = NULL;
+    void *overlay_draw_data_ = NULL;
+
+    typedef int (*handler)(int, void *data);
+    handler inner_handler = NULL;
+    typedef int (*handler2)(Fl_Widget *, int, void *data);
+    handler2 inner_handler2 = NULL;
+    typedef void (*drawer)(void *data);
+    drawer inner_drawer = NULL;
+    typedef void (*drawer2)(Fl_Widget *, void *data);
+    drawer2 inner_drawer2 = NULL;
+    typedef void (*overlay_drawer)(void *data);
+    drawer inner_overlay_drawer = NULL;
+    typedef void (*overlay_drawer2)(Fl_Widget *, void *data);
+    drawer2 inner_overlay_drawer2 = NULL;
+    typedef void (*deleter_fp)(void *);
+    deleter_fp deleter = NULL;
+
+    Fl_Overlay_Window_Derived(int x, int y, int w, int h, const char *title = 0)
+        : Fl_Overlay_Window(x, y, w, h, title) {
+    }
+
+    operator Fl_Overlay_Window *() {
+        return (Fl_Overlay_Window *)this;
+    }
+
+    void widget_resize(int x, int y, int w, int h) {
+        Fl_Widget::resize(x, y, w, h);
+        redraw();
+    }
+
+    virtual void resize(int x, int y, int w, int h) override {
+        if (this->as_window() == this->top_window())
+            Fl::handle(28, this->top_window());
+        Fl_Overlay_Window::resize(x, y, w, h);
+    }
+
+    void set_handler(handler h) {
+        inner_handler = h;
+    }
+
+    void set_handler2(handler2 h) {
+        inner_handler2 = h;
+    }
+
+    void set_handler_data(void *data) {
+        ev_data_ = data;
+    }
+
+    int handle(int event) override {
+        int ret = Fl_Overlay_Window::handle(event);
+        int local = 0;
+        if (inner_handler) {
+            local = inner_handler(event, ev_data_);
+            if (local == 0)
+                return ret;
+            else
+                return local;
+        } else if (inner_handler2) {
+            local = inner_handler2(this, event, ev_data_);
+            if (local == 0)
+                return ret;
+            else
+                return local;
+        } else {
+            return ret;
+        }
+    }
+
+    void set_drawer(drawer h) {
+        inner_drawer = h;
+    }
+
+    void set_drawer2(drawer2 h) {
+        inner_drawer2 = h;
+    }
+
+    void set_drawer_data(void *data) {
+        draw_data_ = data;
+    }
+
+    void set_overlay_drawer(drawer h) {
+        inner_overlay_drawer = h;
+    }
+
+    void set_overlay_drawer2(drawer2 h) {
+        inner_overlay_drawer2 = h;
+    }
+
+    void set_overlay_drawer_data(void *data) {
+        overlay_draw_data_ = data;
+    }
+
+    void draw() override {
+        Fl_Overlay_Window::draw();
+        if (inner_drawer)
+            inner_drawer(draw_data_);
+        else if (inner_drawer2)
+            inner_drawer2(this, draw_data_);
+        else {
+        }
+    }
+
+    void draw_overlay() override {
+        Fl_Overlay_Window::draw_overlay();
+        if (inner_overlay_drawer)
+            inner_drawer(overlay_draw_data_);
+        else if (inner_overlay_drawer2)
+            inner_drawer2(this, overlay_draw_data_);
+        else {
+        }
+    }
+
+    ~Fl_Overlay_Window_Derived() {
+        if (ev_data_)
+            deleter(ev_data_);
+        ev_data_ = NULL;
+        inner_handler = NULL;
+        inner_handler2 = NULL;
+        if (draw_data_)
+            deleter(draw_data_);
+        draw_data_ = NULL;
+        inner_drawer = NULL;
+        inner_drawer2 = NULL;
+        // if (draw_overlay_data_)
+        //     deleter(draw_overlay_data_);
+        // draw_overlay_data_ = NULL;
+        // inner_overlay_drawer = NULL;
+        // inner_overlay_drawer2 = NULL;
+        if (user_data())
+            deleter(user_data());
+        user_data(NULL);
+        callback((void (*)(Fl_Widget *, void *))NULL);
+    }
+};
+
+WIDGET_DEFINE(Fl_Overlay_Window)
+
+GROUP_DEFINE(Fl_Overlay_Window)
+
+void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self, custom_draw_callback cb, void *data) {
+    LOCK(((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer_data(data);
+         ((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer(cb);)
+}
+
+void Fl_Overlay_Window_draw_overlay2(Fl_Overlay_Window *self, custom_draw_callback2 cb,
+                                     void *data) {
+    LOCK(((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer_data(data);
+         ((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer2(cb);)
+}
+
+void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self) {
+    self->redraw_overlay();
+}
+
+WINDOW_DEFINE(Fl_Overlay_Window)
 
 #ifdef CFLTK_USE_GL
 
