@@ -271,7 +271,6 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
     }
 
     void draw_overlay() override {
-        Fl_Overlay_Window::draw_overlay();
         if (inner_overlay_drawer)
             inner_drawer(overlay_draw_data_);
         else if (inner_overlay_drawer2)
