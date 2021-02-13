@@ -82,6 +82,8 @@ void Fl_Overlay_Window_draw_overlay2(Fl_Overlay_Window *self, custom_draw_callba
 
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self);
 
+int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window *self);
+
 WINDOW_DECLARE(Fl_Overlay_Window)
 
 WIDGET_DECLARE(Fl_Gl_Window)
