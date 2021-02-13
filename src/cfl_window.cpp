@@ -272,9 +272,9 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
 
     void draw_overlay() override {
         if (inner_overlay_drawer)
-            inner_drawer(overlay_draw_data_);
+            inner_overlay_drawer(overlay_draw_data_);
         else if (inner_overlay_drawer2)
-            inner_drawer2(this, overlay_draw_data_);
+            inner_overlay_drawer2(this, overlay_draw_data_);
         else {
         }
     }
@@ -319,6 +319,10 @@ void Fl_Overlay_Window_draw_overlay2(Fl_Overlay_Window *self, custom_draw_callba
 
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self) {
     self->redraw_overlay();
+}
+
+int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window *self) {
+    return self->can_do_overlay();
 }
 
 WINDOW_DEFINE(Fl_Overlay_Window)
