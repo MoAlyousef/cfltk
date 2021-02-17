@@ -114,7 +114,7 @@ Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data) {
 
 IMAGE_DEFINE(Fl_Pixmap)
 
-Fl_Pixmap *Fl_Pixmap_new(const unsigned char *const *D) {
+Fl_Pixmap *Fl_Pixmap_new(const char *const *D) {
     return new Fl_Pixmap(D);
 }
 
