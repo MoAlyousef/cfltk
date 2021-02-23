@@ -267,6 +267,10 @@ void Fl_remove_timeout(void (*timeout_h)(void *), void *data) {
     Fl::remove_timeout(timeout_h, data);
 }
 
+int Fl_has_timeout(void (*cb)(void *), void *arg) {
+    return Fl::has_timeout(cb, arg);
+}
+
 int Fl_dnd(void) {
     return Fl::dnd();
 }
@@ -421,6 +425,18 @@ int Fl_handle(int ev, void *win) {
 
 void Fl_add_idle(void (*cb)(void *), void *arg) {
     Fl::add_idle(cb, arg);
+}
+
+int Fl_has_idle(void (*cb)(void *), void *arg) {
+    return Fl::has_idle(cb, arg);
+}
+
+void Fl_remove_idle(void (*cb)(void *), void *arg) {
+    Fl::remove_idle(cb, arg);
+}
+
+void Fl_flush(void) {
+    Fl::flush();
 }
 
 #ifdef _WIN32
