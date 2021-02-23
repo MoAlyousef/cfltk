@@ -101,6 +101,8 @@ void Fl_repeat_timeout(double t, void (*)(void *), void *);
 
 void Fl_remove_timeout(void (*)(void *), void *);
 
+int Fl_has_timeout(void (*)(void *), void *);
+
 int Fl_dnd(void);
 
 void *Fl_grab(void);
@@ -174,6 +176,12 @@ void Fl_get_system_colors(void);
 int Fl_handle(int, void *);
 
 void Fl_add_idle(void (*)(void *), void *);
+
+int Fl_has_idle(void (*)(void *), void *);
+
+void Fl_remove_idle(void (*)(void *), void *);
+
+void Fl_flush(void);
 
 #ifdef __cplusplus
 }
