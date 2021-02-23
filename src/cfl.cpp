@@ -411,7 +411,12 @@ void Fl_get_system_colors(void) {
 }
 
 int Fl_handle(int ev, void *win) {
-    return Fl::handle(ev, (Fl_Window *)win);
+    int ret = 0;
+    Fl::lock();
+    ret = Fl::handle(ev, (Fl_Window *)win);
+    Fl::unlock();
+    Fl::awake();
+    return ret;
 }
 
 void Fl_add_idle(void (*cb)(void *), void *arg) {
