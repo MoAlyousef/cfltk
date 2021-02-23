@@ -99,6 +99,22 @@ WIDGET_CLASS(Fl_Dial)
 
 WIDGET_DEFINE(Fl_Dial)
 
+short Fl_Dial_angle1(const Fl_Dial *self) {
+    return self->angle1();
+}
+
+short Fl_Dial_angle2(const Fl_Dial *self) {
+    return self->angle2();
+}
+
+void Fl_Dial_set_angle1(Fl_Dial *self, short val) {
+    LOCK(self->angle1(val);)
+}
+
+void Fl_Dial_set_angle2(Fl_Dial *self, short val) {
+    LOCK(self->angle2(val);)
+}
+
 VALUATOR_DEFINE(Fl_Dial)
 
 WIDGET_CLASS(Fl_Line_Dial)

@@ -38,6 +38,14 @@ VALUATOR_DECLARE(Fl_Counter)
 
 WIDGET_DECLARE(Fl_Dial)
 
+short Fl_Dial_angle1(const Fl_Dial *self);
+
+short Fl_Dial_angle2(const Fl_Dial *self);
+
+void Fl_Dial_set_angle1(Fl_Dial *self, short val);
+
+void Fl_Dial_set_angle2(Fl_Dial *self, short val);
+
 VALUATOR_DECLARE(Fl_Dial)
 
 WIDGET_DECLARE(Fl_Line_Dial)
