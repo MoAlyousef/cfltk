@@ -427,7 +427,7 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
         LOCK(((widget##_Derived *)self)->deleter = deleter;)                                       \
     }                                                                                              \
     int widget##_visible(const widget *self) {                                                     \
-        return self->visible();                                                                    \
+        return ((Fl_Widget *)self)->visible();                                                     \
     }                                                                                              \
     int widget##_visible_r(const widget *self) {                                                   \
         return self->visible_r();                                                                  \
