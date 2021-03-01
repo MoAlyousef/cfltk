@@ -95,7 +95,9 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     void widget##_set_deimage(widget *, void *);                                                   \
     void *widget##_deimage(const widget *);                                                        \
     void widget##_set_callback(widget *, Fl_Callback *, void *);                                   \
-    void widget##_set_deleter(widget *, void (*)(void *));
+    void widget##_set_deleter(widget *, void (*)(void *));                                         \
+    int widget##_visible(const widget *self);                                                      \
+    int widget##_visible_r(const widget *self);
 
 #define WIDGET_CLASS(widget)                                                                       \
     struct widget##_Derived : public widget {                                                      \
@@ -423,6 +425,12 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
     }                                                                                              \
     void widget##_set_deleter(widget *self, void (*deleter)(void *)) {                             \
         LOCK(((widget##_Derived *)self)->deleter = deleter;)                                       \
+    }                                                                                              \
+    int widget##_visible(const widget *self) {                                                     \
+        return self->visible();                                                                    \
+    }                                                                                              \
+    int widget##_visible_r(const widget *self) {                                                   \
+        return self->visible_r();                                                                  \
     }
 
 WIDGET_DECLARE(Fl_Widget)
