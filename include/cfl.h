@@ -183,6 +183,14 @@ void Fl_remove_idle(void (*)(void *), void *);
 
 void Fl_flush(void);
 
+void Fl_set_screen_scale(int n, float val);
+
+float Fl_screen_scale(int n);
+
+int Fl_screen_scaling_supported(void);
+
+int Fl_screen_count(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -439,6 +439,22 @@ void Fl_flush(void) {
     Fl::flush();
 }
 
+void Fl_set_screen_scale(int n, float val) {
+    Fl::screen_scale(n, val);
+}
+
+float Fl_screen_scale(int n) {
+    return Fl::screen_scale(n);
+}
+
+int Fl_screen_scaling_supported(void) {
+    return Fl::screen_scaling_supported();
+}
+
+int Fl_screen_count(void) {
+    return Fl::screen_count();
+}
+
 #ifdef _WIN32
 
 #define i_load_private_font(PATH) AddFontResourceEx((PATH), FR_PRIVATE, 0)
