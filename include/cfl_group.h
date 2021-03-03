@@ -14,6 +14,7 @@ extern "C" {
     void widget##_add(widget *self, void *);                                                       \
     void widget##_insert(widget *self, void *, int pos);                                           \
     void widget##_remove(widget *self, void *wid);                                                 \
+    void widget##_remove_by_index(widget *self, int idx);                                          \
     void widget##_clear(widget *self);                                                             \
     int widget##_children(widget *self);                                                           \
     Fl_Widget *widget##_child(widget *, int index);                                                \
@@ -37,6 +38,9 @@ extern "C" {
     }                                                                                              \
     void widget##_remove(widget *self, void *wid) {                                                \
         LOCK(self->remove(*(Fl_Widget *)wid);)                                                     \
+    }                                                                                              \
+    void widget##_remove_by_index(widget *self, int idx) {                                         \
+        LOCK(self->remove(idx);)                                                                   \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
         LOCK(self->clear();)                                                                       \
