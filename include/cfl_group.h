@@ -40,7 +40,7 @@ extern "C" {
         LOCK(self->remove(*(Fl_Widget *)wid);)                                                     \
     }                                                                                              \
     void widget##_remove_by_index(widget *self, int idx) {                                         \
-        LOCK(self->remove(idx);)                                                                   \
+        LOCK(((Fl_Group *)self)->remove(idx);)                                                     \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
         LOCK(self->clear();)                                                                       \
