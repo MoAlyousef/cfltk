@@ -146,12 +146,17 @@ IMAGE_DEFINE(Fl_RGB_Image)
 
 Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth) {
     Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth);
+    if (!img) return NULL;
+    unsigned char *arr = new unsigned char[W * H * depth];
+    if (!arr) return NULL;
+    memcpy(arr, bits, W * H * depth);
     img->alloc_array = 1;
     return img;
 }
 
 Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth) {
     Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth);
+    if (!img) return NULL;
     img->alloc_array = 0;
     return img;
 }
