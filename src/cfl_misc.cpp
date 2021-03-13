@@ -75,7 +75,7 @@ void Fl_Spinner_set_text_color(Fl_Spinner *self, unsigned int n) {
 }
 
 double Fl_Spinner_value(const Fl_Spinner *self) {
-    self->value();
+    return self->value();
 }
 
 void Fl_Spinner_set_value(Fl_Spinner *self, double val) {
