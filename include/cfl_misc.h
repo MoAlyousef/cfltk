@@ -39,6 +39,10 @@ unsigned int Fl_Spinner_text_color(const Fl_Spinner *self);
 
 void Fl_Spinner_set_text_color(Fl_Spinner *self, unsigned int n);
 
+double Fl_Spinner_value(const Fl_Spinner *);
+
+void Fl_Spinner_set_value(Fl_Spinner *, double);
+
 WIDGET_DECLARE(Fl_Clock)
 
 WIDGET_DECLARE(Fl_Chart)
