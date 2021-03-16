@@ -199,13 +199,13 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
     }
 
     virtual void resize(int x, int y, int w, int h) override {
+        Fl_Overlay_Window::resize(x, y, w, h);
         if (this->as_window() == this->top_window()) {
             Fl::lock();
             Fl::handle(28, this->top_window());
             Fl::unlock();
             Fl::awake();
         }
-        Fl_Overlay_Window::resize(x, y, w, h);
     }
 
     void set_handler(handler h) {
