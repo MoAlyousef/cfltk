@@ -125,13 +125,13 @@ typedef void (*custom_draw_callback2)(Fl_Widget *, void *);
             redraw();                                                                              \
         }                                                                                          \
         virtual void resize(int x, int y, int w, int h) override {                                 \
+            widget::resize(x, y, w, h);                                                            \
             if (this->as_window() == this->top_window()) {                                         \
                 Fl::lock();                                                                        \
                 Fl::handle(28, this->top_window());                                                \
                 Fl::unlock();                                                                      \
                 Fl::awake();                                                                       \
             }                                                                                      \
-            widget::resize(x, y, w, h);                                                            \
         }                                                                                          \
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \
