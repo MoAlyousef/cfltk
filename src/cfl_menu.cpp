@@ -251,3 +251,16 @@ void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *self, void *data) {
     self->user_data(data);
 }
+
+void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m,
+                       int selected) {
+    self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected);
+}
+
+int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m) {
+    return self->measure(hp, (const Fl_Menu_ *)m);
+}
+
+void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image) {
+    LOCK(self->image((Fl_Image *)image))
+}

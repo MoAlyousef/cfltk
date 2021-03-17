@@ -59,8 +59,6 @@ void Fl_Chart_set_bounds(Fl_Chart *self, double a, double b);
 
 int Fl_Chart_size(const Fl_Chart *self);
 
-void Fl_Chart_set_size(Fl_Chart *self, int W, int H);
-
 int Fl_Chart_maxsize(const Fl_Chart *self);
 
 void Fl_Chart_set_maxsize(Fl_Chart *self, int m);

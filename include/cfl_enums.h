@@ -557,4 +557,14 @@ enum Fl_DragType {
     Fl_Drag_Line = 2,
 };
 
+enum Fl_Damage {
+  Fl_Damage_Child    = 0x01, /**< A child needs to be redrawn. */
+  Fl_Damage_Expose   = 0x02, /**< The window was exposed. */
+  Fl_Damage_Scroll   = 0x04, /**< The Fl_Scroll widget was scrolled. */
+  Fl_Damage_Overlay  = 0x08, /**< The overlay planes need to be redrawn. */
+  Fl_Damage_User1    = 0x10, /**< First user-defined damage bit. */
+  Fl_Damage_User2    = 0x20, /**< Second user-defined damage bit. */
+  Fl_Damage_All      = 0x80  /**< Everything needs to be redrawn. */
+};
+
 #endif

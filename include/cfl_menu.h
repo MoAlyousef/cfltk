@@ -113,6 +113,12 @@ void *Fl_Menu_Item_user_data(const Fl_Menu_Item *);
 
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *, void *data);
 
+void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m, int selected);
+
+int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m);
+
+void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image);
+
 #ifdef __cplusplus
 }
 #endif
