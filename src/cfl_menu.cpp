@@ -254,6 +254,7 @@ void Fl_Menu_Item_set_user_data(Fl_Menu_Item *self, void *data) {
 
 void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m,
                        int selected) {
+    fl_open_display();
     self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected);
 }
 
