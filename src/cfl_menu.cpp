@@ -11,13 +11,13 @@
 #define MENU_DEFINE(widget)                                                                        \
     void widget##_add(widget *self, const char *name, int shortcut, Fl_Callback *cb, void *data,   \
                       int flag) {                                                                  \
-        if (!cb)                                                                          \
+        if (!cb)                                                                                   \
             return;                                                                                \
         LOCK(self->add(name, shortcut, cb, data, flag);)                                           \
     }                                                                                              \
     void widget##_insert(widget *self, int index, const char *name, int shortcut, Fl_Callback *cb, \
                          void *data, int flag) {                                                   \
-        if (!cb)                                                                          \
+        if (!cb)                                                                                   \
             return;                                                                                \
         LOCK(self->insert(index, name, shortcut, cb, data, flag);)                                 \
     }                                                                                              \
@@ -100,6 +100,9 @@
     }                                                                                              \
     int widget##_down_box(const widget *self) {                                                    \
         return self->down_box();                                                                   \
+    }                                                                                              \
+    void widget##_global(widget *self) {                                                           \
+        LOCK(self->global();)                                                                      \
     }
 
 WIDGET_CLASS(Fl_Menu_Bar)

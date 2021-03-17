@@ -81,6 +81,12 @@
     }                                                                                              \
     void widget##_hotspot(widget *self, Fl_Widget *wid) {                                          \
         LOCK(self->hotspot(wid))                                                                   \
+    }                                                                                              \
+    void widget##_set_shape(widget *self, const void *image) {                                     \
+        LOCK(self->shape((const Fl_Image *)image))                                                 \
+    }                                                                                              \
+    void *widget##_shape(const widget *self) {                                                     \
+        return self->shape();                                                                      \
     }
 
 WIDGET_CLASS(Fl_Window)
