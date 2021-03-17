@@ -11,13 +11,13 @@
 #define MENU_DEFINE(widget)                                                                        \
     void widget##_add(widget *self, const char *name, int shortcut, Fl_Callback *cb, void *data,   \
                       int flag) {                                                                  \
-        if (!cb)                                                                          \
+        if (!cb)                                                                                   \
             return;                                                                                \
         LOCK(self->add(name, shortcut, cb, data, flag);)                                           \
     }                                                                                              \
     void widget##_insert(widget *self, int index, const char *name, int shortcut, Fl_Callback *cb, \
                          void *data, int flag) {                                                   \
-        if (!cb)                                                                          \
+        if (!cb)                                                                                   \
             return;                                                                                \
         LOCK(self->insert(index, name, shortcut, cb, data, flag);)                                 \
     }                                                                                              \
@@ -100,6 +100,9 @@
     }                                                                                              \
     int widget##_down_box(const widget *self) {                                                    \
         return self->down_box();                                                                   \
+    }                                                                                              \
+    void widget##_global(widget *self) {                                                           \
+        LOCK(self->global();)                                                                      \
     }
 
 WIDGET_CLASS(Fl_Menu_Bar)
@@ -247,4 +250,17 @@ void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {
 
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *self, void *data) {
     self->user_data(data);
+}
+
+void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m,
+                       int selected) {
+    self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected);
+}
+
+int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m) {
+    return self->measure(hp, (const Fl_Menu_ *)m);
+}
+
+void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image) {
+    LOCK(self->image((Fl_Image *)image))
 }

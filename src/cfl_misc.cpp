@@ -114,10 +114,6 @@ int Fl_Chart_size(const Fl_Chart *self) {
     return self->size();
 }
 
-void Fl_Chart_set_size(Fl_Chart *self, int W, int H) {
-    LOCK(self->size(W, H);)
-}
-
 int Fl_Chart_maxsize(const Fl_Chart *self) {
     return self->maxsize();
 }

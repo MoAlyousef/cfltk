@@ -34,7 +34,8 @@ extern "C" {
     const Fl_Menu_Item *widget##_menu(const widget *self);                                         \
     void widget##_remove(widget *self, int idx);                                                   \
     void widget##_set_down_box(widget *self, int box);                                             \
-    int widget##_down_box(const widget *self);
+    int widget##_down_box(const widget *self);                                                     \
+    void widget##_global(widget *self);
 
 typedef struct Fl_Menu_Item Fl_Menu_Item;
 
@@ -111,6 +112,13 @@ void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p);
 void *Fl_Menu_Item_user_data(const Fl_Menu_Item *);
 
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *, void *data);
+
+void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m,
+                       int selected);
+
+int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m);
+
+void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image);
 
 #ifdef __cplusplus
 }

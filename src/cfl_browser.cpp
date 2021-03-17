@@ -34,9 +34,6 @@
     int widget##_size(const widget *self) {                                                        \
         return self->size();                                                                       \
     }                                                                                              \
-    void widget##_set_size(widget *self, int W, int H) {                                           \
-        LOCK(self->size(W, H);)                                                                    \
-    }                                                                                              \
     int widget##_select(widget *self, int line) {                                                  \
         int ret = 0;                                                                               \
         LOCK(ret = self->select(line));                                                            \
