@@ -34,7 +34,7 @@ typedef union {
     void widget##_size_range(widget *self, int, int, int, int);                                    \
     void widget##_hotspot(widget *self, Fl_Widget *wid);                                           \
     void widget##_set_shape(widget *self, const void *image);                                      \
-    void *widget##_shape(const widget *self);
+    const void *widget##_shape(const widget *self);
 
 WIDGET_DECLARE(Fl_Window)
 

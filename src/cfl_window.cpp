@@ -85,7 +85,7 @@
     void widget##_set_shape(widget *self, const void *image) {                                     \
         LOCK(self->shape((const Fl_Image *)image))                                                 \
     }                                                                                              \
-    void *widget##_shape(const widget *self) {                                                     \
+    const void *widget##_shape(const widget *self) {                                               \
         return self->shape();                                                                      \
     }
 
