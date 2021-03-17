@@ -6,6 +6,7 @@
 #include <FL/Enumerations.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Window.H>
+#include <FL/platform.H>
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -196,6 +197,14 @@ void Fl_set_font(int o, int n) {
 
 void Fl_add_handler(int (*ev_handler)(int ev)) {
     Fl::add_handler(ev_handler);
+}
+
+void Fl_open_display(void) {
+    fl_open_display();
+}
+
+void Fl_close_display(void) {
+    fl_close_display();
 }
 
 #ifdef __ANDROID__
