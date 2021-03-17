@@ -207,6 +207,22 @@ void Fl_close_display(void) {
     fl_close_display();
 }
 
+int Fl_box_dx(int boxtype) {
+    return Fl::box_dx((Fl_Boxtype)boxtype);
+}
+
+int Fl_box_dy(int boxtype) {
+    return Fl::box_dy((Fl_Boxtype)boxtype);
+}
+
+int Fl_box_dw(int boxtype) {
+    return Fl::box_dw((Fl_Boxtype)boxtype);
+}
+
+int Fl_box_dh(int boxtype) {
+    return Fl::box_dh((Fl_Boxtype)boxtype);
+}
+
 #ifdef __ANDROID__
 
 class Buffer {

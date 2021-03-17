@@ -195,6 +195,14 @@ void Fl_open_display(void);
 
 void Fl_close_display(void);
 
+int Fl_box_dx(int boxtype);
+
+int Fl_box_dy(int boxtype);
+
+int Fl_box_dw(int boxtype);
+
+int Fl_box_dh(int boxtype);
+
 #ifdef __cplusplus
 }
 #endif
