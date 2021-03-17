@@ -7,6 +7,7 @@
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Menu_Button.H>
 #include <FL/Fl_Menu_Item.H>
+#include <FL/platform.H>
 
 #define MENU_DEFINE(widget)                                                                        \
     void widget##_add(widget *self, const char *name, int shortcut, Fl_Callback *cb, void *data,   \

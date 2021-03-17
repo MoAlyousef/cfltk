@@ -191,6 +191,10 @@ int Fl_screen_scaling_supported(void);
 
 int Fl_screen_count(void);
 
+void Fl_open_display(void);
+
+void Fl_close_display(void);
+
 #ifdef __cplusplus
 }
 #endif
