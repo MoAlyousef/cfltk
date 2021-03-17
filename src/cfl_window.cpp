@@ -87,6 +87,12 @@
     }                                                                                              \
     const void *widget##_shape(widget *self) {                                                     \
         return self->shape();                                                                      \
+    }                                                                                              \
+    int widget##_x_root(const widget *self) {                                                      \
+        return self->x_root();                                                                     \
+    }                                                                                              \
+    int widget##_y_root(const widget *self) {                                                      \
+        return self->y_root();                                                                     \
     }
 
 WIDGET_CLASS(Fl_Window)
