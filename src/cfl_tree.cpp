@@ -170,7 +170,7 @@ void Fl_Tree_open_toggle(Fl_Tree *self, Fl_Tree_Item *item, int docallback) {
 
 int Fl_Tree_close(Fl_Tree *self, const char *path, int docallback) {
     int ret = 0;
-    LOCK(self->close(path, 1));
+    LOCK(ret = self->close(path, 1));
     return ret;
 }
 
