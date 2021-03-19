@@ -65,7 +65,10 @@ else()
 endif()
 
 if(USE_SYSTEM_FLTK)
-    target_include_directories(cfltk PUBLIC include ${FLTK_INCLUDE_DIRS})
+    target_include_directories(cfltk PUBLIC 
+    $<BUILD_INTERFACE:include ${FLTK_INCLUDE_DIRS}>  
+    $<INSTALL_INTERFACE:include/cfltk>
+    )
 else()
     target_include_directories(cfltk PUBLIC 
     $<BUILD_INTERFACE:include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk>  
