@@ -85,6 +85,8 @@ unsigned char Fl_set_fonts(const char *c);
 
 void Fl_set_font(int, int);
 
+void Fl_set_font_size(int);
+
 void Fl_add_handler(int (*ev_handler)(int ev));
 
 void Fl_awake_msg(void *msg);
