@@ -81,6 +81,22 @@ WIDGET_CLASS(Fl_Slider)
 
 WIDGET_DEFINE(Fl_Slider)
 
+float Fl_Slider_slider_size(const Fl_Slider *self) {
+    return self->slider_size();
+}
+
+void Fl_Slider_set_slider_size(Fl_Slider *self, float v) {
+    LOCK(self->slider_size((double)v);)
+}
+
+int Fl_Slider_slider_box(const Fl_Slider *self) {
+    return (int)self->slider();
+}
+
+void Fl_Slider_set_slider_box(Fl_Slider *self, int c) {
+    LOCK(self->slider((Fl_Boxtype)c);)
+}
+
 VALUATOR_DEFINE(Fl_Slider)
 
 WIDGET_CLASS(Fl_Nice_Slider)

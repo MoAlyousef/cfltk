@@ -26,6 +26,14 @@ extern "C" {
 
 WIDGET_DECLARE(Fl_Slider)
 
+float Fl_Slider_slider_size(const Fl_Slider *self);
+
+void Fl_Slider_set_slider_size(Fl_Slider *self, float v);
+
+int Fl_Slider_slider_box(const Fl_Slider *self);
+
+void Fl_Slider_set_slider_box(Fl_Slider *self, int c);
+
 VALUATOR_DECLARE(Fl_Slider)
 
 WIDGET_DECLARE(Fl_Nice_Slider)
