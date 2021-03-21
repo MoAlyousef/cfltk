@@ -7,6 +7,8 @@
 #include <FL/Fl_Tree_Item_Array.H>
 #include <FL/Fl_Widget.H>
 
+#include <stdlib.h>
+
 WIDGET_CLASS(Fl_Tree)
 
 WIDGET_DEFINE(Fl_Tree)
