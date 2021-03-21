@@ -195,6 +195,12 @@ void Fl_set_font(int o, int n) {
     Fl::set_font(o, n);
 }
 
+void Fl_set_font_size(int sz) {
+    Fl::lock();
+    FL_NORMAL_SIZE = sz;
+    Fl::unlock();
+}
+
 void Fl_add_handler(int (*ev_handler)(int ev)) {
     Fl::add_handler(ev_handler);
 }
