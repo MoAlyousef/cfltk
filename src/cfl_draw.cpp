@@ -7,8 +7,8 @@
 #include <FL/fl_draw.H>
 #include <FL/platform.H>
 #include <FL/fl_show_colormap.H>
-#include <jpeg/jpeglib.h>
-#include <png/png.h>
+// #include <jpeg/jpeglib.h>
+// #include <png/png.h>
 
 void Fl_set_color_int(unsigned int c) {
     fl_color(c);
@@ -558,115 +558,115 @@ void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
     fl_draw(str, x, y, w, h, (Fl_Align)align, 0, 1);
 }
 
-// The following code was copied from stackoverflow
-// https://stackoverflow.com/questions/1821806/how-to-encode-png-to-buffer-using-libpng/
-int Fl_raw_image_to_png(unsigned char *data, const char *fname, int w, int h) {
-    if (!data || !fname)
-        return -1;
+// // The following code was copied from stackoverflow
+// // https://stackoverflow.com/questions/1821806/how-to-encode-png-to-buffer-using-libpng/
+// int Fl_raw_image_to_png(unsigned char *data, const char *fname, int w, int h) {
+//     if (!data || !fname)
+//         return -1;
 
-    FILE *fp;
+//     FILE *fp;
 
-    if ((fp = fopen(fname, "wb")) == NULL) {
-        return -1;
-    }
+//     if ((fp = fopen(fname, "wb")) == NULL) {
+//         return -1;
+//     }
 
-    png_structp pptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
-    if (!pptr)
-        return -1;
-    png_infop iptr = png_create_info_struct(pptr);
-    if (!iptr)
-        return -1;
-    png_bytep ptr = (png_bytep)data;
+//     png_structp pptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
+//     if (!pptr)
+//         return -1;
+//     png_infop iptr = png_create_info_struct(pptr);
+//     if (!iptr)
+//         return -1;
+//     png_bytep ptr = (png_bytep)data;
 
-    png_init_io(pptr, fp);
-    png_set_IHDR(pptr, iptr, w, h, 8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
-                 PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-    png_set_sRGB(pptr, iptr, PNG_sRGB_INTENT_PERCEPTUAL);
+//     png_init_io(pptr, fp);
+//     png_set_IHDR(pptr, iptr, w, h, 8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+//                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+//     png_set_sRGB(pptr, iptr, PNG_sRGB_INTENT_PERCEPTUAL);
 
-    png_write_info(pptr, iptr);
+//     png_write_info(pptr, iptr);
 
-    for (int i = h; i > 0; i--, ptr += w * 3) {
-        png_write_row(pptr, ptr);
-    }
+//     for (int i = h; i > 0; i--, ptr += w * 3) {
+//         png_write_row(pptr, ptr);
+//     }
 
-    png_write_end(pptr, iptr);
-    png_destroy_write_struct(&pptr, &iptr);
+//     png_write_end(pptr, iptr);
+//     png_destroy_write_struct(&pptr, &iptr);
 
-    fclose(fp);
-    return 0;
-}
+//     fclose(fp);
+//     return 0;
+// }
 
-int Fl_raw_image_to_jpg(unsigned char *data, const char *fname, int w, int h) {
-    if (!data || !fname)
-        return -1;
-    struct jpeg_compress_struct cinfo;
-    struct jpeg_error_mgr jerr;
+// int Fl_raw_image_to_jpg(unsigned char *data, const char *fname, int w, int h) {
+//     if (!data || !fname)
+//         return -1;
+//     struct jpeg_compress_struct cinfo;
+//     struct jpeg_error_mgr jerr;
 
-    JSAMPROW row_pointer[1];
-    FILE *outfile = fopen(fname, "wb");
+//     JSAMPROW row_pointer[1];
+//     FILE *outfile = fopen(fname, "wb");
 
-    if (!outfile) {
-        return -1;
-    }
-    cinfo.err = jpeg_std_error(&jerr);
-    jpeg_create_compress(&cinfo);
-    jpeg_stdio_dest(&cinfo, outfile);
+//     if (!outfile) {
+//         return -1;
+//     }
+//     cinfo.err = jpeg_std_error(&jerr);
+//     jpeg_create_compress(&cinfo);
+//     jpeg_stdio_dest(&cinfo, outfile);
 
-    cinfo.image_width = w;
-    cinfo.image_height = h;
-    cinfo.input_components = 3;
-    cinfo.in_color_space = JCS_RGB;
+//     cinfo.image_width = w;
+//     cinfo.image_height = h;
+//     cinfo.input_components = 3;
+//     cinfo.in_color_space = JCS_RGB;
 
-    jpeg_set_defaults(&cinfo);
+//     jpeg_set_defaults(&cinfo);
 
-    jpeg_start_compress(&cinfo, (boolean)1);
+//     jpeg_start_compress(&cinfo, (boolean)1);
 
-    while (cinfo.next_scanline < cinfo.image_height) {
-        row_pointer[0] = &data[cinfo.next_scanline * cinfo.image_width * cinfo.input_components];
-        jpeg_write_scanlines(&cinfo, row_pointer, 1);
-    }
+//     while (cinfo.next_scanline < cinfo.image_height) {
+//         row_pointer[0] = &data[cinfo.next_scanline * cinfo.image_width * cinfo.input_components];
+//         jpeg_write_scanlines(&cinfo, row_pointer, 1);
+//     }
 
-    jpeg_finish_compress(&cinfo);
-    jpeg_destroy_compress(&cinfo);
-    fclose(outfile);
+//     jpeg_finish_compress(&cinfo);
+//     jpeg_destroy_compress(&cinfo);
+//     fclose(outfile);
 
-    return 0;
-}
+//     return 0;
+// }
 
-int Fl_raw_image_to_bmp(unsigned char *data, const char *fname, int w, int h) {
-    if (!data || !fname)
-        return -1;
-    FILE *f;
-    int filesize = 54 + 3 * w * h;
+// int Fl_raw_image_to_bmp(unsigned char *data, const char *fname, int w, int h) {
+//     if (!data || !fname)
+//         return -1;
+//     FILE *f;
+//     int filesize = 54 + 3 * w * h;
 
-    unsigned char bmpfileheader[14] = {'B', 'M', 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 0};
-    unsigned char bmpinfoheader[40] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 24, 0};
-    unsigned char bmppad[3] = {0, 0, 0};
+//     unsigned char bmpfileheader[14] = {'B', 'M', 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 0};
+//     unsigned char bmpinfoheader[40] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 24, 0};
+//     unsigned char bmppad[3] = {0, 0, 0};
 
-    bmpfileheader[2] = (unsigned char)(filesize);
-    bmpfileheader[3] = (unsigned char)(filesize >> 8);
-    bmpfileheader[4] = (unsigned char)(filesize >> 16);
-    bmpfileheader[5] = (unsigned char)(filesize >> 24);
+//     bmpfileheader[2] = (unsigned char)(filesize);
+//     bmpfileheader[3] = (unsigned char)(filesize >> 8);
+//     bmpfileheader[4] = (unsigned char)(filesize >> 16);
+//     bmpfileheader[5] = (unsigned char)(filesize >> 24);
 
-    bmpinfoheader[4] = (unsigned char)(w);
-    bmpinfoheader[5] = (unsigned char)(w >> 8);
-    bmpinfoheader[6] = (unsigned char)(w >> 16);
-    bmpinfoheader[7] = (unsigned char)(w >> 24);
-    bmpinfoheader[8] = (unsigned char)(h);
-    bmpinfoheader[9] = (unsigned char)(h >> 8);
-    bmpinfoheader[10] = (unsigned char)(h >> 16);
-    bmpinfoheader[11] = (unsigned char)(h >> 24);
+//     bmpinfoheader[4] = (unsigned char)(w);
+//     bmpinfoheader[5] = (unsigned char)(w >> 8);
+//     bmpinfoheader[6] = (unsigned char)(w >> 16);
+//     bmpinfoheader[7] = (unsigned char)(w >> 24);
+//     bmpinfoheader[8] = (unsigned char)(h);
+//     bmpinfoheader[9] = (unsigned char)(h >> 8);
+//     bmpinfoheader[10] = (unsigned char)(h >> 16);
+//     bmpinfoheader[11] = (unsigned char)(h >> 24);
 
-    f = fopen(fname, "wb");
-    if (!f)
-        return -1;
-    fwrite(bmpfileheader, 1, 14, f);
-    fwrite(bmpinfoheader, 1, 40, f);
-    for (int i = 0; i < h; i++) {
-        fwrite(data + (w * (h - i - 1) * 3), 3, w, f);
-        fwrite(bmppad, 1, (4 - (w * 3) % 4) % 4, f);
-    }
+//     f = fopen(fname, "wb");
+//     if (!f)
+//         return -1;
+//     fwrite(bmpfileheader, 1, 14, f);
+//     fwrite(bmpinfoheader, 1, 40, f);
+//     for (int i = 0; i < h; i++) {
+//         fwrite(data + (w * (h - i - 1) * 3), 3, w, f);
+//         fwrite(bmppad, 1, (4 - (w * 3) % 4) % 4, f);
+//     }
 
-    fclose(f);
-    return 0;
-}
+//     fclose(f);
+//     return 0;
+// }
