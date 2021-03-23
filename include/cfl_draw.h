@@ -220,12 +220,6 @@ void Fl_set_spot(int font, int size, int X, int Y, int W, int H, void *win);
 
 void Fl_reset_spot(void);
 
-// int Fl_raw_image_to_png(unsigned char *data, const char *fname, int w, int h);
-
-// int Fl_raw_image_to_jpg(unsigned char *data, const char *fname, int w, int h);
-
-// int Fl_raw_image_to_bmp(unsigned char *data, const char *fname, int w, int h);
-
 unsigned int Fl_show_colormap(unsigned int old_col);
 
 void Fl_copy_offscreen(int x, int y, int w, int h, void *pixmap, int srcx, int srcy);
