@@ -441,6 +441,14 @@ void Fl_background2(unsigned char r, unsigned char g, unsigned char b) {
     Fl::background2(r, g, b);
 }
 
+void Fl_selection_color(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::set_color(FL_SELECTION_COLOR, r, g, b);
+}
+
+void Fl_inactive_color(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::set_color(FL_INACTIVE_COLOR, r, g, b);
+}
+
 void Fl_get_system_colors(void) {
     Fl::get_system_colors();
 }
