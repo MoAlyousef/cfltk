@@ -18,7 +18,9 @@ extern "C" {
     void widget##_clear(widget *self);                                                             \
     int widget##_children(widget *self);                                                           \
     Fl_Widget *widget##_child(widget *, int index);                                                \
-    void widget##_resizable(widget *self, void *);
+    void widget##_resizable(widget *self, void *);                                                 \
+    void widget##_set_clip_children(widget *self, int c);                                          \
+    int widget##_clip_children(widget *self);
 
 #define GROUP_DEFINE(widget)                                                                       \
     void widget##_begin(widget *self) {                                                            \
@@ -53,6 +55,12 @@ extern "C" {
     }                                                                                              \
     void widget##_resizable(widget *self, void *wid) {                                             \
         LOCK(self->resizable((Fl_Widget *)wid);)                                                   \
+    }                                                                                              \
+    void widget##_set_clip_children(widget *self, int c) {                                         \
+        LOCK(self->clip_children(c);)                                                              \
+    }                                                                                              \
+    int widget##_clip_children(widget *self) {                                                     \
+        return self->clip_children();                                                              \
     }
 
 WIDGET_DECLARE(Fl_Group)
@@ -60,6 +68,14 @@ WIDGET_DECLARE(Fl_Group)
 Fl_Group *Fl_Group_current(void);
 
 void Fl_Group_set_current(Fl_Group *grp);
+
+void Fl_Group_draw_child(const Fl_Group *self, Fl_Widget *w);
+
+void Fl_Group_update_child(const Fl_Group *self, Fl_Widget *w);
+
+void Fl_Group_draw_outside_label(const Fl_Group *self, const Fl_Widget *widget);
+
+void Fl_Group_draw_children(Fl_Group *self);
 
 GROUP_DECLARE(Fl_Group)
 
