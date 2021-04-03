@@ -61,6 +61,7 @@ endif()
 
 if(CFLTK_BUILD_SHARED)
     add_library(cfltk SHARED ${CFLTK_SRCS})
+    set_target_properties(cfltk PROPERTIES POSITION_INDEPENDENT_CODE ON)
 else()
     add_library(cfltk STATIC ${CFLTK_SRCS})
 endif()
