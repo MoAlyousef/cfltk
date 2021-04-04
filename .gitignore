@@ -16,3 +16,4 @@ compile_commands.json
 /bin
 /temp
 /.cache
+/examples/bin
