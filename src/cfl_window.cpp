@@ -1,3 +1,4 @@
+#include <FL/Enumerations.H>
 #define FL_INTERNALS
 
 #include "cfl_window.h"
@@ -100,7 +101,7 @@
         LOCK(self->cursor((const Fl_RGB_Image *)image, hot_x, hot_y);)                             \
     }                                                                                              \
     void widget##_default_cursor(widget *self, int cursor) {                                       \
-        LOCK(self->default_cursor(cursor);)                                                        \
+        LOCK(self->default_cursor((Fl_Cursor)cursor);)                                             \
     }
 
 WIDGET_CLASS(Fl_Window)
