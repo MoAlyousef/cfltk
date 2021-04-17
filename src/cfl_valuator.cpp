@@ -215,6 +215,14 @@ int Fl_Value_Input_text_size(Fl_Value_Input *self) {
     return self->textsize();
 }
 
+void Fl_Value_Input_set_soft(Fl_Value_Input *self, char val) {
+    LOCK(self->soft(val));
+}
+
+char Fl_Value_Input_soft(const Fl_Value_Input *self) {
+    return self->soft();
+}
+
 VALUATOR_DEFINE(Fl_Value_Input)
 
 WIDGET_CLASS(Fl_Value_Output)

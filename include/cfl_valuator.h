@@ -102,6 +102,10 @@ void Fl_Value_Input_set_text_size(Fl_Value_Input *self, int s);
 
 int Fl_Value_Input_text_size(Fl_Value_Input *self);
 
+void Fl_Value_Input_set_soft(Fl_Value_Input *self, char val);
+
+char Fl_Value_Input_soft(const Fl_Value_Input *self);
+
 VALUATOR_DECLARE(Fl_Value_Input)
 
 WIDGET_DECLARE(Fl_Value_Output)
