@@ -37,7 +37,8 @@ typedef union {
     const void *widget##_shape(widget *self);                                                      \
     int widget##_x_root(const widget *self);                                                       \
     int widget##_y_root(const widget *self);                                                       \
-    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y);
+    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y);         \
+    void widget##_default_cursor(widget *self, int cursor);
 
 WIDGET_DECLARE(Fl_Window)
 

@@ -98,6 +98,9 @@
     }                                                                                              \
     void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y) {        \
         LOCK(self->cursor((const Fl_RGB_Image *)image, hot_x, hot_y);)                             \
+    }                                                                                              \
+    void widget##_default_cursor(widget *self, int cursor) {                                       \
+        LOCK(self->default_cursor(cursor);)                                                        \
     }
 
 WIDGET_CLASS(Fl_Window)
