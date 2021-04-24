@@ -10,18 +10,13 @@
         void *ev_data_ = NULL;                                                                     \
         void *draw_data_ = NULL;                                                                   \
         void *draw_cell_data_ = NULL;                                                              \
-        typedef int (*handler)(int, void *data);                                                   \
+                                                                                                   \
+        typedef int (*handler)(Fl_Widget *, int, void *data);                                      \
         handler inner_handler = NULL;                                                              \
-        typedef int (*handler2)(Fl_Widget *, int, void *data);                                     \
-        handler2 inner_handler2 = NULL;                                                            \
-        typedef void (*drawer)(void *data);                                                        \
+        typedef void (*drawer)(Fl_Widget *, void *data);                                           \
         drawer inner_drawer = NULL;                                                                \
-        typedef void (*drawer2)(Fl_Widget *, void *data);                                          \
-        drawer2 inner_drawer2 = NULL;                                                              \
-        typedef void (*cell_drawer)(int, int, int, int, int, int, int, void *data);                \
+        typedef void (*cell_drawer)(Fl_Widget *, int, int, int, int, int, int, int, void *data);   \
         cell_drawer inner_cell_drawer = NULL;                                                      \
-        typedef void (*cell_drawer2)(Fl_Widget *, int, int, int, int, int, int, int, void *data);  \
-        cell_drawer2 inner_cell_drawer2 = NULL;                                                    \
         typedef void (*deleter_fp)(void *);                                                        \
         deleter_fp deleter = NULL;                                                                 \
         table##_Derived(int x, int y, int w, int h, const char *title = 0)                         \
@@ -37,9 +32,6 @@
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \
         }                                                                                          \
-        void set_handler2(handler2 h) {                                                            \
-            inner_handler2 = h;                                                                    \
-        }                                                                                          \
         void set_handler_data(void *data) {                                                        \
             ev_data_ = data;                                                                       \
         }                                                                                          \
@@ -47,13 +39,7 @@
             int ret = table::handle(event);                                                        \
             int local = 0;                                                                         \
             if (inner_handler) {                                                                   \
-                local = inner_handler(event, ev_data_);                                            \
-                if (local == 0)                                                                    \
-                    return ret;                                                                    \
-                else                                                                               \
-                    return local;                                                                  \
-            } else if (inner_handler2) {                                                           \
-                local = inner_handler2(this, event, ev_data_);                                     \
+                local = inner_handler(this, event, ev_data_);                                      \
                 if (local == 0)                                                                    \
                     return ret;                                                                    \
                 else                                                                               \
@@ -65,17 +51,11 @@
         void set_drawer(drawer h) {                                                                \
             inner_drawer = h;                                                                      \
         }                                                                                          \
-        void set_drawer2(drawer2 h) {                                                              \
-            inner_drawer2 = h;                                                                     \
-        }                                                                                          \
         void set_drawer_data(void *data) {                                                         \
             draw_data_ = data;                                                                     \
         }                                                                                          \
         void set_cell_drawer(cell_drawer h) {                                                      \
             inner_cell_drawer = h;                                                                 \
-        }                                                                                          \
-        void set_cell_drawer2(cell_drawer2 h) {                                                    \
-            inner_cell_drawer2 = h;                                                                \
         }                                                                                          \
         void set_cell_drawer_data(void *data) {                                                    \
             draw_cell_data_ = data;                                                                \
@@ -83,18 +63,14 @@
         void draw() override {                                                                     \
             table::draw();                                                                         \
             if (inner_drawer)                                                                      \
-                inner_drawer(draw_data_);                                                          \
-            else if (inner_drawer2)                                                                \
-                inner_drawer2(this, draw_data_);                                                   \
+                inner_drawer(this, draw_data_);                                                    \
             else {                                                                                 \
             }                                                                                      \
         }                                                                                          \
         void draw_cell(TableContext context, int R, int C, int X, int Y, int W, int H) override {  \
             table::draw_cell(context, R, C, X, Y, W, H);                                           \
             if (inner_cell_drawer)                                                                 \
-                inner_cell_drawer(context, R, C, X, Y, W, H, draw_cell_data_);                     \
-            else if (inner_cell_drawer2)                                                           \
-                inner_cell_drawer2(this, context, R, C, X, Y, W, H, draw_cell_data_);              \
+                inner_cell_drawer(this, context, R, C, X, Y, W, H, draw_cell_data_);               \
             else {                                                                                 \
             }                                                                                      \
         }                                                                                          \
@@ -103,12 +79,10 @@
                 deleter(ev_data_);                                                                 \
             ev_data_ = NULL;                                                                       \
             inner_handler = NULL;                                                                  \
-            inner_handler2 = NULL;                                                                 \
             if (draw_data_)                                                                        \
                 deleter(draw_data_);                                                               \
             draw_data_ = NULL;                                                                     \
             inner_drawer = NULL;                                                                   \
-            inner_drawer2 = NULL;                                                                  \
             if (user_data())                                                                       \
                 deleter(user_data());                                                              \
             user_data(NULL);                                                                       \
@@ -269,16 +243,11 @@
     int table##_tab_cell_nav(const table *self) {                                                  \
         return self->tab_cell_nav();                                                               \
     }                                                                                              \
-    void table##_draw_cell(table *self, void (*cb)(int, int, int, int, int, int, int, void *),     \
+    void table##_draw_cell(table *self,                                                            \
+                           void (*cb)(Fl_Widget *, int, int, int, int, int, int, int, void *),     \
                            void *data) {                                                           \
         LOCK(((table##_Derived *)self)->set_cell_drawer_data(data);                                \
              ((table##_Derived *)self)->set_cell_drawer(cb);)                                      \
-    }                                                                                              \
-    void table##_draw_cell2(table *self,                                                           \
-                            void (*cb)(Fl_Widget *, int, int, int, int, int, int, int, void *),    \
-                            void *data) {                                                          \
-        LOCK(((table##_Derived *)self)->set_cell_drawer_data(data);                                \
-             ((table##_Derived *)self)->set_cell_drawer2(cb);)                                     \
     }                                                                                              \
     void *table##_draw_cell_data(const table *self) {                                              \
         return ((table##_Derived *)self)->draw_cell_data_;                                         \
