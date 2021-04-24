@@ -6,12 +6,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Fl_Window *w;
+Fl_Window *win;
 
-int cb(int e, void *data) {
+int cb(Fl_Widget *w, int e, void *data) {
     switch (e) {
     case Fl_Event_Push:
-        Fl_handle(30, w);
+        Fl_handle(31, win);
         // return 1 when handled, 0 otherwise
         return 1;
     default:
@@ -19,10 +19,10 @@ int cb(int e, void *data) {
     }
 }
 
-int box_cb(int e, void *data) {
+int box_cb(Fl_Widget *w, int e, void *data) {
     switch (e) {
-    case 30:
-        Fl_Box_set_label((Fl_Box *)data, "Pushed");
+    case 31:
+        Fl_Box_set_label((Fl_Box *)w, "Pushed");
         // return 1 when handled, 0 otherwise
         return 1;
     default:
@@ -31,12 +31,12 @@ int box_cb(int e, void *data) {
 }
 
 int main() {
-    w = Fl_Window_new(100, 100, 400, 300, NULL);
+    win = Fl_Window_new(100, 100, 400, 300, NULL);
     Fl_Box *f = Fl_Box_new(0, 0, 400, 200, NULL);
     Fl_Button *b = Fl_Button_new(160, 210, 80, 40, "Click me");
-    Fl_Window_end(w);
-    Fl_Window_show(w);
-    Fl_Box_handle(f, box_cb, f);
+    Fl_Window_end(win);
+    Fl_Window_show(win);
+    Fl_Box_handle(f, box_cb, NULL);
     Fl_Button_handle(b, cb, NULL);
     return Fl_run();
 }

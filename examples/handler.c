@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cb(int e, void *data) {
+int cb(Fl_Widget *w, int e, void *data) {
     switch (e) {
     case Fl_Event_Push:
-        Fl_Box_set_label((Fl_Box *)data, Fl_EventNames[e]);
+        Fl_Box_set_label((Fl_Box *)data, "Hello");
         // return 1 when handled, 0 otherwise
         return 1;
     default:
