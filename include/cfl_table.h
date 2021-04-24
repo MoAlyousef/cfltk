@@ -61,11 +61,9 @@ extern "C" {
     void table##_set_scrollbar_size(table *self, int newSize);                                     \
     void table##_set_tab_cell_nav(table *self, int val);                                           \
     int table##_tab_cell_nav(const table *self);                                                   \
-    void table##_draw_cell(table *self, void (*)(int, int, int, int, int, int, int, void *),       \
+    void table##_draw_cell(table *self,                                                            \
+                           void (*)(Fl_Widget *, int, int, int, int, int, int, int, void *),       \
                            void *data);                                                            \
-    void table##_draw_cell2(table *self,                                                           \
-                            void (*)(Fl_Widget *, int, int, int, int, int, int, int, void *),      \
-                            void *data);                                                           \
     void *table##_draw_cell_data(const table *self);                                               \
     void table##_set_draw_cell_data(table *self, void *data);                                      \
     int table##_callback_col(table *);                                                             \
