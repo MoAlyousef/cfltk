@@ -284,10 +284,10 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
             deleter(draw_data_);
         draw_data_ = NULL;
         inner_drawer = NULL;
-        // if (draw_overlay_data_)
-        //     deleter(draw_overlay_data_);
-        // draw_overlay_data_ = NULL;
-        // inner_overlay_drawer = NULL;
+        if (overlay_draw_data_)
+            deleter(overlay_draw_data_);
+        overlay_draw_data_ = NULL;
+        inner_overlay_drawer = NULL;
         if (user_data())
             deleter(user_data());
         user_data(NULL);
