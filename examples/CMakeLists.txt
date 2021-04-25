@@ -28,3 +28,6 @@ target_link_libraries(handler PUBLIC cfltk fltk fltk_images fltk_png fltk_z)
 
 add_executable(handler2 handler2.c)
 target_link_libraries(handler2 PUBLIC cfltk fltk fltk_images fltk_png fltk_z)
+
+add_executable(counter counter.c)
+target_link_libraries(counter PUBLIC cfltk fltk fltk_images fltk_png fltk_z)

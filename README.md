@@ -139,6 +139,12 @@ int main(void) {
 }
 ```
 
+## Examples
+More examples can be found in the examples directory.
+
+- [counter](examples/counter.c) 
+![alt_test](examples/flutter_like.jpg)
+
 ## Dependencies
 
 CMake (version > 3.0), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
