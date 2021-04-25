@@ -1,8 +1,8 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 4e8d8c759..c7aa9d93c 100644
+index 1a614bee4..e655820b7 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -300,6 +300,7 @@ elseif (ANDROID)
+@@ -303,6 +303,7 @@ elseif (ANDROID)
  
    set (DRIVER_FILES
      drivers/Android/Fl_Android_Application.cxx
@@ -10,7 +10,7 @@ index 4e8d8c759..c7aa9d93c 100644
      drivers/Android/Fl_Android_System_Driver.cxx
      drivers/Android/Fl_Android_Screen_Driver.cxx
      drivers/Android/Fl_Android_Screen_Keyboard.cxx
-@@ -311,6 +312,7 @@ elseif (ANDROID)
+@@ -314,6 +315,7 @@ elseif (ANDROID)
    )
    set (DRIVER_HEADER_FILES
      drivers/Android/Fl_Android_Application.H
@@ -19,22 +19,40 @@ index 4e8d8c759..c7aa9d93c 100644
      drivers/Android/Fl_Android_Screen_Driver.H
      drivers/Android/Fl_Android_Window_Driver.H
 diff --git a/src/Fl_win32.cxx b/src/Fl_win32.cxx
-index 1e5b73248..3f0ee5e3c 100644
+index 1e5b73248..28f9e41bf 100644
 --- a/src/Fl_win32.cxx
 +++ b/src/Fl_win32.cxx
-@@ -594,9 +594,11 @@ public:
+@@ -592,18 +592,18 @@ void Fl_WinAPI_Screen_Driver::desktop_scale_factor() {
+ class Fl_Win32_At_Exit {
+ public:
    Fl_Win32_At_Exit() {}
-   ~Fl_Win32_At_Exit() {
-     fl_free_fonts(); // do some Windows cleanup
-+  #ifndef __MINGW32__
-     fl_cleanup_pens();
+-  ~Fl_Win32_At_Exit() {
+-    fl_free_fonts(); // do some Windows cleanup
+-    fl_cleanup_pens();
 -    OleUninitialize();
-     if (fl_graphics_driver) fl_brush_action(1);
-+  #endif
-+    OleUninitialize();
-     fl_cleanup_dc_list();
-     // This is actually too late in the cleanup process to remove the
-     // clipboard notifications, but we have no earlier hook so we try
+-    if (fl_graphics_driver) fl_brush_action(1);
+-    fl_cleanup_dc_list();
+-    // This is actually too late in the cleanup process to remove the
+-    // clipboard notifications, but we have no earlier hook so we try
+-    // to work around it anyway.
+-    if (clipboard_wnd != NULL)
+-      fl_clipboard_notify_untarget(clipboard_wnd);
+-  }
++  // ~Fl_Win32_At_Exit() {
++  //   fl_free_fonts(); // do some Windows cleanup
++  //   fl_cleanup_pens();
++  //   OleUninitialize();
++  //   if (fl_graphics_driver) fl_brush_action(1);
++  //   fl_cleanup_dc_list();
++  //   // This is actually too late in the cleanup process to remove the
++  //   // clipboard notifications, but we have no earlier hook so we try
++  //   // to work around it anyway.
++  //   if (clipboard_wnd != NULL)
++  //     fl_clipboard_notify_untarget(clipboard_wnd);
++  // }
+ };
+ static Fl_Win32_At_Exit win32_at_exit;
+ 
 diff --git a/src/drivers/Android/Fl_Android_System_Driver.H b/src/drivers/Android/Fl_Android_System_Driver.H
 index 5e6dafb1e..a985d9324 100644
 --- a/src/drivers/Android/Fl_Android_System_Driver.H
