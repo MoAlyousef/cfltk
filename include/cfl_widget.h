@@ -289,7 +289,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         delete ((widget##_Derived *)self);                                                         \
     }                                                                                              \
     void widget##_set_image(widget *self, void *image) {                                           \
-        LOCK(auto old = self->image(); self->image(((Fl_Image *)image)->copy()); delete old;)      \
+        LOCK(auto old = self->image(); if (!image) self->image(NULL);                              \
+             else self->image(((Fl_Image *)image)->copy()); delete old;)                           \
     }                                                                                              \
     void widget##_handle(widget *self, custom_handler_callback cb, void *data) {                   \
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
@@ -302,7 +303,10 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return self->when();                                                                       \
     }                                                                                              \
     void *widget##_image(const widget *self) {                                                     \
-        return ((Fl_Image *)self->image())->copy();                                                \
+        auto temp = self->image();                                                                 \
+        if (!temp)                                                                                 \
+            return NULL;                                                                           \
+        return ((Fl_Image *)temp)->copy();                                                         \
     }                                                                                              \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data) {                        \
         LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
@@ -383,10 +387,14 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return self->as_group();                                                                   \
     }                                                                                              \
     void widget##_set_deimage(widget *self, void *image) {                                         \
-        LOCK(auto old = self->image(); self->deimage(((Fl_Image *)image)->copy()); delete old;)    \
+        LOCK(auto old = self->deimage(); if (!image) self->deimage(NULL);                          \
+             else self->deimage(((Fl_Image *)image)->copy()); delete old;)                         \
     }                                                                                              \
     void *widget##_deimage(const widget *self) {                                                   \
-        return ((Fl_Image *)self->deimage())->copy();                                              \
+        auto temp = self->deimage();                                                               \
+        if (!temp)                                                                                 \
+            return NULL;                                                                           \
+        return ((Fl_Image *)temp)->copy();                                                         \
     }                                                                                              \
     void widget##_set_callback(widget *self, Fl_Callback *cb, void *data) {                        \
         LOCK(self->callback(cb, data);)                                                            \

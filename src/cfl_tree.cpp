@@ -357,27 +357,39 @@ void Fl_Tree_set_connectorwidth(Fl_Tree *self, int val) {
 }
 
 void *Fl_Tree_usericon(const Fl_Tree *self) {
-    return self->usericon()->copy();
+    auto temp = self->usericon();
+    if (!temp)
+        return NULL;
+    return ((Fl_Image *)temp)->copy();
 }
 
 void Fl_Tree_set_usericon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->usericon(); self->usericon(((Fl_Image *)val)->copy()); delete old;)
+    LOCK(auto old = self->usericon(); if (!val) self->usericon(NULL);
+         else self->usericon(((Fl_Image *)val)->copy()); delete old;)
 }
 
 void *Fl_Tree_openicon(const Fl_Tree *self) {
-    return self->openicon()->copy();
+    auto temp = self->openicon();
+    if (!temp)
+        return NULL;
+    return ((Fl_Image *)temp)->copy();
 }
 
 void Fl_Tree_set_openicon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->openicon(); self->openicon(((Fl_Image *)val)->copy()); delete old;)
+    LOCK(auto old = self->openicon(); if (!val) self->openicon(NULL);
+         else self->openicon(((Fl_Image *)val)->copy()); delete old;)
 }
 
 void *Fl_Tree_closeicon(const Fl_Tree *self) {
-    return self->closeicon()->copy();
+    auto temp = self->closeicon();
+    if (!temp)
+        return NULL;
+    return ((Fl_Image *)temp)->copy();
 }
 
 void Fl_Tree_set_closeicon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->closeicon(); self->closeicon(((Fl_Image *)val)->copy()); delete old;)
+    LOCK(auto old = self->closeicon(); if (!val) self->closeicon(NULL);
+         else self->closeicon(((Fl_Image *)val)->copy()); delete old;)
 }
 
 int Fl_Tree_showcollapse(const Fl_Tree *self) {

@@ -58,11 +58,14 @@
         LOCK(self->textsize(s);)                                                                   \
     }                                                                                              \
     void widget##_set_icon(widget *self, int line, void *icon) {                                   \
-        LOCK(auto old = self->icon(line); self->icon(line, ((Fl_Image *)icon)->copy());            \
-             delete old;)                                                                          \
+        LOCK(auto old = self->icon(line); if (!icon) self->icon(line, NULL);                       \
+             else self->icon(line, ((Fl_Image *)icon)->copy()); delete old;)                       \
     }                                                                                              \
     void *widget##_icon(const widget *self, int line) {                                            \
-        return (Fl_Image *)self->icon(line)->copy();                                               \
+        auto temp = self->icon(line);                                                              \
+        if (!temp)                                                                                 \
+            return NULL;                                                                           \
+        return ((Fl_Image *)temp)->copy();                                                         \
     }                                                                                              \
     void widget##_remove_icon(widget *self, int l) {                                               \
         LOCK(self->remove_icon(l);)                                                                \

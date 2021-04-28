@@ -86,10 +86,14 @@
         LOCK(self->hotspot(wid))                                                                   \
     }                                                                                              \
     void widget##_set_shape(widget *self, const void *image) {                                     \
-        LOCK(auto old = self->shape(); self->shape(((Fl_Image *)image)->copy()); delete old;)      \
+        LOCK(auto old = self->shape(); if (!image) self->shape(NULL);                              \
+             else self->shape(((Fl_Image *)image)->copy()); delete old;)                           \
     }                                                                                              \
     const void *widget##_shape(widget *self) {                                                     \
-        return (const void *)((Fl_Image *)self->shape())->copy();                                  \
+        auto temp = self->shape();                                                                 \
+        if (!temp)                                                                                 \
+            return NULL;                                                                           \
+        return ((Fl_Image *)temp)->copy();                                                         \
     }                                                                                              \
     int widget##_x_root(const widget *self) {                                                      \
         return self->x_root();                                                                     \
