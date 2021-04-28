@@ -28,10 +28,11 @@
         LOCK(((Fl_Window *)self)->make_current();)                                                 \
     }                                                                                              \
     void widget##_set_icon(widget *self, const void *image) {                                      \
-        LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image));)                               \
+        LOCK(auto old = (Fl_Image *)self->icon(); self->icon(((Fl_Image *)image)->copy());         \
+             delete old;)                                                                          \
     }                                                                                              \
     void *widget##_icon(const widget *self) {                                                      \
-        return (Fl_Image *)self->icon();                                                           \
+        return ((Fl_Image *)self->icon())->copy();                                                 \
     }                                                                                              \
     void widget##_set_cursor(widget *self, int cursor) {                                           \
         LOCK(self->cursor((Fl_Cursor)cursor);)                                                     \
@@ -86,10 +87,10 @@
         LOCK(self->hotspot(wid))                                                                   \
     }                                                                                              \
     void widget##_set_shape(widget *self, const void *image) {                                     \
-        LOCK(self->shape((const Fl_Image *)image))                                                 \
+        LOCK(auto old = self->shape(); self->shape(((Fl_Image *)image)->copy()); delete old;)      \
     }                                                                                              \
     const void *widget##_shape(widget *self) {                                                     \
-        return self->shape();                                                                      \
+        return (const void *)((Fl_Image *)self->shape())->copy();                                  \
     }                                                                                              \
     int widget##_x_root(const widget *self) {                                                      \
         return self->x_root();                                                                     \
