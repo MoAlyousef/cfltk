@@ -28,11 +28,10 @@
         LOCK(((Fl_Window *)self)->make_current();)                                                 \
     }                                                                                              \
     void widget##_set_icon(widget *self, const void *image) {                                      \
-        LOCK(auto old = (Fl_Image *)self->icon(); self->icon(((Fl_Image *)image)->copy());         \
-             delete old;)                                                                          \
+        LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image));)                               \
     }                                                                                              \
     void *widget##_icon(const widget *self) {                                                      \
-        return ((Fl_Image *)self->icon())->copy();                                                 \
+        return (Fl_Image *)self->icon();                                                           \
     }                                                                                              \
     void widget##_set_cursor(widget *self, int cursor) {                                           \
         LOCK(self->cursor((Fl_Cursor)cursor);)                                                     \
