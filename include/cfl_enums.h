@@ -331,6 +331,19 @@ enum Fl_Key {
     Fl_Key_Delete = 0xffff,
 };
 
+enum Fl_Shortcut {
+    Fl_Shortcut_None = 0,
+    Fl_Shortcut_Shift = 0x00010000,
+    Fl_Shortcut_CapsLock = 0x00020000,
+    Fl_Shortcut_Ctrl = 0x00040000,
+    Fl_Shortcut_Alt = 0x00080000,
+    Fl_Shortcut_Meta = 0x00400000,
+    Fl_Shortcut_Button1 = 0x01000000,
+    Fl_Shortcut_Button2 = 0x02000000,
+    Fl_Shortcut_Button3 = 0x04000000,
+    Fl_Shortcut_Buttons = 0x7f000000,
+};
+
 enum Fl_CallbackTrigger {
     Fl_CallbackTrigger_Never = 0,
     Fl_CallbackTrigger_Changed = 1,

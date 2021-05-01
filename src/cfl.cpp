@@ -130,6 +130,14 @@ int Fl_event_state(void) {
     return Fl::event_state();
 }
 
+int Fl_screen_x(void) {
+    return Fl::x();
+}
+
+int Fl_screen_y(void) {
+    return Fl::y();
+}
+
 int Fl_screen_h(void) {
     return Fl::h();
 }
@@ -492,6 +500,22 @@ int Fl_screen_scaling_supported(void) {
 
 int Fl_screen_count(void) {
     return Fl::screen_count();
+}
+
+int Fl_screen_num(int x, int y) {
+    return Fl::screen_num(x, y);
+}
+
+void Fl_screen_xywh(int *X, int *Y, int *W, int *H, int n) {
+    Fl::screen_xywh(*X, *Y, *W, *H, n);
+}
+
+void Fl_screen_dpi(float *h, float *v, int n) {
+    Fl::screen_dpi(*h, *v, n);
+}
+
+void Fl_screen_work_area(int *X, int *Y, int *W, int *H, int n) {
+    Fl::screen_work_area(*X, *Y, *W, *H, n);
 }
 
 #ifdef _WIN32

@@ -57,6 +57,10 @@ int Fl_event_length(void);
 
 int Fl_event_state(void);
 
+int Fl_screen_x(void);
+
+int Fl_screen_y(void);
+
 int Fl_screen_h(void);
 
 int Fl_screen_w(void);
@@ -196,6 +200,14 @@ float Fl_screen_scale(int n);
 int Fl_screen_scaling_supported(void);
 
 int Fl_screen_count(void);
+
+int Fl_screen_num(int x, int y);
+
+void Fl_screen_xywh(int *X, int *Y, int *W, int *H, int n);
+
+void Fl_screen_dpi(float *h, float *v, int n);
+
+void Fl_screen_work_area(int *X, int *Y, int *W, int *H, int n);
 
 void Fl_open_display(void);
 
