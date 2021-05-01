@@ -42,6 +42,8 @@ Fl_SVG_Image *Fl_SVG_Image_new(const char *filename);
 
 Fl_SVG_Image *Fl_SVG_Image_from(const char *data);
 
+void Fl_SVG_Image_normalize(Fl_SVG_Image *self);
+
 IMAGE_DECLARE(Fl_BMP_Image)
 
 Fl_BMP_Image *Fl_BMP_Image_new(const char *filename);
