@@ -15,6 +15,7 @@
 #include <FL/Fl_Tiled_Image.H>
 #include <FL/Fl_XBM_Image.H>
 #include <FL/Fl_XPM_Image.H>
+#include <stdlib.h>
 
 #define IMAGE_DEFINE(image)                                                                        \
     void image##_draw(image *self, int X, int Y, int W, int H) {                                   \
@@ -149,10 +150,17 @@ Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
 IMAGE_DEFINE(Fl_RGB_Image)
 
 Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
-    unsigned char *arr = new unsigned char[W * H * depth];
+    int temp = 0;
+    if (ld == 0) {
+        temp = W * abs(depth);
+    } else {
+        temp = abs(ld);
+    }
+    auto sz = (temp * H);
+    unsigned char *arr = new unsigned char[sz];
     if (!arr) return NULL;
-    memset(arr, 0, sizeof(W * H * depth));
-    memcpy(arr, bits, W * H * depth);
+    memset(arr, 0, sz);
+    memcpy(arr, bits, sz);
     Fl_RGB_Image *img = new Fl_RGB_Image(arr, W, H, depth, ld);
     if (!img) return NULL;
     img->alloc_array = 1;
