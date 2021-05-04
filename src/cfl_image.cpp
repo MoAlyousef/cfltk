@@ -152,11 +152,11 @@ IMAGE_DEFINE(Fl_RGB_Image)
 Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
     int temp = 0;
     if (ld == 0) {
-        temp = W * abs(depth);
+        temp = abs(W * depth);
     } else {
         temp = abs(ld);
     }
-    auto sz = (temp * H);
+    auto sz = abs(temp * H);
     unsigned char *arr = new unsigned char[sz];
     if (!arr) return NULL;
     memset(arr, 0, sz);
