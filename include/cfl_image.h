@@ -78,9 +78,9 @@ Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h);
 
 IMAGE_DECLARE(Fl_RGB_Image)
 
-Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth);
+Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld);
 
-Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth);
+Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth, int ld);
 
 IMAGE_DECLARE(Fl_Shared_Image)
 

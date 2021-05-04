@@ -148,18 +148,19 @@ Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
 
 IMAGE_DEFINE(Fl_RGB_Image)
 
-Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth) {
+Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
     unsigned char *arr = new unsigned char[W * H * depth];
     if (!arr) return NULL;
+    memset(arr, 0, sizeof(W * H * depth));
     memcpy(arr, bits, W * H * depth);
-    Fl_RGB_Image *img = new Fl_RGB_Image(arr, W, H, depth);
+    Fl_RGB_Image *img = new Fl_RGB_Image(arr, W, H, depth, ld);
     if (!img) return NULL;
     img->alloc_array = 1;
     return img;
 }
 
-Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth) {
-    Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth);
+Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth, int ld) {
+    Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth, ld);
     if (!img) return NULL;
     img->alloc_array = 0;
     return img;
