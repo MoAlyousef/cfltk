@@ -4,6 +4,7 @@
 #include "FL/Fl.H"
 #include <FL/Fl_Image_Surface.H>
 #include <FL/Fl_SVG_File_Surface.H>
+#include <FL/platform.H>
 #include <stdio.h>
 
 void Fl_Surface_Device_set_current(Fl_Surface_Device *self) {
@@ -28,6 +29,7 @@ Fl_Surface_Device *Fl_Surface_Device_pop_current(void) {
 }
 
 Fl_Image_Surface *Fl_Image_Surface_new(int w, int h, int high_res) {
+    fl_open_display();
     return new Fl_Image_Surface(w, h, high_res);
 }
 
@@ -72,6 +74,7 @@ void Fl_Image_Surface_draw_decorated_window(Fl_Image_Surface *self, void *widget
     LOCK(self->draw_decorated_window((Fl_Window *)widget, delta_x, delta_y))}
 
 Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(int width, int height, const char *file) {
+    fl_open_display();
     FILE *f = fopen(file, "w");
     return new Fl_SVG_File_Surface(width, height, f);
 }
