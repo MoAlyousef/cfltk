@@ -38,7 +38,9 @@ typedef union {
     int widget##_x_root(const widget *self);                                                       \
     int widget##_y_root(const widget *self);                                                       \
     void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y);         \
-    void widget##_default_cursor(widget *self, int cursor);
+    void widget##_default_cursor(widget *self, int cursor);                                        \
+    int widget##_screen_num(widget *);                                                             \
+    void widget##_set_screen_num(widget *, int screen_num);
 
 WIDGET_DECLARE(Fl_Window)
 
@@ -50,6 +52,8 @@ Fl_Window *Fl_Window_find_by_handle(void *handle);
 
 winid resolve_raw_handle(void *handle);
 
+float Fl_Window_pixels_per_unit(Fl_Window *self);
+
 void *Fl_display(void);
 
 void *Fl_gc(void);
@@ -57,6 +61,10 @@ void *Fl_gc(void);
 void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv);
 
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle);
+
+int Fl_Window_pixel_w(Fl_Window *self);
+
+int Fl_Window_pixel_h(Fl_Window *self);
 
 WIDGET_DECLARE(Fl_Single_Window)
 

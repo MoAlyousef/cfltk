@@ -106,7 +106,19 @@
     }                                                                                              \
     void widget##_default_cursor(widget *self, int cursor) {                                       \
         LOCK(self->default_cursor((Fl_Cursor)cursor);)                                             \
+    }                                                                                              \
+    int widget##_screen_num(widget *self) {                                                        \
+        return self->screen_num();                                                                 \
+    }                                                                                              \
+    void widget##_set_screen_num(widget *self, int screen_num) {                                   \
+        LOCK(self->screen_num(screen_num);)                                                        \
     }
+
+#ifdef __APPLE__
+int scale_factor = 2; // assume retina!
+#else
+int scale_factor = 1;
+#endif
 
 WIDGET_CLASS(Fl_Window)
 
@@ -160,6 +172,19 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
          xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
          if (!i) return; i = xp; Fl_X::first = xp;)
 #endif
+}
+
+float Fl_Window_pixels_per_unit(Fl_Window *self) {
+    int n = self->screen_num();
+    return Fl::screen_scale(n) * scale_factor;
+}
+
+int Fl_Window_pixel_w(Fl_Window *self) {
+    return Fl_Window_pixels_per_unit(self) * self->w() + 0.5;
+}
+
+int Fl_Window_pixel_h(Fl_Window *self) {
+    return Fl_Window_pixels_per_unit(self) * self->h() + 0.5;
 }
 
 WIDGET_CLASS(Fl_Single_Window)
