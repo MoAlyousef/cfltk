@@ -174,19 +174,6 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #endif
 }
 
-float Fl_Window_pixels_per_unit(Fl_Window *self) {
-    int n = self->screen_num();
-    return Fl::screen_scale(n) * scale_factor;
-}
-
-int Fl_Window_pixel_w(Fl_Window *self) {
-    return Fl_Window_pixels_per_unit(self) * self->w() + 0.5;
-}
-
-int Fl_Window_pixel_h(Fl_Window *self) {
-    return Fl_Window_pixels_per_unit(self) * self->h() + 0.5;
-}
-
 WIDGET_CLASS(Fl_Single_Window)
 
 WIDGET_DEFINE(Fl_Single_Window)
