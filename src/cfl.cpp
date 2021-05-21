@@ -519,6 +519,7 @@ int Fl_mac_os_version() {
 #ifdef __APPLE__
     return fl_mac_os_version;
 #endif
+    return 0;
 }
 
 #ifdef _WIN32
