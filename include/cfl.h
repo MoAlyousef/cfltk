@@ -221,6 +221,8 @@ int Fl_box_dw(int boxtype);
 
 int Fl_box_dh(int boxtype);
 
+int Fl_mac_os_version(void);
+
 #ifdef __cplusplus
 }
 #endif

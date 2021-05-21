@@ -515,6 +515,12 @@ void Fl_screen_work_area(int *X, int *Y, int *W, int *H, int n) {
     Fl::screen_work_area(*X, *Y, *W, *H, n);
 }
 
+int Fl_mac_os_version() {
+#ifdef __APPLE__
+    return fl_mac_os_version;
+#endif
+}
+
 #ifdef _WIN32
 
 #define i_load_private_font(PATH) AddFontResourceEx((PATH), FR_PRIVATE, 0)
