@@ -47,16 +47,15 @@ struct Fl_Widget_Derived : public Fl_Widget {
     }
 
     int handle(int event) override {
-        int ret = Fl_Widget::handle(event);
         int local = 0;
         if (inner_handler) {
             local = inner_handler(this, event, ev_data_);
             if (local == 0)
-                return ret;
+                return Fl_Widget::handle(event);
             else
-                return local;
+                return Fl_Widget::handle(event) * local;
         } else {
-            return ret;
+            return Fl_Widget::handle(event);
         }
     }
 

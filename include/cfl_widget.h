@@ -132,16 +132,15 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
             ev_data_ = data;                                                                       \
         }                                                                                          \
         int handle(int event) override {                                                           \
-            int ret = widget::handle(event);                                                       \
             int local = 0;                                                                         \
             if (inner_handler) {                                                                   \
                 local = inner_handler(this, event, ev_data_);                                      \
                 if (local == 0)                                                                    \
-                    return ret;                                                                    \
+                    return widget::handle(event);                                                  \
                 else                                                                               \
-                    return local;                                                                  \
+                    return widget::handle(event) * local;                                          \
             } else {                                                                               \
-                return ret;                                                                        \
+                return widget::handle(event);                                                      \
             }                                                                                      \
         }                                                                                          \
         void set_drawer(drawer h) {                                                                \

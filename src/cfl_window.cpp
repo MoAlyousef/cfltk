@@ -247,16 +247,15 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
     }
 
     int handle(int event) override {
-        int ret = Fl_Overlay_Window::handle(event);
         int local = 0;
         if (inner_handler) {
             local = inner_handler(this, event, ev_data_);
             if (local == 0)
-                return ret;
+                return Fl_Overlay_Window::handle(event);
             else
-                return local;
+                return Fl_Overlay_Window::handle(event) * local;
         } else {
-            return ret;
+            return Fl_Overlay_Window::handle(event);
         }
     }
 

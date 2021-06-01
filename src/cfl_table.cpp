@@ -36,16 +36,15 @@
             ev_data_ = data;                                                                       \
         }                                                                                          \
         int handle(int event) override {                                                           \
-            int ret = table::handle(event);                                                        \
             int local = 0;                                                                         \
             if (inner_handler) {                                                                   \
                 local = inner_handler(this, event, ev_data_);                                      \
                 if (local == 0)                                                                    \
-                    return ret;                                                                    \
+                    return table::handle(event);                                                   \
                 else                                                                               \
-                    return local;                                                                  \
+                    return table::handle(event) * local;                                           \
             } else {                                                                               \
-                return ret;                                                                        \
+                return table::handle(event);                                                       \
             }                                                                                      \
         }                                                                                          \
         void set_drawer(drawer h) {                                                                \
