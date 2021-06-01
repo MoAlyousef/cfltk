@@ -19,14 +19,13 @@ index 1a614bee4..e655820b7 100644
      drivers/Android/Fl_Android_Screen_Driver.H
      drivers/Android/Fl_Android_Window_Driver.H
 diff --git a/src/Fl_win32.cxx b/src/Fl_win32.cxx
-index 3ca0744cc..cd7de98fc 100644
+index 3ca0744cc..4daedefbb 100644
 --- a/src/Fl_win32.cxx
 +++ b/src/Fl_win32.cxx
-@@ -602,21 +602,21 @@ void Fl_WinAPI_Screen_Driver::desktop_scale_factor() {
- class Fl_Win32_At_Exit {
+@@ -603,19 +603,19 @@ class Fl_Win32_At_Exit {
  public:
    Fl_Win32_At_Exit() {}
--  ~Fl_Win32_At_Exit() {
+   ~Fl_Win32_At_Exit() {
 -    fl_free_fonts(); // do some Windows cleanup
 -    fl_cleanup_pens();
 -    OleUninitialize();
@@ -40,8 +39,6 @@ index 3ca0744cc..cd7de98fc 100644
 -#if USE_GDIPLUS
 -    Fl_GDIplus_Graphics_Driver::shutdown();
 -#endif
--  }
-+//   ~Fl_Win32_At_Exit() {
 +//     fl_free_fonts(); // do some Windows cleanup
 +//     fl_cleanup_pens();
 +//     OleUninitialize();
@@ -55,10 +52,9 @@ index 3ca0744cc..cd7de98fc 100644
 +// #if USE_GDIPLUS
 +//     Fl_GDIplus_Graphics_Driver::shutdown();
 +// #endif
-+//   }
+   }
  };
  static Fl_Win32_At_Exit win32_at_exit;
- 
 diff --git a/src/drivers/Android/Fl_Android_System_Driver.H b/src/drivers/Android/Fl_Android_System_Driver.H
 index 5e6dafb1e..a985d9324 100644
 --- a/src/drivers/Android/Fl_Android_System_Driver.H
