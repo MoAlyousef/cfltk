@@ -53,7 +53,7 @@ struct Fl_Widget_Derived : public Fl_Widget {
             if (local == 0)
                 return Fl_Widget::handle(event);
             else
-                return Fl_Widget::handle(event) * local;
+                return Fl_Widget::handle(event) + local;
         } else {
             return Fl_Widget::handle(event);
         }

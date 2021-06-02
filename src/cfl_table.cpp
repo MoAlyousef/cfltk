@@ -42,7 +42,7 @@
                 if (local == 0)                                                                    \
                     return table::handle(event);                                                   \
                 else                                                                               \
-                    return table::handle(event) * local;                                           \
+                    return table::handle(event) + local;                                           \
             } else {                                                                               \
                 return table::handle(event);                                                       \
             }                                                                                      \

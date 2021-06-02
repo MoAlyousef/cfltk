@@ -253,7 +253,7 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
             if (local == 0)
                 return Fl_Overlay_Window::handle(event);
             else
-                return Fl_Overlay_Window::handle(event) * local;
+                return Fl_Overlay_Window::handle(event) + local;
         } else {
             return Fl_Overlay_Window::handle(event);
         }
