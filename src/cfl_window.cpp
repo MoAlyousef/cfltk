@@ -40,11 +40,12 @@
         return self->shown();                                                                      \
     }                                                                                              \
     void *widget##_raw_handle(const widget *w) {                                                   \
+        Window temp = fl_xid(w);                                                                   \
+        if (!temp) {                                                                               \
+            return NULL;                                                                           \
+        }                                                                                          \
         Window *xid = (Window *)malloc(sizeof(Window));                                            \
         if (!xid)                                                                                  \
-            return NULL;                                                                           \
-        Window temp = fl_xid(w);                                                                   \
-        if (!temp)                                                                                 \
             return NULL;                                                                           \
         memcpy(xid, &temp, sizeof(Window));                                                        \
         return xid;                                                                                \
