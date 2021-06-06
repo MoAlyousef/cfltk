@@ -602,9 +602,11 @@ const char *Fl_load_font(const char *path) {
         return nullptr;
     }
     int length = 0;
+
     const char *info =
         stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
-                                STBTT_UNICODE_EID_UNICODE_1_0, STBTT_MAC_EID_ROMAN, 1);
+                                STBTT_MAC_EID_ROMAN, STBTT_MAC_LANG_ENGLISH, 4);
+
     char *str = (char *)malloc(length + 1);
     snprintf(str, length + 1, "%s", info);
     auto ret = i_load_private_font(path);
