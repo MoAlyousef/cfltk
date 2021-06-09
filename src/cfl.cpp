@@ -471,6 +471,15 @@ int Fl_handle(int ev, void *win) {
     return ret;
 }
 
+int Fl_handle_(int ev, void *win) {
+    int ret = 0;
+    Fl::lock();
+    ret = Fl::handle_(ev, (Fl_Window *)win);
+    Fl::unlock();
+    Fl::awake();
+    return ret;
+}
+
 void Fl_add_idle(void (*cb)(void *), void *arg) {
     Fl::add_idle(cb, arg);
 }
@@ -517,6 +526,18 @@ void Fl_screen_dpi(float *h, float *v, int n) {
 
 void Fl_screen_work_area(int *X, int *Y, int *W, int *H, int n) {
     Fl::screen_work_area(*X, *Y, *W, *H, n);
+}
+
+void *Fl_event_clipboard(void) {
+    return Fl::event_clipboard();
+}
+
+const char *Fl_event_clipboard_type(void) {
+    return Fl::event_clipboard_type();
+}
+
+void Fl_event_dispatch(int (*cb)(int event, void *)) {
+    Fl::event_dispatch((int (*)(int, Fl_Window *))cb);
 }
 
 int Fl_mac_os_version() {
@@ -607,9 +628,8 @@ const char *Fl_load_font(const char *path) {
     }
     int length = 0;
 
-    const char *info =
-        stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
-                                STBTT_MAC_EID_ROMAN, STBTT_MAC_LANG_ENGLISH, 4);
+    const char *info = stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
+                                               STBTT_MAC_EID_ROMAN, STBTT_MAC_LANG_ENGLISH, 4);
 
     char *str = (char *)malloc(length + 1);
     snprintf(str, length + 1, "%s", info);

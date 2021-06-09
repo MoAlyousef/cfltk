@@ -187,6 +187,8 @@ void Fl_get_system_colors(void);
 
 int Fl_handle(int, void *);
 
+int Fl_handle_(int, void *);
+
 void Fl_add_idle(void (*)(void *), void *);
 
 int Fl_has_idle(void (*)(void *), void *);
@@ -224,6 +226,12 @@ int Fl_box_dw(int boxtype);
 int Fl_box_dh(int boxtype);
 
 int Fl_mac_os_version(void);
+
+void *Fl_event_clipboard(void);
+
+const char *Fl_event_clipboard_type(void);
+
+void Fl_event_dispatch(int (*cb)(int event, void *));
 
 #ifdef __cplusplus
 }
