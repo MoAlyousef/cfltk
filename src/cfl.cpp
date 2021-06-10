@@ -146,8 +146,12 @@ int Fl_screen_w(void) {
     return Fl::w();
 }
 
-void Fl_paste(Fl_Widget *widget, int src) {
+void Fl_paste_text(Fl_Widget *widget, int src) {
     Fl::paste(*widget, src, Fl::clipboard_plain_text);
+}
+
+void Fl_paste_image(Fl_Widget *widget, int src) {
+    Fl::paste(*widget, src, Fl::clipboard_image);
 }
 
 void Fl_set_scheme(const char *scheme) {
@@ -534,6 +538,10 @@ void *Fl_event_clipboard(void) {
 
 const char *Fl_event_clipboard_type(void) {
     return Fl::event_clipboard_type();
+}
+
+int Fl_clipboard_contains(const char *type) {
+    return Fl::clipboard_contains(type);
 }
 
 void Fl_event_dispatch(int (*cb)(int event, void *)) {

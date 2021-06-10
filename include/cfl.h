@@ -65,7 +65,9 @@ int Fl_screen_h(void);
 
 int Fl_screen_w(void);
 
-void Fl_paste(Fl_Widget *, int src);
+void Fl_paste_text(Fl_Widget *, int src);
+
+void Fl_paste_image(Fl_Widget *widget, int src);
 
 void Fl_set_scheme(const char *scheme);
 
@@ -230,6 +232,8 @@ int Fl_mac_os_version(void);
 void *Fl_event_clipboard(void);
 
 const char *Fl_event_clipboard_type(void);
+
+int Fl_clipboard_contains(const char *type);
 
 void Fl_event_dispatch(int (*cb)(int event, void *));
 
