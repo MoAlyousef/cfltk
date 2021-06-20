@@ -56,7 +56,6 @@ extern "C" {
                                int col_right);                                                     \
     int table##_move_cursor_with_shiftselect(table *self, int R, int C, int shiftselect);          \
     int table##_move_cursor(table *self, int R, int C);                                            \
-    void table##_init_sizes(table *self);                                                          \
     int table##_scrollbar_size(const table *self);                                                 \
     void table##_set_scrollbar_size(table *self, int newSize);                                     \
     void table##_set_tab_cell_nav(table *self, int val);                                           \

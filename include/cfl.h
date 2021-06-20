@@ -29,6 +29,8 @@ int Fl_event(void);
 
 int Fl_event_key(void);
 
+int Fl_event_original_key(void);
+
 int Fl_event_key_down(int);
 
 const char *Fl_event_text(void);

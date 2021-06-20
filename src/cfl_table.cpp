@@ -227,9 +227,6 @@
     int table##_move_cursor(table *self, int R, int C) {                                           \
         return self->move_cursor(R, C);                                                            \
     }                                                                                              \
-    void table##_init_sizes(table *self) {                                                         \
-        LOCK(self->init_sizes();)                                                                  \
-    }                                                                                              \
     int table##_scrollbar_size(const table *self) {                                                \
         return self->scrollbar_size();                                                             \
     }                                                                                              \

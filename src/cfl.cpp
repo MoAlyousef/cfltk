@@ -75,6 +75,10 @@ int Fl_event_key(void) {
     return Fl::event_key();
 }
 
+int Fl_event_original_key(void) {
+    return Fl::event_original_key();
+}
+
 int Fl_event_key_down(int key) {
     return Fl::event_key(key);
 }

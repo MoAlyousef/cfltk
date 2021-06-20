@@ -20,7 +20,8 @@ extern "C" {
     Fl_Widget *widget##_child(widget *, int index);                                                \
     void widget##_resizable(widget *self, void *);                                                 \
     void widget##_set_clip_children(widget *self, int c);                                          \
-    int widget##_clip_children(widget *self);
+    int widget##_clip_children(widget *self);                                                      \
+    void widget##_init_sizes(widget *self);
 
 #define GROUP_DEFINE(widget)                                                                       \
     void widget##_begin(widget *self) {                                                            \
@@ -61,6 +62,9 @@ extern "C" {
     }                                                                                              \
     int widget##_clip_children(widget *self) {                                                     \
         return self->clip_children();                                                              \
+    }                                                                                              \
+    void widget##_init_sizes(widget *self) {                                                       \
+        LOCK(self->init_sizes();)                                                                  \
     }
 
 WIDGET_DECLARE(Fl_Group)
