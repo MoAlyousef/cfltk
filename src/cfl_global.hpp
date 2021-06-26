@@ -4,6 +4,6 @@
 #define LOCK(x)                                                                                    \
     Fl::lock();                                                                                    \
     x;                                                                                             \
-    Fl::unlock();                                                                                  \
-    Fl::awake();
+    Fl::awake();                                                                                   \
+    Fl::unlock();
 #endif

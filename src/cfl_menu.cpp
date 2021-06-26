@@ -23,27 +23,30 @@
         LOCK(self->insert(index, name, shortcut, cb, data, flag);)                                 \
     }                                                                                              \
     Fl_Menu_Item *widget##_get_item(widget *self, const char *name) {                              \
-        return (Fl_Menu_Item *)self->find_item(name);                                              \
+        LOCK(auto ret = (Fl_Menu_Item *)self->find_item(name));                                    \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_set_item(widget *self, Fl_Menu_Item *item) {                                      \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->value(item);)                                                             \
+        LOCK(auto ret = self->value(item);)                                                        \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_text_font(widget *self) {                                                         \
-        return self->textfont();                                                                   \
+        LOCK(auto ret = self->textfont(););                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_font(widget *self, int c) {                                             \
         LOCK(self->textfont(c);)                                                                   \
     }                                                                                              \
     int widget##_text_size(widget *self) {                                                         \
-        return self->textsize();                                                                   \
+        LOCK(auto ret = self->textsize(););                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_size(widget *self, int c) {                                             \
         LOCK(self->textsize(c);)                                                                   \
     }                                                                                              \
     unsigned int widget##_text_color(widget *self) {                                               \
-        return self->textcolor();                                                                  \
+        LOCK(auto ret = self->textcolor(););                                                       \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_color(widget *self, unsigned int c) {                                   \
         LOCK(self->textcolor(c);)                                                                  \
@@ -52,46 +55,50 @@
         LOCK(self->add(str);)                                                                      \
     }                                                                                              \
     const char *widget##_get_choice(widget *self) {                                                \
-        return self->text();                                                                       \
+        LOCK(auto ret = self->text(););                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_value(widget *self) {                                                             \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->value();)                                                                 \
+        LOCK(auto ret = self->value();)                                                            \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_set_value(widget *self, int v) {                                                  \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->value(v);)                                                                \
+        LOCK(auto ret = self->value(v);)                                                           \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
         LOCK(self->clear();)                                                                       \
     }                                                                                              \
     int widget##_clear_submenu(widget *self, int index) {                                          \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->clear_submenu(index));                                                    \
+        LOCK(auto ret = self->clear_submenu(index));                                               \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_size(const widget *self) {                                                        \
-        return self->size();                                                                       \
+        LOCK(auto ret = self->size(););                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     const char *widget##_text(const widget *self, int idx) {                                       \
-        return self->text(idx);                                                                    \
+        LOCK(auto ret = self->text(idx););                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     const Fl_Menu_Item *widget##_at(const widget *self, int idx) {                                 \
-        return &self->menu()[idx];                                                                 \
+        LOCK(auto ret = &self->menu()[idx];);                                                      \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_mode(widget *self, int i, int fl) {                                          \
         LOCK(self->mode(fl);)                                                                      \
     }                                                                                              \
     int widget##_mode(const widget *self, int i) {                                                 \
-        return self->mode(i);                                                                      \
+        LOCK(auto ret = self->mode(i););                                                           \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_find_index(const widget *self, const char *label) {                               \
-        return self->find_index(label);                                                            \
+        LOCK(auto ret = self->find_index(label););                                                 \
+        return ret;                                                                                \
     }                                                                                              \
     const Fl_Menu_Item *widget##_menu(const widget *self) {                                        \
-        return self->menu();                                                                       \
+        LOCK(auto ret = self->menu(););                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_remove(widget *self, int idx) {                                                  \
         LOCK(self->remove(idx);)                                                                   \
@@ -100,7 +107,8 @@
         LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));                                        \
     }                                                                                              \
     int widget##_down_box(const widget *self) {                                                    \
-        return self->down_box();                                                                   \
+        LOCK(auto ret = self->down_box(););                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_global(widget *self) {                                                           \
         LOCK(self->global();)                                                                      \
@@ -131,13 +139,8 @@ WIDGET_DEFINE(Fl_Sys_Menu_Bar)
 MENU_DEFINE(Fl_Sys_Menu_Bar)
 
 Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz) {
-    Fl_Menu_Item *items = new Fl_Menu_Item[sz + 1];
-    if (!items)
-        return NULL;
-    for (int i = 0; i < sz; i++) {
-        items[i] = {args[i]};
-    }
-    items[sz] = {NULL};
+    LOCK(Fl_Menu_Item *items = new Fl_Menu_Item[sz + 1]; if (!items) return NULL;
+         for (int i = 0; i < sz; i++) { items[i] = {args[i]}; } items[sz] = {NULL};)
     return items;
 }
 
@@ -146,11 +149,11 @@ void Fl_Menu_Item_delete(Fl_Menu_Item *self) {
 }
 
 const Fl_Menu_Item *Fl_Menu_Item_popup(Fl_Menu_Item *self, int x, int y) {
-    return self->popup(x, y);
+    LOCK(auto ret = self->popup(x, y);) return ret;
 }
 
 const char *Fl_Menu_Item_label(Fl_Menu_Item *self) {
-    return self->label();
+    LOCK(auto ret = self->label();) return ret;
 }
 
 void Fl_Menu_Item_set_label(Fl_Menu_Item *self, const char *a) {
@@ -158,7 +161,7 @@ void Fl_Menu_Item_set_label(Fl_Menu_Item *self, const char *a) {
 }
 
 int Fl_Menu_Item_label_type(Fl_Menu_Item *self) {
-    return self->labeltype();
+    LOCK(auto ret = self->labeltype();) return ret;
 }
 
 void Fl_Menu_Item_set_label_type(Fl_Menu_Item *self, int a) {
@@ -166,7 +169,7 @@ void Fl_Menu_Item_set_label_type(Fl_Menu_Item *self, int a) {
 }
 
 unsigned int Fl_Menu_Item_label_color(Fl_Menu_Item *self) {
-    return self->labelcolor();
+    LOCK(auto ret = self->labelcolor();) return ret;
 }
 
 void Fl_Menu_Item_set_label_color(Fl_Menu_Item *self, unsigned int a) {
@@ -174,7 +177,7 @@ void Fl_Menu_Item_set_label_color(Fl_Menu_Item *self, unsigned int a) {
 }
 
 int Fl_Menu_Item_label_font(Fl_Menu_Item *self) {
-    return self->labelfont();
+    LOCK(auto ret = self->labelfont();) return ret;
 }
 
 void Fl_Menu_Item_set_label_font(Fl_Menu_Item *self, int a) {
@@ -182,7 +185,7 @@ void Fl_Menu_Item_set_label_font(Fl_Menu_Item *self, int a) {
 }
 
 int Fl_Menu_Item_label_size(Fl_Menu_Item *self) {
-    return self->labelsize();
+    LOCK(auto ret = self->labelsize();) return ret;
 }
 
 void Fl_Menu_Item_set_label_size(Fl_Menu_Item *self, int a) {
@@ -190,7 +193,7 @@ void Fl_Menu_Item_set_label_size(Fl_Menu_Item *self, int a) {
 }
 
 int Fl_Menu_Item_value(Fl_Menu_Item *self) {
-    return self->value();
+    LOCK(auto ret = self->value();) return ret;
 }
 
 void Fl_Menu_Item_set(Fl_Menu_Item *self) {
@@ -202,7 +205,7 @@ void Fl_Menu_Item_clear(Fl_Menu_Item *self) {
 }
 
 int Fl_Menu_Item_visible(Fl_Menu_Item *self) {
-    return self->visible();
+    LOCK(auto ret = self->visible();) return ret;
 }
 
 void Fl_Menu_Item_show(Fl_Menu_Item *self) {
@@ -214,7 +217,7 @@ void Fl_Menu_Item_hide(Fl_Menu_Item *self) {
 }
 
 int Fl_Menu_Item_active(Fl_Menu_Item *self) {
-    return self->active();
+    LOCK(auto ret = self->active();) return ret;
 }
 
 void Fl_Menu_Item_activate(Fl_Menu_Item *self) {
@@ -226,19 +229,19 @@ void Fl_Menu_Item_deactivate(Fl_Menu_Item *self) {
 }
 
 int Fl_Menu_Item_submenu(const Fl_Menu_Item *self) {
-    return self->submenu();
+    LOCK(auto ret = self->submenu();) return ret;
 }
 
 int Fl_Menu_Item_checkbox(const Fl_Menu_Item *self) {
-    return self->checkbox();
+    LOCK(auto ret = self->checkbox();) return ret;
 }
 
 int Fl_Menu_Item_radio(const Fl_Menu_Item *self) {
-    return self->radio();
+    LOCK(auto ret = self->radio();) return ret;
 }
 
 Fl_Menu_Item *Fl_Menu_Item_next(Fl_Menu_Item *self, int idx) {
-    return self->next(idx);
+    LOCK(auto ret = self->next(idx);) return ret;
 }
 
 void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p) {
@@ -246,21 +249,22 @@ void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p) {
 }
 
 void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {
-    return self->user_data();
+    LOCK(auto ret = self->user_data();) return ret;
 }
 
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *self, void *data) {
-    self->user_data(data);
+    LOCK(self->user_data(data);)
 }
 
 void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m,
                        int selected) {
     fl_open_display();
-    self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected);
+    LOCK(self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected);)
 }
 
 int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m) {
-    return self->measure(hp, (const Fl_Menu_ *)m);
+    LOCK(auto ret = self->measure(hp, (const Fl_Menu_ *)m));
+    return ret;
 }
 
 void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image) {

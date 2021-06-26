@@ -9,8 +9,8 @@ extern "C" {
 #define LOCK(x)                                                                                    \
     Fl::lock();                                                                                    \
     x;                                                                                             \
-    Fl::unlock();                                                                                  \
-    Fl::awake();
+    Fl::awake();                                                                                   \
+    Fl::unlock();
 #endif
 
 typedef struct Fl_Widget Fl_Widget;
@@ -119,10 +119,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         virtual void resize(int x, int y, int w, int h) override {                                 \
             widget::resize(x, y, w, h);                                                            \
             if (this->as_window() == this->top_window()) {                                         \
-                Fl::lock();                                                                        \
-                Fl::handle(28, this->top_window());                                                \
-                Fl::unlock();                                                                      \
-                Fl::awake();                                                                       \
+                LOCK(Fl::handle(28, this->top_window());)                                          \
             }                                                                                      \
         }                                                                                          \
         void set_handler(handler h) {                                                              \
@@ -174,22 +171,28 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
 
 #define WIDGET_DEFINE(widget)                                                                      \
     widget *widget##_new(int x, int y, int width, int height, const char *title) {                 \
-        return new widget##_Derived(x, y, width, height, title);                                   \
+        LOCK(auto ret = new widget##_Derived(x, y, width, height, title));                         \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_x(widget *self) {                                                                 \
-        return self->x();                                                                          \
+        LOCK(auto ret = self->x());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_y(widget *self) {                                                                 \
-        return self->y();                                                                          \
+        LOCK(auto ret = self->y());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_width(widget *self) {                                                             \
-        return self->w();                                                                          \
+        LOCK(auto ret = self->w());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_height(widget *self) {                                                            \
-        return self->h();                                                                          \
+        LOCK(auto ret = self->h());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     const char *widget##_label(widget *self) {                                                     \
-        return self->label();                                                                      \
+        LOCK(auto ret = self->label());                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_label(widget *self, const char *title) {                                     \
         LOCK(self->copy_label(title);)                                                             \
@@ -219,58 +222,67 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(((widget##_Derived *)self)->widget_resize(x, y, width, height))                       \
     }                                                                                              \
     const char *widget##_tooltip(widget *self) {                                                   \
-        return self->tooltip();                                                                    \
+        LOCK(auto ret = self->tooltip());                                                          \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_tooltip(widget *self, const char *txt) {                                     \
         LOCK(self->copy_tooltip(txt);)                                                             \
     }                                                                                              \
     int widget##_get_type(widget *self) {                                                          \
-        return self->type();                                                                       \
+        LOCK(auto ret = self->type());                                                             \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_type(widget *self, int typ) {                                                \
         LOCK(self->type((decltype(self->type()))typ);)                                             \
     }                                                                                              \
     unsigned int widget##_color(widget *self) {                                                    \
-        return self->color();                                                                      \
+        LOCK(auto ret = self->color());                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_color(widget *self, unsigned int color) {                                    \
         LOCK(self->color(color);)                                                                  \
     }                                                                                              \
     void widget##_measure_label(const widget *self, int *x, int *y) {                              \
-        self->measure_label(*x, *y);                                                               \
+        LOCK(self->measure_label(*x, *y);)                                                         \
     }                                                                                              \
     unsigned int widget##_label_color(widget *self) {                                              \
-        return self->labelcolor();                                                                 \
+        LOCK(auto ret = self->labelcolor());                                                       \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_label_color(widget *self, unsigned int color) {                              \
         LOCK(self->labelcolor(color);)                                                             \
     }                                                                                              \
     int widget##_label_font(widget *self) {                                                        \
-        return self->labelfont();                                                                  \
+        LOCK(auto ret = self->labelfont());                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_label_font(widget *self, int font) {                                         \
         LOCK(self->labelfont(font);)                                                               \
     }                                                                                              \
     int widget##_label_size(widget *self) {                                                        \
-        return self->labelsize();                                                                  \
+        LOCK(auto ret = self->labelsize());                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_label_size(widget *self, int sz) {                                           \
         LOCK(self->labelsize(sz);)                                                                 \
     }                                                                                              \
     int widget##_label_type(widget *self) {                                                        \
-        return self->labeltype();                                                                  \
+        LOCK(auto ret = self->labeltype());                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_label_type(widget *self, int typ) {                                          \
         LOCK(self->labeltype(static_cast<Fl_Labeltype>(typ));)                                     \
     }                                                                                              \
     int widget##_box(widget *self) {                                                               \
-        return self->box();                                                                        \
+        LOCK(auto ret = self->box());                                                              \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_box(widget *self, int typ) {                                                 \
         LOCK(self->box(static_cast<Fl_Boxtype>(typ));)                                             \
     }                                                                                              \
     int widget##_changed(widget *self) {                                                           \
-        return self->changed();                                                                    \
+        LOCK(auto ret = self->changed());                                                          \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_changed(widget *self) {                                                      \
         LOCK(self->set_changed();)                                                                 \
@@ -279,7 +291,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->clear_changed();)                                                               \
     }                                                                                              \
     int widget##_align(widget *self) {                                                             \
-        return self->align();                                                                      \
+        LOCK(auto ret = self->align());                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_align(widget *self, int typ) {                                               \
         LOCK(self->align(typ);)                                                                    \
@@ -299,23 +312,27 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->when(val);)                                                                     \
     }                                                                                              \
     int widget##_when(const widget *self) {                                                        \
-        return self->when();                                                                       \
+        LOCK(auto ret = self->when());                                                             \
+        return ret;                                                                                \
     }                                                                                              \
     void *widget##_image(const widget *self) {                                                     \
-        auto temp = self->image();                                                                 \
+        LOCK(auto temp = self->image();)                                                           \
         if (!temp)                                                                                 \
             return NULL;                                                                           \
-        return ((Fl_Image *)temp)->copy();                                                         \
+        LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data) {                        \
         LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
              ((widget##_Derived *)self)->set_drawer(cb);)                                          \
     }                                                                                              \
     void *widget##_parent(const widget *self) {                                                    \
-        return (Fl_Group *)self->parent();                                                         \
+        LOCK(auto ret = (Fl_Group *)self->parent());                                               \
+        return ret;                                                                                \
     }                                                                                              \
     unsigned int widget##_selection_color(widget *self) {                                          \
-        return self->selection_color();                                                            \
+        LOCK(auto ret = self->selection_color());                                                  \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_selection_color(widget *self, unsigned int color) {                          \
         LOCK(self->selection_color(color);)                                                        \
@@ -324,23 +341,27 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(((Fl_Widget *)self)->do_callback();)                                                  \
     }                                                                                              \
     int widget##_inside(const widget *self, void *wid) {                                           \
-        return self->inside((Fl_Widget *)wid);                                                     \
+        LOCK(auto ret = self->inside((Fl_Widget *)wid));                                           \
+        return ret;                                                                                \
     }                                                                                              \
     void *widget##_window(const widget *self) {                                                    \
-        return (void *)self->window();                                                             \
+        LOCK(auto ret = (void *)self->window());                                                   \
+        return ret;                                                                                \
     }                                                                                              \
     void *widget##_top_window(const widget *self) {                                                \
-        return (void *)self->top_window();                                                         \
+        LOCK(auto ret = (void *)self->top_window());                                               \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_takes_events(const widget *self) {                                                \
-        return self->takesevents();                                                                \
+        LOCK(auto ret = self->takesevents());                                                      \
+        return ret;                                                                                \
     }                                                                                              \
     void *widget##_user_data(const widget *self) {                                                 \
-        return self->user_data();                                                                  \
+        LOCK(auto ret = self->user_data());                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_take_focus(widget *self) {                                                        \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->take_focus());                                                            \
+        LOCK(auto ret = self->take_focus());                                                       \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_visible_focus(widget *self) {                                                \
@@ -353,16 +374,19 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->visible_focus(v);)                                                              \
     }                                                                                              \
     unsigned int widget##_has_visible_focus(widget *self) {                                        \
-        return self->visible_focus();                                                              \
+        LOCK(auto ret = self->visible_focus());                                                    \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_user_data(widget *self, void *data) {                                        \
         LOCK(self->user_data(data);)                                                               \
     }                                                                                              \
     void *widget##_draw_data(const widget *self) {                                                 \
-        return ((widget##_Derived *)self)->draw_data_;                                             \
+        LOCK(auto ret = ((widget##_Derived *)self)->draw_data_);                                   \
+        return ret;                                                                                \
     }                                                                                              \
     void *widget##_handle_data(const widget *self) {                                               \
-        return ((widget##_Derived *)self)->ev_data_;                                               \
+        LOCK(auto ret = ((widget##_Derived *)self)->ev_data_);                                     \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_draw_data(widget *self, void *data) {                                        \
         LOCK(((widget##_Derived *)self)->draw_data_ = data;)                                       \
@@ -371,7 +395,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(((widget##_Derived *)self)->ev_data_ = data;)                                         \
     }                                                                                              \
     unsigned char widget##_damage(const widget *self) {                                            \
-        return self->damage();                                                                     \
+        LOCK(auto ret = self->damage());                                                           \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_damage(widget *self, unsigned char flag) {                                   \
         LOCK(self->damage(flag);)                                                                  \
@@ -380,20 +405,23 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->clear_damage();)                                                                \
     }                                                                                              \
     void *widget##_as_window(widget *self) {                                                       \
-        return self->as_window();                                                                  \
+        LOCK(auto ret = self->as_window());                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void *widget##_as_group(widget *self) {                                                        \
-        return self->as_group();                                                                   \
+        LOCK(auto ret = self->as_group());                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_deimage(widget *self, void *image) {                                         \
         LOCK(auto old = self->deimage(); if (!image) self->deimage(NULL);                          \
              else self->deimage(((Fl_Image *)image)->copy()); delete old;)                         \
     }                                                                                              \
     void *widget##_deimage(const widget *self) {                                                   \
-        auto temp = self->deimage();                                                               \
+        LOCK(auto temp = self->deimage();)                                                         \
         if (!temp)                                                                                 \
             return NULL;                                                                           \
-        return ((Fl_Image *)temp)->copy();                                                         \
+        LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_callback(widget *self, Fl_Callback *cb, void *data) {                        \
         LOCK(self->callback(cb, data);)                                                            \
@@ -402,10 +430,12 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(((widget##_Derived *)self)->deleter = deleter;)                                       \
     }                                                                                              \
     int widget##_visible(const widget *self) {                                                     \
-        return ((Fl_Widget *)self)->visible();                                                     \
+        LOCK(auto ret = ((Fl_Widget *)self)->visible());                                           \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_visible_r(const widget *self) {                                                   \
-        return self->visible_r();                                                                  \
+        LOCK(auto ret = self->visible_r());                                                        \
+        return ret;                                                                                \
     }
 
 WIDGET_DECLARE(Fl_Widget)

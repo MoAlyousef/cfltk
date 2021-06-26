@@ -35,91 +35,91 @@ extern "C" {
 
 #define INPUT_DEFINE(widget)                                                                       \
     int widget##_set_value(widget *self, const char *t) {                                          \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->value(t));                                                                \
+        LOCK(auto ret = self->value(t));                                                           \
         return ret;                                                                                \
     }                                                                                              \
     const char *widget##_value(widget *self) {                                                     \
-        return self->value();                                                                      \
+        LOCK(auto ret = self->value());                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_maximum_size(widget *self) {                                                      \
-        return self->maximum_size();                                                               \
+        LOCK(auto ret = self->maximum_size());                                                     \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_maximum_size(widget *self, int m) {                                          \
         LOCK(self->maximum_size(m);)                                                               \
     }                                                                                              \
     int widget##_position(widget *self) {                                                          \
-        return self->position();                                                                   \
+        LOCK(auto ret = self->position());                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_set_position(widget *self, int p) {                                               \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->position(p));                                                             \
+        LOCK(auto ret = self->position(p));                                                        \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_set_mark(widget *self, int m) {                                                   \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->mark(m));                                                                 \
+        LOCK(auto ret = self->mark(m));                                                            \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_mark(widget *self) {                                                              \
-        return self->mark();                                                                       \
+        LOCK(auto ret = self->mark());                                                             \
+        return ret;                                                                                \
     }                                                                                              \
     int widget##_replace(widget *self, int b, int e, const char *text, int ilen) {                 \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->replace(b, e, text, ilen));                                               \
+        LOCK(auto ret = self->replace(b, e, text, ilen));                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_insert(widget *self, const char *t, int l) {                                      \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->insert(t, l));                                                            \
+        LOCK(auto ret = self->insert(t, l));                                                       \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_append(widget *self, const char *t, int l, char keep_selection) {                 \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->append(t, l, keep_selection));                                            \
+        LOCK(auto ret = self->append(t, l, keep_selection));                                       \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_copy(widget *self, int clipboard) {                                               \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->copy(clipboard));                                                         \
+        LOCK(auto ret = self->copy(clipboard));                                                    \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_undo(widget *self) {                                                              \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->undo());                                                                  \
+        LOCK(auto ret = self->undo());                                                             \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_copy_cuts(widget *self) {                                                         \
-        int ret = 0;                                                                               \
-        LOCK(ret = self->cut());                                                                   \
+        LOCK(auto ret = self->cut());                                                              \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_text_font(widget *self) {                                                         \
-        return self->textfont();                                                                   \
+        LOCK(auto ret = self->textfont());                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_font(widget *self, int s) {                                             \
         LOCK(self->textfont(s);)                                                                   \
     }                                                                                              \
     unsigned int widget##_text_color(widget *self) {                                               \
-        return self->textcolor();                                                                  \
+        LOCK(auto ret = self->textcolor());                                                        \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_color(widget *self, unsigned int s) {                                   \
         LOCK(self->textcolor(s);)                                                                  \
     }                                                                                              \
     int widget##_text_size(widget *self) {                                                         \
-        return self->textsize();                                                                   \
+        LOCK(auto ret = self->textsize());                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_size(widget *self, int s) {                                             \
         LOCK(self->textsize(s);)                                                                   \
     }                                                                                              \
     int widget##_readonly(widget *self) {                                                          \
-        return self->readonly();                                                                   \
+        LOCK(auto ret = self->readonly());                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_readonly(widget *self, int boolean) {                                        \
         LOCK(self->readonly(boolean);)                                                             \
     }                                                                                              \
     int widget##_wrap(widget *self) {                                                              \
-        return self->wrap();                                                                       \
+        LOCK(auto ret = self->wrap());                                                             \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_wrap(widget *self, int boolean) {                                            \
         LOCK(self->wrap(boolean);)                                                                 \

@@ -17,7 +17,8 @@ WIDGET_CLASS(Fl_Group)
 WIDGET_DEFINE(Fl_Group)
 
 Fl_Group *Fl_Group_current(void) {
-    return Fl_Group::current();
+    LOCK(auto ret = Fl_Group::current());
+    return ret;
 }
 
 void Fl_Group_set_current(Fl_Group *grp) {
@@ -121,10 +122,11 @@ WIDGET_CLASS(Fl_Pack)
 WIDGET_DEFINE(Fl_Pack)
 
 int Fl_Pack_spacing(Fl_Pack *self) {
-    return self->spacing();
+    LOCK(auto ret = self->spacing());
+    return ret;
 }
 void Fl_Pack_set_spacing(Fl_Pack *self, int spacing) {
-    self->spacing(spacing);
+    LOCK(self->spacing(spacing));
 }
 
 GROUP_DEFINE(Fl_Pack)
@@ -134,21 +136,25 @@ WIDGET_CLASS(Fl_Scroll)
 WIDGET_DEFINE(Fl_Scroll)
 
 void *Fl_Scroll_scrollbar(Fl_Scroll *self) {
-    return &self->scrollbar;
+    LOCK(auto ret = &self->scrollbar);
+    return ret;
 }
 
 void *Fl_Scroll_hscrollbar(Fl_Scroll *self) {
-    return &self->hscrollbar;
+    LOCK(auto ret = &self->hscrollbar);
+    return ret;
 }
 
 void *Fl_Scroll_hscrollbar(const Fl_Scroll *self);
 
 int Fl_Scroll_xposition(const Fl_Scroll *self) {
-    return self->xposition();
+    LOCK(auto ret = self->xposition());
+    return ret;
 }
 
 int Fl_Scroll_yposition(const Fl_Scroll *self) {
-    return self->yposition();
+    LOCK(auto ret = self->yposition());
+    return ret;
 }
 
 void Fl_Scroll_scroll_to(Fl_Scroll *self, int x, int y) {
@@ -156,7 +162,8 @@ void Fl_Scroll_scroll_to(Fl_Scroll *self, int x, int y) {
 }
 
 int Fl_Scroll_scrollbar_size(const Fl_Scroll *self) {
-    return self->scrollbar_size();
+    LOCK(auto ret = self->scrollbar_size());
+    return ret;
 }
 
 void Fl_Scroll_set_scrollbar_size(Fl_Scroll *self, int newSize) {
@@ -170,27 +177,29 @@ WIDGET_CLASS(Fl_Tabs)
 WIDGET_DEFINE(Fl_Tabs)
 
 Fl_Widget *Fl_Tabs_value(Fl_Tabs *self) {
-    return self->value();
+    LOCK(auto ret = self->value());
+    return ret;
 }
 
 int Fl_Tabs_set_value(Fl_Tabs *self, Fl_Widget *w) {
-    int ret = 0;
-    LOCK(ret = self->value(w));
+
+    LOCK(auto ret =self->value(w));
     return ret;
 }
 
 Fl_Widget *Fl_Tabs_push(const Fl_Tabs *self) {
-    return self->push();
+    LOCK(auto ret = self->push());
+    return ret;
 }
 
 int Fl_Tabs_set_push(Fl_Tabs *self, Fl_Widget *w) {
-    int ret = 0;
-    LOCK(ret = self->push(w));
+
+    LOCK(auto ret =self->push(w));
     return ret;
 }
 
 void Fl_Tabs_client_area(Fl_Tabs *self, int *rx, int *ry, int *rw, int *rh) {
-    return self->client_area(*rx, *ry, *rw, *rh);
+    LOCK(self->client_area(*rx, *ry, *rw, *rh));
 }
 
 void Fl_Tabs_set_tab_align(Fl_Tabs *self, int a) {
@@ -198,7 +207,8 @@ void Fl_Tabs_set_tab_align(Fl_Tabs *self, int a) {
 }
 
 int Fl_Tabs_tab_align(const Fl_Tabs *self) {
-    return self->tab_align();
+    LOCK(auto ret = self->tab_align());
+    return ret;
 }
 
 GROUP_DEFINE(Fl_Tabs)
@@ -214,15 +224,16 @@ WIDGET_CLASS(Fl_Wizard)
 WIDGET_DEFINE(Fl_Wizard)
 
 void Fl_Wizard_next(Fl_Wizard *self) {
-    self->next();
+    LOCK(self->next();)
 }
 
 void Fl_Wizard_prev(Fl_Wizard *self) {
-    self->prev();
+    LOCK(self->prev();)
 }
 
 Fl_Widget *Fl_Wizard_value(Fl_Wizard *self) {
-    return (Fl_Widget *)self->value();
+    LOCK(auto ret = (Fl_Widget *)self->value());
+    return ret;
 }
 
 void Fl_Wizard_set_value(Fl_Wizard *self, Fl_Widget *wid) {
@@ -236,13 +247,16 @@ WIDGET_CLASS(Fl_Color_Chooser)
 WIDGET_DEFINE(Fl_Color_Chooser)
 
 double Fl_Color_Chooser_r(Fl_Color_Chooser *self) {
-    return self->r();
+    LOCK(auto ret = self->r());
+    return ret;
 }
 double Fl_Color_Chooser_g(Fl_Color_Chooser *self) {
-    return self->g();
+    LOCK(auto ret = self->g());
+    return ret;
 }
 double Fl_Color_Chooser_b(Fl_Color_Chooser *self) {
-    return self->b();
+    LOCK(auto ret = self->b());
+    return ret;
 }
 
 GROUP_DEFINE(Fl_Color_Chooser)

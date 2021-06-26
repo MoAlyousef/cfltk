@@ -31,10 +31,7 @@ struct Fl_Widget_Derived : public Fl_Widget {
     virtual void resize(int x, int y, int w, int h) override {
         Fl_Widget::resize(x, y, w, h);
         if (this->as_window() == this->top_window()) {
-            Fl::lock();
-            Fl::handle(28, this->top_window());
-            Fl::unlock();
-            Fl::awake();
+            LOCK(Fl::handle(28, this->top_window()))            
         }
     }
 

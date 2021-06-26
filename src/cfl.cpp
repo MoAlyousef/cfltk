@@ -216,9 +216,7 @@ void Fl_set_font2(int o, const char *n) {
 }
 
 void Fl_set_font_size(int sz) {
-    Fl::lock();
-    FL_NORMAL_SIZE = sz;
-    Fl::unlock();
+    LOCK(FL_NORMAL_SIZE = sz)
 }
 
 void Fl_add_handler(int (*ev_handler)(int ev)) {
@@ -471,20 +469,12 @@ void Fl_get_system_colors(void) {
 }
 
 int Fl_handle(int ev, void *win) {
-    int ret = 0;
-    Fl::lock();
-    ret = Fl::handle(ev, (Fl_Window *)win);
-    Fl::unlock();
-    Fl::awake();
+    LOCK(auto ret = Fl::handle(ev, (Fl_Window *)win));
     return ret;
 }
 
 int Fl_handle_(int ev, void *win) {
-    int ret = 0;
-    Fl::lock();
-    ret = Fl::handle_(ev, (Fl_Window *)win);
-    Fl::unlock();
-    Fl::awake();
+    LOCK(auto ret = Fl::handle_(ev, (Fl_Window *)win);)
     return ret;
 }
 

@@ -12,11 +12,13 @@ void Fl_Surface_Device_set_current(Fl_Surface_Device *self) {
 }
 
 int Fl_Surface_Device_is_current(Fl_Surface_Device *self) {
-    return self->is_current();
+    LOCK(auto ret = self->is_current());
+    return ret;
 }
 
 Fl_Surface_Device *Fl_Surface_Device_surface(void) {
-    return Fl_Surface_Device::surface();
+    LOCK(auto ret = Fl_Surface_Device::surface());
+    return ret;
 }
 
 void Fl_Surface_Device_push_current(Fl_Surface_Device *new_current){
@@ -30,7 +32,8 @@ Fl_Surface_Device *Fl_Surface_Device_pop_current(void) {
 
 Fl_Image_Surface *Fl_Image_Surface_new(int w, int h, int high_res) {
     fl_open_display();
-    return new Fl_Image_Surface(w, h, high_res);
+    LOCK(auto ret = new Fl_Image_Surface(w, h, high_res));
+    return ret;
 }
 
 void Fl_Image_Surface_delete(Fl_Image_Surface *s) {
@@ -42,19 +45,22 @@ void Fl_Image_Surface_set_current(Fl_Image_Surface *self) {
 }
 
 int Fl_Image_Surface_is_current(Fl_Image_Surface *self) {
-    return self->is_current();
+    LOCK(auto ret = self->is_current());
+    return ret;
 }
 
 void *Fl_Image_Surface_image(Fl_Image_Surface *self) {
-    return self->image();
+    LOCK(auto ret = self->image());
+    return ret;
 }
 
 void *Fl_Image_Surface_highres_image(Fl_Image_Surface *self) {
-    return self->highres_image();
+    LOCK(auto ret = self->highres_image());
+    return ret;
 }
 
 void Fl_Image_Surface_origin(Fl_Image_Surface *self, int *x, int *y) {
-    self->origin(x, y);
+    LOCK(self->origin(x, y))
 }
 
 void Fl_Image_Surface_set_origin(Fl_Image_Surface *self, int x, int y) {
@@ -76,7 +82,8 @@ void Fl_Image_Surface_draw_decorated_window(Fl_Image_Surface *self, void *widget
 Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(int width, int height, const char *file) {
     fl_open_display();
     FILE *f = fopen(file, "w");
-    return new Fl_SVG_File_Surface(width, height, f);
+    LOCK(auto ret = new Fl_SVG_File_Surface(width, height, f));
+    return ret;
 }
 
 void Fl_SVG_File_Surface_delete(Fl_SVG_File_Surface *self) {
@@ -90,7 +97,8 @@ void Fl_SVG_File_Surface_origin(Fl_SVG_File_Surface *self, int x, int y) {
 }
 
 int Fl_SVG_File_Surface_printable_rect(Fl_SVG_File_Surface *self, int *w, int *h) {
-    return self->printable_rect(w, h);
+    LOCK(auto ret = self->printable_rect(w, h));
+    return ret;
 }
 
 void Fl_SVG_File_Surface_draw(Fl_SVG_File_Surface *self, void *widget, int delta_x, int delta_y) {

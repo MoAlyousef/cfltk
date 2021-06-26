@@ -48,7 +48,7 @@ void Fl_File_Input_set_down_box(Fl_File_Input *self, int box) {
     LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));
 }
 int Fl_File_Input_down_box(const Fl_File_Input *self) {
-    return self->down_box();
+    LOCK(auto ret = self->down_box()); return ret;
 }
 
 INPUT_DEFINE(Fl_File_Input)

@@ -6,7 +6,8 @@
 #include <FL/Fl_Printer.H>
 
 Fl_Printer *Fl_Printer_new(void) {
-    return new Fl_Printer;
+    LOCK(auto ret = new Fl_Printer);
+    return ret;
 }
 
 void Fl_Printer_delete(Fl_Printer *self) {
@@ -15,23 +16,27 @@ void Fl_Printer_delete(Fl_Printer *self) {
 
 int Fl_Printer_begin_job(Fl_Printer *self, int pagecount, int *frompage, int *topage,
                          char **perr_message) {
-    int ret = 0; LOCK(ret = self->begin_job(pagecount, frompage, topage, perr_message)); return ret;
+
+    LOCK(auto ret =self->begin_job(pagecount, frompage, topage, perr_message));
+    return ret;
 }
 
 int Fl_Printer_begin_page(Fl_Printer *self) {
-    int ret = 0; LOCK(ret = self->begin_page()); return ret;
+
+    LOCK(auto ret =self->begin_page());
+    return ret;
 }
 
 int Fl_Printer_printable_rect(Fl_Printer *self, int *w, int *h) {
-    return self->printable_rect(w, h);
+    LOCK(auto ret = self->printable_rect(w, h)); return ret;
 }
 
 void Fl_Printer_margins(Fl_Printer *self, int *left, int *top, int *right, int *bottom) {
-    return self->margins(left, top, right, bottom);
+    LOCK(self->margins(left, top, right, bottom))
 }
 
 void Fl_Printer_origin(Fl_Printer *self, int *x, int *y) {
-    return self->origin(x, y);
+    LOCK(self->origin(x, y));
 }
 
 void Fl_Printer_set_origin(Fl_Printer *self, int x, int y) {
@@ -55,7 +60,9 @@ void Fl_Printer_untranslate(Fl_Printer *self) {
 }
 
 int Fl_Printer_end_page(Fl_Printer *self) {
-    int ret = 0; LOCK(ret = self->end_page()); return ret;
+
+    LOCK(auto ret =self->end_page());
+    return ret;
 }
 
 void Fl_Printer_end_job(Fl_Printer *self) {
@@ -67,7 +74,7 @@ void Fl_Printer_set_current(Fl_Printer *self) {
 }
 
 int Fl_Printer_is_current(Fl_Printer *self) {
-    return self->is_current();
+    LOCK(auto ret = self->is_current()); return ret;
 }
 
 void Fl_Printer_print_widget(Fl_Printer *self, void *widget, int delta_x, int delta_y) {

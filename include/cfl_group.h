@@ -31,7 +31,8 @@ extern "C" {
         LOCK(self->end();)                                                                         \
     }                                                                                              \
     int widget##_find(widget *self, const void *wid) {                                             \
-        return self->find((const Fl_Widget *)wid);                                                 \
+        LOCK(auto ret = self->find((const Fl_Widget *)wid));                                       \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_add(widget *self, void *wid) {                                                   \
         LOCK(self->add((Fl_Widget *)wid);)                                                         \
@@ -49,10 +50,12 @@ extern "C" {
         LOCK(self->clear();)                                                                       \
     }                                                                                              \
     int widget##_children(widget *self) {                                                          \
-        return self->children();                                                                   \
+        LOCK(auto ret = self->children());                                                         \
+        return ret;                                                                                \
     }                                                                                              \
     Fl_Widget *widget##_child(widget *self, int index) {                                           \
-        return self->child(index);                                                                 \
+        LOCK(auto ret = self->child(index));                                                       \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_resizable(widget *self, void *wid) {                                             \
         LOCK(self->resizable((Fl_Widget *)wid);)                                                   \
@@ -61,7 +64,8 @@ extern "C" {
         LOCK(self->clip_children(c);)                                                              \
     }                                                                                              \
     int widget##_clip_children(widget *self) {                                                     \
-        return self->clip_children();                                                              \
+        LOCK(auto ret = self->clip_children());                                                    \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_init_sizes(widget *self) {                                                       \
         LOCK(self->init_sizes();)                                                                  \
