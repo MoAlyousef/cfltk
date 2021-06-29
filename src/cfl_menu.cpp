@@ -124,6 +124,10 @@ WIDGET_CLASS(Fl_Menu_Button)
 
 WIDGET_DEFINE(Fl_Menu_Button)
 
+const Fl_Menu_Item *Fl_Menu_Button_popup(Fl_Menu_Button *self) {
+    LOCK(auto ret = self->popup()); return ret;
+}
+
 MENU_DEFINE(Fl_Menu_Button)
 
 WIDGET_CLASS(Fl_Choice)

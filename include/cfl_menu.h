@@ -45,6 +45,8 @@ MENU_DECLARE(Fl_Menu_Bar)
 
 WIDGET_DECLARE(Fl_Menu_Button)
 
+const Fl_Menu_Item *Fl_Menu_Button_popup(Fl_Menu_Button *self);
+
 MENU_DECLARE(Fl_Menu_Button)
 
 WIDGET_DECLARE(Fl_Choice)
