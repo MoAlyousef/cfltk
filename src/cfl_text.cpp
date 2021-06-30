@@ -1,4 +1,5 @@
 #include "cfl_text.h"
+#include "cfl_lock.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Image.H>

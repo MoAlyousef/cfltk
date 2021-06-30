@@ -5,14 +5,6 @@
 extern "C" {
 #endif
 
-#ifndef LOCK
-#define LOCK(x)                                                                                    \
-    Fl::lock();                                                                                    \
-    x;                                                                                             \
-    Fl::awake();                                                                                   \
-    Fl::unlock();
-#endif
-
 typedef struct Fl_Widget Fl_Widget;
 typedef void(Fl_Callback)(Fl_Widget *, void *);
 typedef int (*custom_handler_callback)(Fl_Widget *, int, void *);

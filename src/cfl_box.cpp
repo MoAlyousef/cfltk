@@ -1,4 +1,5 @@
 #include "cfl_box.h"
+#include "cfl_lock.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>

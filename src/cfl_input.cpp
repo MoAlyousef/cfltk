@@ -1,4 +1,5 @@
 #include "cfl_input.h"
+#include "cfl_lock.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_File_Input.H>

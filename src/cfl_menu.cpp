@@ -1,4 +1,5 @@
 #include "cfl_menu.h"
+#include "cfl_lock.hpp"
 
 #include "FL/Fl_Sys_Menu_Bar.H"
 #include <FL/Fl.H>

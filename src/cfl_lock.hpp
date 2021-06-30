@@ -1,9 +1,14 @@
 #pragma once
 
+struct Mutex {    
+    static void lock();
+    static void unlock();
+};
+
 #ifndef LOCK
 #define LOCK(x)                                                                                    \
-    Fl::lock();                                                                                    \
+    Mutex::lock();                                                                                 \
     x;                                                                                             \
     Fl::awake();                                                                                   \
-    Fl::unlock();
+    Mutex::unlock();
 #endif

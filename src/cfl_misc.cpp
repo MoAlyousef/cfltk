@@ -1,4 +1,5 @@
 #include "cfl_misc.h"
+#include "cfl_lock.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Chart.H>

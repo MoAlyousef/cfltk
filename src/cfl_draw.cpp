@@ -1,4 +1,5 @@
 #include "cfl_draw.h"
+#include "cfl_lock.hpp"
 
 #include <FL/Enumerations.H>
 #include <FL/Fl.H>
