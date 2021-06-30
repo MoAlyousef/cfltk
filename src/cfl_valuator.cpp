@@ -82,7 +82,7 @@ WIDGET_CLASS(Fl_Slider)
 WIDGET_DEFINE(Fl_Slider)
 
 float Fl_Slider_slider_size(const Fl_Slider *self) {
-    LOCK(auto ret = self->slider_size(); return ret;);
+    LOCK(auto ret = self->slider_size()); return ret;
 }
 
 void Fl_Slider_set_slider_size(Fl_Slider *self, float v) {
@@ -117,11 +117,11 @@ WIDGET_CLASS(Fl_Dial)
 WIDGET_DEFINE(Fl_Dial)
 
 short Fl_Dial_angle1(const Fl_Dial *self) {
-    LOCK(auto ret = self->angle1(); return ret;);
+    LOCK(auto ret = self->angle1()); return ret;
 }
 
 short Fl_Dial_angle2(const Fl_Dial *self) {
-    LOCK(auto ret = self->angle2(); return ret;);
+    LOCK(auto ret = self->angle2()); return ret;
 }
 
 void Fl_Dial_set_angle1(Fl_Dial *self, short val) {
@@ -161,7 +161,7 @@ void Fl_Value_Slider_set_text_color(Fl_Value_Slider *self, unsigned int c) {
 }
 
 unsigned int Fl_Value_Slider_text_color(Fl_Value_Slider *self) {
-    LOCK(auto ret = self->textcolor(); return ret;);
+    LOCK(auto ret = self->textcolor()); return ret;
 }
 
 void Fl_Value_Slider_set_text_font(Fl_Value_Slider *self, int f) {
@@ -169,7 +169,7 @@ void Fl_Value_Slider_set_text_font(Fl_Value_Slider *self, int f) {
 }
 
 int Fl_Value_Slider_text_font(Fl_Value_Slider *self) {
-    LOCK(auto ret = self->textfont(); return ret;);
+    LOCK(auto ret = self->textfont()); return ret;
 }
 
 void Fl_Value_Slider_set_text_size(Fl_Value_Slider *self, int s) {
@@ -177,7 +177,7 @@ void Fl_Value_Slider_set_text_size(Fl_Value_Slider *self, int s) {
 }
 
 int Fl_Value_Slider_text_size(Fl_Value_Slider *self) {
-    LOCK(auto ret = self->textsize(); return ret;);
+    LOCK(auto ret = self->textsize()); return ret;
 }
 
 VALUATOR_DEFINE(Fl_Value_Slider)
@@ -197,7 +197,7 @@ void Fl_Value_Input_set_text_color(Fl_Value_Input *self, unsigned int c) {
 }
 
 unsigned int Fl_Value_Input_text_color(Fl_Value_Input *self) {
-    LOCK(auto ret = self->textcolor(); return ret;);
+    LOCK(auto ret = self->textcolor()); return ret;
 }
 
 void Fl_Value_Input_set_text_font(Fl_Value_Input *self, int f) {
@@ -205,7 +205,7 @@ void Fl_Value_Input_set_text_font(Fl_Value_Input *self, int f) {
 }
 
 int Fl_Value_Input_text_font(Fl_Value_Input *self) {
-    LOCK(auto ret = self->textfont(); return ret;);
+    LOCK(auto ret = self->textfont()); return ret;
 }
 
 void Fl_Value_Input_set_text_size(Fl_Value_Input *self, int s) {
@@ -213,7 +213,7 @@ void Fl_Value_Input_set_text_size(Fl_Value_Input *self, int s) {
 }
 
 int Fl_Value_Input_text_size(Fl_Value_Input *self) {
-    LOCK(auto ret = self->textsize(); return ret;);
+    LOCK(auto ret = self->textsize()); return ret;
 }
 
 void Fl_Value_Input_set_soft(Fl_Value_Input *self, char val) {
@@ -221,7 +221,7 @@ void Fl_Value_Input_set_soft(Fl_Value_Input *self, char val) {
 }
 
 char Fl_Value_Input_soft(const Fl_Value_Input *self) {
-    LOCK(auto ret = self->soft(); return ret;);
+    LOCK(auto ret = self->soft()); return ret;
 }
 
 VALUATOR_DEFINE(Fl_Value_Input)
@@ -235,7 +235,7 @@ void Fl_Value_Output_set_text_color(Fl_Value_Output *self, unsigned int c) {
 }
 
 unsigned int Fl_Value_Output_text_color(Fl_Value_Output *self) {
-    LOCK(auto ret = self->textcolor(); return ret;);
+    LOCK(auto ret = self->textcolor()); return ret;
 }
 
 void Fl_Value_Output_set_text_font(Fl_Value_Output *self, int f) {
@@ -243,7 +243,7 @@ void Fl_Value_Output_set_text_font(Fl_Value_Output *self, int f) {
 }
 
 int Fl_Value_Output_text_font(Fl_Value_Output *self) {
-    LOCK(auto ret = self->textfont(); return ret;);
+    LOCK(auto ret = self->textfont()); return ret;
 }
 
 void Fl_Value_Output_set_text_size(Fl_Value_Output *self, int s) {
@@ -251,7 +251,7 @@ void Fl_Value_Output_set_text_size(Fl_Value_Output *self, int s) {
 }
 
 int Fl_Value_Output_text_size(Fl_Value_Output *self) {
-    LOCK(auto ret = self->textsize(); return ret;);
+    LOCK(auto ret = self->textsize()); return ret;
 }
 
 VALUATOR_DEFINE(Fl_Value_Output)
@@ -295,7 +295,7 @@ void Fl_Hor_Value_Slider_set_text_color(Fl_Hor_Value_Slider *self, unsigned int 
 }
 
 unsigned int Fl_Hor_Value_Slider_text_color(Fl_Hor_Value_Slider *self) {
-    LOCK(auto ret = self->textcolor(); return ret;);
+    LOCK(auto ret = self->textcolor()); return ret;
 }
 
 void Fl_Hor_Value_Slider_set_text_font(Fl_Hor_Value_Slider *self, int f) {
@@ -303,7 +303,7 @@ void Fl_Hor_Value_Slider_set_text_font(Fl_Hor_Value_Slider *self, int f) {
 }
 
 int Fl_Hor_Value_Slider_text_font(Fl_Hor_Value_Slider *self) {
-    LOCK(auto ret = self->textfont(); return ret;);
+    LOCK(auto ret = self->textfont()); return ret;
 }
 
 void Fl_Hor_Value_Slider_set_text_size(Fl_Hor_Value_Slider *self, int s) {
@@ -311,7 +311,7 @@ void Fl_Hor_Value_Slider_set_text_size(Fl_Hor_Value_Slider *self, int s) {
 }
 
 int Fl_Hor_Value_Slider_text_size(Fl_Hor_Value_Slider *self) {
-    LOCK(auto ret = self->textsize(); return ret;);
+    LOCK(auto ret = self->textsize()); return ret;
 }
 
 VALUATOR_DEFINE(Fl_Hor_Value_Slider)

@@ -216,7 +216,7 @@ void Fl_Text_Buffer_delete(Fl_Text_Buffer *self) {
 }
 
 const char *Fl_Text_Buffer_text(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->text(); return ret;);
+    LOCK(auto ret = self->text()); return ret;
 }
 
 void Fl_Text_Buffer_set_text(Fl_Text_Buffer *self, const char *txt) {
@@ -232,11 +232,11 @@ void Fl_Text_Buffer_remove(Fl_Text_Buffer *self, int start, int end) {
 }
 
 int Fl_Text_Buffer_length(const Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->length(); return ret;);
+    LOCK(auto ret = self->length()); return ret;
 }
 
 char *Fl_Text_Buffer_text_range(const Fl_Text_Buffer *self, int start, int end) {
-    LOCK(auto ret = self->text_range(start, end); return ret;);
+    LOCK(auto ret = self->text_range(start, end)); return ret;
 }
 
 void Fl_Text_Buffer_insert(Fl_Text_Buffer *self, int pos, const char *text) {
@@ -253,7 +253,7 @@ void Fl_Text_Buffer_copy(Fl_Text_Buffer *self, Fl_Text_Buffer *fromBuf, int from
 }
 
 int Fl_Text_Buffer_undo(Fl_Text_Buffer *self, int *cp) {
-    LOCK(auto ret = self->undo(NULL); return ret;);
+    LOCK(auto ret = self->undo(NULL)); return ret;
 }
 
 void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag) {
@@ -261,15 +261,15 @@ void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag) {
 }
 
 int Fl_Text_Buffer_load_file(Fl_Text_Buffer *self, const char *file) {
-    LOCK(auto ret = self->loadfile(file); return ret;);
+    LOCK(auto ret = self->loadfile(file)); return ret;
 }
 
 int Fl_Text_Buffer_save_file(Fl_Text_Buffer *self, const char *file) {
-    LOCK(auto ret = self->savefile(file); return ret;);
+    LOCK(auto ret = self->savefile(file)); return ret;
 }
 
 int Fl_Text_Buffer_tab_distance(const Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->tab_distance(); return ret;);
+    LOCK(auto ret = self->tab_distance()); return ret;
 }
 
 void Fl_Text_Buffer_set_tab_distance(Fl_Text_Buffer *self, int tabDist) {
@@ -281,19 +281,19 @@ void Fl_Text_Buffer_select(Fl_Text_Buffer *self, int start, int end) {
 }
 
 int Fl_Text_Buffer_selected(const Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->selected(); return ret;);
+    LOCK(auto ret = self->selected()); return ret;
 }
 
 void Fl_Text_Buffer_unselect(Fl_Text_Buffer *self) {
-    LOCK(self->unselect())
+    LOCK(self->unselect());
 }
 
 int Fl_Text_Buffer_selection_position(Fl_Text_Buffer *self, int *start, int *end) {
-    LOCK(auto ret = self->selection_position(start, end); return ret;);
+    LOCK(auto ret = self->selection_position(start, end)); return ret;
 }
 
 char *Fl_Text_Buffer_selection_text(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->selection_text(); return ret;);
+    LOCK(auto ret = self->selection_text()); return ret;
 }
 
 void Fl_Text_Buffer_remove_selection(Fl_Text_Buffer *self) {
@@ -309,7 +309,7 @@ void Fl_Text_Buffer_highlight(Fl_Text_Buffer *self, int start, int end) {
 }
 
 int Fl_Text_Buffer_is_highlighted(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->highlight(); return ret;);
+    LOCK(auto ret = self->highlight()); return ret;
 }
 
 void Fl_Text_Buffer_unhighlight(Fl_Text_Buffer *self) {
@@ -317,31 +317,31 @@ void Fl_Text_Buffer_unhighlight(Fl_Text_Buffer *self) {
 }
 
 int Fl_Text_Buffer_highlight_position(Fl_Text_Buffer *self, int *start, int *end) {
-    LOCK(auto ret = self->highlight_position(start, end); return ret;);
+    LOCK(auto ret = self->highlight_position(start, end)); return ret;
 }
 
 char *Fl_Text_Buffer_highlight_text(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->highlight_text(); return ret;);
+    LOCK(auto ret = self->highlight_text()); return ret;
 }
 
 char *Fl_Text_Buffer_line_text(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->line_text(pos); return ret;);
+    LOCK(auto ret = self->line_text(pos)); return ret;
 }
 
 int Fl_Text_Buffer_line_start(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->line_start(pos); return ret;);
+    LOCK(auto ret = self->line_start(pos)); return ret;
 }
 
 int Fl_Text_Buffer_word_start(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->word_start(pos); return ret;);
+    LOCK(auto ret = self->word_start(pos)); return ret;
 }
 
 int Fl_Text_Buffer_word_end(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->word_end(pos); return ret;);
+    LOCK(auto ret = self->word_end(pos)); return ret;
 }
 
 int Fl_Text_Buffer_count_lines(const Fl_Text_Buffer *self, int startPos, int endPos) {
-    LOCK(auto ret = self->count_lines(startPos, endPos); return ret;);
+    LOCK(auto ret = self->count_lines(startPos, endPos)); return ret;
 }
 
 void Fl_Text_Buffer_add_modify_callback(Fl_Text_Buffer *self, Fl_Text_Modify_Cb bufModifiedCB,
@@ -367,7 +367,7 @@ void Fl_Text_Display_init(Fl_Text_Display *self) {
 }
 
 Fl_Text_Buffer *Fl_Text_Display_get_buffer(Fl_Text_Display *self) {
-    LOCK(auto ret = self->buffer(); return ret;);
+    LOCK(auto ret = self->buffer()); return ret;
 }
 
 void Fl_Text_Display_set_buffer(Fl_Text_Display *self, Fl_Text_Buffer *buf) {
@@ -375,7 +375,7 @@ void Fl_Text_Display_set_buffer(Fl_Text_Display *self, Fl_Text_Buffer *buf) {
 }
 
 Fl_Text_Buffer *Fl_Text_Display_get_style_buffer(Fl_Text_Display *self) {
-    LOCK(auto ret = self->style_buffer(); return ret;);
+    LOCK(auto ret = self->style_buffer()); return ret;
 }
 
 DISPLAY_DEFINE(Fl_Text_Display)
@@ -389,7 +389,7 @@ void Fl_Text_Editor_init(Fl_Text_Editor *self) {
 }
 
 Fl_Text_Buffer *Fl_Text_Editor_get_buffer(Fl_Text_Editor *self) {
-    LOCK(auto ret = self->buffer(); return ret;);
+    LOCK(auto ret = self->buffer()); return ret;
 }
 
 void Fl_Text_Editor_set_buffer(Fl_Text_Editor *self, Fl_Text_Buffer *buf) {
@@ -397,7 +397,7 @@ void Fl_Text_Editor_set_buffer(Fl_Text_Editor *self, Fl_Text_Buffer *buf) {
 }
 
 Fl_Text_Buffer *Fl_Text_Editor_get_style_buffer(Fl_Text_Editor *self) {
-    LOCK(auto ret = self->style_buffer(); return ret;);
+    LOCK(auto ret = self->style_buffer()); return ret;
 }
 
 DISPLAY_DEFINE(Fl_Text_Editor)
@@ -567,7 +567,7 @@ void Fl_Text_Editor_set_tab_nav(Fl_Text_Editor *self, int val) {
 }
 
 int Fl_Text_Editor_tab_nav(const Fl_Text_Editor *self) {
-    LOCK(auto ret = self->tab_nav(); return ret;);
+    LOCK(auto ret = self->tab_nav()); return ret;
 }
 
 WIDGET_CLASS(Fl_Simple_Terminal)
@@ -579,7 +579,7 @@ void Fl_Simple_Terminal_init(Fl_Simple_Terminal *self) {
 }
 
 Fl_Text_Buffer *Fl_Simple_Terminal_get_buffer(Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->buffer(); return ret;);
+    LOCK(auto ret = self->buffer()); return ret;
 }
 
 void Fl_Simple_Terminal_set_buffer(Fl_Simple_Terminal *self, Fl_Text_Buffer *buf) {
@@ -587,7 +587,7 @@ void Fl_Simple_Terminal_set_buffer(Fl_Simple_Terminal *self, Fl_Text_Buffer *buf
 }
 
 Fl_Text_Buffer *Fl_Simple_Terminal_get_style_buffer(Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->style_buffer(); return ret;);
+    LOCK(auto ret = self->style_buffer()); return ret;
 }
 
 void Fl_Simple_Terminal_set_stay_at_bottom(Fl_Simple_Terminal *self, int flag) {
@@ -595,7 +595,7 @@ void Fl_Simple_Terminal_set_stay_at_bottom(Fl_Simple_Terminal *self, int flag) {
 }
 
 int Fl_Simple_Terminal_stay_at_bottom(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->stay_at_bottom(); return ret;);
+    LOCK(auto ret = self->stay_at_bottom()); return ret;
 }
 
 void Fl_Simple_Terminal_set_history_lines(Fl_Simple_Terminal *self, int cnt) {
@@ -603,7 +603,7 @@ void Fl_Simple_Terminal_set_history_lines(Fl_Simple_Terminal *self, int cnt) {
 }
 
 int Fl_Simple_Terminal_history_lines(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->history_lines(); return ret;);
+    LOCK(auto ret = self->history_lines()); return ret;
 }
 
 void Fl_Simple_Terminal_set_ansi(Fl_Simple_Terminal *self, int val) {
@@ -611,7 +611,7 @@ void Fl_Simple_Terminal_set_ansi(Fl_Simple_Terminal *self, int val) {
 }
 
 int Fl_Simple_Terminal_ansi(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->ansi(); return ret;);
+    LOCK(auto ret = self->ansi()); return ret;
 }
 
 void Fl_Simple_Terminal_append(Fl_Simple_Terminal *self, const char *s) {
@@ -623,7 +623,7 @@ void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s) {
 }
 
 const char *Fl_Simple_Terminal_text(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->text(); return ret;);
+    LOCK(auto ret = self->text()); return ret;
 }
 
 void Fl_Simple_Terminal_clear(Fl_Simple_Terminal *self) {

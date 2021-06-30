@@ -32,7 +32,7 @@ int Fl_Printer_printable_rect(Fl_Printer *self, int *w, int *h) {
 }
 
 void Fl_Printer_margins(Fl_Printer *self, int *left, int *top, int *right, int *bottom) {
-    LOCK(self->margins(left, top, right, bottom))
+    LOCK(self->margins(left, top, right, bottom));
 }
 
 void Fl_Printer_origin(Fl_Printer *self, int *x, int *y) {
@@ -40,23 +40,23 @@ void Fl_Printer_origin(Fl_Printer *self, int *x, int *y) {
 }
 
 void Fl_Printer_set_origin(Fl_Printer *self, int x, int y) {
-    LOCK(self->origin(x, y))
+    LOCK(self->origin(x, y));
 }
 
 void Fl_Printer_scale(Fl_Printer *self, float scale_x, float scale_y) {
-    LOCK(self->scale(scale_x, scale_y))
+    LOCK(self->scale(scale_x, scale_y));
 }
 
 void Fl_Printer_rotate(Fl_Printer *self, float angle) {
-    LOCK(self->rotate(angle))
+    LOCK(self->rotate(angle));
 }
 
 void Fl_Printer_translate(Fl_Printer *self, int x, int y) {
-    LOCK(self->translate(x, y))
+    LOCK(self->translate(x, y));
 }
 
 void Fl_Printer_untranslate(Fl_Printer *self) {
-    LOCK(self->untranslate())
+    LOCK(self->untranslate());
 }
 
 int Fl_Printer_end_page(Fl_Printer *self) {
@@ -66,11 +66,11 @@ int Fl_Printer_end_page(Fl_Printer *self) {
 }
 
 void Fl_Printer_end_job(Fl_Printer *self) {
-    LOCK(self->end_job())
+    LOCK(self->end_job());
 }
 
 void Fl_Printer_set_current(Fl_Printer *self) {
-    LOCK(self->set_current())
+    LOCK(self->set_current());
 }
 
 int Fl_Printer_is_current(Fl_Printer *self) {
@@ -78,11 +78,11 @@ int Fl_Printer_is_current(Fl_Printer *self) {
 }
 
 void Fl_Printer_print_widget(Fl_Printer *self, void *widget, int delta_x, int delta_y) {
-    LOCK(self->print_widget((Fl_Widget *)widget, delta_x, delta_y))
+    LOCK(self->print_widget((Fl_Widget *)widget, delta_x, delta_y));
 }
 
 void Fl_Printer_print_window(Fl_Printer *self, void *win, int x_offset, int y_offset) {
-    LOCK(self->print_window((Fl_Window *)win, x_offset, y_offset))
+    LOCK(self->print_window((Fl_Window *)win, x_offset, y_offset));
 }
 
 void Fl_Printer_set_dialog_title(const char *msg) {

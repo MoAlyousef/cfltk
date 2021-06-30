@@ -273,5 +273,5 @@ int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m) {
 }
 
 void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image) {
-    LOCK(self->image((Fl_Image *)image))
+    LOCK(self->image((Fl_Image *)image));
 }
