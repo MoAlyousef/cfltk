@@ -1,8 +1,8 @@
 #include <FL/Fl.H> // Has to be the first include!
 
 #include "cfl.h"
-#include "cfl_widget.h"
 #include "cfl_lock.hpp"
+#include "cfl_widget.h"
 
 #include <FL/Enumerations.H>
 #include <FL/Fl_Widget.H>
@@ -34,6 +34,30 @@
 
 int Fl_run(void) {
     return Fl::run();
+}
+
+int Fl_check(void) {
+    return Fl::check();
+}
+
+int Fl_ready(void) {
+    return Fl::ready();
+}
+
+void Fl_release(void) {
+    Fl::release();
+}
+
+int Fl_reload_scheme(void) {
+    return Fl::reload_scheme();
+}
+
+int Fl_menu_linespacing(void) {
+    return Fl::menu_linespacing();
+}
+
+void Fl_set_menu_linespacing(int H) {
+    Fl::menu_linespacing(H);
 }
 
 int Fl_lock(void) {
@@ -358,7 +382,8 @@ Fl_Widget_Tracker *Fl_Widget_Tracker_new(Fl_Widget *w) {
 }
 
 int Fl_Widget_Tracker_deleted(Fl_Widget_Tracker *self) {
-    return self->deleted();
+    LOCK(auto ret = self->deleted());
+    return ret;
 }
 
 void Fl_Widget_Tracker_delete(Fl_Widget_Tracker *self) {

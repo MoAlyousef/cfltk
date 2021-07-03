@@ -85,7 +85,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_callback(widget *, Fl_Callback *, void *);                                   \
     void widget##_set_deleter(widget *, void (*)(void *));                                         \
     int widget##_visible(const widget *self);                                                      \
-    int widget##_visible_r(const widget *self);
+    int widget##_visible_r(const widget *self);                                                    \
+    unsigned int widget##_active(const widget *self);                                              \
+    int widget##_active_r(const widget *self);
 
 #define WIDGET_CLASS(widget)                                                                       \
     struct widget##_Derived : public widget {                                                      \
@@ -427,6 +429,14 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                                              \
     int widget##_visible_r(const widget *self) {                                                   \
         LOCK(auto ret = self->visible_r());                                                        \
+        return ret;                                                                                \
+    }                                                                                              \
+    unsigned int widget##_active(const widget *self) {                                             \
+        LOCK(auto ret = self->active());                                                           \
+        return ret;                                                                                \
+    }                                                                                              \
+    int widget##_active_r(const widget *self) {                                                    \
+        LOCK(auto ret = self->active_r());                                                         \
         return ret;                                                                                \
     }
 

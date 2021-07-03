@@ -13,6 +13,18 @@ typedef void (*Fl_Awake_Handler)(void *data);
 
 int Fl_run(void);
 
+int Fl_check(void);
+
+int Fl_ready(void);
+
+void Fl_release(void);
+
+int Fl_reload_scheme(void);
+
+int Fl_menu_linespacing(void);
+
+void Fl_set_menu_linespacing(int H);
+
 int Fl_lock(void);
 
 void Fl_unlock(void);
