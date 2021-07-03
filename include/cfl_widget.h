@@ -127,7 +127,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
                 if (local == 0)                                                                    \
                     return widget::handle(event);                                                  \
                 else                                                                               \
-                    return widget::handle(event) + local;                                          \
+                    return widget::handle(event) | local;                                          \
             } else {                                                                               \
                 return widget::handle(event);                                                      \
             }                                                                                      \
