@@ -87,9 +87,7 @@ Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(int width, int height, const char *
 }
 
 void Fl_SVG_File_Surface_delete(Fl_SVG_File_Surface *self) {
-    FILE *f = self->file();
     delete self;
-    fclose(f);
 }
 
 void Fl_SVG_File_Surface_origin(Fl_SVG_File_Surface *self, int x, int y) {
