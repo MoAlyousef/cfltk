@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.0.21)
+set(CFLTK_PROJECT_VERSION 1.0.22)
 project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -54,6 +54,7 @@ set(CFLTK_SRCS
     src/cfl_table.cpp
     src/cfl_tree.cpp
     src/cfl_surface.cpp
+    src/cfl_font.cpp
     )
 
 if(NOT ANDROID)
