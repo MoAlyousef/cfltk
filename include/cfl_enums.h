@@ -580,4 +580,21 @@ enum Fl_Damage {
   Fl_Damage_All      = 0x80  /**< Everything needs to be redrawn. */
 };
 
+enum Fl_MenuButtonType {
+    /// pops up with the mouse 1st button.
+    Popup1 = 1,
+    /// pops up with the mouse 2nd button.
+    Popup2,
+    /// pops up with the mouse 1st or 2nd buttons.
+    Popup12,
+    /// pops up with the mouse 3rd button.
+    Popup3,
+    /// pops up with the mouse 1st or 3rd buttons.
+    Popup13,
+    /// pops up with the mouse 2nd or 3rd buttons.
+    Popup23,
+    /// pops up with any mouse button.
+    Popup123,
+};
+
 #endif
