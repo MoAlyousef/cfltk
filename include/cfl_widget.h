@@ -87,7 +87,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     int widget##_visible(const widget *self);                                                      \
     int widget##_visible_r(const widget *self);                                                    \
     unsigned int widget##_active(const widget *self);                                              \
-    int widget##_active_r(const widget *self);
+    int widget##_active_r(const widget *self);                                                     \
+    Fl_Callback *widget##_callback(const widget *self);
 
 #define WIDGET_CLASS(widget)                                                                       \
     struct widget##_Derived : public widget {                                                      \
@@ -437,6 +438,10 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                                              \
     int widget##_active_r(const widget *self) {                                                    \
         LOCK(auto ret = self->active_r());                                                         \
+        return ret;                                                                                \
+    }                                                                                              \
+    Fl_Callback *widget##_callback(const widget *self) {                                           \
+        LOCK(auto ret = self->callback());                                                         \
         return ret;                                                                                \
     }
 
