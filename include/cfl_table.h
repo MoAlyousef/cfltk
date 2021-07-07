@@ -67,7 +67,9 @@ extern "C" {
     void table##_set_draw_cell_data(table *self, void *data);                                      \
     int table##_callback_col(table *);                                                             \
     int table##_callback_row(table *);                                                             \
-    int table##_callback_context(table *);
+    int table##_callback_context(table *);                                                         \
+    void *table##_scrollbar(const table *);                                                        \
+    void *table##_hscrollbar(const table *);
 
 WIDGET_DECLARE(Fl_Table)
 

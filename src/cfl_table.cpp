@@ -74,6 +74,12 @@
             else {                                                                                 \
             }                                                                                      \
         }                                                                                          \
+        void *scrollbar() const {                                                                  \
+            return (void *)table::vscrollbar;                                                      \
+        }                                                                                          \
+        void *hscrollbar() const {                                                                 \
+            return (void *)table::hscrollbar;                                                      \
+        }                                                                                          \
         ~table##_Derived() {                                                                       \
             if (ev_data_)                                                                          \
                 deleter(ev_data_);                                                                 \
@@ -288,6 +294,14 @@
     int table##_callback_context(table *self) {                                                    \
         LOCK(auto ret = self->callback_context(););                                                \
         return ret;                                                                                \
+    }                                                                                              \
+    void *table##_scrollbar(const table *self) {                                                   \
+        LOCK(auto ret = ((table##_Derived *)self)->scrollbar());                                   \
+        return ret;                                                                                \
+    }                                                                                              \
+    void *table##_hscrollbar(const table *self) {                                                  \
+        LOCK(auto ret = ((table##_Derived *)self)->hscrollbar());                                  \
+        return ret;                                                                                \
     }
 
 TABLE_CLASS(Fl_Table)
@@ -307,7 +321,8 @@ GROUP_DEFINE(Fl_Table_Row)
 TABLE_DEFINE(Fl_Table_Row)
 
 int Fl_Table_Row_row_selected(Fl_Table_Row *self, int row) {
-    LOCK(auto ret = self->row_selected(row)); return ret;
+    LOCK(auto ret = self->row_selected(row));
+    return ret;
 }
 
 int Fl_Table_Row_select_row(Fl_Table_Row *self, int row, int flag) {
