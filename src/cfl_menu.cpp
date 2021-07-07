@@ -1,13 +1,15 @@
 #include "cfl_menu.h"
 #include "cfl_lock.hpp"
 
-#include "FL/Fl_Sys_Menu_Bar.H"
+#include <FL/Enumerations.H>
 #include <FL/Fl.H>
 #include <FL/Fl_Choice.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Menu_Button.H>
 #include <FL/Fl_Menu_Item.H>
+#include <FL/Fl_Multi_Label.H>
+#include <FL/Fl_Sys_Menu_Bar.H>
 #include <FL/platform.H>
 
 #define MENU_DEFINE(widget)                                                                        \
@@ -126,7 +128,8 @@ WIDGET_CLASS(Fl_Menu_Button)
 WIDGET_DEFINE(Fl_Menu_Button)
 
 const Fl_Menu_Item *Fl_Menu_Button_popup(Fl_Menu_Button *self) {
-    LOCK(auto ret = self->popup()); return ret;
+    LOCK(auto ret = self->popup());
+    return ret;
 }
 
 MENU_DEFINE(Fl_Menu_Button)
@@ -274,4 +277,21 @@ int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m) {
 
 void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image) {
     LOCK(self->image((Fl_Image *)image));
+}
+
+void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left) {
+    LOCK(
+        Fl_Image *temp = NULL;
+        if (image) { temp = ((Fl_Image *)image)->copy(); } Fl_Multi_Label *ml = new Fl_Multi_Label;
+        if (on_left) {
+            ml->typea = FL_IMAGE_LABEL;
+            ml->labela = (const char *)temp;
+            ml->typeb = FL_NORMAL_LABEL;
+            ml->labelb = self->label();
+        } else {
+            ml->typeb = FL_IMAGE_LABEL;
+            ml->labelb = (const char *)temp;
+            ml->typea = FL_NORMAL_LABEL;
+            ml->labela = self->label();
+        } self->label(FL_MULTI_LABEL, (const char *)ml);)
 }

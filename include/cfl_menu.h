@@ -122,6 +122,8 @@ int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m);
 
 void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image);
 
+void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left);
+
 #ifdef __cplusplus
 }
 #endif
