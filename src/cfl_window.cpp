@@ -7,6 +7,7 @@
 extern "C" void setWindowTransparency(void *, unsigned char);
 #elif __ANDROID__
 #else
+#include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #endif
 
@@ -227,24 +228,25 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
         return alpha_;
     }
 
-    void set_alpha(char alpha) {
-        alpha_ = alpha;
+    void set_alpha(unsigned char alpha) {
 #if defined(_WIN32)
         HWND hwnd = fl_xid(this);
         LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
         if (!(exstyle & WS_EX_LAYERED)) {
             SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
         }
-        SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha_), LWA_ALPHA);
+        SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha), LWA_ALPHA);
 #elif defined(__APPLE__)
         setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
 #elif defined(__ANDROID__)
+        // Do nothing
 #else
-        uint32_t cardinal_alpha = (uint32_t)(alpha_);
+        uint32_t cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha)/255.0)));
         Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
 #endif
+        alpha_ = alpha;
     }
 
     void widget_resize(int x, int y, int w, int h) {
