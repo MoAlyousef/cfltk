@@ -13,17 +13,15 @@
 #include <FL/platform.H>
 
 #define MENU_DEFINE(widget)                                                                        \
-    void widget##_add(widget *self, const char *name, int shortcut, Fl_Callback *cb, void *data,   \
-                      int flag) {                                                                  \
-        if (!cb)                                                                                   \
-            return;                                                                                \
-        LOCK(self->add(name, shortcut, cb, data, flag);)                                           \
+    int widget##_add(widget *self, const char *name, int shortcut, Fl_Callback *cb, void *data,    \
+                     int flag) {                                                                   \
+        LOCK(auto ret = self->add(name, shortcut, cb, data, flag));                                \
+        return ret;                                                                                \
     }                                                                                              \
-    void widget##_insert(widget *self, int index, const char *name, int shortcut, Fl_Callback *cb, \
-                         void *data, int flag) {                                                   \
-        if (!cb)                                                                                   \
-            return;                                                                                \
-        LOCK(self->insert(index, name, shortcut, cb, data, flag);)                                 \
+    int widget##_insert(widget *self, int index, const char *name, int shortcut, Fl_Callback *cb,  \
+                        void *data, int flag) {                                                    \
+        LOCK(auto ret = self->insert(index, name, shortcut, cb, data, flag));                      \
+        return ret;                                                                                \
     }                                                                                              \
     Fl_Menu_Item *widget##_get_item(widget *self, const char *name) {                              \
         LOCK(auto ret = (Fl_Menu_Item *)self->find_item(name));                                    \

@@ -8,9 +8,9 @@ extern "C" {
 #endif
 
 #define MENU_DECLARE(widget)                                                                       \
-    void widget##_add(widget *, const char *name, int shortcut, Fl_Callback *, void *, int);       \
-    void widget##_insert(widget *, int index, const char *name, int shortcut, Fl_Callback *,       \
-                         void *, int);                                                             \
+    int widget##_add(widget *, const char *name, int shortcut, Fl_Callback *, void *, int);        \
+    int widget##_insert(widget *, int index, const char *name, int shortcut, Fl_Callback *,        \
+                        void *, int);                                                              \
     Fl_Menu_Item *widget##_get_item(widget *, const char *name);                                   \
     int widget##_set_item(widget *, Fl_Menu_Item *item);                                           \
     int widget##_text_font(widget *);                                                              \
