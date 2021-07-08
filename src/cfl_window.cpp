@@ -26,6 +26,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
 
+#include <stdint.h>
 #include <stdlib.h>
 
 #define WINDOW_DEFINE(widget)                                                                      \
