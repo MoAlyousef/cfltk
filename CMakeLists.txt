@@ -55,7 +55,6 @@ set(CFLTK_SRCS
     src/cfl_tree.cpp
     src/cfl_surface.cpp
     src/cfl_font.cpp
-    src/cfl_nswindow.m
     )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
