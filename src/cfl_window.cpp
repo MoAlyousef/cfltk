@@ -1,8 +1,20 @@
+#ifdef _WIN32
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#include <windows.h>
+#endif
+#elif __APPLE__
+extern "C" void setWindowTransparency(void *, unsigned char);
+#elif __ANDROID__
+#else
+#include <X11/Xlib.h>
+#endif
+
 #include <FL/Enumerations.H>
 #define FL_INTERNALS
 
-#include "cfl_window.h"
 #include "cfl_lock.hpp"
+#include "cfl_window.h"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -190,12 +202,128 @@ GROUP_DEFINE(Fl_Single_Window)
 
 WINDOW_DEFINE(Fl_Single_Window)
 
-WIDGET_CLASS(Fl_Double_Window)
+struct Fl_Double_Window_Derived : public Fl_Double_Window {
+    unsigned char alpha_ = 255;
+    void *ev_data_ = NULL;
+    void *draw_data_ = NULL;
+    void *overlay_draw_data_ = NULL;
+    typedef int (*handler)(Fl_Widget *, int, void *data);
+    handler inner_handler = NULL;
+    typedef void (*drawer)(Fl_Widget *, void *data);
+    drawer inner_drawer = NULL;
+    typedef void (*deleter_fp)(void *);
+    deleter_fp deleter = NULL;
+
+    Fl_Double_Window_Derived(int x, int y, int w, int h, const char *title = 0)
+        : Fl_Double_Window(x, y, w, h, title) {
+    }
+
+    operator Fl_Double_Window *() {
+        return (Fl_Double_Window *)this;
+    }
+
+    unsigned char alpha() const {
+        return alpha_;
+    }
+
+    void set_alpha(char alpha) {
+        alpha_ = alpha;
+#if defined(_WIN32)
+        HWND hwnd = fl_xid(this);
+        LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+        if (!(exstyle & WS_EX_LAYERED)) {
+            SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
+        }
+        SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha_), LWA_ALPHA);
+#elif defined(__APPLE__)
+        setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
+#elif defined(__ANDROID__)
+#else
+        uint32_t cardinal_alpha = (uint32_t)(alpha_);
+        Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
+        XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
+                        (unsigned char *)&cardinal_alpha, 1);
+#endif
+    }
+
+    void widget_resize(int x, int y, int w, int h) {
+        Fl_Widget::resize(x, y, w, h);
+        redraw();
+    }
+
+    virtual void resize(int x, int y, int w, int h) override {
+        Fl_Double_Window::resize(x, y, w, h);
+        if (this->as_window() == this->top_window()) {
+            LOCK(Fl::handle(28, this->top_window()))
+        }
+    }
+
+    void set_handler(handler h) {
+        inner_handler = h;
+    }
+
+    void set_handler_data(void *data) {
+        ev_data_ = data;
+    }
+
+    int handle(int event) override {
+        int local = 0;
+        if (inner_handler) {
+            local = inner_handler(this, event, ev_data_);
+            if (local == 0)
+                return Fl_Double_Window::handle(event);
+            else
+                return Fl_Double_Window::handle(event) | local;
+        } else {
+            return Fl_Double_Window::handle(event);
+        }
+    }
+
+    void set_drawer(drawer h) {
+        inner_drawer = h;
+    }
+
+    void set_drawer_data(void *data) {
+        draw_data_ = data;
+    }
+
+    void draw() override {
+        Fl_Double_Window::draw();
+        if (inner_drawer)
+            inner_drawer(this, draw_data_);
+        else {
+        }
+    }
+
+    ~Fl_Double_Window_Derived() {
+        if (ev_data_)
+            deleter(ev_data_);
+        ev_data_ = NULL;
+        inner_handler = NULL;
+        if (draw_data_)
+            deleter(draw_data_);
+        draw_data_ = NULL;
+        inner_drawer = NULL;
+        if (user_data())
+            deleter(user_data());
+        user_data(NULL);
+        callback((void (*)(Fl_Widget *, void *))NULL);
+    }
+};
 
 WIDGET_DEFINE(Fl_Double_Window)
 
 void Fl_Double_Window_flush(Fl_Double_Window *w) {
     LOCK(w->flush());
+}
+
+void Fl_Double_Window_set_alpha(Fl_Double_Window *self, unsigned char val) {
+    LOCK(((Fl_Double_Window_Derived *)self)->set_alpha(val));
+}
+
+unsigned char Fl_Double_Window_alpha(const Fl_Double_Window *self) {
+    LOCK(auto ret = ((Fl_Double_Window_Derived *)self)->alpha());
+    return ret;
 }
 
 GROUP_DEFINE(Fl_Double_Window)
@@ -433,7 +561,8 @@ void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode) {
 }
 
 void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
-    LOCK(auto ret = (void *)glutGetProcAddress(s)); return ret;
+    LOCK(auto ret = (void *)glutGetProcAddress(s));
+    return ret;
 }
 
 WIDGET_CLASS(Fl_Glut_Window)
@@ -530,7 +659,8 @@ void Fl_Glut_Window_set_mode(Fl_Glut_Window *self, int mode) {
 }
 
 void *Fl_Glut_Window_get_proc_address(Fl_Glut_Window *self, const char *s) {
-    LOCK(auto ret = (void *)glutGetProcAddress(s)); return ret;
+    LOCK(auto ret = (void *)glutGetProcAddress(s));
+    return ret;
 }
 
 #endif

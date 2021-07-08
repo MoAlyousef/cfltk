@@ -55,7 +55,12 @@ set(CFLTK_SRCS
     src/cfl_tree.cpp
     src/cfl_surface.cpp
     src/cfl_font.cpp
+    src/cfl_nswindow.m
     )
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(CFLTK_SRCS ${CFLTK_SRCS} src/cfl_nswindow.m)
+endif()
 
 if(NOT ANDROID)
     set(CFLTK_SRCS ${CFLTK_SRCS} src/cfl_printer.cpp)

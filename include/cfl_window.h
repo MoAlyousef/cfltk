@@ -70,6 +70,10 @@ WIDGET_DECLARE(Fl_Double_Window)
 
 void Fl_Double_Window_flush(Fl_Double_Window *w);
 
+void Fl_Double_Window_set_alpha(Fl_Double_Window *self, unsigned char val);
+
+unsigned char Fl_Double_Window_alpha(const Fl_Double_Window *self);
+
 GROUP_DECLARE(Fl_Double_Window)
 
 WINDOW_DECLARE(Fl_Double_Window)
