@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.1.0)
+set(CFLTK_PROJECT_VERSION 1.1.2)
 project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -55,6 +55,7 @@ set(CFLTK_SRCS
     src/cfl_tree.cpp
     src/cfl_surface.cpp
     src/cfl_font.cpp
+    src/cfl_utils.cpp
     )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
