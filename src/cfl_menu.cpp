@@ -102,7 +102,18 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_menu(widget *self, const Fl_Menu_Item *item) {                               \
-        LOCK(self->menu(item));                                                                    \
+        Fl_Menu_Item *temp = new Fl_Menu_Item[self->size()];                                       \
+        if (!temp)                                                                                 \
+            return;                                                                                \
+        for (int i = 0; i < self->size(); i++) {                                                   \
+            temp[i] = item[i];                                                                     \
+            if (item[i].text) {                                                                    \
+                auto c = new char[strlen(item[i].text) + 1];                                       \
+                strcpy(c, item[i].text);                                                           \
+                temp[i].text = c;                                                                  \
+            }                                                                                      \
+        }                                                                                          \
+        LOCK(self->menu(temp));                                                                    \
     }                                                                                              \
     void widget##_remove(widget *self, int idx) {                                                  \
         LOCK(self->remove(idx);)                                                                   \
@@ -152,18 +163,7 @@ Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz) {
     if (!items)
         return NULL;
     for (int i = 0; i < sz; i++) {
-        items[i] = { args[i] };
-    }
-    items[sz] = {NULL};
-    return items;
-}
-
-Fl_Menu_Item *Fl_Menu_Item_new_ext(char **args, int *shortcuts, int *flag, int sz) {
-    Fl_Menu_Item *items = new Fl_Menu_Item[sz + 1];
-    if (!items)
-        return NULL;
-    for (int i = 0; i < sz; i++) {
-        items[i] = Fl_Menu_Item { args[i], shortcuts[i], 0, 0, flag[i] };
+        items[i] = {args[i]};
     }
     items[sz] = {NULL};
     return items;

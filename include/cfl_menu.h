@@ -60,8 +60,6 @@ MENU_DECLARE(Fl_Sys_Menu_Bar)
 
 Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz);
 
-Fl_Menu_Item *Fl_Menu_Item_new_ext(char **args, int *shortcuts, int *flag, int sz);
-
 void Fl_Menu_Item_delete(Fl_Menu_Item *self);
 
 const Fl_Menu_Item *Fl_Menu_Item_popup(Fl_Menu_Item *self, int x, int y);
