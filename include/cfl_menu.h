@@ -125,6 +125,10 @@ void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image);
 
 void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left);
 
+int Fl_Menu_Item_children(const Fl_Menu_Item *self);
+
+const Fl_Menu_Item *Fl_Menu_Item_at(const Fl_Menu_Item *self, int idx);
+
 #ifdef __cplusplus
 }
 #endif

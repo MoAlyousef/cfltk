@@ -47,7 +47,7 @@ extern "C" {
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_maximum_size(widget *self, int m) {                                          \
-        LOCK(self->maximum_size(m);)                                                               \
+        LOCK(self->maximum_size(m));                                                               \
     }                                                                                              \
     int widget##_position(widget *self) {                                                          \
         LOCK(auto ret = self->position());                                                         \
@@ -94,35 +94,35 @@ extern "C" {
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_font(widget *self, int s) {                                             \
-        LOCK(self->textfont(s);)                                                                   \
+        LOCK(self->textfont(s));                                                                   \
     }                                                                                              \
     unsigned int widget##_text_color(widget *self) {                                               \
         LOCK(auto ret = self->textcolor());                                                        \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_color(widget *self, unsigned int s) {                                   \
-        LOCK(self->textcolor(s);)                                                                  \
+        LOCK(self->textcolor(s));                                                                  \
     }                                                                                              \
     int widget##_text_size(widget *self) {                                                         \
         LOCK(auto ret = self->textsize());                                                         \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_size(widget *self, int s) {                                             \
-        LOCK(self->textsize(s);)                                                                   \
+        LOCK(self->textsize(s));                                                                   \
     }                                                                                              \
     int widget##_readonly(widget *self) {                                                          \
         LOCK(auto ret = self->readonly());                                                         \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_readonly(widget *self, int boolean) {                                        \
-        LOCK(self->readonly(boolean);)                                                             \
+        LOCK(self->readonly(boolean));                                                             \
     }                                                                                              \
     int widget##_wrap(widget *self) {                                                              \
         LOCK(auto ret = self->wrap());                                                             \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_wrap(widget *self, int boolean) {                                            \
-        LOCK(self->wrap(boolean);)                                                                 \
+        LOCK(self->wrap(boolean));                                                                 \
     }
 
 WIDGET_DECLARE(Fl_Input)

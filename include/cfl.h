@@ -95,6 +95,14 @@ void Fl_set_visible_focus(int);
 
 void Fl_set_box_type(int, int);
 
+int Fl_box_shadow_width(void);
+
+void Fl_set_box_shadow_width(int W);
+
+int Fl_box_border_radius_max(void);
+
+void Fl_set_box_border_radius_max(int R);
+
 unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b);
 
 void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned char b);

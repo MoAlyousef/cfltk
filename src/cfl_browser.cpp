@@ -16,22 +16,22 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_remove(widget *self, int line) {                                                 \
-        LOCK(self->remove(line);)                                                                  \
+        LOCK(self->remove(line));                                                                  \
     }                                                                                              \
     void widget##_add(widget *self, const char *newtext) {                                         \
-        LOCK(self->add(newtext);)                                                                  \
+        LOCK(self->add(newtext));                                                                  \
     }                                                                                              \
     void widget##_insert(widget *self, int line, const char *newtext) {                            \
-        LOCK(self->insert(line, newtext);)                                                         \
+        LOCK(self->insert(line, newtext));                                                         \
     }                                                                                              \
     void widget##_move(widget *self, int to, int from) {                                           \
-        LOCK(self->move(to, from);)                                                                \
+        LOCK(self->move(to, from));                                                                \
     }                                                                                              \
     void widget##_swap(widget *self, int a, int b) {                                               \
-        LOCK(self->swap(a, b);)                                                                    \
+        LOCK(self->swap(a, b));                                                                    \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
-        LOCK(self->clear();)                                                                       \
+        LOCK(self->clear());                                                                       \
     }                                                                                              \
     int widget##_size(const widget *self) {                                                        \
         LOCK(auto ret = self->size());                                                             \
@@ -50,17 +50,17 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text(widget *self, int line, const char *newtext) {                          \
-        LOCK(self->text(line, newtext);)                                                           \
+        LOCK(self->text(line, newtext));                                                           \
     }                                                                                              \
     void widget##_load_file(widget *self, const char *file) {                                      \
-        LOCK(self->load(file);)                                                                    \
+        LOCK(self->load(file));                                                                    \
     }                                                                                              \
     int widget##_text_size(widget *self) {                                                         \
         LOCK(auto ret = self->textsize());                                                         \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_size(widget *self, int s) {                                             \
-        LOCK(self->textsize(s);)                                                                   \
+        LOCK(self->textsize(s));                                                                   \
     }                                                                                              \
     void widget##_set_icon(widget *self, int line, void *icon) {                                   \
         LOCK(auto old = self->icon(line); if (!icon) self->icon(line, NULL);                       \
@@ -74,75 +74,75 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_remove_icon(widget *self, int l) {                                               \
-        LOCK(self->remove_icon(l);)                                                                \
+        LOCK(self->remove_icon(l));                                                                \
     }                                                                                              \
     void widget##_topline(widget *self, int line) {                                                \
-        LOCK(self->topline(line);)                                                                 \
+        LOCK(self->topline(line));                                                                 \
     }                                                                                              \
     void widget##_bottomline(widget *self, int line) {                                             \
-        LOCK(self->bottomline(line);)                                                              \
+        LOCK(self->bottomline(line));                                                              \
     }                                                                                              \
     void widget##_middleline(widget *self, int line) {                                             \
-        LOCK(self->middleline(line);)                                                              \
+        LOCK(self->middleline(line));                                                              \
     }                                                                                              \
     char widget##_format_char(const widget *self) {                                                \
         LOCK(auto ret = self->format_char());                                                      \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_format_char(widget *self, char c) {                                          \
-        LOCK(self->format_char(c);)                                                                \
+        LOCK(self->format_char(c));                                                                \
     }                                                                                              \
     char widget##_column_char(const widget *self) {                                                \
         LOCK(auto ret = self->column_char());                                                      \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_column_char(widget *self, char c) {                                          \
-        LOCK(self->column_char(c);)                                                                \
+        LOCK(self->column_char(c));                                                                \
     }                                                                                              \
     const int *widget##_column_widths(const widget *self) {                                        \
         LOCK(auto ret = self->column_widths());                                                    \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_column_widths(widget *self, const int *arr) {                                \
-        LOCK(self->column_widths(arr);)                                                            \
+        LOCK(self->column_widths(arr));                                                            \
     }                                                                                              \
     int widget##_displayed(const widget *self, int line) {                                         \
         LOCK(auto ret = self->displayed(line));                                                    \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_make_visible(widget *self, int line) {                                           \
-        LOCK(self->make_visible(line);)                                                            \
+        LOCK(self->make_visible(line));                                                            \
     }                                                                                              \
     int widget##_position(const widget *self) {                                                    \
         LOCK(auto ret = self->position());                                                         \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_position(widget *self, int pos) {                                            \
-        LOCK(self->position(pos);)                                                                 \
+        LOCK(self->position(pos));                                                                 \
     }                                                                                              \
     int widget##_hposition(const widget *self) {                                                   \
         LOCK(auto ret = self->hposition());                                                        \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_hposition(widget *self, int pos) {                                           \
-        LOCK(self->hposition(pos);)                                                                \
+        LOCK(self->hposition(pos));                                                                \
     }                                                                                              \
     unsigned char widget##_has_scrollbar(const widget *self) {                                     \
         LOCK(auto ret = self->has_scrollbar());                                                    \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_has_scrollbar(widget *self, unsigned char mode) {                            \
-        LOCK(self->has_scrollbar(mode);)                                                           \
+        LOCK(self->has_scrollbar(mode));                                                           \
     }                                                                                              \
     int widget##_scrollbar_size(const widget *self) {                                              \
         LOCK(auto ret = self->scrollbar_size());                                                   \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_scrollbar_size(widget *self, int newSize) {                                  \
-        LOCK(self->scrollbar_size(newSize);)                                                       \
+        LOCK(self->scrollbar_size(newSize));                                                       \
     }                                                                                              \
     void widget##_sort(widget *self) {                                                             \
-        LOCK(self->sort();)                                                                        \
+        LOCK(self->sort());                                                                        \
     }                                                                                              \
     void *widget##_scrollbar(widget *self) {                                                       \
         LOCK(auto ret = &self->scrollbar);                                                         \

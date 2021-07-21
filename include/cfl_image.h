@@ -8,6 +8,7 @@ extern "C" {
 #define IMAGE_DECLARE(image)                                                                       \
     typedef struct image image;                                                                    \
     void image##_draw(image *, int X, int Y, int W, int H);                                        \
+    void image##_draw_ext(image *, int X, int Y, int W, int H, int cx, int cy);                    \
     int image##_width(image *);                                                                    \
     int image##_height(image *);                                                                   \
     void image##_delete(image *);                                                                  \

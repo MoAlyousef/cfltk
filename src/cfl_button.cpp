@@ -20,7 +20,7 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_shortcut(widget *self, int shortcut) {                                       \
-        LOCK(self->shortcut(shortcut);)                                                            \
+        LOCK(self->shortcut(shortcut));                                                            \
     }                                                                                              \
     int widget##_clear(widget *self) {                                                             \
         LOCK(auto ret = self->clear());                                                            \
@@ -31,7 +31,7 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_value(widget *self, int flag) {                                              \
-        LOCK(self->value(flag);)                                                                   \
+        LOCK(self->value(flag));                                                                   \
     }                                                                                              \
     void widget##_set_down_box(widget *self, int box) {                                            \
         LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));                                        \

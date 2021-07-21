@@ -19,46 +19,58 @@
 
 #define IMAGE_DEFINE(image)                                                                        \
     void image##_draw(image *self, int X, int Y, int W, int H) {                                   \
-        LOCK(self->draw(X, Y, W, H);)                                                              \
+        LOCK(self->draw(X, Y, W, H));                                                              \
+    }                                                                                              \
+    void image##_draw_ext(image *self, int X, int Y, int W, int H, int cx, int cy) {               \
+        LOCK(self->draw(X, Y, W, H, cx, cy));                                                      \
     }                                                                                              \
     int image##_width(image *self) {                                                               \
-        LOCK(auto ret = self->w();) return ret;                                                    \
+        LOCK(auto ret = self->w());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     int image##_height(image *self) {                                                              \
-        LOCK(auto ret = self->h();) return ret;                                                    \
+        LOCK(auto ret = self->h());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     void image##_delete(image *self) {                                                             \
         delete self;                                                                               \
     }                                                                                              \
     int image##_count(image *self) {                                                               \
-        LOCK(auto ret = self->count();) return ret;                                                \
+        LOCK(auto ret = self->count());                                                            \
+        return ret;                                                                                \
     }                                                                                              \
     const char *const *image##_data(image *self) {                                                 \
-        LOCK(auto ret = self->data();) return ret;                                                 \
+        LOCK(auto ret = self->data());                                                             \
+        return ret;                                                                                \
     }                                                                                              \
     image *image##_copy(image *self) {                                                             \
         return (image *)self->copy();                                                              \
     }                                                                                              \
     void image##_scale(image *self, int width, int height, int proportional, int can_expand) {     \
-        LOCK(self->scale(width, height, proportional, can_expand);)                                \
+        LOCK(self->scale(width, height, proportional, can_expand));                                \
     }                                                                                              \
     int image##_fail(image *self) {                                                                \
-        LOCK(auto ret = self->fail();) return ret;                                                 \
+        LOCK(auto ret = self->fail());                                                             \
+        return ret;                                                                                \
     }                                                                                              \
     int image##_data_w(const image *self) {                                                        \
-        LOCK(auto ret = self->data_w();) return ret;                                               \
+        LOCK(auto ret = self->data_w());                                                           \
+        return ret;                                                                                \
     }                                                                                              \
     int image##_data_h(const image *self) {                                                        \
-        LOCK(auto ret = self->data_h();) return ret;                                               \
+        LOCK(auto ret = self->data_h());                                                           \
+        return ret;                                                                                \
     }                                                                                              \
     int image##_d(const image *self) {                                                             \
-        LOCK(auto ret = self->d();) return ret;                                                    \
+        LOCK(auto ret = self->d());                                                                \
+        return ret;                                                                                \
     }                                                                                              \
     int image##_ld(const image *self) {                                                            \
-        LOCK(auto ret = self->ld();) return ret;                                                   \
+        LOCK(auto ret = self->ld());                                                               \
+        return ret;                                                                                \
     }                                                                                              \
     void image##_inactive(image *self) {                                                           \
-        LOCK(self->inactive();)                                                                    \
+        LOCK(self->inactive());                                                                    \
     }
 
 IMAGE_DEFINE(Fl_JPEG_Image)

@@ -225,6 +225,22 @@ void Fl_set_box_type(int o, int n) {
     Fl::set_boxtype((Fl_Boxtype)o, (Fl_Boxtype)n);
 }
 
+int Fl_box_shadow_width(void) {
+    return Fl::box_shadow_width();
+}
+
+void Fl_set_box_shadow_width(int W) {
+    Fl::box_shadow_width(W);
+}
+
+int Fl_box_border_radius_max(void) {
+    return Fl::box_border_radius_max();
+}
+
+void Fl_set_box_border_radius_max(int R) {
+    Fl::box_border_radius_max(R);
+}
+
 unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b) {
     return fl_rgb_color(r, g, b);
 }

@@ -15,30 +15,30 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_font(widget *self, int s) {                                             \
-        LOCK(self->textfont(s);)                                                                   \
+        LOCK(self->textfont(s));                                                                   \
     }                                                                                              \
     int widget##_text_size(const widget *self) {                                                   \
         LOCK(auto ret = self->textsize(););                                                        \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_size(widget *self, int s) {                                             \
-        LOCK(self->textsize(s);)                                                                   \
+        LOCK(self->textsize(s));                                                                   \
     }                                                                                              \
     unsigned int widget##_text_color(const widget *self) {                                         \
         LOCK(auto ret = self->textcolor(););                                                       \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_color(widget *self, unsigned int n) {                                   \
-        LOCK(self->textcolor(n);)                                                                  \
+        LOCK(self->textcolor(n));                                                                  \
     }                                                                                              \
     void widget##_scroll(widget *self, int topLineNum, int horizOffset) {                          \
-        LOCK(self->scroll(topLineNum, horizOffset);)                                               \
+        LOCK(self->scroll(topLineNum, horizOffset));                                               \
     }                                                                                              \
     void widget##_insert(widget *self, const char *text) {                                         \
-        LOCK(((Fl_Text_Display *)self)->insert(text);)                                             \
+        LOCK(((Fl_Text_Display *)self)->insert(text));                                             \
     }                                                                                              \
     void widget##_set_insert_position(widget *self, int newPos) {                                  \
-        LOCK(self->insert_position(newPos);)                                                       \
+        LOCK(self->insert_position(newPos));                                                       \
     }                                                                                              \
     int widget##_insert_position(const widget *self) {                                             \
         LOCK(auto ret = self->insert_position(););                                                 \
@@ -70,7 +70,7 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_show_cursor(widget *self, int boolean) {                                         \
-        LOCK(if (boolean) self->show_cursor(); else self->hide_cursor();)                          \
+        LOCK(if (boolean) self->show_cursor(); else self->hide_cursor());                          \
     }                                                                                              \
     void widget##_set_highlight_data(widget *self, void *sbuff, unsigned int *color, int *font,    \
                                      int *fontsz, int sz) {                                        \
@@ -80,19 +80,19 @@
         for (int i = 0; i < sz; ++i) {                                                             \
             stable[i] = {color[i], font[i], fontsz[i]};                                            \
         }                                                                                          \
-        LOCK(self->highlight_data((Fl_Text_Buffer *)sbuff, stable, sz, 'A', 0, 0);)                \
+        LOCK(self->highlight_data((Fl_Text_Buffer *)sbuff, stable, sz, 'A', 0, 0));                \
     }                                                                                              \
     void widget##_set_cursor_style(widget *self, int style) {                                      \
-        LOCK(self->cursor_style(style);)                                                           \
+        LOCK(self->cursor_style(style));                                                           \
     }                                                                                              \
     void widget##_set_cursor_color(widget *self, unsigned int color) {                             \
-        LOCK(self->cursor_color(color);)                                                           \
+        LOCK(self->cursor_color(color));                                                           \
     }                                                                                              \
     void widget##_set_scrollbar_size(widget *self, int newSize) {                                  \
-        LOCK(self->scrollbar_size(newSize);)                                                       \
+        LOCK(self->scrollbar_size(newSize));                                                       \
     }                                                                                              \
     void widget##_set_scrollbar_align(widget *self, int align) {                                   \
-        LOCK(self->scrollbar_align(align);)                                                        \
+        LOCK(self->scrollbar_align(align));                                                        \
     }                                                                                              \
     int widget##_cursor_style(widget *self) {                                                      \
         LOCK(auto ret = self->cursor_style(););                                                    \
@@ -119,18 +119,18 @@
         return ret;                                                                                \
     }                                                                                              \
     int widget##_skip_lines(widget *self, int startPos, int nLines, int startPosIsLineStart) {     \
-        LOCK(auto ret = self->skip_lines(startPos, nLines, startPosIsLineStart);)                  \
+        LOCK(auto ret = self->skip_lines(startPos, nLines, startPosIsLineStart));                  \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_rewind_lines(widget *self, int startPos, int nLines) {                            \
-        LOCK(auto ret = self->rewind_lines(startPos, nLines);)                                     \
+        LOCK(auto ret = self->rewind_lines(startPos, nLines));                                     \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_next_word(widget *self) {                                                        \
-        LOCK(self->next_word();)                                                                   \
+        LOCK(self->next_word());                                                                   \
     }                                                                                              \
     void widget##_previous_word(widget *self) {                                                    \
-        LOCK(self->previous_word();)                                                               \
+        LOCK(self->previous_word());                                                               \
     }                                                                                              \
     int widget##_word_start(const widget *self, int pos) {                                         \
         LOCK(auto ret = self->word_start(pos););                                                   \
@@ -149,42 +149,42 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_width(widget *self, int width) {                                  \
-        LOCK(self->linenumber_width(width);)                                                       \
+        LOCK(self->linenumber_width(width));                                                       \
     }                                                                                              \
     int widget##_linenumber_width(const widget *self) {                                            \
         LOCK(auto ret = self->linenumber_width(););                                                \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_font(widget *self, int val) {                                     \
-        LOCK(self->linenumber_font(val);)                                                          \
+        LOCK(self->linenumber_font(val));                                                          \
     }                                                                                              \
     int widget##_linenumber_font(const widget *self) {                                             \
         LOCK(auto ret = self->linenumber_font(););                                                 \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_size(widget *self, int val) {                                     \
-        LOCK(self->linenumber_size(val);)                                                          \
+        LOCK(self->linenumber_size(val));                                                          \
     }                                                                                              \
     int widget##_linenumber_size(const widget *self) {                                             \
         LOCK(auto ret = self->linenumber_size(););                                                 \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_fgcolor(widget *self, unsigned int val) {                         \
-        LOCK(self->linenumber_fgcolor(val);)                                                       \
+        LOCK(self->linenumber_fgcolor(val));                                                       \
     }                                                                                              \
     unsigned int widget##_linenumber_fgcolor(const widget *self) {                                 \
         LOCK(auto ret = self->linenumber_fgcolor(););                                              \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_bgcolor(widget *self, unsigned int val) {                         \
-        LOCK(self->linenumber_bgcolor(val);)                                                       \
+        LOCK(self->linenumber_bgcolor(val));                                                       \
     }                                                                                              \
     unsigned int widget##_linenumber_bgcolor(const widget *self) {                                 \
         LOCK(auto ret = self->linenumber_bgcolor(););                                              \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_align(widget *self, int val) {                                    \
-        LOCK(self->linenumber_align(val);)                                                         \
+        LOCK(self->linenumber_align(val));                                                         \
     }                                                                                              \
     int widget##_linenumber_align(const widget *self) {                                            \
         LOCK(auto ret = self->linenumber_align(););                                                \
@@ -216,7 +216,8 @@ void Fl_Text_Buffer_delete(Fl_Text_Buffer *self) {
 }
 
 const char *Fl_Text_Buffer_text(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->text()); return ret;
+    LOCK(auto ret = self->text());
+    return ret;
 }
 
 void Fl_Text_Buffer_set_text(Fl_Text_Buffer *self, const char *txt) {
@@ -232,11 +233,13 @@ void Fl_Text_Buffer_remove(Fl_Text_Buffer *self, int start, int end) {
 }
 
 int Fl_Text_Buffer_length(const Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->length()); return ret;
+    LOCK(auto ret = self->length());
+    return ret;
 }
 
 char *Fl_Text_Buffer_text_range(const Fl_Text_Buffer *self, int start, int end) {
-    LOCK(auto ret = self->text_range(start, end)); return ret;
+    LOCK(auto ret = self->text_range(start, end));
+    return ret;
 }
 
 void Fl_Text_Buffer_insert(Fl_Text_Buffer *self, int pos, const char *text) {
@@ -253,7 +256,8 @@ void Fl_Text_Buffer_copy(Fl_Text_Buffer *self, Fl_Text_Buffer *fromBuf, int from
 }
 
 int Fl_Text_Buffer_undo(Fl_Text_Buffer *self, int *cp) {
-    LOCK(auto ret = self->undo(NULL)); return ret;
+    LOCK(auto ret = self->undo(NULL));
+    return ret;
 }
 
 void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag) {
@@ -261,15 +265,18 @@ void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag) {
 }
 
 int Fl_Text_Buffer_load_file(Fl_Text_Buffer *self, const char *file) {
-    LOCK(auto ret = self->loadfile(file)); return ret;
+    LOCK(auto ret = self->loadfile(file));
+    return ret;
 }
 
 int Fl_Text_Buffer_save_file(Fl_Text_Buffer *self, const char *file) {
-    LOCK(auto ret = self->savefile(file)); return ret;
+    LOCK(auto ret = self->savefile(file));
+    return ret;
 }
 
 int Fl_Text_Buffer_tab_distance(const Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->tab_distance()); return ret;
+    LOCK(auto ret = self->tab_distance());
+    return ret;
 }
 
 void Fl_Text_Buffer_set_tab_distance(Fl_Text_Buffer *self, int tabDist) {
@@ -281,7 +288,8 @@ void Fl_Text_Buffer_select(Fl_Text_Buffer *self, int start, int end) {
 }
 
 int Fl_Text_Buffer_selected(const Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->selected()); return ret;
+    LOCK(auto ret = self->selected());
+    return ret;
 }
 
 void Fl_Text_Buffer_unselect(Fl_Text_Buffer *self) {
@@ -289,11 +297,13 @@ void Fl_Text_Buffer_unselect(Fl_Text_Buffer *self) {
 }
 
 int Fl_Text_Buffer_selection_position(Fl_Text_Buffer *self, int *start, int *end) {
-    LOCK(auto ret = self->selection_position(start, end)); return ret;
+    LOCK(auto ret = self->selection_position(start, end));
+    return ret;
 }
 
 char *Fl_Text_Buffer_selection_text(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->selection_text()); return ret;
+    LOCK(auto ret = self->selection_text());
+    return ret;
 }
 
 void Fl_Text_Buffer_remove_selection(Fl_Text_Buffer *self) {
@@ -309,7 +319,8 @@ void Fl_Text_Buffer_highlight(Fl_Text_Buffer *self, int start, int end) {
 }
 
 int Fl_Text_Buffer_is_highlighted(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->highlight()); return ret;
+    LOCK(auto ret = self->highlight());
+    return ret;
 }
 
 void Fl_Text_Buffer_unhighlight(Fl_Text_Buffer *self) {
@@ -317,31 +328,38 @@ void Fl_Text_Buffer_unhighlight(Fl_Text_Buffer *self) {
 }
 
 int Fl_Text_Buffer_highlight_position(Fl_Text_Buffer *self, int *start, int *end) {
-    LOCK(auto ret = self->highlight_position(start, end)); return ret;
+    LOCK(auto ret = self->highlight_position(start, end));
+    return ret;
 }
 
 char *Fl_Text_Buffer_highlight_text(Fl_Text_Buffer *self) {
-    LOCK(auto ret = self->highlight_text()); return ret;
+    LOCK(auto ret = self->highlight_text());
+    return ret;
 }
 
 char *Fl_Text_Buffer_line_text(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->line_text(pos)); return ret;
+    LOCK(auto ret = self->line_text(pos));
+    return ret;
 }
 
 int Fl_Text_Buffer_line_start(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->line_start(pos)); return ret;
+    LOCK(auto ret = self->line_start(pos));
+    return ret;
 }
 
 int Fl_Text_Buffer_word_start(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->word_start(pos)); return ret;
+    LOCK(auto ret = self->word_start(pos));
+    return ret;
 }
 
 int Fl_Text_Buffer_word_end(const Fl_Text_Buffer *self, int pos) {
-    LOCK(auto ret = self->word_end(pos)); return ret;
+    LOCK(auto ret = self->word_end(pos));
+    return ret;
 }
 
 int Fl_Text_Buffer_count_lines(const Fl_Text_Buffer *self, int startPos, int endPos) {
-    LOCK(auto ret = self->count_lines(startPos, endPos)); return ret;
+    LOCK(auto ret = self->count_lines(startPos, endPos));
+    return ret;
 }
 
 void Fl_Text_Buffer_add_modify_callback(Fl_Text_Buffer *self, Fl_Text_Modify_Cb bufModifiedCB,
@@ -367,7 +385,8 @@ void Fl_Text_Display_init(Fl_Text_Display *self) {
 }
 
 Fl_Text_Buffer *Fl_Text_Display_get_buffer(Fl_Text_Display *self) {
-    LOCK(auto ret = self->buffer()); return ret;
+    LOCK(auto ret = self->buffer());
+    return ret;
 }
 
 void Fl_Text_Display_set_buffer(Fl_Text_Display *self, Fl_Text_Buffer *buf) {
@@ -375,7 +394,8 @@ void Fl_Text_Display_set_buffer(Fl_Text_Display *self, Fl_Text_Buffer *buf) {
 }
 
 Fl_Text_Buffer *Fl_Text_Display_get_style_buffer(Fl_Text_Display *self) {
-    LOCK(auto ret = self->style_buffer()); return ret;
+    LOCK(auto ret = self->style_buffer());
+    return ret;
 }
 
 DISPLAY_DEFINE(Fl_Text_Display)
@@ -389,7 +409,8 @@ void Fl_Text_Editor_init(Fl_Text_Editor *self) {
 }
 
 Fl_Text_Buffer *Fl_Text_Editor_get_buffer(Fl_Text_Editor *self) {
-    LOCK(auto ret = self->buffer()); return ret;
+    LOCK(auto ret = self->buffer());
+    return ret;
 }
 
 void Fl_Text_Editor_set_buffer(Fl_Text_Editor *self, Fl_Text_Buffer *buf) {
@@ -397,7 +418,8 @@ void Fl_Text_Editor_set_buffer(Fl_Text_Editor *self, Fl_Text_Buffer *buf) {
 }
 
 Fl_Text_Buffer *Fl_Text_Editor_get_style_buffer(Fl_Text_Editor *self) {
-    LOCK(auto ret = self->style_buffer()); return ret;
+    LOCK(auto ret = self->style_buffer());
+    return ret;
 }
 
 DISPLAY_DEFINE(Fl_Text_Editor)
@@ -567,7 +589,8 @@ void Fl_Text_Editor_set_tab_nav(Fl_Text_Editor *self, int val) {
 }
 
 int Fl_Text_Editor_tab_nav(const Fl_Text_Editor *self) {
-    LOCK(auto ret = self->tab_nav()); return ret;
+    LOCK(auto ret = self->tab_nav());
+    return ret;
 }
 
 WIDGET_CLASS(Fl_Simple_Terminal)
@@ -579,7 +602,8 @@ void Fl_Simple_Terminal_init(Fl_Simple_Terminal *self) {
 }
 
 Fl_Text_Buffer *Fl_Simple_Terminal_get_buffer(Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->buffer()); return ret;
+    LOCK(auto ret = self->buffer());
+    return ret;
 }
 
 void Fl_Simple_Terminal_set_buffer(Fl_Simple_Terminal *self, Fl_Text_Buffer *buf) {
@@ -587,7 +611,8 @@ void Fl_Simple_Terminal_set_buffer(Fl_Simple_Terminal *self, Fl_Text_Buffer *buf
 }
 
 Fl_Text_Buffer *Fl_Simple_Terminal_get_style_buffer(Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->style_buffer()); return ret;
+    LOCK(auto ret = self->style_buffer());
+    return ret;
 }
 
 void Fl_Simple_Terminal_set_stay_at_bottom(Fl_Simple_Terminal *self, int flag) {
@@ -595,7 +620,8 @@ void Fl_Simple_Terminal_set_stay_at_bottom(Fl_Simple_Terminal *self, int flag) {
 }
 
 int Fl_Simple_Terminal_stay_at_bottom(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->stay_at_bottom()); return ret;
+    LOCK(auto ret = self->stay_at_bottom());
+    return ret;
 }
 
 void Fl_Simple_Terminal_set_history_lines(Fl_Simple_Terminal *self, int cnt) {
@@ -603,7 +629,8 @@ void Fl_Simple_Terminal_set_history_lines(Fl_Simple_Terminal *self, int cnt) {
 }
 
 int Fl_Simple_Terminal_history_lines(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->history_lines()); return ret;
+    LOCK(auto ret = self->history_lines());
+    return ret;
 }
 
 void Fl_Simple_Terminal_set_ansi(Fl_Simple_Terminal *self, int val) {
@@ -611,7 +638,8 @@ void Fl_Simple_Terminal_set_ansi(Fl_Simple_Terminal *self, int val) {
 }
 
 int Fl_Simple_Terminal_ansi(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->ansi()); return ret;
+    LOCK(auto ret = self->ansi());
+    return ret;
 }
 
 void Fl_Simple_Terminal_append(Fl_Simple_Terminal *self, const char *s) {
@@ -623,7 +651,8 @@ void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s) {
 }
 
 const char *Fl_Simple_Terminal_text(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->text()); return ret;
+    LOCK(auto ret = self->text());
+    return ret;
 }
 
 void Fl_Simple_Terminal_clear(Fl_Simple_Terminal *self) {
