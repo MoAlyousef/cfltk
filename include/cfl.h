@@ -259,6 +259,12 @@ int Fl_clipboard_contains(const char *type);
 
 void Fl_event_dispatch(int (*cb)(int event, void *));
 
+unsigned int Fl_inactive(unsigned int c);
+
+unsigned int Fl_lighter(unsigned int c);
+
+unsigned int Fl_darker(unsigned int c);
+
 #ifdef __cplusplus
 }
 #endif

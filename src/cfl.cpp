@@ -568,3 +568,15 @@ int Fl_mac_os_version() {
 #endif
     return 0;
 }
+
+unsigned int Fl_inactive(unsigned int c) {
+    return fl_inactive(c);
+}
+
+unsigned int Fl_lighter(unsigned int c) {
+    return fl_lighter(c);
+}
+
+unsigned int Fl_darker(unsigned int c) {
+    return fl_darker(c);
+}
