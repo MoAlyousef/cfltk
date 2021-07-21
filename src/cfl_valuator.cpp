@@ -26,14 +26,14 @@
         LOCK(self->bounds(a, b));                                                                  \
     }                                                                                              \
     double widget##_minimum(widget *self) {                                                        \
-        LOCK(auto ret = self->minimum(););                                                         \
+        LOCK(auto ret = self->minimum());;                                                         \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_minimum(widget *self, double a) {                                            \
         LOCK(self->minimum(a));                                                                    \
     }                                                                                              \
     double widget##_maximum(widget *self) {                                                        \
-        LOCK(auto ret = self->maximum(););                                                         \
+        LOCK(auto ret = self->maximum());;                                                         \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_maximum(widget *self, double a) {                                            \
@@ -46,14 +46,14 @@
         LOCK(self->step(a, b));                                                                    \
     }                                                                                              \
     double widget##_step(widget *self) {                                                           \
-        LOCK(auto ret = self->step(););                                                            \
+        LOCK(auto ret = self->step());;                                                            \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_precision(widget *self, int digits) {                                        \
         LOCK(self->precision(digits));                                                             \
     }                                                                                              \
     double widget##_value(widget *self) {                                                          \
-        LOCK(auto ret = self->value(););                                                           \
+        LOCK(auto ret = self->value());;                                                           \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_set_value(widget *self, double val) {                                             \
@@ -87,7 +87,7 @@ float Fl_Slider_slider_size(const Fl_Slider *self) {
 }
 
 void Fl_Slider_set_slider_size(Fl_Slider *self, float v) {
-    LOCK(self->slider_size((double)v);)
+    LOCK(self->slider_size((double)v));
 }
 
 int Fl_Slider_slider_box(const Fl_Slider *self) {
@@ -96,7 +96,7 @@ int Fl_Slider_slider_box(const Fl_Slider *self) {
 }
 
 void Fl_Slider_set_slider_box(Fl_Slider *self, int c) {
-    LOCK(self->slider((Fl_Boxtype)c);)
+    LOCK(self->slider((Fl_Boxtype)c));
 }
 
 VALUATOR_DEFINE(Fl_Slider)
@@ -128,11 +128,11 @@ short Fl_Dial_angle2(const Fl_Dial *self) {
 }
 
 void Fl_Dial_set_angle1(Fl_Dial *self, short val) {
-    LOCK(self->angle1(val);)
+    LOCK(self->angle1(val));
 }
 
 void Fl_Dial_set_angle2(Fl_Dial *self, short val) {
-    LOCK(self->angle2(val);)
+    LOCK(self->angle2(val));
 }
 
 VALUATOR_DEFINE(Fl_Dial)

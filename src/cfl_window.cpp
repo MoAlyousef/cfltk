@@ -53,7 +53,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->cursor((Fl_Cursor)cursor));                                                     \
     }                                                                                              \
     int widget##_shown(widget *self) {                                                             \
-        LOCK(auto ret = self->shown(););                                                           \
+        LOCK(auto ret = self->shown());;                                                           \
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_raw_handle(const widget *w) {                                                   \
@@ -66,7 +66,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->border(flag));                                                                  \
     }                                                                                              \
     int widget##_border(const widget *self) {                                                      \
-        LOCK(auto ret = self->border(););                                                          \
+        LOCK(auto ret = self->border());;                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_region(const widget *self) {                                                    \
@@ -82,18 +82,18 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->iconize())                                                                      \
     }                                                                                              \
     unsigned int widget##_fullscreen_active(const widget *self) {                                  \
-        LOCK(auto ret = self->fullscreen_active(););                                               \
+        LOCK(auto ret = self->fullscreen_active());;                                               \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_free_position(widget *self) {                                                    \
         LOCK(self->free_position())                                                                \
     }                                                                                              \
     int widget##_decorated_w(const widget *self) {                                                 \
-        LOCK(auto ret = self->decorated_w(););                                                     \
+        LOCK(auto ret = self->decorated_w());;                                                     \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_decorated_h(const widget *self) {                                                 \
-        LOCK(auto ret = self->decorated_h(););                                                     \
+        LOCK(auto ret = self->decorated_h());;                                                     \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
@@ -114,11 +114,11 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         return ret;                                                                                \
     }                                                                                              \
     int widget##_x_root(const widget *self) {                                                      \
-        LOCK(auto ret = self->x_root(););                                                          \
+        LOCK(auto ret = self->x_root());;                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_y_root(const widget *self) {                                                      \
-        LOCK(auto ret = self->y_root(););                                                          \
+        LOCK(auto ret = self->y_root());;                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y) {        \
@@ -128,7 +128,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->default_cursor((Fl_Cursor)cursor));                                             \
     }                                                                                              \
     int widget##_screen_num(widget *self) {                                                        \
-        LOCK(auto ret = self->screen_num(););                                                      \
+        LOCK(auto ret = self->screen_num());;                                                      \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_screen_num(widget *self, int screen_num) {                                   \
@@ -181,14 +181,14 @@ void *Fl_gc(void) {
 }
 
 void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
-    LOCK(w->show(argc, argv);)
+    LOCK(w->show(argc, argv));
 }
 
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
     if (!handle)
         return;
 #if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__)
-    LOCK(Fl_X::set_xid(self, *(Window *)handle);)
+    LOCK(Fl_X::set_xid(self, *(Window *)handle));
 #else
     LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
          xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
@@ -452,7 +452,7 @@ GROUP_DEFINE(Fl_Overlay_Window)
 
 void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self, custom_draw_callback cb, void *data) {
     LOCK(((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer_data(data);
-         ((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer(cb);)
+         ((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer(cb));
 }
 
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self) {
@@ -480,7 +480,7 @@ GROUP_DEFINE(Fl_Gl_Window)
 WINDOW_DEFINE(Fl_Gl_Window)
 
 void Fl_Gl_Window_flush(Fl_Gl_Window *self) {
-    LOCK(self->flush();)
+    LOCK(self->flush());
 }
 
 char Fl_Gl_Window_valid(const Fl_Gl_Window *self) {
@@ -489,7 +489,7 @@ char Fl_Gl_Window_valid(const Fl_Gl_Window *self) {
 }
 
 void Fl_Gl_Window_set_valid(Fl_Gl_Window *self, char v) {
-    LOCK(self->valid(v);)
+    LOCK(self->valid(v));
 }
 
 char Fl_Gl_Window_context_valid(const Fl_Gl_Window *self) {
@@ -498,7 +498,7 @@ char Fl_Gl_Window_context_valid(const Fl_Gl_Window *self) {
 }
 
 void Fl_Gl_Window_set_context_valid(Fl_Gl_Window *self, char v) {
-    LOCK(self->context_valid(v);)
+    LOCK(self->context_valid(v));
 }
 
 int Fl_Gl_Window_can_do(Fl_Gl_Window *self) {
@@ -512,15 +512,15 @@ void *Fl_Gl_Window_context(const Fl_Gl_Window *self) {
 }
 
 void Fl_Gl_Window_set_context(Fl_Gl_Window *self, void *ctx, int destroy_flag) {
-    LOCK(self->context((GLContext)ctx, destroy_flag);)
+    LOCK(self->context((GLContext)ctx, destroy_flag));
 }
 
 void Fl_Gl_Window_swap_buffers(Fl_Gl_Window *self) {
-    LOCK(self->swap_buffers();)
+    LOCK(self->swap_buffers());
 }
 
 void Fl_Gl_Window_ortho(Fl_Gl_Window *self) {
-    LOCK(self->ortho();)
+    LOCK(self->ortho());
 }
 
 int Fl_Gl_Window_can_do_overlay(Fl_Gl_Window *self) {
@@ -529,15 +529,15 @@ int Fl_Gl_Window_can_do_overlay(Fl_Gl_Window *self) {
 }
 
 void Fl_Gl_Window_redraw_overlay(Fl_Gl_Window *self) {
-    LOCK(self->redraw_overlay();)
+    LOCK(self->redraw_overlay());
 }
 
 void Fl_Gl_Window_hide_overlay(Fl_Gl_Window *self) {
-    LOCK(self->hide_overlay();)
+    LOCK(self->hide_overlay());
 }
 
 void Fl_Gl_Window_make_overlay_current(Fl_Gl_Window *self) {
-    LOCK(self->make_overlay_current();)
+    LOCK(self->make_overlay_current());
 }
 
 float Fl_Gl_Window_pixels_per_unit(Fl_Gl_Window *self) {
@@ -578,7 +578,7 @@ GROUP_DEFINE(Fl_Glut_Window)
 WINDOW_DEFINE(Fl_Glut_Window)
 
 void Fl_Glut_Window_flush(Fl_Glut_Window *self) {
-    LOCK(self->flush();)
+    LOCK(self->flush());
 }
 
 char Fl_Glut_Window_valid(const Fl_Glut_Window *self) {
@@ -587,7 +587,7 @@ char Fl_Glut_Window_valid(const Fl_Glut_Window *self) {
 }
 
 void Fl_Glut_Window_set_valid(Fl_Glut_Window *self, char v) {
-    LOCK(self->valid(v);)
+    LOCK(self->valid(v));
 }
 
 char Fl_Glut_Window_context_valid(const Fl_Glut_Window *self) {
@@ -596,7 +596,7 @@ char Fl_Glut_Window_context_valid(const Fl_Glut_Window *self) {
 }
 
 void Fl_Glut_Window_set_context_valid(Fl_Glut_Window *self, char v) {
-    LOCK(self->context_valid(v);)
+    LOCK(self->context_valid(v));
 }
 
 int Fl_Glut_Window_can_do(Fl_Glut_Window *self) {
@@ -610,15 +610,15 @@ void *Fl_Glut_Window_context(const Fl_Glut_Window *self) {
 }
 
 void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx, int destroy_flag) {
-    LOCK(self->context((GLContext)ctx, destroy_flag);)
+    LOCK(self->context((GLContext)ctx, destroy_flag));
 }
 
 void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self) {
-    LOCK(self->swap_buffers();)
+    LOCK(self->swap_buffers());
 }
 
 void Fl_Glut_Window_ortho(Fl_Glut_Window *self) {
-    LOCK(self->ortho();)
+    LOCK(self->ortho());
 }
 
 int Fl_Glut_Window_can_do_overlay(Fl_Glut_Window *self) {
@@ -627,15 +627,15 @@ int Fl_Glut_Window_can_do_overlay(Fl_Glut_Window *self) {
 }
 
 void Fl_Glut_Window_redraw_overlay(Fl_Glut_Window *self) {
-    LOCK(self->redraw_overlay();)
+    LOCK(self->redraw_overlay());
 }
 
 void Fl_Glut_Window_hide_overlay(Fl_Glut_Window *self) {
-    LOCK(self->hide_overlay();)
+    LOCK(self->hide_overlay());
 }
 
 void Fl_Glut_Window_make_overlay_current(Fl_Glut_Window *self) {
-    LOCK(self->make_overlay_current();)
+    LOCK(self->make_overlay_current());
 }
 
 float Fl_Glut_Window_pixels_per_unit(Fl_Glut_Window *self) {
@@ -659,7 +659,7 @@ int Fl_Glut_Window_mode(const Fl_Glut_Window *self) {
 }
 
 void Fl_Glut_Window_set_mode(Fl_Glut_Window *self, int mode) {
-    LOCK(self->mode(mode);)
+    LOCK(self->mode(mode));
 }
 
 void *Fl_Glut_Window_get_proc_address(Fl_Glut_Window *self, const char *s) {

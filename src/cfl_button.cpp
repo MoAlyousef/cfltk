@@ -57,7 +57,7 @@ int Fl_Check_Button_is_checked(Fl_Check_Button *self) {
 }
 
 void Fl_Check_Button_set_checked(Fl_Check_Button *self, int checked) {
-    LOCK(self->value(checked);)
+    LOCK(self->value(checked));
 }
 
 BUTTON_DEFINE(Fl_Check_Button)
@@ -72,7 +72,7 @@ int Fl_Radio_Button_is_toggled(Fl_Radio_Button *self) {
 }
 
 void Fl_Radio_Button_toggle(Fl_Radio_Button *self, int boolean) {
-    LOCK(self->value(boolean);)
+    LOCK(self->value(boolean));
 }
 
 BUTTON_DEFINE(Fl_Radio_Button)
@@ -87,7 +87,7 @@ int Fl_Toggle_Button_is_toggled(Fl_Toggle_Button *self) {
 }
 
 void Fl_Toggle_Button_toggle(Fl_Toggle_Button *self, int boolean) {
-    LOCK(self->value(boolean);)
+    LOCK(self->value(boolean));
 }
 
 BUTTON_DEFINE(Fl_Toggle_Button)
@@ -102,7 +102,7 @@ int Fl_Round_Button_is_toggled(Fl_Round_Button *self) {
 }
 
 void Fl_Round_Button_toggle(Fl_Round_Button *self, int boolean) {
-    LOCK(self->value(boolean);)
+    LOCK(self->value(boolean));
 }
 
 BUTTON_DEFINE(Fl_Round_Button)
@@ -117,7 +117,7 @@ int Fl_Radio_Round_Button_is_toggled(Fl_Radio_Round_Button *self) {
 }
 
 void Fl_Radio_Round_Button_toggle(Fl_Radio_Round_Button *self, int boolean) {
-    LOCK(self->value(boolean);)
+    LOCK(self->value(boolean));
 }
 
 BUTTON_DEFINE(Fl_Radio_Round_Button)
@@ -132,7 +132,7 @@ int Fl_Radio_Light_Button_is_toggled(Fl_Radio_Light_Button *self) {
 }
 
 void Fl_Radio_Light_Button_toggle(Fl_Radio_Light_Button *self, int boolean) {
-    LOCK(self->value(boolean);)
+    LOCK(self->value(boolean));
 }
 
 BUTTON_DEFINE(Fl_Radio_Light_Button)
@@ -147,7 +147,7 @@ int Fl_Light_Button_is_on(Fl_Light_Button *self) {
 }
 
 void Fl_Light_Button_turn_on(Fl_Light_Button *self, int boolean) {
-    LOCK(self->value(boolean);)
+    LOCK(self->value(boolean));
 }
 
 BUTTON_DEFINE(Fl_Light_Button)

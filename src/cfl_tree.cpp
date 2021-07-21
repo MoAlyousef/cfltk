@@ -15,19 +15,19 @@ WIDGET_CLASS(Fl_Tree)
 WIDGET_DEFINE(Fl_Tree)
 
 void Fl_Tree_begin(Fl_Tree *self) {
-    LOCK(self->begin();)
+    LOCK(self->begin());
 }
 
 void Fl_Tree_end(Fl_Tree *self) {
-    LOCK(self->end();)
+    LOCK(self->end());
 }
 
 void Fl_Tree_show_self(Fl_Tree *self) {
-    LOCK(self->show_self();)
+    LOCK(self->show_self());
 }
 
 void Fl_Tree_root_label(Fl_Tree *self, const char *new_label) {
-    LOCK(self->root_label(new_label);)
+    LOCK(self->root_label(new_label));
 }
 
 Fl_Tree_Item *Fl_Tree_root(Fl_Tree *self) {
@@ -36,7 +36,7 @@ Fl_Tree_Item *Fl_Tree_root(Fl_Tree *self) {
 }
 
 void Fl_Tree_set_root(Fl_Tree *self, Fl_Tree_Item *newitem) {
-    LOCK(self->root(newitem);)
+    LOCK(self->root(newitem));
 }
 
 Fl_Tree_Item *Fl_Tree_add(Fl_Tree *self, const char *name) {
@@ -159,7 +159,7 @@ int Fl_Tree_get_items(Fl_Tree *self, Fl_Tree_Item_Array **arr) {
     int c = 0;
     LOCK(for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i)) c++; if (c == 0) return 0;
          *arr = new Fl_Tree_Item_Array(c);
-         for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i))(*arr)->add(i);)
+         for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i))(*arr)->add(i));
     return c;
 }
 
@@ -171,7 +171,7 @@ int Fl_Tree_open(Fl_Tree *self, const char *path, int docallback) {
 }
 
 void Fl_Tree_open_toggle(Fl_Tree *self, Fl_Tree_Item *item, int docallback) {
-    LOCK(self->open_toggle(item, docallback);)
+    LOCK(self->open_toggle(item, docallback));
 }
 
 int Fl_Tree_close(Fl_Tree *self, const char *path, int docallback) {
@@ -195,7 +195,7 @@ int Fl_Tree_select(Fl_Tree *self, const char *path, int docallback) {
 }
 
 void Fl_Tree_select_toggle(Fl_Tree *self, Fl_Tree_Item *item, int docallback) {
-    LOCK(self->select_toggle(item, docallback);)
+    LOCK(self->select_toggle(item, docallback));
 }
 
 int Fl_Tree_deselect(Fl_Tree *self, const char *path, int docallback) {
@@ -231,7 +231,7 @@ int Fl_Tree_extend_selection(Fl_Tree *self, Fl_Tree_Item *from, Fl_Tree_Item *to
 }
 
 void Fl_Tree_set_item_focus(Fl_Tree *self, Fl_Tree_Item *item) {
-    LOCK(self->set_item_focus(item);)
+    LOCK(self->set_item_focus(item));
 }
 
 Fl_Tree_Item *Fl_Tree_get_item_focus(const Fl_Tree *self) {
@@ -250,7 +250,7 @@ int Fl_Tree_item_labelfont(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_item_labelfont(Fl_Tree *self, int val) {
-    LOCK(self->item_labelfont(val);)
+    LOCK(self->item_labelfont(val));
 }
 
 int Fl_Tree_item_labelsize(const Fl_Tree *self) {
@@ -259,7 +259,7 @@ int Fl_Tree_item_labelsize(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_item_labelsize(Fl_Tree *self, int val) {
-    LOCK(self->item_labelsize(val);)
+    LOCK(self->item_labelsize(val));
 }
 
 unsigned int Fl_Tree_item_labelfgcolor(const Fl_Tree *self) {
@@ -268,7 +268,7 @@ unsigned int Fl_Tree_item_labelfgcolor(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_item_labelfgcolor(Fl_Tree *self, unsigned int val) {
-    LOCK(self->item_labelfgcolor(val);)
+    LOCK(self->item_labelfgcolor(val));
 }
 
 unsigned int Fl_Tree_item_labelbgcolor(const Fl_Tree *self) {
@@ -277,7 +277,7 @@ unsigned int Fl_Tree_item_labelbgcolor(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_item_labelbgcolor(Fl_Tree *self, unsigned int val) {
-    LOCK(self->item_labelbgcolor(val);)
+    LOCK(self->item_labelbgcolor(val));
 }
 
 unsigned int Fl_Tree_connectorcolor(const Fl_Tree *self) {
@@ -286,7 +286,7 @@ unsigned int Fl_Tree_connectorcolor(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_connectorcolor(Fl_Tree *self, unsigned int val) {
-    LOCK(self->connectorcolor(val);)
+    LOCK(self->connectorcolor(val));
 }
 
 int Fl_Tree_marginleft(const Fl_Tree *self) {
@@ -295,7 +295,7 @@ int Fl_Tree_marginleft(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_marginleft(Fl_Tree *self, int val) {
-    LOCK(self->marginleft(val);)
+    LOCK(self->marginleft(val));
 }
 
 int Fl_Tree_margintop(const Fl_Tree *self) {
@@ -304,7 +304,7 @@ int Fl_Tree_margintop(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_margintop(Fl_Tree *self, int val) {
-    LOCK(self->margintop(val);)
+    LOCK(self->margintop(val));
 }
 
 int Fl_Tree_marginbottom(const Fl_Tree *self) {
@@ -313,7 +313,7 @@ int Fl_Tree_marginbottom(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_marginbottom(Fl_Tree *self, int val) {
-    LOCK(self->marginbottom(val);)
+    LOCK(self->marginbottom(val));
 }
 
 int Fl_Tree_linespacing(const Fl_Tree *self) {
@@ -322,7 +322,7 @@ int Fl_Tree_linespacing(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_linespacing(Fl_Tree *self, int val) {
-    LOCK(self->linespacing(val);)
+    LOCK(self->linespacing(val));
 }
 
 int Fl_Tree_openchild_marginbottom(const Fl_Tree *self) {
@@ -331,7 +331,7 @@ int Fl_Tree_openchild_marginbottom(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_openchild_marginbottom(Fl_Tree *self, int val) {
-    LOCK(self->openchild_marginbottom(val);)
+    LOCK(self->openchild_marginbottom(val));
 }
 
 int Fl_Tree_usericonmarginleft(const Fl_Tree *self) {
@@ -340,7 +340,7 @@ int Fl_Tree_usericonmarginleft(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_usericonmarginleft(Fl_Tree *self, int val) {
-    LOCK(self->usericonmarginleft(val);)
+    LOCK(self->usericonmarginleft(val));
 }
 
 int Fl_Tree_labelmarginleft(const Fl_Tree *self) {
@@ -349,7 +349,7 @@ int Fl_Tree_labelmarginleft(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_labelmarginleft(Fl_Tree *self, int val) {
-    LOCK(self->labelmarginleft(val);)
+    LOCK(self->labelmarginleft(val));
 }
 
 int Fl_Tree_widgetmarginleft(const Fl_Tree *self) {
@@ -358,7 +358,7 @@ int Fl_Tree_widgetmarginleft(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_widgetmarginleft(Fl_Tree *self, int val) {
-    LOCK(self->widgetmarginleft(val);)
+    LOCK(self->widgetmarginleft(val));
 }
 
 int Fl_Tree_connectorwidth(const Fl_Tree *self) {
@@ -367,7 +367,7 @@ int Fl_Tree_connectorwidth(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_connectorwidth(Fl_Tree *self, int val) {
-    LOCK(self->connectorwidth(val);)
+    LOCK(self->connectorwidth(val));
 }
 
 void *Fl_Tree_usericon(const Fl_Tree *self) {
@@ -415,7 +415,7 @@ int Fl_Tree_showcollapse(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_showcollapse(Fl_Tree *self, int val) {
-    LOCK(self->showcollapse(val);)
+    LOCK(self->showcollapse(val));
 }
 
 int Fl_Tree_showroot(const Fl_Tree *self) {
@@ -424,7 +424,7 @@ int Fl_Tree_showroot(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_showroot(Fl_Tree *self, int val) {
-    LOCK(self->showroot(val);)
+    LOCK(self->showroot(val));
 }
 
 int Fl_Tree_connectorstyle(const Fl_Tree *self) {
@@ -433,7 +433,7 @@ int Fl_Tree_connectorstyle(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_connectorstyle(Fl_Tree *self, int val) {
-    LOCK(self->connectorstyle((Fl_Tree_Connector)val);)
+    LOCK(self->connectorstyle((Fl_Tree_Connector)val));
 }
 
 int Fl_Tree_sortorder(const Fl_Tree *self) {
@@ -442,7 +442,7 @@ int Fl_Tree_sortorder(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_sortorder(Fl_Tree *self, int val) {
-    LOCK(self->sortorder((Fl_Tree_Sort)val);)
+    LOCK(self->sortorder((Fl_Tree_Sort)val));
 }
 
 int Fl_Tree_selectbox(const Fl_Tree *self) {
@@ -451,7 +451,7 @@ int Fl_Tree_selectbox(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_selectbox(Fl_Tree *self, int val) {
-    LOCK(self->selectbox((Fl_Boxtype)val);)
+    LOCK(self->selectbox((Fl_Boxtype)val));
 }
 
 int Fl_Tree_selectmode(const Fl_Tree *self) {
@@ -460,7 +460,7 @@ int Fl_Tree_selectmode(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_selectmode(Fl_Tree *self, int val) {
-    LOCK(self->selectmode((Fl_Tree_Select)val);)
+    LOCK(self->selectmode((Fl_Tree_Select)val));
 }
 
 int Fl_Tree_item_reselect_mode(const Fl_Tree *self) {
@@ -469,7 +469,7 @@ int Fl_Tree_item_reselect_mode(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_item_reselect_mode(Fl_Tree *self, int mode) {
-    LOCK(self->item_reselect_mode((Fl_Tree_Item_Reselect_Mode)mode);)
+    LOCK(self->item_reselect_mode((Fl_Tree_Item_Reselect_Mode)mode));
 }
 
 int Fl_Tree_item_draw_mode(const Fl_Tree *self) {
@@ -478,19 +478,19 @@ int Fl_Tree_item_draw_mode(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_item_draw_mode(Fl_Tree *self, int mode) {
-    LOCK(self->item_draw_mode(mode);)
+    LOCK(self->item_draw_mode(mode));
 }
 
 void Fl_Tree_calc_dimensions(Fl_Tree *self) {
-    LOCK(self->calc_dimensions();)
+    LOCK(self->calc_dimensions());
 }
 
 void Fl_Tree_calc_tree(Fl_Tree *self) {
-    LOCK(self->calc_tree();)
+    LOCK(self->calc_tree());
 }
 
 void Fl_Tree_recalc_tree(Fl_Tree *self) {
-    LOCK(self->recalc_tree();)
+    LOCK(self->recalc_tree());
 }
 
 int Fl_Tree_displayed(Fl_Tree *self, Fl_Tree_Item *item) {
@@ -499,23 +499,23 @@ int Fl_Tree_displayed(Fl_Tree *self, Fl_Tree_Item *item) {
 }
 
 void Fl_Tree_show_item(Fl_Tree *self, Fl_Tree_Item *item, int yoff) {
-    LOCK(self->show_item(item, yoff);)
+    LOCK(self->show_item(item, yoff));
 }
 
 void Fl_Tree_show_item_top(Fl_Tree *self, Fl_Tree_Item *item) {
-    LOCK(self->show_item_top(item);)
+    LOCK(self->show_item_top(item));
 }
 
 void Fl_Tree_show_item_middle(Fl_Tree *self, Fl_Tree_Item *item) {
-    LOCK(self->show_item_middle(item);)
+    LOCK(self->show_item_middle(item));
 }
 
 void Fl_Tree_show_item_bottom(Fl_Tree *self, Fl_Tree_Item *item) {
-    LOCK(self->show_item_bottom(item);)
+    LOCK(self->show_item_bottom(item));
 }
 
 void Fl_Tree_display(Fl_Tree *self, Fl_Tree_Item *item) {
-    LOCK(self->display(item);)
+    LOCK(self->display(item));
 }
 
 int Fl_Tree_vposition(const Fl_Tree *self) {
@@ -524,7 +524,7 @@ int Fl_Tree_vposition(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_vposition(Fl_Tree *self, int pos) {
-    LOCK(self->vposition(pos);)
+    LOCK(self->vposition(pos));
 }
 
 int Fl_Tree_hposition(const Fl_Tree *self) {
@@ -533,7 +533,7 @@ int Fl_Tree_hposition(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_hposition(Fl_Tree *self, int pos) {
-    LOCK(self->hposition(pos);)
+    LOCK(self->hposition(pos));
 }
 
 int Fl_Tree_is_scrollbar(Fl_Tree *self, Fl_Widget *w) {
@@ -547,7 +547,7 @@ int Fl_Tree_scrollbar_size(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_scrollbar_size(Fl_Tree *self, int size) {
-    LOCK(self->scrollbar_size(size);)
+    LOCK(self->scrollbar_size(size));
 }
 
 int Fl_Tree_is_vscroll_visible(const Fl_Tree *self) {
@@ -561,7 +561,7 @@ int Fl_Tree_is_hscroll_visible(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_callback_item(Fl_Tree *self, Fl_Tree_Item *item) {
-    LOCK(self->callback_item(item);)
+    LOCK(self->callback_item(item));
 }
 
 Fl_Tree_Item *Fl_Tree_callback_item(Fl_Tree *self) {
@@ -570,7 +570,7 @@ Fl_Tree_Item *Fl_Tree_callback_item(Fl_Tree *self) {
 }
 
 void Fl_Tree_set_callback_reason(Fl_Tree *self, int reason) {
-    LOCK(self->callback_reason((Fl_Tree_Reason)reason);)
+    LOCK(self->callback_reason((Fl_Tree_Reason)reason));
 }
 
 int Fl_Tree_callback_reason(const Fl_Tree *self) {
@@ -621,21 +621,21 @@ int Fl_Tree_Item_label_h(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_show_self(const Fl_Tree_Item *self, const char *indent) {
-    LOCK(self->show_self(indent);)
+    LOCK(self->show_self(indent));
 }
 
 void Fl_Tree_set_Item_label(Fl_Tree_Item *self, const char *val) {
-    LOCK(self->label(val);)
+    LOCK(self->label(val));
 }
 
 const char *Fl_Tree_Item_label(const Fl_Tree_Item *self) {
     LOCK(const char *label = self->label(); char *buf = (char *)malloc(strlen(label) + 1);
-         memcpy(buf, label, strlen(label) + 1);)
+         memcpy(buf, label, strlen(label) + 1));
     return buf;
 }
 
 void Fl_Tree_Item_set_labelfont(Fl_Tree_Item *self, int val) {
-    LOCK(self->labelfont(val);)
+    LOCK(self->labelfont(val));
 }
 
 int Fl_Tree_Item_labelfont(const Fl_Tree_Item *self) {
@@ -644,7 +644,7 @@ int Fl_Tree_Item_labelfont(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_set_labelsize(Fl_Tree_Item *self, int val) {
-    LOCK(self->labelsize(val);)
+    LOCK(self->labelsize(val));
 }
 
 int Fl_Tree_Item_labelsize(const Fl_Tree_Item *self) {
@@ -653,7 +653,7 @@ int Fl_Tree_Item_labelsize(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_set_labelfgcolor(Fl_Tree_Item *self, unsigned int val) {
-    LOCK(self->labelfgcolor(val);)
+    LOCK(self->labelfgcolor(val));
 }
 
 unsigned int Fl_Tree_Item_labelfgcolor(const Fl_Tree_Item *self) {
@@ -662,7 +662,7 @@ unsigned int Fl_Tree_Item_labelfgcolor(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_set_labelcolor(Fl_Tree_Item *self, unsigned int val) {
-    LOCK(self->labelcolor(val);)
+    LOCK(self->labelcolor(val));
 }
 
 unsigned int Fl_Tree_Item_labelcolor(const Fl_Tree_Item *self) {
@@ -671,7 +671,7 @@ unsigned int Fl_Tree_Item_labelcolor(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_set_labelbgcolor(Fl_Tree_Item *self, unsigned int val) {
-    LOCK(self->labelbgcolor(val);)
+    LOCK(self->labelbgcolor(val));
 }
 
 unsigned int Fl_Tree_Item_labelbgcolor(const Fl_Tree_Item *self) {
@@ -680,7 +680,7 @@ unsigned int Fl_Tree_Item_labelbgcolor(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_set_widget(Fl_Tree_Item *self, Fl_Widget *val) {
-    LOCK(self->widget(val);)
+    LOCK(self->widget(val));
 }
 
 Fl_Widget *Fl_Tree_Item_widget(const Fl_Tree_Item *self) {
@@ -714,7 +714,7 @@ int Fl_Tree_Item_remove_child(Fl_Tree_Item *self, const char *new_label) {
 }
 
 void Fl_Tree_Item_clear_children(Fl_Tree_Item *self) {
-    LOCK(self->clear_children();)
+    LOCK(self->clear_children());
 }
 
 int Fl_Tree_Item_swap_children(Fl_Tree_Item *self, Fl_Tree_Item *a, Fl_Tree_Item *b) {
@@ -803,7 +803,7 @@ const Fl_Tree_Item *Fl_Tree_Item_parent(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_set_parent(Fl_Tree_Item *self, Fl_Tree_Item *val) {
-    LOCK(self->parent(val);)
+    LOCK(self->parent(val));
 }
 
 const Fl_Tree *Fl_Tree_Item_tree(const Fl_Tree_Item *self) {
@@ -812,11 +812,11 @@ const Fl_Tree *Fl_Tree_Item_tree(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_open(Fl_Tree_Item *self) {
-    LOCK(self->open();)
+    LOCK(self->open());
 }
 
 void Fl_Tree_Item_close(Fl_Tree_Item *self) {
-    LOCK(self->close();)
+    LOCK(self->close());
 }
 
 int Fl_Tree_Item_is_open(const Fl_Tree_Item *self) {
@@ -830,15 +830,15 @@ int Fl_Tree_Item_is_close(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_open_toggle(Fl_Tree_Item *self) {
-    LOCK(self->open_toggle();)
+    LOCK(self->open_toggle());
 }
 
 void Fl_Tree_Item_select(Fl_Tree_Item *self, int val) {
-    LOCK(self->select(val);)
+    LOCK(self->select(val));
 }
 
 void Fl_Tree_Item_select_toggle(Fl_Tree_Item *self) {
-    LOCK(self->select_toggle();)
+    LOCK(self->select_toggle());
 }
 
 int Fl_Tree_Item_select_all(Fl_Tree_Item *self) {
@@ -847,7 +847,7 @@ int Fl_Tree_Item_select_all(Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_deselect(Fl_Tree_Item *self) {
-    LOCK(self->deselect();)
+    LOCK(self->deselect());
 }
 
 int Fl_Tree_Item_deselect_all(Fl_Tree_Item *self) {
@@ -876,11 +876,11 @@ char Fl_Tree_Item_is_activated(const Fl_Tree_Item *self) {
 }
 
 void Fl_Tree_Item_deactivate(Fl_Tree_Item *self) {
-    LOCK(self->deactivate();)
+    LOCK(self->deactivate());
 }
 
 void Fl_Tree_Item_activate(Fl_Tree_Item *self, int val) {
-    LOCK(self->activate(val);)
+    LOCK(self->activate(val));
 }
 
 char Fl_Tree_Item_is_selected(const Fl_Tree_Item *self) {

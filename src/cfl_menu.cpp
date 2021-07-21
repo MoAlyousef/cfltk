@@ -184,7 +184,7 @@ const char *Fl_Menu_Item_label(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set_label(Fl_Menu_Item *self, const char *a) {
-    LOCK(self->label(a);)
+    LOCK(self->label(a));
 }
 
 int Fl_Menu_Item_label_type(Fl_Menu_Item *self) {
@@ -193,7 +193,7 @@ int Fl_Menu_Item_label_type(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set_label_type(Fl_Menu_Item *self, int a) {
-    LOCK(self->labeltype(static_cast<Fl_Labeltype>(a));)
+    LOCK(self->labeltype(static_cast<Fl_Labeltype>(a)));
 }
 
 unsigned int Fl_Menu_Item_label_color(Fl_Menu_Item *self) {
@@ -202,7 +202,7 @@ unsigned int Fl_Menu_Item_label_color(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set_label_color(Fl_Menu_Item *self, unsigned int a) {
-    LOCK(self->labelcolor(a);)
+    LOCK(self->labelcolor(a));
 }
 
 int Fl_Menu_Item_label_font(Fl_Menu_Item *self) {
@@ -211,7 +211,7 @@ int Fl_Menu_Item_label_font(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set_label_font(Fl_Menu_Item *self, int a) {
-    LOCK(self->labelfont(a);)
+    LOCK(self->labelfont(a));
 }
 
 int Fl_Menu_Item_label_size(Fl_Menu_Item *self) {
@@ -220,7 +220,7 @@ int Fl_Menu_Item_label_size(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set_label_size(Fl_Menu_Item *self, int a) {
-    LOCK(self->labelsize(a);)
+    LOCK(self->labelsize(a));
 }
 
 int Fl_Menu_Item_value(Fl_Menu_Item *self) {
@@ -229,11 +229,11 @@ int Fl_Menu_Item_value(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set(Fl_Menu_Item *self) {
-    LOCK(self->set();)
+    LOCK(self->set());
 }
 
 void Fl_Menu_Item_clear(Fl_Menu_Item *self) {
-    LOCK(self->clear();)
+    LOCK(self->clear());
 }
 
 int Fl_Menu_Item_visible(Fl_Menu_Item *self) {
@@ -242,11 +242,11 @@ int Fl_Menu_Item_visible(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_show(Fl_Menu_Item *self) {
-    LOCK(self->show();)
+    LOCK(self->show());
 }
 
 void Fl_Menu_Item_hide(Fl_Menu_Item *self) {
-    LOCK(self->hide();)
+    LOCK(self->hide());
 }
 
 int Fl_Menu_Item_active(Fl_Menu_Item *self) {
@@ -255,11 +255,11 @@ int Fl_Menu_Item_active(Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_activate(Fl_Menu_Item *self) {
-    LOCK(self->activate();)
+    LOCK(self->activate());
 }
 
 void Fl_Menu_Item_deactivate(Fl_Menu_Item *self) {
-    LOCK(self->deactivate();)
+    LOCK(self->deactivate());
 }
 
 int Fl_Menu_Item_submenu(const Fl_Menu_Item *self) {
@@ -283,7 +283,7 @@ Fl_Menu_Item *Fl_Menu_Item_next(Fl_Menu_Item *self, int idx) {
 }
 
 void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p) {
-    LOCK(self->callback(c, p);)
+    LOCK(self->callback(c, p));
 }
 
 void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {
@@ -292,13 +292,13 @@ void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {
 }
 
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *self, void *data) {
-    LOCK(self->user_data(data);)
+    LOCK(self->user_data(data));
 }
 
 void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h, const void *m,
                        int selected) {
     fl_open_display();
-    LOCK(self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected);)
+    LOCK(self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected));
 }
 
 int Fl_Menu_Item_measure(const Fl_Menu_Item *self, int *hp, const void *m) {
@@ -324,7 +324,7 @@ void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left) {
             ml->labelb = (const char *)temp;
             ml->typea = FL_NORMAL_LABEL;
             ml->labela = self->label();
-        } self->label(FL_MULTI_LABEL, (const char *)ml);)
+        } self->label(FL_MULTI_LABEL, (const char *)ml));
 }
 
 int Fl_Menu_Item_children(const Fl_Menu_Item *self) {

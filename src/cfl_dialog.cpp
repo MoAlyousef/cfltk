@@ -46,7 +46,7 @@ int Fl_Native_File_Chooser_count(Fl_Native_File_Chooser *self) {
 }
 
 void Fl_Native_File_Chooser_set_directory(Fl_Native_File_Chooser *self, const char *val) {
-    LOCK(self->directory(val);)
+    LOCK(self->directory(val));
 }
 
 const char *Fl_Native_File_Chooser_directory(Fl_Native_File_Chooser *self) {
@@ -61,23 +61,23 @@ int Fl_Native_File_Chooser_show(Fl_Native_File_Chooser *self) {
 }
 
 void Fl_Native_File_Chooser_set_option(Fl_Native_File_Chooser *self, int opt) {
-    LOCK(self->options(opt);)
+    LOCK(self->options(opt));
 }
 
 void Fl_Native_File_Chooser_set_type(Fl_Native_File_Chooser *self, int typ) {
-    LOCK(self->type(typ);)
+    LOCK(self->type(typ));
 }
 
 void Fl_Native_File_Chooser_set_title(Fl_Native_File_Chooser *self, const char *title) {
-    LOCK(self->title(title);)
+    LOCK(self->title(title));
 }
 
 void Fl_Native_File_Chooser_set_filter(Fl_Native_File_Chooser *self, const char *f) {
-    LOCK(self->filter(f);)
+    LOCK(self->filter(f));
 }
 
 void Fl_Native_File_Chooser_set_preset_file(Fl_Native_File_Chooser *self, const char *f) {
-    LOCK(self->preset_file(f);)
+    LOCK(self->preset_file(f));
 }
 
 const char *Fl_Native_File_Chooser_errmsg(Fl_Native_File_Chooser *self) {
@@ -86,24 +86,24 @@ const char *Fl_Native_File_Chooser_errmsg(Fl_Native_File_Chooser *self) {
 }
 
 void Fl_message(int x, int y, const char *txt) {
-    LOCK(fl_message_position(x, y, 0); fl_message("%s", txt);)
+    LOCK(fl_message_position(x, y, 0); fl_message("%s", txt));
 }
 
 void Fl_message2(const char *txt) {
-    LOCK(fl_message("%s", txt);)
+    LOCK(fl_message("%s", txt));
 }
 
 void Fl_alert(int x, int y, const char *txt) {
-    LOCK(fl_message_position(x, y, 0); fl_alert("%s", txt);)
+    LOCK(fl_message_position(x, y, 0); fl_alert("%s", txt));
 }
 
 void Fl_alert2(const char *txt) {
-    LOCK(fl_alert("%s", txt);)
+    LOCK(fl_alert("%s", txt));
 }
 
 int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2) {
     LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = NULL;
-         auto ret = fl_choice("%s", b0, b1, b2, txt);)
+         auto ret = fl_choice("%s", b0, b1, b2, txt));
     return ret;
 }
 
@@ -161,19 +161,19 @@ int Fl_Help_Dialog_load(Fl_Help_Dialog *self, const char *f) {
 }
 
 void Fl_Help_Dialog_position(Fl_Help_Dialog *self, int xx, int yy) {
-    LOCK(self->position(xx, yy);)
+    LOCK(self->position(xx, yy));
 }
 
 void Fl_Help_Dialog_resize(Fl_Help_Dialog *self, int xx, int yy, int ww, int hh) {
-    LOCK(self->resize(xx, yy, ww, hh);)
+    LOCK(self->resize(xx, yy, ww, hh));
 }
 
 void Fl_Help_Dialog_show(Fl_Help_Dialog *self) {
-    LOCK(self->show();)
+    LOCK(self->show());
 }
 
 void Fl_Help_Dialog_set_text_size(Fl_Help_Dialog *self, int s) {
-    LOCK(self->textsize(s);)
+    LOCK(self->textsize(s));
 }
 
 int Fl_Help_Dialog_text_size(Fl_Help_Dialog *self) {
@@ -182,7 +182,7 @@ int Fl_Help_Dialog_text_size(Fl_Help_Dialog *self) {
 }
 
 void Fl_Help_Dialog_set_value(Fl_Help_Dialog *self, const char *f) {
-    LOCK(self->value(f);)
+    LOCK(self->value(f));
 }
 
 const char *Fl_Help_Dialog_value(const Fl_Help_Dialog *self) {
@@ -211,7 +211,7 @@ int Fl_Help_Dialog_y(Fl_Help_Dialog *self) {
 }
 
 void Fl_beep(int type) {
-    LOCK(fl_beep(type);)
+    LOCK(fl_beep(type));
 }
 
 Fl_File_Chooser *Fl_File_Chooser_new(const char *d, const char *p, int t, const char *title) {
@@ -240,11 +240,11 @@ void *Fl_File_Chooser_showHiddenButton(Fl_File_Chooser *self) {
 
 void Fl_File_Chooser_set_callback(Fl_File_Chooser *self, void (*cb)(Fl_File_Chooser *, void *),
                                   void *d) {
-    LOCK(self->callback(cb, d);)
+    LOCK(self->callback(cb, d));
 }
 
 void Fl_File_Chooser_set_color(Fl_File_Chooser *self, unsigned int c) {
-    LOCK(self->color(c);)
+    LOCK(self->color(c));
 }
 
 unsigned int Fl_File_Chooser_color(Fl_File_Chooser *self) {
@@ -258,7 +258,7 @@ int Fl_File_Chooser_count(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_directory(Fl_File_Chooser *self, const char *d) {
-    LOCK(self->directory(d);)
+    LOCK(self->directory(d));
 }
 
 char *Fl_File_Chooser_directory(Fl_File_Chooser *self) {
@@ -267,7 +267,7 @@ char *Fl_File_Chooser_directory(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_filter(Fl_File_Chooser *self, const char *p) {
-    LOCK(self->filter(p);)
+    LOCK(self->filter(p));
 }
 
 const char *Fl_File_Chooser_filter(Fl_File_Chooser *self) {
@@ -281,15 +281,15 @@ int Fl_File_Chooser_filter_value(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_filter_value(Fl_File_Chooser *self, int f) {
-    LOCK(self->filter_value(f);)
+    LOCK(self->filter_value(f));
 }
 
 void Fl_File_Chooser_hide(Fl_File_Chooser *self) {
-    LOCK(self->hide();)
+    LOCK(self->hide());
 }
 
 void Fl_File_Chooser_set_iconsize(Fl_File_Chooser *self, unsigned char s) {
-    LOCK(self->iconsize(s);)
+    LOCK(self->iconsize(s));
 }
 
 unsigned char Fl_File_Chooser_iconsize(Fl_File_Chooser *self) {
@@ -298,7 +298,7 @@ unsigned char Fl_File_Chooser_iconsize(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_label(Fl_File_Chooser *self, const char *l) {
-    LOCK(self->label(l);)
+    LOCK(self->label(l));
 }
 
 const char *Fl_File_Chooser_label(Fl_File_Chooser *self) {
@@ -307,7 +307,7 @@ const char *Fl_File_Chooser_label(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_ok_label(Fl_File_Chooser *self, const char *l) {
-    LOCK(self->ok_label(l);)
+    LOCK(self->ok_label(l));
 }
 
 const char *Fl_File_Chooser_ok_label(Fl_File_Chooser *self) {
@@ -316,7 +316,7 @@ const char *Fl_File_Chooser_ok_label(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_preview(Fl_File_Chooser *self, int e) {
-    LOCK(self->preview(e);)
+    LOCK(self->preview(e));
 }
 
 int Fl_File_Chooser_preview(const Fl_File_Chooser *self) {
@@ -325,15 +325,15 @@ int Fl_File_Chooser_preview(const Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_rescan(Fl_File_Chooser *self) {
-    LOCK(self->rescan();)
+    LOCK(self->rescan());
 }
 
 void Fl_File_Chooser_rescan_keep_filename(Fl_File_Chooser *self) {
-    LOCK(self->rescan_keep_filename();)
+    LOCK(self->rescan_keep_filename());
 }
 
 void Fl_File_Chooser_show(Fl_File_Chooser *self) {
-    LOCK(self->show();)
+    LOCK(self->show());
 }
 
 int Fl_File_Chooser_shown(Fl_File_Chooser *self) {
@@ -342,7 +342,7 @@ int Fl_File_Chooser_shown(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_text_color(Fl_File_Chooser *self, unsigned int c) {
-    LOCK(self->textcolor(c);)
+    LOCK(self->textcolor(c));
 }
 
 unsigned int Fl_File_Chooser_text_color(Fl_File_Chooser *self) {
@@ -351,7 +351,7 @@ unsigned int Fl_File_Chooser_text_color(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_text_font(Fl_File_Chooser *self, int f) {
-    LOCK(self->textfont(f);)
+    LOCK(self->textfont(f));
 }
 
 int Fl_File_Chooser_text_font(Fl_File_Chooser *self) {
@@ -360,7 +360,7 @@ int Fl_File_Chooser_text_font(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_text_size(Fl_File_Chooser *self, int s) {
-    LOCK(self->textsize(s);)
+    LOCK(self->textsize(s));
 }
 
 int Fl_File_Chooser_text_size(Fl_File_Chooser *self) {
@@ -369,7 +369,7 @@ int Fl_File_Chooser_text_size(Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_type(Fl_File_Chooser *self, int t) {
-    LOCK(self->type(t);)
+    LOCK(self->type(t));
 }
 
 int Fl_File_Chooser_type(Fl_File_Chooser *self) {
@@ -383,7 +383,7 @@ void *Fl_File_Chooser_user_data(const Fl_File_Chooser *self) {
 }
 
 void Fl_File_Chooser_set_user_data(Fl_File_Chooser *self, void *d) {
-    LOCK(self->user_data(d);)
+    LOCK(self->user_data(d));
 }
 
 const char *Fl_File_Chooser_value(Fl_File_Chooser *self, int f) {
@@ -392,7 +392,7 @@ const char *Fl_File_Chooser_value(Fl_File_Chooser *self, int f) {
 }
 
 void Fl_File_Chooser_set_value(Fl_File_Chooser *self, const char *filename) {
-    LOCK(self->value(filename);)
+    LOCK(self->value(filename));
 }
 
 int Fl_File_Chooser_visible(Fl_File_Chooser *self) {

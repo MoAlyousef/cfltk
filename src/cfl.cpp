@@ -494,7 +494,7 @@ int Fl_handle(int ev, void *win) {
 }
 
 int Fl_handle_(int ev, void *win) {
-    LOCK(auto ret = Fl::handle_(ev, (Fl_Window *)win);)
+    LOCK(auto ret = Fl::handle_(ev, (Fl_Window *)win));
     return ret;
 }
 

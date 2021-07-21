@@ -187,11 +187,11 @@ unsigned Fl_File_Browser_iconsize(const Fl_File_Browser *self) {
 }
 
 void Fl_File_Browser_set_iconsize(Fl_File_Browser *self, unsigned s) {
-    LOCK(self->iconsize(s);)
+    LOCK(self->iconsize(s));
 }
 
 void Fl_File_Browser_set_filter(Fl_File_Browser *self, const char *pattern) {
-    LOCK(self->filter(pattern);)
+    LOCK(self->filter(pattern));
 }
 
 const char *Fl_File_Browser_filter(const Fl_File_Browser *self) {
@@ -205,7 +205,7 @@ int Fl_File_Browser_filetype(const Fl_File_Browser *self) {
 }
 
 void Fl_File_Browser_set_filetype(Fl_File_Browser *self, int t) {
-    LOCK(self->filetype(t);)
+    LOCK(self->filetype(t));
 }
 
 BROWSER_DEFINE(Fl_File_Browser)
@@ -300,7 +300,7 @@ int Fl_Check_Browser_position(const Fl_Check_Browser *self) {
 }
 
 void Fl_Check_Browser_set_position(Fl_Check_Browser *self, int pos) {
-    LOCK(self->position(pos);)
+    LOCK(self->position(pos));
 }
 
 int Fl_Check_Browser_hposition(const Fl_Check_Browser *self) {
@@ -309,7 +309,7 @@ int Fl_Check_Browser_hposition(const Fl_Check_Browser *self) {
 }
 
 void Fl_Check_Browser_set_hposition(Fl_Check_Browser *self, int pos) {
-    LOCK(self->hposition(pos);)
+    LOCK(self->hposition(pos));
 }
 
 unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self) {
@@ -318,7 +318,7 @@ unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self) {
 }
 
 void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self, unsigned char mode) {
-    LOCK(self->has_scrollbar(mode);)
+    LOCK(self->has_scrollbar(mode));
 }
 
 int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self) {
@@ -327,11 +327,11 @@ int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self) {
 }
 
 void Fl_Check_Browser_set_scrollbar_size(Fl_Check_Browser *self, int newSize) {
-    LOCK(self->scrollbar_size(newSize);)
+    LOCK(self->scrollbar_size(newSize));
 }
 
 void Fl_Check_Browser_sort(Fl_Check_Browser *self) {
-    LOCK(self->sort();)
+    LOCK(self->sort());
 }
 
 const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self) {

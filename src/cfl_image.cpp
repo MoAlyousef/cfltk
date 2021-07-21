@@ -112,7 +112,7 @@ Fl_SVG_Image *Fl_SVG_Image_from(const char *data) {
 }
 
 void Fl_SVG_Image_normalize(Fl_SVG_Image *self) {
-    LOCK(self->normalize();)
+    LOCK(self->normalize());
 }
 
 IMAGE_DEFINE(Fl_BMP_Image)
@@ -201,7 +201,11 @@ Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, in
 }
 
 void Fl_Shared_Image_draw(Fl_Shared_Image *self, int X, int Y, int W, int H) {
-    LOCK(self->draw(X, Y, W, H);)
+    LOCK(self->draw(X, Y, W, H));
+}
+
+void Fl_Shared_Image_draw_ext(Fl_Shared_Image *self, int X, int Y, int W, int H, int cx, int cy) {
+    LOCK(self->draw(X, Y, W, H, cx, cy));
 }
 
 int Fl_Shared_Image_width(Fl_Shared_Image *self) {
@@ -235,7 +239,7 @@ Fl_Shared_Image *Fl_Shared_Image_copy(Fl_Shared_Image *self) {
 
 void Fl_Shared_Image_scale(Fl_Shared_Image *self, int width, int height, int proportional,
                            int can_expand) {
-    LOCK(self->scale(width, height, proportional, can_expand);)
+    LOCK(self->scale(width, height, proportional, can_expand));
 }
 
 Fl_Shared_Image *Fl_Shared_Image_get(const char *name, int W, int H) {
@@ -274,7 +278,7 @@ int Fl_Shared_Image_ld(const Fl_Shared_Image *self) {
 }
 
 void Fl_Shared_Image_inactive(Fl_Shared_Image *self) {
-    LOCK(self->inactive();)
+    LOCK(self->inactive());
 }
 
 void Fl_register_images(void) {
