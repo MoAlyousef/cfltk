@@ -267,6 +267,12 @@ unsigned int Fl_darker(unsigned int c);
 
 void Fl_set_box_type_cb(int, void (*cb)(int, int, int, int, unsigned int), int, int, int, int);
 
+int Fl_draw_box_active(void);
+
+unsigned int Fl_gray_ramp(int i);
+
+unsigned int Fl_color_average(unsigned int, unsigned int, float f);
+
 #ifdef __cplusplus
 }
 #endif

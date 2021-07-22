@@ -584,3 +584,15 @@ unsigned int Fl_darker(unsigned int c) {
 void Fl_set_box_type_cb(int box, void (*cb)(int, int, int, int, unsigned int), int x, int y, int w, int h) {
     Fl::set_boxtype((Fl_Boxtype)box, cb, x, y, w, h);
 }
+
+int Fl_draw_box_active(void) {
+    return Fl::draw_box_active();
+}
+
+unsigned int Fl_gray_ramp(int i) {
+    return fl_gray_ramp(i);
+}
+
+unsigned int Fl_color_average(unsigned int c1, unsigned int c2, float weight) {
+    return fl_color_average(c1, c2, weight);
+}
