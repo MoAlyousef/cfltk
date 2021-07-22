@@ -265,6 +265,8 @@ unsigned int Fl_lighter(unsigned int c);
 
 unsigned int Fl_darker(unsigned int c);
 
+void Fl_set_box_type_cb(int, void (*cb)(int, int, int, int, unsigned int), int, int, int, int);
+
 #ifdef __cplusplus
 }
 #endif

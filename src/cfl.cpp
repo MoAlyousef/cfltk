@@ -580,3 +580,7 @@ unsigned int Fl_lighter(unsigned int c) {
 unsigned int Fl_darker(unsigned int c) {
     return fl_darker(c);
 }
+
+void Fl_set_box_type_cb(int box, void (*cb)(int, int, int, int, unsigned int), int x, int y, int w, int h) {
+    Fl::set_boxtype((Fl_Boxtype)box, cb, x, y, w, h);
+}
