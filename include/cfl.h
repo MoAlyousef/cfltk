@@ -273,6 +273,12 @@ unsigned int Fl_gray_ramp(int i);
 
 unsigned int Fl_color_average(unsigned int, unsigned int, float f);
 
+unsigned int Fl_contrast(unsigned int c1, unsigned int c2);
+
+unsigned int Fl_rgb_color(unsigned char r, unsigned char g, unsigned char b);
+
+unsigned int Fl_rgb_color2(unsigned char g);
+
 #ifdef __cplusplus
 }
 #endif

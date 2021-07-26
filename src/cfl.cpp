@@ -596,3 +596,15 @@ unsigned int Fl_gray_ramp(int i) {
 unsigned int Fl_color_average(unsigned int c1, unsigned int c2, float weight) {
     return fl_color_average(c1, c2, weight);
 }
+
+unsigned int Fl_contrast(unsigned int c1, unsigned int c2) {
+    return fl_contrast(c1, c2);
+}
+
+unsigned int Fl_rgb_color(unsigned char r, unsigned char g, unsigned char b) {
+    return fl_rgb_color(r, g, b);
+}
+
+unsigned int Fl_rgb_color2(unsigned char g) {
+    return fl_rgb_color(g);
+}
