@@ -608,3 +608,9 @@ unsigned int Fl_rgb_color(unsigned char r, unsigned char g, unsigned char b) {
 unsigned int Fl_rgb_color2(unsigned char g) {
     return fl_rgb_color(g);
 }
+
+extern unsigned fl_cmap[256];
+
+unsigned int Fl_cmap(unsigned int c) {
+    return fl_cmap[c];
+}

@@ -279,6 +279,8 @@ unsigned int Fl_rgb_color(unsigned char r, unsigned char g, unsigned char b);
 
 unsigned int Fl_rgb_color2(unsigned char g);
 
+unsigned int Fl_cmap(unsigned int c);
+
 #ifdef __cplusplus
 }
 #endif
