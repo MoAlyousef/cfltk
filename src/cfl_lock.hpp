@@ -9,6 +9,5 @@ struct Mutex {
 #define LOCK(x)                                                                                    \
     Mutex::lock();                                                                                 \
     x;                                                                                             \
-    Fl::awake();                                                                                   \
     Mutex::unlock();
 #endif
