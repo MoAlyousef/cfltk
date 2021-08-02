@@ -614,3 +614,11 @@ extern unsigned fl_cmap[256];
 unsigned int Fl_cmap(unsigned int c) {
     return fl_cmap[c];
 }
+
+unsigned int Fl_box_color(unsigned int c) {
+    return (Fl_Color)Fl::box_color((Fl_Color)c);
+}
+
+void Fl_set_box_color(unsigned int c) {
+    Fl::set_box_color((Fl_Color)c);
+}

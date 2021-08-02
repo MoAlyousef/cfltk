@@ -281,6 +281,10 @@ unsigned int Fl_rgb_color2(unsigned char g);
 
 unsigned int Fl_cmap(unsigned int c);
 
+unsigned int Fl_box_color(unsigned int c);
+
+void Fl_set_box_color(unsigned int c);
+
 #ifdef __cplusplus
 }
 #endif

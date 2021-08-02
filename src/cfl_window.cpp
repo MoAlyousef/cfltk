@@ -53,7 +53,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->cursor((Fl_Cursor)cursor));                                                     \
     }                                                                                              \
     int widget##_shown(widget *self) {                                                             \
-        LOCK(auto ret = self->shown());;                                                           \
+        LOCK(auto ret = self->shown());                                                            \
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_raw_handle(const widget *w) {                                                   \
@@ -66,7 +66,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->border(flag));                                                                  \
     }                                                                                              \
     int widget##_border(const widget *self) {                                                      \
-        LOCK(auto ret = self->border());;                                                          \
+        LOCK(auto ret = self->border());                                                           \
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_region(const widget *self) {                                                    \
@@ -82,18 +82,18 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->iconize())                                                                      \
     }                                                                                              \
     unsigned int widget##_fullscreen_active(const widget *self) {                                  \
-        LOCK(auto ret = self->fullscreen_active());;                                               \
+        LOCK(auto ret = self->fullscreen_active());                                                \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_free_position(widget *self) {                                                    \
         LOCK(self->free_position())                                                                \
     }                                                                                              \
     int widget##_decorated_w(const widget *self) {                                                 \
-        LOCK(auto ret = self->decorated_w());;                                                     \
+        LOCK(auto ret = self->decorated_w());                                                      \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_decorated_h(const widget *self) {                                                 \
-        LOCK(auto ret = self->decorated_h());;                                                     \
+        LOCK(auto ret = self->decorated_h());                                                      \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
@@ -114,11 +114,11 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         return ret;                                                                                \
     }                                                                                              \
     int widget##_x_root(const widget *self) {                                                      \
-        LOCK(auto ret = self->x_root());;                                                          \
+        LOCK(auto ret = self->x_root());                                                           \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_y_root(const widget *self) {                                                      \
-        LOCK(auto ret = self->y_root());;                                                          \
+        LOCK(auto ret = self->y_root());                                                           \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y) {        \
@@ -128,7 +128,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
         LOCK(self->default_cursor((Fl_Cursor)cursor));                                             \
     }                                                                                              \
     int widget##_screen_num(widget *self) {                                                        \
-        LOCK(auto ret = self->screen_num());;                                                      \
+        LOCK(auto ret = self->screen_num());                                                       \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_screen_num(widget *self, int screen_num) {                                   \
