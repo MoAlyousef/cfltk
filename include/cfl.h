@@ -285,6 +285,10 @@ unsigned int Fl_box_color(unsigned int c);
 
 void Fl_set_box_color(unsigned int c);
 
+void Fl_add_system_handler(int (*)(void *, void *), void *);
+
+void Fl_remove_system_handler(int (*)(void *, void *));
+
 #ifdef __cplusplus
 }
 #endif

@@ -622,3 +622,11 @@ unsigned int Fl_box_color(unsigned int c) {
 void Fl_set_box_color(unsigned int c) {
     Fl::set_box_color((Fl_Color)c);
 }
+
+void Fl_add_system_handler(int (*cb)(void *, void *), void *data) {
+    Fl::add_system_handler(cb, data);
+}
+
+void Fl_remove_system_handler(int (*cb)(void *, void *)) {
+    Fl::remove_system_handler(cb);
+}
