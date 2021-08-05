@@ -152,7 +152,7 @@ enum Fl_BoxType {
     Fl_BoxType_OvalBox,
     Fl_BoxType_OShadowBox,
     Fl_BoxType_OvalFrame,
-    Fl_BoxType_OFlatFrame,
+    Fl_BoxType_OFlatBox,
     Fl_BoxType_PlasticUpBox,
     Fl_BoxType_PlasticDownBox,
     Fl_BoxType_PlasticUpFrame,
@@ -428,6 +428,11 @@ enum Fl_InputType {
     Fl_InputType_Input = 7,
     Fl_InputType_Readonly = 8,
     Fl_InputType_Wrap = 16,
+};
+
+enum Fl_OutputType {
+    Fl_OutputType_Normal = 8,
+    Fl_OutputType_Multiline = 12,
 };
 
 enum Fl_MenuFlag {
