@@ -253,6 +253,14 @@ const char *Fl_get_font(int idx) {
     return Fl::get_font(idx);
 }
 
+const char *Fl_get_font_name(int idx) {
+    return Fl::get_font_name(idx);
+}
+
+int Fl_get_font_sizes(int font, int **sizep) {
+    return Fl::get_font_sizes(font, *sizep);
+}
+
 unsigned char Fl_set_fonts(const char *c) {
     return Fl::set_fonts(c);
 }

@@ -109,6 +109,10 @@ void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned cha
 
 const char *Fl_get_font(int idx);
 
+const char *Fl_get_font_name(int idx);
+
+int Fl_get_font_sizes(int font, int **sizep);
+
 unsigned char Fl_set_fonts(const char *c);
 
 void Fl_set_font(int, int);
