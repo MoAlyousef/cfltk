@@ -147,7 +147,7 @@ More examples can be found in the examples directory.
 
 ## Dependencies
 
-CMake (version > 3.0), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
+CMake (version > 3.7), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
 
 - Windows: No dependencies.
 - MacOS: No dependencies.

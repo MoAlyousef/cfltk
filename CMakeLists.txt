@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.1.8)
+set(CFLTK_PROJECT_VERSION 1.1.9)
 project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -92,7 +92,12 @@ if (CFLTK_USE_OPENGL)
 endif()
 
 if (CFLTK_LINK_IMAGES)
-    set(CFLTK_LIBS ${CFLTK_LIBS} fltk_images fltk_z fltk_jpeg fltk_png)
+    set(CFLTK_LIBS ${CFLTK_LIBS} fltk_images fltk_z fltk_jpeg)
+    if(UNIX AND NOT APPLE AND NOT ANDROID)
+        set(CFLTK_LIBS ${CFLTK_LIBS} png)
+    else()
+        set(CFLTK_LIBS ${CFLTK_LIBS} fltk_png)
+    endif()
 endif()
 
 if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
