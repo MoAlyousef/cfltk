@@ -102,6 +102,9 @@ endif()
 
 if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
     target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
+    if (APPLE)
+        target_link_libraries(cfltk PUBLIC "-framework Cocoa")
+    endif()
 endif()
 
 set_target_properties(cfltk PROPERTIES PUBLIC_HEADER "${CFLTK_HEADER_FILES}")
