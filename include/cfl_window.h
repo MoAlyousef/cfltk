@@ -1,8 +1,7 @@
 #ifndef __CFL_WINDOW_H__
 #define __CFL_WINDOW_H__
 
-#include "cfl_group.h"
-#include "cfl_widget.h"
+#include "cfl_macros.h"
 
 #ifdef __cplusplus
 extern "C" {

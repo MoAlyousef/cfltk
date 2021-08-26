@@ -1,7 +1,7 @@
 #ifndef __CFL_BROWSER_H__
 #define __CFL_BROWSER_H__
 
-#include "cfl_widget.h"
+#include "cfl_macros.h"
 
 #ifdef __cplusplus
 extern "C" {

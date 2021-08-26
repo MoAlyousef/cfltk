@@ -1,7 +1,7 @@
 #ifndef __CFL_TABLE_H__
 #define __CFL_TABLE_H__
 
-#include "cfl_group.h"
+#include "cfl_macros.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -25,6 +25,7 @@ extern "C" void setWindowTransparency(void *, unsigned char);
 #include <FL/Fl_RGB_Image.H>
 #include <FL/Fl_Single_Window.H>
 #include <FL/Fl_Window.H>
+#include <FL/fl_draw.H>
 #include <FL/platform.H>
 
 #include <stdint.h>

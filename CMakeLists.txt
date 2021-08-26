@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.1.9)
+set(CFLTK_PROJECT_VERSION 1.1.13)
 project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -43,7 +43,6 @@ set(CFLTK_SRCS
     src/cfl_text.cpp
     src/cfl_box.cpp 
     src/cfl_input.cpp 
-    src/cfl_output.cpp
     src/cfl_menu.cpp
     src/cfl_dialog.cpp
     src/cfl_valuator.cpp

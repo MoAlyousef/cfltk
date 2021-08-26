@@ -1,89 +1,17 @@
 #ifndef __CFL_GROUP_H__
 #define __CFL_GROUP_H__
 
-#include "cfl_widget.h"
+#include "cfl_macros.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define GROUP_DECLARE(widget)                                                                      \
-    void widget##_begin(widget *self);                                                             \
-    void widget##_end(widget *self);                                                               \
-    int widget##_find(widget *self, const void *);                                                 \
-    void widget##_add(widget *self, void *);                                                       \
-    void widget##_insert(widget *self, void *, int pos);                                           \
-    void widget##_remove(widget *self, void *wid);                                                 \
-    void widget##_remove_by_index(widget *self, int idx);                                          \
-    void widget##_clear(widget *self);                                                             \
-    int widget##_children(widget *self);                                                           \
-    Fl_Widget *widget##_child(widget *, int index);                                                \
-    void widget##_resizable(widget *self, void *);                                                 \
-    void widget##_set_clip_children(widget *self, int c);                                          \
-    int widget##_clip_children(widget *self);                                                      \
-    void widget##_init_sizes(widget *self);
-
-#define GROUP_DEFINE(widget)                                                                       \
-    void widget##_begin(widget *self) {                                                            \
-        LOCK(self->begin());                                                                       \
-    }                                                                                              \
-    void widget##_end(widget *self) {                                                              \
-        LOCK(self->end());                                                                         \
-    }                                                                                              \
-    int widget##_find(widget *self, const void *wid) {                                             \
-        LOCK(auto ret = self->find((const Fl_Widget *)wid));                                       \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_add(widget *self, void *wid) {                                                   \
-        LOCK(self->add((Fl_Widget *)wid));                                                         \
-    }                                                                                              \
-    void widget##_insert(widget *self, void *wid, int pos) {                                       \
-        LOCK(self->insert(*(Fl_Widget *)wid, pos));                                                \
-    }                                                                                              \
-    void widget##_remove(widget *self, void *wid) {                                                \
-        LOCK(self->remove(*(Fl_Widget *)wid));                                                     \
-    }                                                                                              \
-    void widget##_remove_by_index(widget *self, int idx) {                                         \
-        LOCK(((Fl_Group *)self)->remove(idx));                                                     \
-    }                                                                                              \
-    void widget##_clear(widget *self) {                                                            \
-        LOCK(self->clear());                                                                       \
-    }                                                                                              \
-    int widget##_children(widget *self) {                                                          \
-        LOCK(auto ret = self->children());                                                         \
-        return ret;                                                                                \
-    }                                                                                              \
-    Fl_Widget *widget##_child(widget *self, int index) {                                           \
-        LOCK(auto ret = self->child(index));                                                       \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_resizable(widget *self, void *wid) {                                             \
-        LOCK(self->resizable((Fl_Widget *)wid));                                                   \
-    }                                                                                              \
-    void widget##_set_clip_children(widget *self, int c) {                                         \
-        LOCK(self->clip_children(c));                                                              \
-    }                                                                                              \
-    int widget##_clip_children(widget *self) {                                                     \
-        LOCK(auto ret = self->clip_children());                                                    \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_init_sizes(widget *self) {                                                       \
-        LOCK(self->init_sizes());                                                                  \
-    }
 
 WIDGET_DECLARE(Fl_Group)
 
 Fl_Group *Fl_Group_current(void);
 
 void Fl_Group_set_current(Fl_Group *grp);
-
-void Fl_Group_draw_child(const Fl_Group *self, Fl_Widget *w);
-
-void Fl_Group_update_child(const Fl_Group *self, Fl_Widget *w);
-
-void Fl_Group_draw_outside_label(const Fl_Group *self, const Fl_Widget *widget);
-
-void Fl_Group_draw_children(Fl_Group *self);
 
 GROUP_DECLARE(Fl_Group)
 
