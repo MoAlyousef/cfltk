@@ -65,6 +65,10 @@ if(NOT ANDROID)
     set(CFLTK_SRCS ${CFLTK_SRCS} src/cfl_printer.cpp)
 endif()
 
+if (CFLTK_USE_OPENGL)
+    set(CFLTK_SRCS ${CFLTK_SRCS} src/glad.c)
+endif()
+
 if(CFLTK_BUILD_SHARED)
     add_library(cfltk SHARED ${CFLTK_SRCS})
 else()
