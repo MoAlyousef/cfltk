@@ -7,3 +7,13 @@ void setWindowTransparency(void *xid, unsigned char val) {
     win.backgroundColor = NSColor.clearColor;
     [win setOpaque:NO];
 }
+
+NSView *my_getContetView(void *xid) {
+    NSWindow *win = (NSWindow *)xid;
+    return [win contentView];
+}
+
+double my_getScalingFactor(void *xid) {
+    NSWindow *win = (NSWindow *)xid;
+    return [win backingScaleFactor];
+}
