@@ -20,6 +20,7 @@ endif()
 option(CFLTK_BUILD_SHARED "Builds a shared library" OFF)
 option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
 option(CFLTK_USE_OPENGL "Uses OpenGL" OFF)
+option(CFLTK_SINGLE_THREADED "Disable multithreaded support" OFF)
 option(CFLTK_LINK_IMAGES "Links image libraries" ON)
 
 # If cmake can't find the installed fltk, you might have to set the FLTK_DIR enviromental variable,
@@ -92,6 +93,10 @@ set(CFLTK_LIBS fltk)
 if (CFLTK_USE_OPENGL)
     set(CFLTK_LIBS ${CFLTK_LIBS} fltk_gl)
     target_compile_definitions(cfltk PUBLIC CFLTK_USE_GL)
+endif()
+
+if (CFLTK_SINGLE_THREADED)
+    target_compile_definitions(cfltk PUBLIC CFLTK_SINGLE_THREADED)
 endif()
 
 if (CFLTK_LINK_IMAGES)

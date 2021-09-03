@@ -306,13 +306,13 @@ int Fl_box_dh(int boxtype) {
 }
 
 void Fl_awake_msg(void *msg) {
-    Fl_lock();
 #ifndef __ANDROID__
+    Mutex::lock();
     Fl::awake(msg);
+    Mutex::unlock();
 #else
     android_buffer.send(msg);
 #endif
-    Fl_unlock();
 }
 
 void *Fl_thread_msg(void) {
