@@ -1,13 +1,18 @@
 #include <FL/Fl.H> // Has to be the first include!
 
 #include "cfl.h"
-#include "cfl_lock.hpp"
-#include "cfl_widget.h"
 
 #include <FL/Enumerations.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
+
+#ifndef LOCK
+#define LOCK(x)                                                                                    \
+    Fl::lock();                                                                                    \
+    x;                                                                                             \
+    Fl::unlock();
+#endif
 
 #ifdef __ANDROID__
 #include <queue>
@@ -307,9 +312,7 @@ int Fl_box_dh(int boxtype) {
 
 void Fl_awake_msg(void *msg) {
 #ifndef __ANDROID__
-    Mutex::lock();
-    Fl::awake(msg);
-    Mutex::unlock();
+    LOCK(Fl::awake(msg));
 #else
     android_buffer.send(msg);
 #endif
@@ -589,7 +592,8 @@ unsigned int Fl_darker(unsigned int c) {
     return fl_darker(c);
 }
 
-void Fl_set_box_type_cb(int box, void (*cb)(int, int, int, int, unsigned int), int x, int y, int w, int h) {
+void Fl_set_box_type_cb(int box, void (*cb)(int, int, int, int, unsigned int), int x, int y, int w,
+                        int h) {
     Fl::set_boxtype((Fl_Boxtype)box, cb, x, y, w, h);
 }
 
