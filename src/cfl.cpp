@@ -642,3 +642,9 @@ void Fl_add_system_handler(int (*cb)(void *, void *), void *data) {
 void Fl_remove_system_handler(int (*cb)(void *, void *)) {
     Fl::remove_system_handler(cb);
 }
+
+#ifdef CFLTK_USE_GL
+int Fl_gl_visual(int mode) {
+    return Fl::gl_visual(mode);
+}
+#endif

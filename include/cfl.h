@@ -293,6 +293,8 @@ void Fl_add_system_handler(int (*)(void *, void *), void *);
 
 void Fl_remove_system_handler(int (*)(void *, void *));
 
+int Fl_gl_visual(int mode);
+
 #ifdef __cplusplus
 }
 #endif
