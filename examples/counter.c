@@ -4,6 +4,7 @@
 #include <cfl_draw.h>
 #include <cfl_enums.h>
 #include <cfl_image.h> // Fl_register_images
+#include <cfl_widget.h>
 #include <cfl_window.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,7 +61,7 @@ int main(void) {
     Fl_Button_set_color(but, BLUE);
     Fl_Button_set_selection_color(but, SEL_BLUE);
     Fl_Button_set_label_color(but, Fl_Color_White);
-    Fl_Button_set_box(but, Fl_BoxType_OFlatFrame);
+    Fl_Button_set_box(but, Fl_BoxType_OFlatBox);
     Fl_Button_set_callback(but, cb, count);
     return Fl_run();
 }

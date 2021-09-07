@@ -31,3 +31,9 @@ target_link_libraries(handler2 PUBLIC cfltk fltk fltk_images fltk_png fltk_z)
 
 add_executable(counter counter.c)
 target_link_libraries(counter PUBLIC cfltk fltk fltk_images fltk_png fltk_z)
+
+add_executable(threads threads.cpp)
+target_link_libraries(threads PUBLIC cfltk fltk fltk_images fltk_png fltk_z)
+
+add_executable(cthreads cthreads.cpp)
+target_link_libraries(cthreads PUBLIC cfltk fltk fltk_images fltk_png fltk_z)
