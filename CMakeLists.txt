@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.1.16)
+set(CFLTK_PROJECT_VERSION 1.1.17)
 project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -72,6 +72,9 @@ endif()
 
 if(CFLTK_BUILD_SHARED)
     add_library(cfltk SHARED ${CFLTK_SRCS})
+    add_custom_command(TARGET cfltk POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cfltk> "${CMAKE_INSTALL_PREFIX}/../../../../$<TARGET_FILE_NAME:cfltk>"
+    )
 else()
     add_library(cfltk STATIC ${CFLTK_SRCS})
 endif()

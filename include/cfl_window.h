@@ -95,6 +95,10 @@ int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window *self);
 
 WINDOW_DECLARE(Fl_Overlay_Window)
 
+void Fl_gl_start(void);
+
+void Fl_gl_finish(void);
+
 WIDGET_DECLARE(Fl_Gl_Window)
 
 GROUP_DECLARE(Fl_Gl_Window)

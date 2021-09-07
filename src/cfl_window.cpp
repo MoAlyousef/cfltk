@@ -472,6 +472,14 @@ WINDOW_DEFINE(Fl_Overlay_Window)
 #include <FL/Fl_Gl_Window.H>
 #include <FL/glut.H>
 
+void Fl_gl_start(void) {
+    gl_start();
+}
+
+void Fl_gl_finish(void) {
+    gl_finish();
+}
+
 WIDGET_CLASS(Fl_Gl_Window)
 
 WIDGET_DEFINE(Fl_Gl_Window)
