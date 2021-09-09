@@ -22,6 +22,7 @@ option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
 option(CFLTK_USE_OPENGL "Uses OpenGL" OFF)
 option(CFLTK_SINGLE_THREADED "Disable multithreaded support" OFF)
 option(CFLTK_LINK_IMAGES "Links image libraries" ON)
+option(CFLTK_CARGO_BUILD "cfltk is built using Cargo" OFF)
 
 # If cmake can't find the installed fltk, you might have to set the FLTK_DIR enviromental variable,
 # export FLTK_DIR=/path/to/fltk
@@ -72,9 +73,11 @@ endif()
 
 if(CFLTK_BUILD_SHARED)
     add_library(cfltk SHARED ${CFLTK_SRCS})
-    add_custom_command(TARGET cfltk POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cfltk> "${CMAKE_INSTALL_PREFIX}/../../../../$<TARGET_FILE_NAME:cfltk>"
-    )
+    if (CFLTK_CARGO_BUILD)
+        add_custom_command(TARGET cfltk POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cfltk> "${CMAKE_INSTALL_PREFIX}/../../../../$<TARGET_FILE_NAME:cfltk>"
+        )
+    endif()
 else()
     add_library(cfltk STATIC ${CFLTK_SRCS})
 endif()
