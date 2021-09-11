@@ -103,7 +103,6 @@
     }                                                                                              \
     int table##_table_box(table *self) {                                                           \
         LOCK(auto ret = self->table_box());                                                        \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_rows(table *self, int val) {                                                  \
@@ -111,7 +110,6 @@
     }                                                                                              \
     int table##_rows(table *self) {                                                                \
         LOCK(auto ret = self->rows());                                                             \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_cols(table *self, int val) {                                                  \
@@ -119,7 +117,6 @@
     }                                                                                              \
     int table##_cols(table *self) {                                                                \
         LOCK(auto ret = self->cols());                                                             \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_visible_cells(table *self, int *r1, int *r2, int *c1, int *c2) {                  \
@@ -127,12 +124,10 @@
     }                                                                                              \
     int table##_is_interactive_resize(table *self) {                                               \
         LOCK(auto ret = self->is_interactive_resize());                                            \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_row_resize(table *self) {                                                          \
         LOCK(auto ret = self->row_resize());                                                       \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_resize(table *self, int flag) {                                           \
@@ -140,7 +135,6 @@
     }                                                                                              \
     int table##_col_resize(table *self) {                                                          \
         LOCK(auto ret = self->col_resize());                                                       \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_col_resize(table *self, int flag) {                                           \
@@ -148,7 +142,6 @@
     }                                                                                              \
     int table##_col_resize_min(table *self) {                                                      \
         LOCK(auto ret = self->col_resize_min());                                                   \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_col_resize_min(table *self, int val) {                                        \
@@ -156,7 +149,6 @@
     }                                                                                              \
     int table##_row_resize_min(table *self) {                                                      \
         LOCK(auto ret = self->row_resize_min());                                                   \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_resize_min(table *self, int val) {                                        \
@@ -164,7 +156,6 @@
     }                                                                                              \
     int table##_row_header(table *self) {                                                          \
         LOCK(auto ret = self->row_header());                                                       \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_header(table *self, int flag) {                                           \
@@ -172,7 +163,6 @@
     }                                                                                              \
     int table##_col_header(table *self) {                                                          \
         LOCK(auto ret = self->col_header());                                                       \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_col_header(table *self, int flag) {                                           \
@@ -183,7 +173,6 @@
     }                                                                                              \
     int table##_col_header_height(table *self) {                                                   \
         LOCK(auto ret = self->col_header_height());                                                \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_header_width(table *self, int width) {                                    \
@@ -191,7 +180,6 @@
     }                                                                                              \
     int table##_row_header_width(table *self) {                                                    \
         LOCK(auto ret = self->row_header_width());                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_header_color(table *self, unsigned int val) {                             \
@@ -199,7 +187,6 @@
     }                                                                                              \
     unsigned int table##_row_header_color(table *self) {                                           \
         LOCK(auto ret = self->row_header_color());                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_col_header_color(table *self, unsigned int val) {                             \
@@ -207,7 +194,6 @@
     }                                                                                              \
     unsigned int table##_col_header_color(table *self) {                                           \
         LOCK(auto ret = self->col_header_color());                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_height(table *self, int row, int height) {                                \
@@ -215,7 +201,6 @@
     }                                                                                              \
     int table##_row_height(table *self, int row) {                                                 \
         LOCK(auto ret = self->row_height(row));                                                    \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_col_width(table *self, int col, int width) {                                  \
@@ -223,7 +208,6 @@
     }                                                                                              \
     int table##_col_width(table *self, int col) {                                                  \
         LOCK(auto ret = self->col_width(col));                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_row_height_all(table *self, int height) {                                     \
@@ -240,12 +224,10 @@
     }                                                                                              \
     int table##_row_position(table *self) {                                                        \
         LOCK(auto ret = self->row_position());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_col_position(table *self) {                                                        \
         LOCK(auto ret = self->col_position());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_top_row(table *self, int row) {                                               \
@@ -253,12 +235,10 @@
     }                                                                                              \
     int table##_top_row(table *self) {                                                             \
         LOCK(auto ret = self->top_row());                                                          \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_is_selected(table *self, int r, int c) {                                           \
         LOCK(auto ret = self->is_selected(r, c));                                                  \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_get_selection(table *self, int *row_top, int *col_left, int *row_bot,             \
@@ -271,17 +251,14 @@
     }                                                                                              \
     int table##_move_cursor_with_shiftselect(table *self, int R, int C, int shiftselect) {         \
         LOCK(auto ret = self->move_cursor(R, C, shiftselect));                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_move_cursor(table *self, int R, int C) {                                           \
         LOCK(auto ret = self->move_cursor(R, C));                                                  \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_scrollbar_size(const table *self) {                                                \
         LOCK(auto ret = self->scrollbar_size());                                                   \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_set_scrollbar_size(table *self, int newSize) {                                    \
@@ -292,7 +269,6 @@
     }                                                                                              \
     int table##_tab_cell_nav(const table *self) {                                                  \
         LOCK(auto ret = self->tab_cell_nav());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void table##_draw_cell(table *self,                                                            \
@@ -310,17 +286,14 @@
     }                                                                                              \
     int table##_callback_col(table *self) {                                                        \
         LOCK(auto ret = self->callback_col());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_callback_row(table *self) {                                                        \
         LOCK(auto ret = self->callback_row());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int table##_callback_context(table *self) {                                                    \
         LOCK(auto ret = self->callback_context());                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void *table##_scrollbar(const table *self) {                                                   \

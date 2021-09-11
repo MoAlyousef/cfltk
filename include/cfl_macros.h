@@ -513,11 +513,13 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->init_sizes());                                                                  \
     }                                                                                              \
     void widget##_draw_child(const widget *self, Fl_Widget *w) {                                   \
+        (void)self;                                                                                \
         if (w->visible() && w->type() < 0xF0 && fl_not_clipped(w->x(), w->y(), w->w(), w->h())) {  \
             LOCK(w->clear_damage(FL_DAMAGE_ALL); w->draw(); w->clear_damage());                    \
         }                                                                                          \
     }                                                                                              \
     void widget##_update_child(const widget *self, Fl_Widget *w) {                                 \
+        (void)self;                                                                                \
         if (w->damage() && w->visible() && w->type() < 0xF0 &&                                     \
             fl_not_clipped(w->x(), w->y(), w->w(), w->h())) {                                      \
             LOCK(w->draw(); w->clear_damage());                                                    \

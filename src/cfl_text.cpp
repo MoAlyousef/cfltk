@@ -12,7 +12,6 @@
 #define DISPLAY_DEFINE(widget)                                                                     \
     int widget##_text_font(const widget *self) {                                                   \
         LOCK(auto ret = self->textfont());                                                         \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_font(widget *self, int s) {                                             \
@@ -20,7 +19,6 @@
     }                                                                                              \
     int widget##_text_size(const widget *self) {                                                   \
         LOCK(auto ret = self->textsize());                                                         \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_size(widget *self, int s) {                                             \
@@ -28,7 +26,6 @@
     }                                                                                              \
     unsigned int widget##_text_color(const widget *self) {                                         \
         LOCK(auto ret = self->textcolor());                                                        \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_text_color(widget *self, unsigned int n) {                                   \
@@ -45,18 +42,15 @@
     }                                                                                              \
     int widget##_insert_position(const widget *self) {                                             \
         LOCK(auto ret = self->insert_position());                                                  \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_position_to_xy(const widget *self, int pos, int *x, int *y) {                     \
         LOCK(auto ret = self->position_to_xy(pos, x, y));                                          \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_count_lines(const widget *self, int start, int end,                               \
                              int start_pos_is_line_start) {                                        \
         LOCK(auto ret = self->count_lines(start, end, start_pos_is_line_start));                   \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_move_right(widget *self) {                                                        \
@@ -84,7 +78,7 @@
         if (!stable)                                                                               \
             return;                                                                                \
         for (int i = 0; i < sz; ++i) {                                                             \
-            stable[i] = {color[i], font[i], fontsz[i]};                                            \
+            stable[i] = {color[i], font[i], fontsz[i], 0};                                         \
         }                                                                                          \
         LOCK(self->highlight_data((Fl_Text_Buffer *)sbuff, stable, sz, 'A', 0, 0));                \
     }                                                                                              \
@@ -102,32 +96,26 @@
     }                                                                                              \
     int widget##_cursor_style(widget *self) {                                                      \
         LOCK(auto ret = self->cursor_style());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     unsigned int widget##_cursor_color(widget *self) {                                             \
         LOCK(auto ret = self->cursor_color());                                                     \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_scrollbar_size(widget *self) {                                                    \
         LOCK(auto ret = self->scrollbar_size());                                                   \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_scrollbar_align(widget *self) {                                                   \
         LOCK(auto ret = self->scrollbar_align());                                                  \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_line_start(const widget *self, int pos) {                                         \
         LOCK(auto ret = self->line_start(pos));                                                    \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_line_end(const widget *self, int startPos, int startPosIsLineStart) {             \
         LOCK(auto ret = self->line_end(startPos, startPosIsLineStart));                            \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_skip_lines(widget *self, int startPos, int nLines, int startPosIsLineStart) {     \
@@ -146,22 +134,18 @@
     }                                                                                              \
     int widget##_word_start(const widget *self, int pos) {                                         \
         LOCK(auto ret = self->word_start(pos));                                                    \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_word_end(const widget *self, int pos) {                                           \
         LOCK(auto ret = self->word_end(pos));                                                      \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     double widget##_x_to_col(const widget *self, double x) {                                       \
         LOCK(auto ret = self->x_to_col(x));                                                        \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     double widget##_col_to_x(const widget *self, double col) {                                     \
         LOCK(auto ret = self->col_to_x(col));                                                      \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_width(widget *self, int width) {                                  \
@@ -169,7 +153,6 @@
     }                                                                                              \
     int widget##_linenumber_width(const widget *self) {                                            \
         LOCK(auto ret = self->linenumber_width());                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_font(widget *self, int val) {                                     \
@@ -177,7 +160,6 @@
     }                                                                                              \
     int widget##_linenumber_font(const widget *self) {                                             \
         LOCK(auto ret = self->linenumber_font());                                                  \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_size(widget *self, int val) {                                     \
@@ -185,7 +167,6 @@
     }                                                                                              \
     int widget##_linenumber_size(const widget *self) {                                             \
         LOCK(auto ret = self->linenumber_size());                                                  \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_fgcolor(widget *self, unsigned int val) {                         \
@@ -193,7 +174,6 @@
     }                                                                                              \
     unsigned int widget##_linenumber_fgcolor(const widget *self) {                                 \
         LOCK(auto ret = self->linenumber_fgcolor());                                               \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_bgcolor(widget *self, unsigned int val) {                         \
@@ -201,7 +181,6 @@
     }                                                                                              \
     unsigned int widget##_linenumber_bgcolor(const widget *self) {                                 \
         LOCK(auto ret = self->linenumber_bgcolor());                                               \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_linenumber_align(widget *self, int val) {                                    \
@@ -209,12 +188,10 @@
     }                                                                                              \
     int widget##_linenumber_align(const widget *self) {                                            \
         LOCK(auto ret = self->linenumber_align());                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_in_selection(const widget *self, int x, int y) {                                  \
         LOCK(auto ret = self->in_selection(x, y));                                                 \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_wrap_mode(widget *self, int wrap, int wrap_margin) {                             \
@@ -222,12 +199,10 @@
     }                                                                                              \
     int widget##_wrapped_column(const widget *self, int row, int column) {                         \
         LOCK(auto ret = self->wrapped_column(row, column));                                        \
-        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_wrapped_row(const widget *self, int row) {                                        \
         LOCK(auto ret = self->wrapped_row(row));                                                   \
-        ;                                                                                          \
         return ret;                                                                                \
     }
 
@@ -281,6 +256,7 @@ void Fl_Text_Buffer_copy(Fl_Text_Buffer *self, Fl_Text_Buffer *fromBuf, int from
 }
 
 int Fl_Text_Buffer_undo(Fl_Text_Buffer *self, int *cp) {
+    (void)cp;
     LOCK(auto ret = self->undo(NULL));
     return ret;
 }
@@ -414,7 +390,7 @@ int Fl_Text_Buffer_search_backward(const Fl_Text_Buffer *self, int start_pos,
 }
 
 int Fl_Text_Buffer_findchar_forward(const Fl_Text_Buffer *self, int start_pos,
-                                   unsigned int search_char, int *found_pos) {
+                                    unsigned int search_char, int *found_pos) {
     LOCK(int ret = self->findchar_forward(start_pos, search_char, found_pos));
     return ret;
 }

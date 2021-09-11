@@ -72,7 +72,7 @@ const char *Fl_load_font(const char *path) {
         fclose(fptr);
         return nullptr;
     }
-    long fsize = ftell(fptr);
+    size_t fsize = ftell(fptr);
     rewind(fptr);
     unsigned char *buffer = (unsigned char *)malloc(fsize);
     if (!buffer) {
