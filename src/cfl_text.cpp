@@ -413,6 +413,18 @@ int Fl_Text_Buffer_search_backward(const Fl_Text_Buffer *self, int start_pos,
     return ret;
 }
 
+int Fl_Text_Buffer_findchar_forward(const Fl_Text_Buffer *self, int start_pos,
+                                   unsigned int search_char, int *found_pos) {
+    LOCK(int ret = self->findchar_forward(start_pos, search_char, found_pos));
+    return ret;
+}
+
+int Fl_Text_Buffer_findchar_backward(const Fl_Text_Buffer *self, int start_pos,
+                                     unsigned int search_char, int *found_pos) {
+    LOCK(int ret = self->findchar_backward(start_pos, search_char, found_pos));
+    return ret;
+}
+
 WIDGET_CLASS(Fl_Text_Display)
 
 WIDGET_DEFINE(Fl_Text_Display)
