@@ -2,3 +2,6 @@
 	path = fltk
 	url = https://github.com/fltk/fltk
 	branch = master
+[submodule "FL_FLex"]
+	path = FL_FLex
+	url = https://github.com/osen/FL_FLex
