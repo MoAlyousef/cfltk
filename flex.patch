@@ -1,0 +1,70 @@
+diff --git a/FL_Flex.H b/FL_Flex.H
+index df896f0..ec52071 100644
+--- a/FL_Flex.H
++++ b/FL_Flex.H
+@@ -8,9 +8,7 @@ struct Fl_Flex : public Fl_Group
+   static const int ROW = 0;
+   static const int COLUMN = 1;
+ 
+-  Fl_Flex(int direction);
+-  Fl_Flex(int w, int h, int direction);
+-  Fl_Flex(int x, int y, int w, int h, int direction);
++  Fl_Flex(int x, int y, int w, int h, const char *label = 0);
+ 
+   virtual void end();
+   virtual void resize(int x, int y, int w, int h);
+@@ -25,7 +23,6 @@ private:
+   const size_t pad = 5;
+   static bool _debug;
+ 
+-  int direction;
+   std::vector<Fl_Widget*> setsized;
+ 
+   void debug();
+diff --git a/FL_Flex.cpp b/FL_Flex.cpp
+index c1a9be9..3ede32a 100644
+--- a/FL_Flex.cpp
++++ b/FL_Flex.cpp
+@@ -4,14 +4,8 @@
+ 
+ bool Fl_Flex::_debug = false;
+ 
+-Fl_Flex::Fl_Flex(int direction) : Fl_Group(0, 0, 0, 0, 0),
+-  direction(direction) { debug(); }
+-
+-Fl_Flex::Fl_Flex(int w, int h, int direction) : Fl_Group(0, 0, w, h, 0),
+-  direction(direction) { debug(); }
+-
+-Fl_Flex::Fl_Flex(int x, int y, int w, int h, int direction) : Fl_Group(x, y, w, h, 0),
+-  direction(direction) { debug(); }
++Fl_Flex::Fl_Flex(int x, int y, int w, int h, const char *label) : Fl_Group(x, y, w, h, label)
++ { type(ROW); debug(); }
+ 
+ void Fl_Flex::debug()
+ {
+@@ -19,7 +13,7 @@ void Fl_Flex::debug()
+   if (!_debug)
+     return;
+ 
+-  if(direction == ROW)
++  if(type() == ROW)
+   {
+     color(fl_rgb_color(200, 0, 0));
+     box(FL_BORDER_BOX);
+@@ -78,6 +72,7 @@ void Fl_Flex::resizeRow(int x, int y, int w, int h)
+ void Fl_Flex::resizeCol(int x, int y, int w, int h)
+ {
+   int cc = children();
++  if (cc == 0) return;
+   int padH = h - margin * 2;
+ 
+   // Calculate total height minus padding
+@@ -128,7 +123,7 @@ void Fl_Flex::resize(int x, int y, int w, int h)
+ {
+   Fl_Widget::resize(x, y, w, h);
+ 
+-  if(direction == COLUMN)
++  if(type() == COLUMN)
+   {
+     resizeCol(x, y, w, h);
+   }

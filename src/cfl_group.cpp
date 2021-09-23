@@ -12,6 +12,7 @@
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Wizard.H>
 #include <FL/fl_draw.H>
+#include <FL_Flex.H>
 
 WIDGET_CLASS(Fl_Group)
 
@@ -171,3 +172,17 @@ double Fl_Color_Chooser_b(Fl_Color_Chooser *self) {
 }
 
 GROUP_DEFINE(Fl_Color_Chooser)
+
+WIDGET_CLASS(Fl_Flex)
+
+WIDGET_DEFINE(Fl_Flex)
+
+void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget* w, int size) {
+    LOCK(self->setSize(w, size));
+}
+
+void Fl_Flex_set_debug(Fl_Flex *self, int val) {
+    LOCK(self->setDebug(val));
+}
+
+GROUP_DEFINE(Fl_Flex)

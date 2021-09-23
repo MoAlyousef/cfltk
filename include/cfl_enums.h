@@ -602,4 +602,11 @@ enum Fl_MenuButtonType {
     Popup123,
 };
 
+enum Fl_FlexType {
+    /// row direction
+    Row = 0,
+    /// column direction
+    Column,
+};
+
 #endif

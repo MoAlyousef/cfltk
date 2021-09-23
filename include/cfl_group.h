@@ -85,6 +85,14 @@ double Fl_Color_Chooser_b(Fl_Color_Chooser *self);
 
 GROUP_DECLARE(Fl_Color_Chooser)
 
+WIDGET_DECLARE(Fl_Flex)
+
+void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget* w, int size);
+
+void Fl_Flex_set_debug(Fl_Flex *self, int val);
+
+GROUP_DECLARE(Fl_Flex)
+
 #ifdef __cplusplus
 }
 #endif
