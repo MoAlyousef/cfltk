@@ -210,12 +210,16 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
     void *ev_data_ = NULL;
     void *draw_data_ = NULL;
     void *overlay_draw_data_ = NULL;
+    void *resize_data_ = NULL;
+
     typedef int (*handler)(Fl_Widget *, int, void *data);
     handler inner_handler = NULL;
     typedef void (*drawer)(Fl_Widget *, void *data);
     drawer inner_drawer = NULL;
     typedef void (*deleter_fp)(void *);
     deleter_fp deleter = NULL;
+    typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
+    resizer resize_handler = NULL;
 
     Fl_Double_Window_Derived(int x, int y, int w, int h, const char *title = 0)
         : Fl_Double_Window(x, y, w, h, title) {
@@ -257,6 +261,8 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
 
     virtual void resize(int x, int y, int w, int h) override {
         Fl_Double_Window::resize(x, y, w, h);
+        if (resize_handler)
+            resize_handler(this, x, y, w, h, resize_data_);
         if (this->as_window() == this->top_window()) {
             LOCK(Fl::handle(28, this->top_window()))
         }
@@ -268,6 +274,14 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
 
     void set_handler_data(void *data) {
         ev_data_ = data;
+    }
+
+    void set_resizer(resizer h) {
+        resize_handler = h;
+    }
+
+    void set_resizer_data(void *data) {
+        resize_data_ = data;
     }
 
     int handle(int event) override {
@@ -303,6 +317,9 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
         if (ev_data_)
             deleter(ev_data_);
         ev_data_ = NULL;
+        if (resize_data_)
+            deleter(resize_data_);
+        resize_data_ = NULL;
         inner_handler = NULL;
         if (draw_data_)
             deleter(draw_data_);
@@ -346,6 +363,8 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
     void *ev_data_ = NULL;
     void *draw_data_ = NULL;
     void *overlay_draw_data_ = NULL;
+    void *resize_data_ = NULL;
+
     typedef int (*handler)(Fl_Widget *, int, void *data);
     handler inner_handler = NULL;
     typedef void (*drawer)(Fl_Widget *, void *data);
@@ -354,6 +373,8 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
     drawer inner_overlay_drawer = NULL;
     typedef void (*deleter_fp)(void *);
     deleter_fp deleter = NULL;
+    typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
+    resizer resize_handler = NULL;
 
     Fl_Overlay_Window_Derived(int x, int y, int w, int h, const char *title = 0)
         : Fl_Overlay_Window(x, y, w, h, title) {
@@ -370,6 +391,8 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
 
     virtual void resize(int x, int y, int w, int h) override {
         Fl_Overlay_Window::resize(x, y, w, h);
+        if (resize_handler)
+            resize_handler(this, x, y, w, h, resize_data_);
         if (this->as_window() == this->top_window()) {
             LOCK(Fl::handle(28, this->top_window()))
         }
@@ -381,6 +404,14 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
 
     void set_handler_data(void *data) {
         ev_data_ = data;
+    }
+
+    void set_resizer(resizer h) {
+        resize_handler = h;
+    }
+
+    void set_resizer_data(void *data) {
+        resize_data_ = data;
     }
 
     int handle(int event) override {
@@ -431,6 +462,9 @@ struct Fl_Overlay_Window_Derived : public Fl_Overlay_Window {
         if (ev_data_)
             deleter(ev_data_);
         ev_data_ = NULL;
+        if (resize_data_)
+            deleter(resize_data_);
+        resize_data_ = NULL;
         inner_handler = NULL;
         if (draw_data_)
             deleter(draw_data_);

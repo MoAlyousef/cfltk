@@ -8,6 +8,7 @@
 struct Fl_Widget_Derived : public Fl_Widget {
     void *ev_data_ = NULL;
     void *draw_data_ = NULL;
+    void *resize_data_ = NULL;
 
     typedef int (*handler)(Fl_Widget *, int, void *data);
     handler inner_handler = NULL;
@@ -15,6 +16,8 @@ struct Fl_Widget_Derived : public Fl_Widget {
     drawer inner_drawer = NULL;
     typedef void (*deleter_fp)(void *);
     deleter_fp deleter = NULL;
+    typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
+    resizer resize_handler = NULL;
 
     Fl_Widget_Derived(int x, int y, int w, int h, const char *title = 0)
         : Fl_Widget(x, y, w, h, title) {
@@ -31,8 +34,10 @@ struct Fl_Widget_Derived : public Fl_Widget {
 
     virtual void resize(int x, int y, int w, int h) override {
         Fl_Widget::resize(x, y, w, h);
+        if (resize_handler)
+            resize_handler(this, x, y, w, h, resize_data_);
         if (this->as_window() == this->top_window()) {
-            LOCK(Fl::handle(28, this->top_window()))            
+            LOCK(Fl::handle(28, this->top_window()))
         }
     }
 
@@ -42,6 +47,14 @@ struct Fl_Widget_Derived : public Fl_Widget {
 
     void set_handler_data(void *data) {
         ev_data_ = data;
+    }
+
+    void set_resizer(resizer h) {
+        resize_handler = h;
+    }
+
+    void set_resizer_data(void *data) {
+        resize_data_ = data;
     }
 
     int handle(int event) override {
@@ -76,6 +89,9 @@ struct Fl_Widget_Derived : public Fl_Widget {
         if (ev_data_)
             deleter(ev_data_);
         ev_data_ = NULL;
+        if (resize_data_)
+            deleter(resize_data_);
+        resize_data_ = NULL;
         inner_handler = NULL;
         if (draw_data_)
             deleter(draw_data_);

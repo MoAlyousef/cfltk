@@ -11,6 +11,7 @@
     struct table##_Derived : public table {                                                        \
         void *ev_data_ = NULL;                                                                     \
         void *draw_data_ = NULL;                                                                   \
+        void *resize_data_ = NULL;                                                                 \
         void *draw_cell_data_ = NULL;                                                              \
                                                                                                    \
         typedef int (*handler)(Fl_Widget *, int, void *data);                                      \
@@ -21,6 +22,9 @@
         cell_drawer inner_cell_drawer = NULL;                                                      \
         typedef void (*deleter_fp)(void *);                                                        \
         deleter_fp deleter = NULL;                                                                 \
+        typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);                      \
+        resizer resize_handler = NULL;                                                             \
+                                                                                                   \
         table##_Derived(int x, int y, int w, int h, const char *title = 0)                         \
             : table(x, y, w, h, title) {                                                           \
         }                                                                                          \
@@ -31,11 +35,25 @@
             Fl_Widget::resize(x, y, w, h);                                                         \
             redraw();                                                                              \
         }                                                                                          \
+        virtual void resize(int x, int y, int w, int h) override {                                 \
+            table::resize(x, y, w, h);                                                             \
+            if (resize_handler)                                                                    \
+                resize_handler(this, x, y, w, h, resize_data_);                                    \
+            if (this->as_window() == this->top_window()) {                                         \
+                LOCK(Fl::handle(28, this->top_window()));                                          \
+            }                                                                                      \
+        }                                                                                          \
         void set_handler(handler h) {                                                              \
             inner_handler = h;                                                                     \
         }                                                                                          \
         void set_handler_data(void *data) {                                                        \
             ev_data_ = data;                                                                       \
+        }                                                                                          \
+        void set_resizer(resizer h) {                                                              \
+            resize_handler = h;                                                                    \
+        }                                                                                          \
+        void set_resizer_data(void *data) {                                                        \
+            resize_data_ = data;                                                                   \
         }                                                                                          \
         int handle(int event) override {                                                           \
             int local = 0;                                                                         \
@@ -85,6 +103,9 @@
             if (ev_data_)                                                                          \
                 deleter(ev_data_);                                                                 \
             ev_data_ = NULL;                                                                       \
+            if (resize_data_)                                                                      \
+                deleter(resize_data_);                                                             \
+            resize_data_ = NULL;                                                                   \
             inner_handler = NULL;                                                                  \
             if (draw_data_)                                                                        \
                 deleter(draw_data_);                                                               \

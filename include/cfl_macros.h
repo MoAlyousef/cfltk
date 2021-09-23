@@ -53,6 +53,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_image(widget *, void *);                                                     \
     void widget##_handle(widget *self, custom_handler_callback cb, void *data);                    \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data);                         \
+    void widget##_resize_callback(                                                                 \
+        widget *self, void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *), void *data);    \
     void widget##_set_when(widget *, int);                                                         \
     int widget##_when(const widget *);                                                             \
     void *widget##_image(const widget *);                                                          \
@@ -94,6 +96,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     struct widget##_Derived : public widget {                                                      \
         void *ev_data_ = NULL;                                                                     \
         void *draw_data_ = NULL;                                                                   \
+        void *resize_data_ = NULL;                                                                 \
                                                                                                    \
         typedef int (*handler)(Fl_Widget *, int, void *data);                                      \
         handler inner_handler = NULL;                                                              \
@@ -101,6 +104,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         drawer inner_drawer = NULL;                                                                \
         typedef void (*deleter_fp)(void *);                                                        \
         deleter_fp deleter = NULL;                                                                 \
+        typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);                      \
+        resizer resize_handler = NULL;                                                             \
+                                                                                                   \
         widget##_Derived(int x, int y, int w, int h, const char *title = 0)                        \
             : widget(x, y, w, h, title) {                                                          \
         }                                                                                          \
@@ -113,6 +119,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         }                                                                                          \
         virtual void resize(int x, int y, int w, int h) override {                                 \
             widget::resize(x, y, w, h);                                                            \
+            if (resize_handler)                                                                    \
+                resize_handler(this, x, y, w, h, resize_data_);                                    \
             if (this->as_window() == this->top_window()) {                                         \
                 LOCK(Fl::handle(28, this->top_window()));                                          \
             }                                                                                      \
@@ -122,6 +130,12 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         }                                                                                          \
         void set_handler_data(void *data) {                                                        \
             ev_data_ = data;                                                                       \
+        }                                                                                          \
+        void set_resizer(resizer h) {                                                              \
+            resize_handler = h;                                                                    \
+        }                                                                                          \
+        void set_resizer_data(void *data) {                                                        \
+            resize_data_ = data;                                                                   \
         }                                                                                          \
         int handle(int event) override {                                                           \
             int local = 0;                                                                         \
@@ -152,6 +166,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
             if (ev_data_)                                                                          \
                 deleter(ev_data_);                                                                 \
             ev_data_ = NULL;                                                                       \
+            if (resize_data_)                                                                      \
+                deleter(resize_data_);                                                             \
+            resize_data_ = NULL;                                                                   \
             inner_handler = NULL;                                                                  \
             if (draw_data_)                                                                        \
                 deleter(draw_data_);                                                               \
@@ -320,6 +337,11 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_draw(widget *self, custom_draw_callback cb, void *data) {                        \
         LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
              ((widget##_Derived *)self)->set_drawer(cb));                                          \
+    }                                                                                              \
+    void widget##_resize_callback(                                                                 \
+        widget *self, void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *), void *data) {   \
+        LOCK(((widget##_Derived *)self)->set_resizer_data(data);                                   \
+             ((widget##_Derived *)self)->set_resizer(cb));                                         \
     }                                                                                              \
     void *widget##_parent(const widget *self) {                                                    \
         LOCK(auto ret = (Fl_Group *)self->parent());                                               \
