@@ -34,6 +34,13 @@ endif()
 
 file(GLOB_RECURSE CFLTK_HEADER_FILES "include/*.h*")
 
+execute_process(
+      COMMAND git apply
+      WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/FL_FLex"
+      INPUT_FILE "${CMAKE_SOURCE_DIR}/flex.patch"
+      OUTPUT_VARIABLE OUTPUT
+      RESULT_VARIABLE RESULT)
+
 set(CFLTK_SRCS
     src/cfl_new.cpp
     src/cfl_lock.cpp
@@ -128,6 +135,12 @@ endif()
 set_target_properties(cfltk PROPERTIES PUBLIC_HEADER "${CFLTK_HEADER_FILES}")
 
 set_target_properties(cfltk PROPERTIES VERSION ${CFLTK_PROJECT_VERSION})
+
+add_custom_command(TARGET cfltk POST_BUILD
+  COMMAND git reset --hard
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/FL_FLex"
+  COMMENT "Undoing flex.patch"
+)
 
 include(CMakePackageConfigHelpers)
 
