@@ -181,8 +181,26 @@ void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget* w, int size) {
     LOCK(self->setSize(w, size));
 }
 
-void Fl_Flex_set_debug(Fl_Flex *self, int val) {
-    LOCK(self->setDebug(val));
+void Fl_Flex_set_debug(int val) {
+    LOCK(Fl_Flex::setDebug(val));
+}
+
+void Fl_Flex_set_margin(Fl_Flex *self, int m) {
+    LOCK(self->margin(m));
+}
+
+int Fl_Flex_margin(const Fl_Flex *self) {
+    LOCK(auto ret = self->margin());
+    return ret;
+}
+
+void Fl_Flex_set_pad(Fl_Flex *self, int p) {
+    LOCK(self->pad(p));
+}
+
+int Fl_Flex_pad(const Fl_Flex *self) {
+    LOCK(auto ret = self->pad());
+    return ret;
 }
 
 GROUP_DEFINE(Fl_Flex)

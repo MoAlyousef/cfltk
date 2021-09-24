@@ -29,8 +29,6 @@ $ git submodule add https://github.com/moalyousef/cfltk
 $ git submodule update --init --recursive
 $ cd cfltk/fltk
 $ git apply ../fltk.patch # Needed for Android builds
-$ cd ../FL_FLex
-$ git apply ../flex.patch
 ```
 or by cloning the repo:
 ```
@@ -39,8 +37,6 @@ $ cd cfltk
 $ git submodule update --init --recursive
 $ cd fltk
 $ git apply ../fltk.patch # Needed for Android builds
-$ cd ../FL_FLex
-$ git apply ../flex.patch
 ```
 
 You can build your project using cmake on the command line or gui:

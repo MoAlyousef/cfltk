@@ -4,4 +4,5 @@
 	branch = master
 [submodule "FL_FLex"]
 	path = FL_FLex
-	url = https://github.com/osen/FL_FLex
+	url = https://github.com/MoAlyousef/FL_FLex
+	branch = nostd
