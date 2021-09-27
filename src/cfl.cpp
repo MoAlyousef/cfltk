@@ -189,6 +189,30 @@ int Fl_screen_w(void) {
     return Fl::w();
 }
 
+int Fl_compose(int *del) {
+    return Fl::compose(*del);
+}
+
+void Fl_compose_reset(void) {
+    Fl::compose_reset();
+}
+
+int Fl_compose_state(void) {
+    return Fl::compose_state;
+}
+
+void Fl_reset_marked_text(void) {
+    Fl::reset_marked_text();
+}
+
+void Fl_insertion_point_location(int x, int y, int height) {
+    Fl::insertion_point_location(x, y, height);
+}
+
+void Fl_copy(const char* stuff, int len, int destination) {
+    Fl::copy(stuff, len, destination);
+}
+
 void Fl_paste_text(Fl_Widget *widget, int src) {
     Fl::paste(*widget, src, Fl::clipboard_plain_text);
 }
