@@ -190,7 +190,10 @@ int Fl_screen_w(void) {
 }
 
 int Fl_compose(int *del) {
-    return Fl::compose(*del);
+    int temp = 0;
+    auto ret = Fl::compose(temp);
+    *del = temp;
+    return ret;
 }
 
 void Fl_compose_reset(void) {
