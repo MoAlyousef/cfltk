@@ -670,6 +670,14 @@ void Fl_remove_system_handler(int (*cb)(void *, void *)) {
     Fl::remove_system_handler(cb);
 }
 
+void Fl_add_clipboard_notify(void (*cb)(int source, void *data), void *data) {
+    Fl::add_clipboard_notify(cb, data);
+}
+
+void Fl_remove_clipboard_notify(void (*cb)(int source, void *data)) {
+    Fl::remove_clipboard_notify(cb);
+}
+
 #ifdef CFLTK_USE_GL
 int Fl_gl_visual(int mode) {
     return Fl::gl_visual(mode);

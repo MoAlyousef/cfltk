@@ -307,6 +307,10 @@ void Fl_remove_system_handler(int (*)(void *, void *));
 
 int Fl_gl_visual(int mode);
 
+void Fl_add_clipboard_notify(void (*cb)(int source, void *data), void *data);
+
+void Fl_remove_clipboard_notify(void (*cb)(int source, void *data));
+
 #ifdef __cplusplus
 }
 #endif
