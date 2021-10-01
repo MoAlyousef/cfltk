@@ -133,6 +133,8 @@ void Fl_set_font2(int, const char *);
 
 void Fl_set_font_size(int);
 
+int Fl_font_size(void);
+
 void Fl_add_handler(int (*ev_handler)(int ev));
 
 void Fl_awake_msg(void *msg);

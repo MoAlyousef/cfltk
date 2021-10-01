@@ -309,6 +309,11 @@ void Fl_set_font_size(int sz) {
     LOCK(FL_NORMAL_SIZE = sz)
 }
 
+int Fl_font_size(void) {
+    LOCK(int ret = FL_NORMAL_SIZE);
+    return ret;
+}
+
 void Fl_add_handler(int (*ev_handler)(int ev)) {
     Fl::add_handler(ev_handler);
 }
