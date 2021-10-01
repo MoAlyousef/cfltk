@@ -52,6 +52,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_delete(widget *);                                                                \
     void widget##_set_image(widget *, void *);                                                     \
     void widget##_handle(widget *self, custom_handler_callback cb, void *data);                    \
+    void widget##_handle_event(widget *self, int event);                                           \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data);                         \
     void widget##_resize_callback(                                                                 \
         widget *self, void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *), void *data);    \
@@ -319,6 +320,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_handle(widget *self, custom_handler_callback cb, void *data) {                   \
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
              ((widget##_Derived *)self)->set_handler(cb));                                         \
+    }                                                                                              \
+    void widget##_handle_event(widget *self, int event) {                                          \
+        LOCK(((widget##_Derived *)self)->handle(event));                                           \
     }                                                                                              \
     void widget##_set_when(widget *self, int val) {                                                \
         LOCK(self->when(val));                                                                     \
