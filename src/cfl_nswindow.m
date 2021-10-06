@@ -17,6 +17,6 @@ double my_getScalingFactor(void *xid) {
     NSWindow *win = (NSWindow *)xid;
     NSView *view = [win contentView];
     NSSize s = [view convertSizeToBacking:NSMakeSize(10, 10)];
-    double scale = (s.width + 0.5) > 10.0 ? 2.0 : 1.0;
-    return scale;
+    int scale = ((int)(s.width + 0.5) > 10 ? 2 : 1);
+    return (double)scale;
 }
