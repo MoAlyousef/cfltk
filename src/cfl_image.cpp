@@ -73,6 +73,15 @@
         LOCK(self->inactive());                                                                    \
     }
 
+void Fl_Image_set_scaling_algorithm(int algorithm) {
+    LOCK(Fl_Image::scaling_algorithm((Fl_RGB_Scaling)algorithm));
+}
+
+int Fl_Image_scaling_algorithm(void) {
+    LOCK(auto ret = Fl_Image::scaling_algorithm());
+    return (int)ret;
+}
+
 IMAGE_DEFINE(Fl_JPEG_Image)
 
 Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename) {

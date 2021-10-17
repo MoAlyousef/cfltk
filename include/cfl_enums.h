@@ -604,9 +604,14 @@ enum Fl_MenuButtonType {
 
 enum Fl_FlexType {
     /// row direction
-    Row = 0,
+    Fl_FlexType_Row = 0,
     /// column direction
-    Column,
+    Fl_FlexType_Column,
+};
+
+enum Fl_RgbScaling {
+  Fl_RgbScaling_Nearest = 0, 
+  Fl_RgbScaling_Bilinear,
 };
 
 #endif

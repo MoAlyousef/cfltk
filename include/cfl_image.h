@@ -25,6 +25,10 @@ extern "C" {
 
 IMAGE_DECLARE(Fl_Image)
 
+void Fl_Image_set_scaling_algorithm(int algorithm);
+
+int Fl_Image_scaling_algorithm(void);
+
 IMAGE_DECLARE(Fl_JPEG_Image)
 
 Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename);
