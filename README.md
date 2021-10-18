@@ -42,7 +42,7 @@ $ git apply ../fltk.patch # Needed for Android builds
 You can build your project using cmake on the command line or gui:
 ```
 $ cmake -B bin -S .
-$ cmake --build bin
+$ cmake --build bin --parallel
 ```
 
 An example CMakeLists.txt file:
