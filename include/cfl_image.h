@@ -87,6 +87,10 @@ Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int dept
 
 Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth, int ld);
 
+Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *image);
+
+Fl_RGB_Image *Fl_RGB_Image_from_xpm(const Fl_XPM_Image *image);
+
 IMAGE_DECLARE(Fl_Shared_Image)
 
 Fl_Shared_Image *Fl_Shared_Image_get(const char *name, int W, int H);
