@@ -209,14 +209,6 @@ Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, in
     return img;
 }
 
-Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *image) {
-    return new Fl_RGB_Image(image);
-}
-
-Fl_RGB_Image *Fl_RGB_Image_from_xpm(const Fl_XPM_Image *image) {
-    return new Fl_RGB_Image(image);
-}
-
 void Fl_Shared_Image_draw(Fl_Shared_Image *self, int X, int Y, int W, int H) {
     LOCK(self->draw(X, Y, W, H));
 }
