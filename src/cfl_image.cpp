@@ -209,6 +209,19 @@ Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, in
     return img;
 }
 
+extern int fl_convert_pixmap(const char *const *cdata, unsigned char *out, unsigned int bg);
+
+Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
+    auto rgb = new Fl_RGB_Image(0, pxm->data_w(), pxm->data_h(), 4);
+    if (pxm && pxm->data_w() > 0 && pxm->data_h() > 0) {
+        rgb->array = new uchar[pxm->data_w() * pxm->data_h() * rgb->d()];
+        rgb->alloc_array = 1;
+        fl_convert_pixmap(pxm->data(), (uchar *)rgb->array, 49);
+    }
+    rgb->scale(pxm->w(), pxm->h(), 0, 1);
+    return rgb;
+}
+
 void Fl_Shared_Image_draw(Fl_Shared_Image *self, int X, int Y, int W, int H) {
     LOCK(self->draw(X, Y, W, H));
 }
