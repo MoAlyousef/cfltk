@@ -35,6 +35,7 @@ endif()
 file(GLOB_RECURSE CFLTK_HEADER_FILES "include/*.h*")
 
 set(CFLTK_SRCS
+    src/cfl_new.cpp
     src/cfl_lock.cpp
     src/cfl.cpp 
     src/cfl_window.cpp 
