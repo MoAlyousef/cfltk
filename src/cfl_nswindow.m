@@ -20,3 +20,14 @@ double my_getScalingFactor(void *xid) {
     int scale = ((int)(s.width + 0.5) > 10 ? 2 : 1);
     return (double)scale;
 }
+
+void my_winShow(void *xid) {
+    NSWindow *win = (NSWindow *)xid;
+    [win makeKeyAndOrderFront:win];
+    [NSApp activateIgnoringOtherApps:YES];
+}
+
+void my_winHide(void *xid) {
+    NSWindow *win = (NSWindow *)xid;
+    [win orderOut:win];
+}
