@@ -13,6 +13,7 @@
 #include <FL/Fl_Wizard.H>
 #include <FL/fl_draw.H>
 #include <FL_Flex.H>
+#include "Fl_Flow.H"
 
 WIDGET_CLASS(Fl_Group)
 
@@ -204,3 +205,13 @@ int Fl_Flex_pad(const Fl_Flex *self) {
 }
 
 GROUP_DEFINE(Fl_Flex)
+
+WIDGET_CLASS(Fl_Flow)
+
+WIDGET_DEFINE(Fl_Flow)
+
+void Fl_Flow_rule(Fl_Flow *self, Fl_Widget *wid, const char *inst) {
+    LOCK(self->rule(wid, inst));
+}
+
+GROUP_DEFINE(Fl_Flow)
