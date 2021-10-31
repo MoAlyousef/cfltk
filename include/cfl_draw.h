@@ -232,7 +232,7 @@ void Fl_end_offscreen(void);
 
 void Fl_delete_offscreen(void *bitmap);
 
-void Fl_rescale_offscreen(void *ctx);
+void Fl_rescale_offscreen(void **ctx);
 
 void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align);
 
