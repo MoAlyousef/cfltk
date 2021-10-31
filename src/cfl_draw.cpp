@@ -549,7 +549,8 @@ void Fl_delete_offscreen(void *bitmap) {
 
 void Fl_rescale_offscreen(void *ctx) {
     fl_open_display();
-    fl_rescale_offscreen(*(Fl_Offscreen *)ctx);
+    auto temp = (Fl_Offscreen)ctx;
+    fl_rescale_offscreen(temp);
 }
 
 void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
