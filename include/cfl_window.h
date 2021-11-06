@@ -39,7 +39,8 @@ typedef union {
     void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y);         \
     void widget##_default_cursor(widget *self, int cursor);                                        \
     int widget##_screen_num(widget *);                                                             \
-    void widget##_set_screen_num(widget *, int screen_num);
+    void widget##_set_screen_num(widget *, int screen_num);                                        \
+    void widget##_wait_for_expose(widget *);
 
 WIDGET_DECLARE(Fl_Window)
 

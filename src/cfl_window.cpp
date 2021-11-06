@@ -134,6 +134,9 @@ extern "C" void setWindowTransparency(void *, unsigned char);
     }                                                                                              \
     void widget##_set_screen_num(widget *self, int screen_num) {                                   \
         LOCK(self->screen_num(screen_num));                                                        \
+    }                                                                                              \
+    void widget##_wait_for_expose(widget *self) {                                                  \
+        LOCK(self->wait_for_expose());                                                             \
     }
 
 #ifdef __APPLE__
