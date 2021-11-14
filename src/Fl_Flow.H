@@ -4,54 +4,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
 #include <stdio.h>
-
-template <typename T>
-class Vec {
-    T *buf;
-    size_t cap;
-    size_t len;
-
-  public:
-    Vec() : buf(new T[1]), cap(1), len(0) {
-    }
-    size_t size() const {
-        return len;
-    }
-    T &at(size_t idx) {
-        return buf[idx];
-    }
-    T &operator[](size_t idx) {
-        return buf[idx];
-    }
-    void push_back(T w) {
-        if (len == cap) {
-            cap = cap * 2;
-            T *new_buf = new T[cap];
-            for (size_t i = 0; i < len; i++)
-                new_buf[i] = buf[i];
-            delete[] buf;
-            buf = new_buf;
-        }
-        buf[len] = w;
-        len++;
-    }
-    T *begin() {
-        return buf;
-    }
-    T *end() {
-        return buf + len;
-    }
-    T *erase(T *pos) {
-        T *iter = &buf[pos - buf];
-        iter->~T();
-        memmove(iter, iter + 1, (len - (iter - buf)) * sizeof(T));
-        len -= 1;
-        return iter;
-    }
-    ~Vec() {
-        delete[] buf;
-    }
-};
+#include "cfl_vec.hpp"
 
 static void set_position(Fl_Widget *_w, int _x, int _y) {
     Fl_Group *parent = _w->parent();
