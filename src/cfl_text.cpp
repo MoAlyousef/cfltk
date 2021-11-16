@@ -671,6 +671,10 @@ void Fl_Simple_Terminal_append(Fl_Simple_Terminal *self, const char *s) {
     LOCK(self->append(s));
 }
 
+void Fl_Simple_Terminal_append2(Fl_Simple_Terminal *self, const char *s, int len) {
+    LOCK(self->append(s, len));
+}
+
 void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s) {
     LOCK(self->text(s));
 }

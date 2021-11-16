@@ -262,6 +262,8 @@ int Fl_Simple_Terminal_ansi(const Fl_Simple_Terminal *self);
 
 void Fl_Simple_Terminal_append(Fl_Simple_Terminal *self, const char *s);
 
+void Fl_Simple_Terminal_append2(Fl_Simple_Terminal *self, const char *s, int len);
+
 void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s);
 
 const char *Fl_Simple_Terminal_text(const Fl_Simple_Terminal *self);
