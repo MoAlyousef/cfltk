@@ -236,6 +236,8 @@ void Fl_rescale_offscreen(void **ctx);
 
 void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align);
 
+void Fl_draw_check(int x, int y, int w, int h, unsigned int col);
+
 #ifdef __cplusplus
 }
 #endif

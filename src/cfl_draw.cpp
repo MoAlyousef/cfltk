@@ -4,10 +4,11 @@
 #include <FL/Enumerations.H>
 #include <FL/Fl.H>
 #include <FL/Fl_Image.H>
+#include <FL/Fl_Rect.H>
 #include <FL/Fl_Window.H>
 #include <FL/fl_draw.H>
-#include <FL/platform.H>
 #include <FL/fl_show_colormap.H>
+#include <FL/platform.H>
 
 void Fl_set_color_int(unsigned int c) {
     fl_color(c);
@@ -555,4 +556,9 @@ void Fl_rescale_offscreen(void **ctx) {
 void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
     fl_open_display();
     fl_draw(str, x, y, w, h, (Fl_Align)align, 0, 1);
+}
+
+void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {
+    fl_open_display();
+    fl_draw_check(Fl_Rect(x, y, w, h), (Fl_Color)col);
 }
