@@ -441,7 +441,7 @@ unsigned char *Fl_read_image(unsigned char *p, int X, int Y, int W, int H, int a
 
 unsigned char *Fl_capture_window_part(void *win, int x, int y, int w, int h) {
     fl_open_display();
-    Fl_RGB_Image *tmp = fl_capture_window_part((Fl_Window *)win, x, y, w, h);
+    Fl_RGB_Image *tmp = fl_capture_window((Fl_Window *)win, x, y, w, h);
     return (unsigned char *)tmp->data();
 }
 
