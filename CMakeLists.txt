@@ -108,11 +108,6 @@ endif()
 
 if (CFLTK_LINK_IMAGES)
     set(CFLTK_LIBS ${CFLTK_LIBS} fltk_images fltk_z fltk_jpeg fltk_png)
-    # if(UNIX AND NOT APPLE AND NOT ANDROID)
-    #     set(CFLTK_LIBS ${CFLTK_LIBS} png)
-    # else()
-    #     set(CFLTK_LIBS ${CFLTK_LIBS} fltk_png)
-    # endif()
 endif()
 
 if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
