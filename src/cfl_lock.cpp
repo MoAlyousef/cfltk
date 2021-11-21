@@ -1,14 +1,14 @@
-#include "cfl_lock.hpp"
+#include "cfl_lock.h"
 
 #include <FL/Fl.H>
 
-void Mutex::lock() {
+void Fl_mutex_lock() {
 #ifndef CFLTK_SINGLE_THREADED
     Fl::lock();
 #endif
 }
 
-void Mutex::unlock() {
+void Fl_mutex_unlock() {
 #ifndef CFLTK_SINGLE_THREADED
     Fl::unlock();
 #endif

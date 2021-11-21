@@ -1,5 +1,5 @@
 #include "cfl_surface.h"
-#include "cfl_lock.hpp"
+#include "cfl_lock.h"
 
 #include "FL/Fl.H"
 #include <FL/Fl_Image_Surface.H>

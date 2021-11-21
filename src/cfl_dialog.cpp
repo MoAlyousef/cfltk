@@ -1,5 +1,5 @@
 #include "cfl_dialog.h"
-#include "cfl_lock.hpp"
+#include "cfl_lock.h"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Color_Chooser.H>

@@ -1,5 +1,5 @@
 #include "cfl_printer.h"
-#include "cfl_lock.hpp"
+#include "cfl_lock.h"
 
 #include "FL/Fl_Widget.H"
 #include "FL/Fl_Window.H"
