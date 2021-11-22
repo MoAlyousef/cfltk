@@ -129,6 +129,8 @@ int Fl_Menu_Item_children(const Fl_Menu_Item *self);
 
 const Fl_Menu_Item *Fl_Menu_Item_at(const Fl_Menu_Item *self, int idx);
 
+void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut);
+
 #ifdef __cplusplus
 }
 #endif
