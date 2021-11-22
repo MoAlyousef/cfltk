@@ -343,3 +343,9 @@ const Fl_Menu_Item *Fl_Menu_Item_at(const Fl_Menu_Item *self, int idx) {
     LOCK(auto ret = &self[idx]);
     return ret;
 }
+
+void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut) {
+#ifdef __APPLE__
+    LOCK(fl_mac_set_about(cb, user_data, shortcut));
+#endif
+}
