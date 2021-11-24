@@ -211,6 +211,10 @@ char *Fl_file_chooser(const char *message, const char *pat, const char *fname, i
 int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g, unsigned char *b,
                      int cmode);
 
+void Fl_message_title(const char *title);
+
+void Fl_message_title_default(const char *title);
+
 #ifdef __cplusplus
 }
 #endif

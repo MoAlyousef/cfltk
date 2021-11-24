@@ -472,4 +472,12 @@ int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g, unsig
     return ret;
 }
 
+void Fl_message_title(const char *title) {
+    LOCK(fl_message_title(title));
+}
+
+void Fl_message_title_default(const char *title) {
+    LOCK(fl_message_title_default(title));
+}
+
 #undef LOCK
