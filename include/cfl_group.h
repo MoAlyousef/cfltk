@@ -101,12 +101,6 @@ int Fl_Flex_pad(const Fl_Flex *self);
 
 GROUP_DECLARE(Fl_Flex)
 
-WIDGET_DECLARE(Fl_Flow)
-
-void Fl_Flow_rule(Fl_Flow *self, Fl_Widget *wid, const char *inst);
-
-GROUP_DECLARE(Fl_Flow)
-
 #ifdef __cplusplus
 }
 #endif
