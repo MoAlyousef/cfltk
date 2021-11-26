@@ -411,6 +411,10 @@ Fl_Tree_Item *Fl_Tree_Item_Array_at(Fl_Tree_Item_Array *self, int index);
 
 void Fl_Tree_Item_Array_delete(Fl_Tree_Item_Array *self);
 
+void *Fl_Tree_Item_usericon(const Fl_Tree_Item *self);
+
+void Fl_Tree_Item_set_usericon(Fl_Tree_Item *self, void *val);
+
 #ifdef __cplusplus
 }
 #endif
