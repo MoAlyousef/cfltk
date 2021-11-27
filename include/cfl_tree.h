@@ -27,6 +27,8 @@ void Fl_Tree_set_root(Fl_Tree *self, Fl_Tree_Item *newitem);
 
 Fl_Tree_Item *Fl_Tree_add(Fl_Tree *self, const char *name);
 
+Fl_Tree_Item *Fl_Tree_add_item(Fl_Tree *self, const char *name, Fl_Tree_Item *item);
+
 Fl_Tree_Item *Fl_Tree_insert_above(Fl_Tree *self, Fl_Tree_Item *above, const char *name);
 
 Fl_Tree_Item *Fl_Tree_insert(Fl_Tree *self, Fl_Tree_Item *item, const char *name, int pos);
@@ -250,6 +252,10 @@ void Fl_Tree_set_callback_reason(Fl_Tree *self, int reason);
 int Fl_Tree_callback_reason(const Fl_Tree *self);
 
 /* TreeItems */
+
+Fl_Tree_Item *Fl_Tree_Item_new(Fl_Tree *tree, const char *txt);
+
+void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item, int (*cb)(Fl_Tree_Item *self, int, void *), void *data);
 
 int Fl_Tree_Item_x(const Fl_Tree_Item *self);
 

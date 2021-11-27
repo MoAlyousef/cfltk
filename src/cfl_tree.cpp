@@ -7,6 +7,7 @@
 #include <FL/Fl_Tree_Item.H>
 #include <FL/Fl_Tree_Item_Array.H>
 #include <FL/Fl_Widget.H>
+#include <FL/platform.H>
 
 #include <stdlib.h>
 
@@ -41,6 +42,11 @@ void Fl_Tree_set_root(Fl_Tree *self, Fl_Tree_Item *newitem) {
 
 Fl_Tree_Item *Fl_Tree_add(Fl_Tree *self, const char *name) {
     LOCK(auto ret = self->add(name));
+    return ret;
+}
+
+Fl_Tree_Item *Fl_Tree_add_item(Fl_Tree *self, const char *name, Fl_Tree_Item *item) {
+    LOCK(auto ret = self->add(name, item));
     return ret;
 }
 
@@ -580,6 +586,34 @@ int Fl_Tree_callback_reason(const Fl_Tree *self) {
 
 // TreeItems
 
+class Fl_Tree_Item_Derived : public Fl_Tree_Item {
+  public:
+    void *draw_data;
+    using draw_cb = int (*)(Fl_Tree_Item *, int, void *data);
+    draw_cb cb;
+    Fl_Tree_Item_Derived(Fl_Tree *tree, const char *txt) : Fl_Tree_Item(tree) {
+        label(txt);
+    }
+    int draw_item_content(int render) {
+        fl_open_display();
+        if (cb) {
+            return cb(this, render, draw_data);
+        } else {
+            return 0;
+        }
+    }
+};
+
+Fl_Tree_Item *Fl_Tree_Item_new(Fl_Tree *tree, const char *label) {
+    LOCK(auto ret = new Fl_Tree_Item_Derived(tree, label));
+    return ret;
+}
+
+void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item, int (*cb)(Fl_Tree_Item *, int, void *),
+                                    void *data) {
+    LOCK(((Fl_Tree_Item_Derived *)item)->cb = cb; ((Fl_Tree_Item_Derived *)item)->draw_data = data;)
+}
+
 int Fl_Tree_Item_x(const Fl_Tree_Item *self) {
     LOCK(auto ret = self->x());
     return ret;
@@ -941,11 +975,11 @@ int Fl_Tree_Item_Array_remove_item(Fl_Tree_Item_Array *self, Fl_Tree_Item *item)
 }
 
 Fl_Tree_Item *Fl_Tree_Item_Array_at(Fl_Tree_Item_Array *self, int index) {
-    LOCK(
-    int total = self->total());
+    LOCK(int total = self->total());
     if (index >= total)
         return NULL;
-    LOCK(auto ret = (*self)[index]); return ret;
+    LOCK(auto ret = (*self)[index]);
+    return ret;
 }
 
 void Fl_Tree_Item_Array_delete(Fl_Tree_Item_Array *self) {
