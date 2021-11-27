@@ -588,9 +588,9 @@ int Fl_Tree_callback_reason(const Fl_Tree *self) {
 
 class Fl_Tree_Item_Derived : public Fl_Tree_Item {
   public:
-    void *draw_data;
+    void *draw_data = NULL;
     using draw_cb = int (*)(Fl_Tree_Item *, int, void *data);
-    draw_cb cb;
+    draw_cb cb = NULL;
     Fl_Tree_Item_Derived(Fl_Tree *tree, const char *txt) : Fl_Tree_Item(tree) {
         label(txt);
     }
