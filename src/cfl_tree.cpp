@@ -584,6 +584,14 @@ int Fl_Tree_callback_reason(const Fl_Tree *self) {
     return ret;
 }
 
+int Fl_Tree_item_pathname(const Fl_Tree *self, char *pathname, int pathnamelen,
+                          const Fl_Tree_Item *item) {
+    char temp[256] = {0};
+    LOCK(auto ret = self->item_pathname(temp, 256, item);
+         if (ret == 0) strncpy(pathname, temp, strlen(temp)););
+    return ret;
+}
+
 // TreeItems
 
 class Fl_Tree_Item_Derived : public Fl_Tree_Item {
