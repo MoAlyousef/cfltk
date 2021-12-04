@@ -60,6 +60,14 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv);
 
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle);
 
+const char *Fl_Window_default_xclass(void);
+
+const char *Fl_Window_xclass(const Fl_Window *self);
+
+void Fl_Window_set_default_xclass(const char *s);
+
+void Fl_Window_set_xclass(Fl_Window *self, const char *s);
+
 WIDGET_DECLARE(Fl_Single_Window)
 
 GROUP_DECLARE(Fl_Single_Window)
