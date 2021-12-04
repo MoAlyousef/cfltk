@@ -107,10 +107,23 @@ int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1, con
     return ret;
 }
 
+int Fl_choice_n(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2) {
+    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = NULL;
+         auto ret = fl_choice_n("%s", b0, b1, b2, txt));
+    return ret;
+}
+
 int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2) {
     if (strlen(b2) == 0)
         b2 = NULL;
     LOCK(auto ret = fl_choice("%s", b0, b1, b2, txt));
+    return ret;
+}
+
+int Fl_choice2_n(const char *txt, const char *b0, const char *b1, const char *b2) {
+    if (strlen(b2) == 0)
+        b2 = NULL;
+    LOCK(auto ret = fl_choice_n("%s", b0, b1, b2, txt));
     return ret;
 }
 
