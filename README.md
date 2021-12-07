@@ -119,6 +119,7 @@ An example app:
 #include <cfl.h>
 #include <cfl_button.h>
 #include <cfl_image.h>
+#include <cfl_widget.h>
 #include <cfl_window.h>
 #include <stdlib.h>
 
