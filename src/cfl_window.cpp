@@ -4,7 +4,7 @@
 #include <windows.h>
 #endif
 #elif __APPLE__
-extern "C" void setWindowTransparency(void *, unsigned char);
+extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #elif __ANDROID__
 #else
 #include <X11/Xatom.h>
@@ -262,7 +262,7 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
         }
         SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha), LWA_ALPHA);
 #elif defined(__APPLE__)
-        setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
+        cfltk_setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
 #elif defined(__ANDROID__)
         // Do nothing
 #else
