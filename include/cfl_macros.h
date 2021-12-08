@@ -512,7 +512,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->remove(*(Fl_Widget *)wid));                                                     \
     }                                                                                              \
     void widget##_remove_by_index(widget *self, int idx) {                                         \
-        LOCK(((Fl_Group *)self)->remove(idx));                                                     \
+        LOCK(self->remove(*self->child(idx)));                                                     \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
         LOCK(self->clear());                                                                       \
