@@ -212,7 +212,7 @@ void Fl_insertion_point_location(int x, int y, int height) {
     Fl::insertion_point_location(x, y, height);
 }
 
-void Fl_copy(const char* stuff, int len, int destination) {
+void Fl_copy(const char *stuff, int len, int destination) {
     Fl::copy(stuff, len, destination);
 }
 
@@ -315,7 +315,7 @@ int Fl_font_size(void) {
 }
 
 void Fl_add_handler(int (*ev_handler)(int ev)) {
-    Fl::add_handler(ev_handler);
+    LOCK(Fl::add_handler(ev_handler));
 }
 
 void Fl_open_display(void) {
@@ -367,19 +367,20 @@ double Fl_wait_for(double dur) {
 }
 
 void Fl_add_timeout(double t, void (*timeout_h)(void *), void *data) {
-    Fl::add_timeout(t, timeout_h, data);
+    LOCK(Fl::add_timeout(t, timeout_h, data));
 }
 
 void Fl_repeat_timeout(double t, void (*timeout_h)(void *), void *data) {
-    Fl::repeat_timeout(t, timeout_h, data);
+    LOCK(Fl::repeat_timeout(t, timeout_h, data));
 }
 
 void Fl_remove_timeout(void (*timeout_h)(void *), void *data) {
-    Fl::remove_timeout(timeout_h, data);
+    LOCK(Fl::remove_timeout(timeout_h, data));
 }
 
 int Fl_has_timeout(void (*cb)(void *), void *arg) {
-    return Fl::has_timeout(cb, arg);
+    LOCK(auto ret = Fl::has_timeout(cb, arg));
+    return ret;
 }
 
 int Fl_dnd(void) {
@@ -542,15 +543,16 @@ int Fl_handle_(int ev, void *win) {
 }
 
 void Fl_add_idle(void (*cb)(void *), void *arg) {
-    Fl::add_idle(cb, arg);
+    LOCK(Fl::add_idle(cb, arg));
 }
 
 int Fl_has_idle(void (*cb)(void *), void *arg) {
-    return Fl::has_idle(cb, arg);
+    LOCK(auto ret = Fl::has_idle(cb, arg));
+    return ret;
 }
 
 void Fl_remove_idle(void (*cb)(void *), void *arg) {
-    Fl::remove_idle(cb, arg);
+    LOCK(Fl::remove_idle(cb, arg));
 }
 
 void Fl_flush(void) {
@@ -668,19 +670,19 @@ void Fl_set_box_color(unsigned int c) {
 }
 
 void Fl_add_system_handler(int (*cb)(void *, void *), void *data) {
-    Fl::add_system_handler(cb, data);
+    LOCK(Fl::add_system_handler(cb, data));
 }
 
 void Fl_remove_system_handler(int (*cb)(void *, void *)) {
-    Fl::remove_system_handler(cb);
+    LOCK(Fl::remove_system_handler(cb));
 }
 
 void Fl_add_clipboard_notify(void (*cb)(int source, void *data), void *data) {
-    Fl::add_clipboard_notify(cb, data);
+    LOCK(Fl::add_clipboard_notify(cb, data));
 }
 
 void Fl_remove_clipboard_notify(void (*cb)(int source, void *data)) {
-    Fl::remove_clipboard_notify(cb);
+    LOCK(Fl::remove_clipboard_notify(cb));
 }
 
 #ifdef CFLTK_USE_GL
