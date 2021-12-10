@@ -293,7 +293,7 @@ int Fl_get_font_sizes(int font, int **sizep) {
     return Fl::get_font_sizes(font, *sizep);
 }
 
-unsigned char Fl_set_fonts(const char *c) {
+int Fl_set_fonts(const char *c) {
     return Fl::set_fonts(c);
 }
 

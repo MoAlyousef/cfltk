@@ -125,7 +125,7 @@ const char *Fl_get_font_name(int idx);
 
 int Fl_get_font_sizes(int font, int **sizep);
 
-unsigned char Fl_set_fonts(const char *c);
+int Fl_set_fonts(const char *c);
 
 void Fl_set_font(int, int);
 
