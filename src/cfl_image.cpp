@@ -131,8 +131,8 @@ Fl_BMP_Image *Fl_BMP_Image_new(const char *filename) {
     return ret;
 }
 
-Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data) {
-    LOCK(auto ret = new Fl_BMP_Image(NULL, data));
+Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data, long len) {
+    LOCK(auto ret = new Fl_BMP_Image(NULL, data, len));
     return ret;
 }
 
@@ -143,8 +143,8 @@ Fl_GIF_Image *Fl_GIF_Image_new(const char *filename) {
     return ret;
 }
 
-Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data) {
-    LOCK(auto ret = new Fl_GIF_Image(NULL, data));
+Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len) {
+    LOCK(auto ret = new Fl_GIF_Image(NULL, data, len));
     return ret;
 }
 

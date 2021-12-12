@@ -53,13 +53,13 @@ IMAGE_DECLARE(Fl_BMP_Image)
 
 Fl_BMP_Image *Fl_BMP_Image_new(const char *filename);
 
-Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data);
+Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data, long len);
 
 IMAGE_DECLARE(Fl_GIF_Image)
 
 Fl_GIF_Image *Fl_GIF_Image_new(const char *filename);
 
-Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data);
+Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len);
 
 IMAGE_DECLARE(Fl_Pixmap)
 
