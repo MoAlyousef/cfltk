@@ -217,6 +217,10 @@ void Fl_Window_set_xclass(Fl_Window *self, const char *s) {
     LOCK(self->xclass(s));
 }
 
+void Fl_Window_clear_modal_states(Fl_Window *self) {
+    LOCK(self->clear_modal_states());
+}
+
 WIDGET_CLASS(Fl_Single_Window)
 
 WIDGET_DEFINE(Fl_Single_Window)

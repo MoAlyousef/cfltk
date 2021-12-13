@@ -68,6 +68,8 @@ void Fl_Window_set_default_xclass(const char *s);
 
 void Fl_Window_set_xclass(Fl_Window *self, const char *s);
 
+void Fl_Window_clear_modal_states(Fl_Window *self);
+
 WIDGET_DECLARE(Fl_Single_Window)
 
 GROUP_DECLARE(Fl_Single_Window)
