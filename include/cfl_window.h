@@ -84,6 +84,8 @@ void Fl_Double_Window_set_alpha(Fl_Double_Window *self, unsigned char val);
 
 unsigned char Fl_Double_Window_alpha(const Fl_Double_Window *self);
 
+void Fl_Double_Window_force_position(Fl_Double_Window *self, int flag);
+
 GROUP_DECLARE(Fl_Double_Window)
 
 WINDOW_DECLARE(Fl_Double_Window)

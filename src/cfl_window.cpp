@@ -337,6 +337,10 @@ struct Fl_Double_Window_Derived : public Fl_Double_Window {
         }
     }
 
+    void force_pos(int flag) {
+        force_position(flag);
+    }
+
     ~Fl_Double_Window_Derived() {
         if (ev_data_)
             deleter(ev_data_);
@@ -369,6 +373,10 @@ void Fl_Double_Window_set_alpha(Fl_Double_Window *self, unsigned char val) {
 unsigned char Fl_Double_Window_alpha(const Fl_Double_Window *self) {
     LOCK(auto ret = ((Fl_Double_Window_Derived *)self)->alpha());
     return ret;
+}
+
+void Fl_Double_Window_force_position(Fl_Double_Window *self, int flag) {
+    LOCK(((Fl_Double_Window_Derived *)self)->force_pos(flag));
 }
 
 GROUP_DEFINE(Fl_Double_Window)
