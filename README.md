@@ -148,7 +148,9 @@ More examples can be found in the examples directory.
 
 CMake (version > 3.7), Git and a C++11 compiler need to be installed and in your PATH for a crossplatform build from source.
 
-- Windows: No dependencies.
+- Windows: 
+    - MSVC: Windows SDK
+    - Gnu: No dependencies
 - MacOS: No dependencies.
 - Linux: X11 and OpenGL development headers need to be installed for development. The libraries themselves are available on linux distros with a graphical user interface.
 
