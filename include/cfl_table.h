@@ -69,7 +69,8 @@ extern "C" {
     int table##_callback_row(table *);                                                             \
     int table##_callback_context(table *);                                                         \
     void *table##_scrollbar(const table *);                                                        \
-    void *table##_hscrollbar(const table *);
+    void *table##_hscrollbar(const table *);                                                       \
+    int table##_find_cell(const table *self, int ctx, int r, int c, int *x, int *y, int *w, int *h);
 
 WIDGET_DECLARE(Fl_Table)
 

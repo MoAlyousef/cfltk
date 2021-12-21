@@ -99,6 +99,13 @@
         void *hscrollbar() const {                                                                 \
             return (void *)table::hscrollbar;                                                      \
         }                                                                                          \
+        int find_cell_(int ctx, int r, int c, int *x, int *y, int *w, int *h) {                    \
+            int X = 0, Y = 0, W = 0, H = 0;                                                        \
+            int ret = find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);                    \
+            *x = X;                                                                                \
+            *y = Y, *w = W, *h = H;                                                                \
+            return ret;                                                                            \
+        }                                                                                          \
         ~table##_Derived() {                                                                       \
             if (ev_data_)                                                                          \
                 deleter(ev_data_);                                                                 \
@@ -323,6 +330,11 @@
     }                                                                                              \
     void *table##_hscrollbar(const table *self) {                                                  \
         LOCK(auto ret = ((table##_Derived *)self)->hscrollbar());                                  \
+        return ret;                                                                                \
+    }                                                                                              \
+    int table##_find_cell(const table *self, int ctx, int r, int c, int *x, int *y, int *w,        \
+                          int *h) {                                                                \
+        LOCK(auto ret = ((table##_Derived *)self)->find_cell_(ctx, r, c, x, y, w, h));             \
         return ret;                                                                                \
     }
 
