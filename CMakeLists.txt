@@ -32,6 +32,10 @@ else()
     add_subdirectory(fltk)
 endif()
 
+if(EXISTS "/usr/include/cairo/cairo.h")
+    include_directories("/usr/include/cairo")
+endif()
+
 file(GLOB_RECURSE CFLTK_HEADER_FILES "include/*.h*")
 
 set(CFLTK_SRCS
