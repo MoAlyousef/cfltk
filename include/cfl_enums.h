@@ -1,7 +1,7 @@
 #ifndef __CFL_ENUMS_H__
 #define __CFL_ENUMS_H__
 
-const char *Fl_Key_Fl_EventNames[] = {
+static const char *Fl_EventNames[] = {
     "Fl_Event_None",
     "Fl_Event_Push",
     "Fl_Event_Released",
@@ -183,28 +183,28 @@ enum Fl_BoxType {
 };
 
 enum Fl_Align {
-    Fl_Align_Center = 0,
-    Fl_Align_Top = 1,
-    Fl_Align_Bottom = 2,
-    Fl_Align_Left = 4,
-    Fl_Align_Right = 8,
-    Fl_Align_Inside = 16,
-    Fl_Align_TextOverImage = 20,
-    Fl_Align_Clip = 40,
-    Fl_Align_Wrap = 80,
-    Fl_Align_ImageNextToText = 100,
-    Fl_Align_TextNextToImage = 120,
-    Fl_Align_ImageBackdrop = 200,
-    Fl_Align_TopLeft = 1 | 4,
-    Fl_Align_TopRight = 1 | 8,
-    Fl_Align_BottomLeft = 2 | 4,
-    Fl_Align_BottomRight = 2 | 8,
-    Fl_Align_LeftTop = 7,
-    Fl_Align_RightTop = 11,
-    Fl_Align_LeftBottom = 13,
-    Fl_Align_RightBottom = 14,
-    Fl_Align_PositionMask = 15,
-    Fl_Align_ImageMask = 320,
+    Fl_Align_Center = 0x0000,
+    Fl_Align_Top = 0x0001,
+    Fl_Align_Bottom = 0x0002,
+    Fl_Align_Left = 0x0004,
+    Fl_Align_Right = 0x0008,
+    Fl_Align_Inside = 0x0010,
+    Fl_Align_TextOverImage = 0x0020,
+    Fl_Align_Clip = 0x0040,
+    Fl_Align_Wrap = 0x0080,
+    Fl_Align_ImageNextToText = 0x0100,
+    Fl_Align_TextNextToImage = 0x0120,
+    Fl_Align_ImageBackdrop = 0x0200,
+    Fl_Align_TopLeft = 0x0001 | 0x0004,
+    Fl_Align_TopRight = 0x0001 | 0x0008,
+    Fl_Align_BottomLeft = 0x0002 | 0x0004,
+    Fl_Align_BottomRight = 0x0002 | 0x0008,
+    Fl_Align_LeftTop = 0x0007,
+    Fl_Align_RightTop = 0x000B,
+    Fl_Align_LeftBottom = 0x000D,
+    Fl_Align_RightBottom = 0x000E,
+    Fl_Align_PositionMask = 0x000F,
+    Fl_Align_ImageMask = 0x0320,
 };
 
 enum Fl_Font {
@@ -601,26 +601,17 @@ enum Fl_Damage {
 };
 
 enum Fl_MenuButtonType {
-    /// pops up with the mouse 1st button.
     Popup1 = 1,
-    /// pops up with the mouse 2nd button.
     Popup2,
-    /// pops up with the mouse 1st or 2nd buttons.
     Popup12,
-    /// pops up with the mouse 3rd button.
     Popup3,
-    /// pops up with the mouse 1st or 3rd buttons.
     Popup13,
-    /// pops up with the mouse 2nd or 3rd buttons.
     Popup23,
-    /// pops up with any mouse button.
     Popup123,
 };
 
 enum Fl_FlexType {
-    /// row direction
     Fl_FlexType_Row = 0,
-    /// column direction
     Fl_FlexType_Column,
 };
 
