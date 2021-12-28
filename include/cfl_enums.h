@@ -1,7 +1,7 @@
 #ifndef __CFL_ENUMS_H__
 #define __CFL_ENUMS_H__
 
-const char *const Fl_EventNames[] = {
+const char *Fl_Key_Fl_EventNames[] = {
     "Fl_Event_None",
     "Fl_Event_Push",
     "Fl_Event_Released",
@@ -321,6 +321,18 @@ enum Fl_Key {
     Fl_Key_KP = 0xff80,
     Fl_Key_KPEnter = 0xff8d,
     Fl_Key_KPLast = 0xffbd,
+    Fl_Key_F1 = 0xffbd + 1,
+    Fl_Key_F2 = 0xffbd + 2,
+    Fl_Key_F3 = 0xffbd + 3,
+    Fl_Key_F4 = 0xffbd + 4,
+    Fl_Key_F5 = 0xffbd + 5,
+    Fl_Key_F6 = 0xffbd + 6,
+    Fl_Key_F7 = 0xffbd + 7,
+    Fl_Key_F8 = 0xffbd + 8,
+    Fl_Key_F9 = 0xffbd + 9,
+    Fl_Key_F10 = 0xffbd + 10,
+    Fl_Key_F11 = 0xffbd + 11,
+    Fl_Key_F12 = 0xffbd + 12,
     Fl_Key_FLast = 0xffe0,
     Fl_Key_ShiftL = 0xffe1,
     Fl_Key_ShiftR = 0xffe2,
@@ -579,13 +591,13 @@ enum Fl_DragType {
 };
 
 enum Fl_Damage {
-  Fl_Damage_Child    = 0x01, /**< A child needs to be redrawn. */
-  Fl_Damage_Expose   = 0x02, /**< The window was exposed. */
-  Fl_Damage_Scroll   = 0x04, /**< The Fl_Scroll widget was scrolled. */
-  Fl_Damage_Overlay  = 0x08, /**< The overlay planes need to be redrawn. */
-  Fl_Damage_User1    = 0x10, /**< First user-defined damage bit. */
-  Fl_Damage_User2    = 0x20, /**< Second user-defined damage bit. */
-  Fl_Damage_All      = 0x80  /**< Everything needs to be redrawn. */
+    Fl_Damage_Child = 0x01,   /**< A child needs to be redrawn. */
+    Fl_Damage_Expose = 0x02,  /**< The window was exposed. */
+    Fl_Damage_Scroll = 0x04,  /**< The Fl_Scroll widget was scrolled. */
+    Fl_Damage_Overlay = 0x08, /**< The overlay planes need to be redrawn. */
+    Fl_Damage_User1 = 0x10,   /**< First user-defined damage bit. */
+    Fl_Damage_User2 = 0x20,   /**< Second user-defined damage bit. */
+    Fl_Damage_All = 0x80      /**< Everything needs to be redrawn. */
 };
 
 enum Fl_MenuButtonType {
@@ -613,8 +625,16 @@ enum Fl_FlexType {
 };
 
 enum Fl_RgbScaling {
-  Fl_RgbScaling_Nearest = 0, 
-  Fl_RgbScaling_Bilinear,
+    Fl_RgbScaling_Nearest = 0,
+    Fl_RgbScaling_Bilinear,
+};
+
+enum Fl_Table_ResizeFlag {
+    Fl_Table_RESIZE_NONE = 0,
+    Fl_Table_RESIZE_COL_LEFT = 1,
+    Fl_Table_RESIZE_COL_RIGHT = 2,
+    Fl_Table_RESIZE_ROW_ABOVE = 3,
+    Fl_Table_RESIZE_ROW_BELOW = 4
 };
 
 #endif
