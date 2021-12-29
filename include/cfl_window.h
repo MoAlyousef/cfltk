@@ -13,7 +13,6 @@ typedef union {
 } winid;
 
 #define WINDOW_DECLARE(widget)                                                                     \
-    void widget##_set_override(widget *);                                                          \
     void widget##_make_modal(widget *, unsigned int boolean);                                      \
     void widget##_fullscreen(widget *, unsigned int boolean);                                      \
     void widget##_make_current(widget *);                                                          \
@@ -41,7 +40,17 @@ typedef union {
     void widget##_default_cursor(widget *self, int cursor);                                        \
     int widget##_screen_num(widget *);                                                             \
     void widget##_set_screen_num(widget *, int screen_num);                                        \
-    void widget##_wait_for_expose(widget *);
+    void widget##_wait_for_expose(widget *);                                                       \
+    void widget##_set_alpha(widget *self, unsigned char val);                                      \
+    unsigned char widget##_alpha(const widget *self);                                              \
+    void widget##_force_position(widget *self, int flag);                                          \
+    const char *widget##_default_xclass(void);                                                     \
+    const char *widget##_xclass(const widget *self);                                               \
+    void widget##_set_default_xclass(const char *s);                                               \
+    void widget##_set_xclass(widget *self, const char *s);                                         \
+    void widget##_clear_modal_states(widget *self);                                                \
+    void widget##_set_override(widget *);                                                          \
+    int widget##_override(const widget *);
 
 WIDGET_DECLARE(Fl_Window)
 
@@ -61,16 +70,6 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv);
 
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle);
 
-const char *Fl_Window_default_xclass(void);
-
-const char *Fl_Window_xclass(const Fl_Window *self);
-
-void Fl_Window_set_default_xclass(const char *s);
-
-void Fl_Window_set_xclass(Fl_Window *self, const char *s);
-
-void Fl_Window_clear_modal_states(Fl_Window *self);
-
 WIDGET_DECLARE(Fl_Single_Window)
 
 GROUP_DECLARE(Fl_Single_Window)
@@ -80,12 +79,6 @@ WINDOW_DECLARE(Fl_Single_Window)
 WIDGET_DECLARE(Fl_Double_Window)
 
 void Fl_Double_Window_flush(Fl_Double_Window *w);
-
-void Fl_Double_Window_set_alpha(Fl_Double_Window *self, unsigned char val);
-
-unsigned char Fl_Double_Window_alpha(const Fl_Double_Window *self);
-
-void Fl_Double_Window_force_position(Fl_Double_Window *self, int flag);
 
 GROUP_DECLARE(Fl_Double_Window)
 
