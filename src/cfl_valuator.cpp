@@ -1,5 +1,6 @@
 #include "cfl_valuator.h"
 #include "cfl_lock.h"
+#include "cfl_widget.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Adjuster.H>

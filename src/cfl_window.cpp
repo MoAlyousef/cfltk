@@ -15,6 +15,7 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #define FL_INTERNALS
 
 #include "cfl_lock.h"
+#include "cfl_widget.hpp"
 #include "cfl_window.h"
 
 #include <FL/Fl.H>
@@ -30,6 +31,50 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 
 #include <stdint.h>
 #include <stdlib.h>
+
+
+template <typename Win>
+struct Window_Derived : public Widget_Derived<Win> {
+    unsigned char alpha_ = 255;
+
+    Window_Derived(int x, int y, int w, int h, const char *title = 0) : Widget_Derived<Win>(x, y, w, h, title) {
+    }
+
+    operator Win *() {
+        return (Win *)this;
+    }
+
+    unsigned char alpha() const {
+        return alpha_;
+    }
+
+    void set_alpha(unsigned char alpha) {
+#if defined(_WIN32)
+        HWND hwnd = fl_xid(this);
+        LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+        if (!(exstyle & WS_EX_LAYERED)) {
+            SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
+        }
+        SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha), LWA_ALPHA);
+#elif defined(__APPLE__)
+        cfltk_setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
+#elif defined(__ANDROID__)
+        // Do nothing
+#else
+        uint32_t cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
+        Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
+        XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
+                        (unsigned char *)&cardinal_alpha, 1);
+#endif
+        alpha_ = alpha;
+    }
+
+    void force_pos(int flag) {
+        this->force_position(flag);
+    }
+};
+
+#define WINDOW_CLASS(window) using window##_Derived = Window_Derived<window>;
 
 #define WINDOW_DEFINE(widget)                                                                      \
     void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
@@ -172,138 +217,8 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
         return ret;                                                                                \
     }
 
-template <typename Win>
-struct Win_Derived : public Win {
-    unsigned char alpha_ = 255;
-    void *ev_data_ = NULL;
-    void *draw_data_ = NULL;
-    void *overlay_draw_data_ = NULL;
-    void *resize_data_ = NULL;
 
-    typedef int (*handler)(Fl_Widget *, int, void *data);
-    handler inner_handler = NULL;
-    typedef void (*drawer)(Fl_Widget *, void *data);
-    drawer inner_drawer = NULL;
-    typedef void (*deleter_fp)(void *);
-    deleter_fp deleter = NULL;
-    typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
-    resizer resize_handler = NULL;
-
-    Win_Derived(int x, int y, int w, int h, const char *title = 0) : Win(x, y, w, h, title) {
-    }
-
-    operator Win *() {
-        return (Win *)this;
-    }
-
-    unsigned char alpha() const {
-        return alpha_;
-    }
-
-    void set_alpha(unsigned char alpha) {
-#if defined(_WIN32)
-        HWND hwnd = fl_xid(this);
-        LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
-        if (!(exstyle & WS_EX_LAYERED)) {
-            SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
-        }
-        SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha), LWA_ALPHA);
-#elif defined(__APPLE__)
-        cfltk_setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
-#elif defined(__ANDROID__)
-        // Do nothing
-#else
-        uint32_t cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
-        Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
-        XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
-                        (unsigned char *)&cardinal_alpha, 1);
-#endif
-        alpha_ = alpha;
-    }
-
-    void widget_resize(int x, int y, int w, int h) {
-        Fl_Widget::resize(x, y, w, h);
-        this->redraw();
-    }
-
-    virtual void resize(int x, int y, int w, int h) override {
-        Win::resize(x, y, w, h);
-        if (resize_handler)
-            resize_handler(this, x, y, w, h, resize_data_);
-        if (this->as_window() == this->top_window()) {
-            LOCK(Fl::handle(28, this->top_window()))
-        }
-    }
-
-    void set_handler(handler h) {
-        inner_handler = h;
-    }
-
-    void set_handler_data(void *data) {
-        ev_data_ = data;
-    }
-
-    void set_resizer(resizer h) {
-        resize_handler = h;
-    }
-
-    void set_resizer_data(void *data) {
-        resize_data_ = data;
-    }
-
-    int handle(int event) override {
-        int local = 0;
-        if (inner_handler) {
-            local = inner_handler(this, event, ev_data_);
-            if (local == 0)
-                return Win::handle(event);
-            else
-                return Win::handle(event) | local;
-        } else {
-            return Win::handle(event);
-        }
-    }
-
-    void set_drawer(drawer h) {
-        inner_drawer = h;
-    }
-
-    void set_drawer_data(void *data) {
-        draw_data_ = data;
-    }
-
-    void draw() override {
-        Win::draw();
-        if (inner_drawer)
-            inner_drawer(this, draw_data_);
-        else {
-        }
-    }
-
-    void force_pos(int flag) {
-        this->force_position(flag);
-    }
-
-    ~Win_Derived() {
-        if (ev_data_)
-            deleter(ev_data_);
-        ev_data_ = NULL;
-        if (resize_data_)
-            deleter(resize_data_);
-        resize_data_ = NULL;
-        inner_handler = NULL;
-        if (draw_data_)
-            deleter(draw_data_);
-        draw_data_ = NULL;
-        inner_drawer = NULL;
-        if (this->user_data())
-            deleter(this->user_data());
-        this->user_data(NULL);
-        this->callback((void (*)(Fl_Widget *, void *))NULL);
-    }
-};
-
-using Fl_Window_Derived = Win_Derived<Fl_Window>;
+WINDOW_CLASS(Fl_Window)
 
 WIDGET_DEFINE(Fl_Window)
 
@@ -358,7 +273,7 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #endif
 }
 
-using Fl_Single_Window_Derived = Win_Derived<Fl_Single_Window>;
+WINDOW_CLASS(Fl_Single_Window)
 
 WIDGET_DEFINE(Fl_Single_Window)
 
@@ -366,7 +281,7 @@ GROUP_DEFINE(Fl_Single_Window)
 
 WINDOW_DEFINE(Fl_Single_Window)
 
-using Fl_Double_Window_Derived = Win_Derived<Fl_Double_Window>;
+WINDOW_CLASS(Fl_Double_Window)
 
 WIDGET_DEFINE(Fl_Double_Window)
 
@@ -378,7 +293,7 @@ GROUP_DEFINE(Fl_Double_Window)
 
 WINDOW_DEFINE(Fl_Double_Window)
 
-using Fl_Menu_Window_Derived = Win_Derived<Fl_Menu_Window>;
+WINDOW_CLASS(Fl_Menu_Window);
 
 WIDGET_DEFINE(Fl_Menu_Window)
 
@@ -386,80 +301,18 @@ GROUP_DEFINE(Fl_Menu_Window)
 
 WINDOW_DEFINE(Fl_Menu_Window)
 
-struct Fl_Overlay_Window_Derived : public Win_Derived<Fl_Overlay_Window> {
-    void *ev_data_ = NULL;
-    void *draw_data_ = NULL;
+struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
     void *overlay_draw_data_ = NULL;
-    void *resize_data_ = NULL;
 
-    typedef int (*handler)(Fl_Widget *, int, void *data);
-    handler inner_handler = NULL;
     typedef void (*drawer)(Fl_Widget *, void *data);
-    drawer inner_drawer = NULL;
-    typedef void (*overlay_drawer)(Fl_Widget *, void *data);
     drawer inner_overlay_drawer = NULL;
-    typedef void (*deleter_fp)(void *);
-    deleter_fp deleter = NULL;
-    typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
-    resizer resize_handler = NULL;
 
     Fl_Overlay_Window_Derived(int x, int y, int w, int h, const char *title = 0)
-        : Win_Derived(x, y, w, h, title) {
+        : Window_Derived<Fl_Overlay_Window>(x, y, w, h, title) {
     }
 
     operator Fl_Overlay_Window *() {
         return (Fl_Overlay_Window *)this;
-    }
-
-    void widget_resize(int x, int y, int w, int h) {
-        Fl_Widget::resize(x, y, w, h);
-        redraw();
-    }
-
-    virtual void resize(int x, int y, int w, int h) override {
-        Win_Derived::resize(x, y, w, h);
-        if (resize_handler)
-            resize_handler(this, x, y, w, h, resize_data_);
-        if (this->as_window() == this->top_window()) {
-            LOCK(Fl::handle(28, this->top_window()))
-        }
-    }
-
-    void set_handler(handler h) {
-        inner_handler = h;
-    }
-
-    void set_handler_data(void *data) {
-        ev_data_ = data;
-    }
-
-    void set_resizer(resizer h) {
-        resize_handler = h;
-    }
-
-    void set_resizer_data(void *data) {
-        resize_data_ = data;
-    }
-
-    int handle(int event) override {
-        int local = 0;
-        if (inner_handler) {
-            local = inner_handler(this, event, ev_data_);
-            if (local == 0)
-                return Win_Derived::handle(event);
-            else
-                return Win_Derived::handle(event) | local;
-        } else {
-            return Win_Derived::handle(event);
-        }
-    }
-
-    void set_drawer(drawer h) {
-        inner_drawer = h;
-    }
-
-    void set_drawer_data(void *data) {
-        draw_data_ = data;
     }
 
     void set_overlay_drawer(drawer h) {
@@ -470,14 +323,6 @@ struct Fl_Overlay_Window_Derived : public Win_Derived<Fl_Overlay_Window> {
         overlay_draw_data_ = data;
     }
 
-    void draw() override {
-        Fl_Overlay_Window::draw();
-        if (inner_drawer)
-            inner_drawer(this, draw_data_);
-        else {
-        }
-    }
-
     void draw_overlay() override {
         if (inner_overlay_drawer)
             inner_overlay_drawer(this, overlay_draw_data_);
@@ -486,25 +331,10 @@ struct Fl_Overlay_Window_Derived : public Win_Derived<Fl_Overlay_Window> {
     }
 
     ~Fl_Overlay_Window_Derived() {
-        if (ev_data_)
-            deleter(ev_data_);
-        ev_data_ = NULL;
-        if (resize_data_)
-            deleter(resize_data_);
-        resize_data_ = NULL;
-        inner_handler = NULL;
-        if (draw_data_)
-            deleter(draw_data_);
-        draw_data_ = NULL;
-        inner_drawer = NULL;
         if (overlay_draw_data_)
             deleter(overlay_draw_data_);
         overlay_draw_data_ = NULL;
         inner_overlay_drawer = NULL;
-        if (user_data())
-            deleter(user_data());
-        user_data(NULL);
-        callback((void (*)(Fl_Widget *, void *))NULL);
     }
 };
 
@@ -541,7 +371,7 @@ void Fl_gl_finish(void) {
     gl_finish();
 }
 
-using Fl_Gl_Window_Derived = Win_Derived<Fl_Gl_Window>;
+WINDOW_CLASS(Fl_Gl_Window)
 
 WIDGET_DEFINE(Fl_Gl_Window)
 
@@ -639,7 +469,7 @@ void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
     return ret;
 }
 
-using Fl_Glut_Window_Derived = Win_Derived<Fl_Glut_Window>;
+WINDOW_CLASS(Fl_Glut_Window)
 
 WIDGET_DEFINE(Fl_Glut_Window)
 

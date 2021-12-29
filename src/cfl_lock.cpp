@@ -1,4 +1,5 @@
 #include "cfl_lock.h"
+#include "cfl_widget.hpp"
 
 #include <FL/Fl.H>
 

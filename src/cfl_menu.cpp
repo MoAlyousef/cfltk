@@ -1,5 +1,6 @@
 #include "cfl_menu.h"
 #include "cfl_lock.h"
+#include "cfl_widget.hpp"
 
 #include <FL/Enumerations.H>
 #include <FL/Fl.H>

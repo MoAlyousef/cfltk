@@ -1,5 +1,6 @@
 #include "cfl_table.h"
 #include "cfl_lock.h"
+#include "cfl_widget.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Image.H>
@@ -7,129 +8,54 @@
 #include <FL/Fl_Table_Row.H>
 #include <FL/fl_draw.H>
 
-#define TABLE_CLASS(table)                                                                         \
-    struct table##_Derived : public table {                                                        \
-        void *ev_data_ = NULL;                                                                     \
-        void *draw_data_ = NULL;                                                                   \
-        void *resize_data_ = NULL;                                                                 \
-        void *draw_cell_data_ = NULL;                                                              \
-                                                                                                   \
-        typedef int (*handler)(Fl_Widget *, int, void *data);                                      \
-        handler inner_handler = NULL;                                                              \
-        typedef void (*drawer)(Fl_Widget *, void *data);                                           \
-        drawer inner_drawer = NULL;                                                                \
-        typedef void (*cell_drawer)(Fl_Widget *, int, int, int, int, int, int, int, void *data);   \
-        cell_drawer inner_cell_drawer = NULL;                                                      \
-        typedef void (*deleter_fp)(void *);                                                        \
-        deleter_fp deleter = NULL;                                                                 \
-        typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);                      \
-        resizer resize_handler = NULL;                                                             \
-                                                                                                   \
-        table##_Derived(int x, int y, int w, int h, const char *title = 0)                         \
-            : table(x, y, w, h, title) {                                                           \
-        }                                                                                          \
-        operator table *() {                                                                       \
-            return (table *)this;                                                                  \
-        }                                                                                          \
-        void widget_resize(int x, int y, int w, int h) {                                           \
-            Fl_Widget::resize(x, y, w, h);                                                         \
-            redraw();                                                                              \
-        }                                                                                          \
-        virtual void resize(int x, int y, int w, int h) override {                                 \
-            table::resize(x, y, w, h);                                                             \
-            if (resize_handler)                                                                    \
-                resize_handler(this, x, y, w, h, resize_data_);                                    \
-            if (this->as_window() == this->top_window()) {                                         \
-                LOCK(Fl::handle(28, this->top_window()));                                          \
-            }                                                                                      \
-        }                                                                                          \
-        void set_handler(handler h) {                                                              \
-            inner_handler = h;                                                                     \
-        }                                                                                          \
-        void set_handler_data(void *data) {                                                        \
-            ev_data_ = data;                                                                       \
-        }                                                                                          \
-        void set_resizer(resizer h) {                                                              \
-            resize_handler = h;                                                                    \
-        }                                                                                          \
-        void set_resizer_data(void *data) {                                                        \
-            resize_data_ = data;                                                                   \
-        }                                                                                          \
-        int handle(int event) override {                                                           \
-            int local = 0;                                                                         \
-            if (inner_handler) {                                                                   \
-                local = inner_handler(this, event, ev_data_);                                      \
-                if (local == 0)                                                                    \
-                    return table::handle(event);                                                   \
-                else                                                                               \
-                    return table::handle(event) | local;                                           \
-            } else {                                                                               \
-                return table::handle(event);                                                       \
-            }                                                                                      \
-        }                                                                                          \
-        void set_drawer(drawer h) {                                                                \
-            inner_drawer = h;                                                                      \
-        }                                                                                          \
-        void set_drawer_data(void *data) {                                                         \
-            draw_data_ = data;                                                                     \
-        }                                                                                          \
-        void set_cell_drawer(cell_drawer h) {                                                      \
-            inner_cell_drawer = h;                                                                 \
-        }                                                                                          \
-        void set_cell_drawer_data(void *data) {                                                    \
-            draw_cell_data_ = data;                                                                \
-        }                                                                                          \
-        void draw() override {                                                                     \
-            table::draw();                                                                         \
-            if (inner_drawer)                                                                      \
-                inner_drawer(this, draw_data_);                                                    \
-            else {                                                                                 \
-            }                                                                                      \
-        }                                                                                          \
-        void draw_cell(TableContext context, int R, int C, int X, int Y, int W, int H) override {  \
-            table::draw_cell(context, R, C, X, Y, W, H);                                           \
-            if (inner_cell_drawer)                                                                 \
-                inner_cell_drawer(this, context, R, C, X, Y, W, H, draw_cell_data_);               \
-            else {                                                                                 \
-            }                                                                                      \
-        }                                                                                          \
-        void *scrollbar() const {                                                                  \
-            return (void *)table::vscrollbar;                                                      \
-        }                                                                                          \
-        void *hscrollbar() const {                                                                 \
-            return (void *)table::hscrollbar;                                                      \
-        }                                                                                          \
-        int find_cell_(int ctx, int r, int c, int *x, int *y, int *w, int *h) {                    \
-            int X = 0, Y = 0, W = 0, H = 0;                                                        \
-            int ret = find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);                    \
-            *x = X, *y = Y, *w = W, *h = H;                                                        \
-            return ret;                                                                            \
-        }                                                                                          \
-        int cursor2rowcol_(int *r, int *c, int *flag) {                                            \
-            int R = 0, C = 0;                                                                      \
-            Fl_Table::ResizeFlag Flag = (Fl_Table::ResizeFlag)0;                                   \
-            auto ret = cursor2rowcol(R, C, Flag);                                                  \
-            *r = R, *c = C, *flag = (int)Flag;                                                     \
-            return (int)ret;                                                                       \
-        }                                                                                          \
-        ~table##_Derived() {                                                                       \
-            if (ev_data_)                                                                          \
-                deleter(ev_data_);                                                                 \
-            ev_data_ = NULL;                                                                       \
-            if (resize_data_)                                                                      \
-                deleter(resize_data_);                                                             \
-            resize_data_ = NULL;                                                                   \
-            inner_handler = NULL;                                                                  \
-            if (draw_data_)                                                                        \
-                deleter(draw_data_);                                                               \
-            draw_data_ = NULL;                                                                     \
-            inner_drawer = NULL;                                                                   \
-            if (user_data())                                                                       \
-                deleter(user_data());                                                              \
-            user_data(NULL);                                                                       \
-            callback((void (*)(Fl_Widget *, void *))NULL);                                         \
-        }                                                                                          \
-    };
+template <typename Table>
+struct Table_Derived : public Widget_Derived<Table> {
+    void *draw_cell_data_ = NULL;
+
+    typedef void (*cell_drawer)(Fl_Widget *, int, int, int, int, int, int, int, void *data);
+    cell_drawer inner_cell_drawer = NULL;
+
+    Table_Derived(int x, int y, int w, int h, const char *title = 0)
+        : Widget_Derived<Table>(x, y, w, h, title) {
+    }
+    operator Table *() {
+        return (Table *)this;
+    }
+    void set_cell_drawer(cell_drawer h) {
+        inner_cell_drawer = h;
+    }
+    void set_cell_drawer_data(void *data) {
+        draw_cell_data_ = data;
+    }
+    void draw_cell(Fl_Table::TableContext context, int R, int C, int X, int Y, int W, int H) override {
+        Table::draw_cell(context, R, C, X, Y, W, H);
+        if (inner_cell_drawer)
+            inner_cell_drawer(this, context, R, C, X, Y, W, H, draw_cell_data_);
+        else {
+        }
+    }
+    void *scrollbar() const {
+        return (void *)Table::vscrollbar;
+    }
+    void *hscrollbar() const {
+        return (void *)Table::hscrollbar;
+    }
+    int find_cell_(int ctx, int r, int c, int *x, int *y, int *w, int *h) {
+        int X = 0, Y = 0, W = 0, H = 0;
+        int ret = this->find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);
+        *x = X, *y = Y, *w = W, *h = H;
+        return ret;
+    }
+    int cursor2rowcol_(int *r, int *c, int *flag) {
+        int R = 0, C = 0;
+        Fl_Table::ResizeFlag Flag = (Fl_Table::ResizeFlag)0;
+        auto ret = this->cursor2rowcol(R, C, Flag);
+        *r = R, *c = C, *flag = (int)Flag;
+        return (int)ret;
+    }
+};
+
+#define TABLE_CLASS(table) using table##_Derived = Table_Derived<table>;
 
 #define TABLE_DEFINE(table)                                                                        \
     void table##_set_table_box(table *self, int val) {                                             \

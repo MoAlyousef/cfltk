@@ -1,12 +1,10 @@
-#include "cfl_widget.h"
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
+#ifndef __CFL_WIDGET_HPP__
+#define __CFL_WIDGET_HPP__
 
-#include <FL/Fl.H>
-#include <FL/Fl_Image.H>
 #include <FL/Fl_Widget.H>
 
-struct Fl_Widget_Derived : public Fl_Widget {
+template <typename T>
+struct Widget_Derived : public T {
     void *ev_data_ = NULL;
     void *draw_data_ = NULL;
     void *resize_data_ = NULL;
@@ -20,73 +18,61 @@ struct Fl_Widget_Derived : public Fl_Widget {
     typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
     resizer resize_handler = NULL;
 
-    Fl_Widget_Derived(int x, int y, int w, int h, const char *title = 0)
-        : Fl_Widget(x, y, w, h, title) {
+    Widget_Derived(int x, int y, int w, int h, const char *title = 0) : T(x, y, w, h, title) {
     }
-
-    operator Fl_Widget *() {
-        return (Fl_Widget *)this;
+    operator T *() {
+        return (T *)this;
     }
-
     void widget_resize(int x, int y, int w, int h) {
         Fl_Widget::resize(x, y, w, h);
-        redraw();
+        this->redraw();
     }
-
     virtual void resize(int x, int y, int w, int h) override {
-        Fl_Widget::resize(x, y, w, h);
+        T::resize(x, y, w, h);
         if (resize_handler)
             resize_handler(this, x, y, w, h, resize_data_);
         if (this->as_window() == this->top_window()) {
-            LOCK(Fl::handle(28, this->top_window()))
+            LOCK(Fl::handle(28, this->top_window()));
         }
     }
-
     void set_handler(handler h) {
         inner_handler = h;
     }
-
     void set_handler_data(void *data) {
         ev_data_ = data;
     }
-
     void set_resizer(resizer h) {
         resize_handler = h;
     }
-
     void set_resizer_data(void *data) {
         resize_data_ = data;
     }
-
     int handle(int event) override {
         int local = 0;
         if (inner_handler) {
             local = inner_handler(this, event, ev_data_);
             if (local == 0)
-                return Fl_Widget::handle(event);
+                return T::handle(event);
             else
-                return Fl_Widget::handle(event) | local;
+                return T::handle(event) | local;
         } else {
-            return Fl_Widget::handle(event);
+            return T::handle(event);
         }
     }
-
     void set_drawer(drawer h) {
         inner_drawer = h;
     }
-
     void set_drawer_data(void *data) {
         draw_data_ = data;
     }
-
     void draw() override {
+        T::draw();
         if (inner_drawer)
             inner_drawer(this, draw_data_);
         else {
         }
     }
-
-    ~Fl_Widget_Derived() {
+    ~Widget_Derived() {
         if (ev_data_)
             deleter(ev_data_);
         ev_data_ = NULL;
@@ -98,11 +84,11 @@ struct Fl_Widget_Derived : public Fl_Widget {
             deleter(draw_data_);
         draw_data_ = NULL;
         inner_drawer = NULL;
-        if (user_data())
-            deleter(user_data());
-        user_data(NULL);
-        callback((void (*)(Fl_Widget *, void *))NULL);
+        if (this->user_data())
+            deleter(this->user_data());
+        this->user_data(NULL);
+        this->callback((void (*)(Fl_Widget *, void *))NULL);
     }
 };
 
-WIDGET_DEFINE(Fl_Widget)
+#endif

@@ -1,5 +1,6 @@
 #include "cfl_misc.h"
 #include "cfl_lock.h"
+#include "cfl_widget.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Chart.H>
