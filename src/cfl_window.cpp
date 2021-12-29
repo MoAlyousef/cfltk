@@ -148,7 +148,7 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
     void widget##_force_position(widget *self, int flag) {                                         \
         LOCK(((widget##_Derived *)self)->force_pos(flag));                                         \
     }                                                                                              \
-    const char *widget##_xclass(void) {                                                            \
+    const char *widget##_default_xclass(void) {                                                    \
         LOCK(auto ret = widget::default_xclass());                                                 \
         return ret;                                                                                \
     }                                                                                              \
