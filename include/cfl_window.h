@@ -13,6 +13,7 @@ typedef union {
 } winid;
 
 #define WINDOW_DECLARE(widget)                                                                     \
+    void widget##_set_override(widget *);                                                          \
     void widget##_make_modal(widget *, unsigned int boolean);                                      \
     void widget##_fullscreen(widget *, unsigned int boolean);                                      \
     void widget##_make_current(widget *);                                                          \

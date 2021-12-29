@@ -32,6 +32,9 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #include <stdlib.h>
 
 #define WINDOW_DEFINE(widget)                                                                      \
+    void widget##_set_override(widget *self) {                                                     \
+        LOCK(self->set_override());                                                                \
+    }                                                                                              \
     void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
         LOCK(                                                                                      \
             if (boolean) { self->set_modal(); } else { self->set_non_modal(); })                   \
