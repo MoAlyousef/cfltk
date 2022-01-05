@@ -9,9 +9,9 @@
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Multiline_Input.H>
-#include <FL/Fl_Secret_Input.H>
 #include <FL/Fl_Multiline_Output.H>
 #include <FL/Fl_Output.H>
+#include <FL/Fl_Secret_Input.H>
 #include <FL/Fl_Value_Output.H>
 
 #define INPUT_DEFINE(widget)                                                                       \
@@ -144,7 +144,8 @@ void Fl_File_Input_set_down_box(Fl_File_Input *self, int box) {
     LOCK(self->down_box(static_cast<Fl_Boxtype>(box)));
 }
 int Fl_File_Input_down_box(const Fl_File_Input *self) {
-    LOCK(auto ret = self->down_box()); return ret;
+    LOCK(auto ret = self->down_box());
+    return ret;
 }
 
 INPUT_DEFINE(Fl_File_Input)

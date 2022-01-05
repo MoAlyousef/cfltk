@@ -32,12 +32,12 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #include <stdint.h>
 #include <stdlib.h>
 
-
 template <typename Win>
 struct Window_Derived : public Widget_Derived<Win> {
     unsigned char alpha_ = 255;
 
-    Window_Derived(int x, int y, int w, int h, const char *title = 0) : Widget_Derived<Win>(x, y, w, h, title) {
+    Window_Derived(int x, int y, int w, int h, const char *title = 0)
+        : Widget_Derived<Win>(x, y, w, h, title) {
     }
 
     operator Win *() {
@@ -216,7 +216,6 @@ struct Window_Derived : public Widget_Derived<Win> {
         LOCK(auto ret = self->override());                                                         \
         return ret;                                                                                \
     }
-
 
 WINDOW_CLASS(Fl_Window)
 

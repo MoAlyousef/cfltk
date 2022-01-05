@@ -40,7 +40,7 @@ void Fl_Printer_set_current(Fl_Printer *self);
 
 int Fl_Printer_is_current(Fl_Printer *self);
 
-void Fl_Printer_print_widget(Fl_Printer *self, void* widget, int delta_x, int delta_y);
+void Fl_Printer_print_widget(Fl_Printer *self, void *widget, int delta_x, int delta_y);
 
 void Fl_Printer_print_window(Fl_Printer *self, void *win, int x_offset, int y_offset);
 

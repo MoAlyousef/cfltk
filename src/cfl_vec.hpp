@@ -25,9 +25,9 @@ class Vec {
     template <class InputIt>
     void assign(InputIt, InputIt);
 
-    T* begin() noexcept;
+    T *begin() noexcept;
     const T *cbegin() const noexcept;
-    T* end() noexcept;
+    T *end() noexcept;
     const T *cend() const noexcept;
 
     bool empty() const noexcept;
@@ -52,12 +52,12 @@ class Vec {
     void push_back(const T &);
     void pop_back();
 
-    T* insert(const T *, const T &);
-    T* insert(const T *, size_t, const T &);
+    T *insert(const T *, const T &);
+    T *insert(const T *, size_t, const T &);
     template <class InputIt>
-    T* insert(const T *, InputIt, InputIt);
-    T* erase(const T *);
-    T* erase(const T *, const T *);
+    T *insert(const T *, InputIt, InputIt);
+    T *erase(const T *);
+    T *erase(const T *, const T *);
     void swap(Vec<T> &);
     void clear() noexcept;
 
@@ -162,7 +162,7 @@ void Vec<T>::assign(InputIt first, InputIt last) {
 }
 
 template <typename T>
-T* Vec<T>::begin() noexcept {
+T *Vec<T>::begin() noexcept {
     return arr;
 }
 
@@ -172,7 +172,7 @@ const T *Vec<T>::cbegin() const noexcept {
 }
 
 template <typename T>
-T* Vec<T>::end() noexcept {
+T *Vec<T>::end() noexcept {
     return arr + len;
 }
 
@@ -318,8 +318,8 @@ void Vec<T>::pop_back() {
 }
 
 template <typename T>
-T* Vec<T>::insert(const T *it, const T &val) {
-    T* iit = &arr[it - arr];
+T *Vec<T>::insert(const T *it, const T &val) {
+    T *iit = &arr[it - arr];
     if (len == cap) {
         cap *= 2;
         reallocate();
@@ -331,8 +331,8 @@ T* Vec<T>::insert(const T *it, const T &val) {
 }
 
 template <typename T>
-T* Vec<T>::insert(const T *it, size_t cnt, const T &val) {
-    T* f = &arr[it - arr];
+T *Vec<T>::insert(const T *it, size_t cnt, const T &val) {
+    T *f = &arr[it - arr];
     if (!cnt)
         return f;
     if (len + cnt > cap) {
@@ -341,15 +341,15 @@ T* Vec<T>::insert(const T *it, size_t cnt, const T &val) {
     }
     memmove(f + cnt, f, (len - (it - arr)) * sizeof(T));
     len += cnt;
-    for (T* it = f; cnt--; ++it)
+    for (T *it = f; cnt--; ++it)
         (*it) = val;
     return f;
 }
 
 template <typename T>
 template <class InputIt>
-T* Vec<T>::insert(const T *it, InputIt first, InputIt last) {
-    T* f = &arr[it - arr];
+T *Vec<T>::insert(const T *it, InputIt first, InputIt last) {
+    T *f = &arr[it - arr];
     size_t cnt = last - first;
     if (!cnt)
         return f;
@@ -358,15 +358,15 @@ T* Vec<T>::insert(const T *it, InputIt first, InputIt last) {
         reallocate();
     }
     memmove(f + cnt, f, (len - (it - arr)) * sizeof(T));
-    for (T* it = f; first != last; ++it, ++first)
+    for (T *it = f; first != last; ++it, ++first)
         (*it) = *first;
     len += cnt;
     return f;
 }
 
 template <typename T>
-T* Vec<T>::erase(const T *it) {
-    T* iit = &arr[it - arr];
+T *Vec<T>::erase(const T *it) {
+    T *iit = &arr[it - arr];
     (*iit).~T();
     memmove(iit, iit + 1, (len - (it - arr) - 1) * sizeof(T));
     --len;
@@ -374,8 +374,8 @@ T* Vec<T>::erase(const T *it) {
 }
 
 template <typename T>
-T* Vec<T>::erase(const T *first, const T *last) {
-    T* f = &arr[first - arr];
+T *Vec<T>::erase(const T *first, const T *last) {
+    T *f = &arr[first - arr];
     if (first == last)
         return f;
     for (; first != last; ++first)

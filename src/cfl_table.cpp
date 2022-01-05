@@ -27,7 +27,8 @@ struct Table_Derived : public Widget_Derived<Table> {
     void set_cell_drawer_data(void *data) {
         draw_cell_data_ = data;
     }
-    void draw_cell(Fl_Table::TableContext context, int R, int C, int X, int Y, int W, int H) override {
+    void draw_cell(Fl_Table::TableContext context, int R, int C, int X, int Y, int W,
+                   int H) override {
         Table::draw_cell(context, R, C, X, Y, W, H);
         if (inner_cell_drawer)
             inner_cell_drawer(this, context, R, C, X, Y, W, H, draw_cell_data_);

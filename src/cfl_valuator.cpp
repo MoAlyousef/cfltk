@@ -27,14 +27,16 @@
         LOCK(self->bounds(a, b));                                                                  \
     }                                                                                              \
     double widget##_minimum(widget *self) {                                                        \
-        LOCK(auto ret = self->minimum());;                                                         \
+        LOCK(auto ret = self->minimum());                                                          \
+        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_minimum(widget *self, double a) {                                            \
         LOCK(self->minimum(a));                                                                    \
     }                                                                                              \
     double widget##_maximum(widget *self) {                                                        \
-        LOCK(auto ret = self->maximum());;                                                         \
+        LOCK(auto ret = self->maximum());                                                          \
+        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_maximum(widget *self, double a) {                                            \
@@ -47,14 +49,16 @@
         LOCK(self->step(a, b));                                                                    \
     }                                                                                              \
     double widget##_step(widget *self) {                                                           \
-        LOCK(auto ret = self->step());;                                                            \
+        LOCK(auto ret = self->step());                                                             \
+        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_precision(widget *self, int digits) {                                        \
         LOCK(self->precision(digits));                                                             \
     }                                                                                              \
     double widget##_value(widget *self) {                                                          \
-        LOCK(auto ret = self->value());;                                                           \
+        LOCK(auto ret = self->value());                                                            \
+        ;                                                                                          \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_set_value(widget *self, double val) {                                             \

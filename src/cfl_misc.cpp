@@ -17,7 +17,8 @@ WIDGET_CLASS(Fl_Spinner)
 WIDGET_DEFINE(Fl_Spinner)
 
 double Fl_Spinner_minimum(Fl_Spinner *self) {
-    LOCK(auto ret = self->minimum()); return ret;
+    LOCK(auto ret = self->minimum());
+    return ret;
 }
 
 void Fl_Spinner_set_minimum(Fl_Spinner *self, double a) {
@@ -25,7 +26,8 @@ void Fl_Spinner_set_minimum(Fl_Spinner *self, double a) {
 }
 
 double Fl_Spinner_maximum(Fl_Spinner *self) {
-    LOCK(auto ret = self->maximum()); return ret;
+    LOCK(auto ret = self->maximum());
+    return ret;
 }
 
 void Fl_Spinner_set_maximum(Fl_Spinner *self, double a) {
@@ -41,11 +43,13 @@ void Fl_Spinner_set_step(Fl_Spinner *self, double a) {
 }
 
 double Fl_Spinner_step(Fl_Spinner *self) {
-    LOCK(auto ret = self->step()); return ret;
+    LOCK(auto ret = self->step());
+    return ret;
 }
 
 int Fl_Spinner_maxsize(const Fl_Spinner *self) {
-    LOCK(auto ret = self->maximum_size()); return ret;
+    LOCK(auto ret = self->maximum_size());
+    return ret;
 }
 
 void Fl_Spinner_set_maxsize(Fl_Spinner *self, int m) {
@@ -53,7 +57,8 @@ void Fl_Spinner_set_maxsize(Fl_Spinner *self, int m) {
 }
 
 int Fl_Spinner_text_font(const Fl_Spinner *self) {
-    LOCK(auto ret = self->textfont()); return ret;
+    LOCK(auto ret = self->textfont());
+    return ret;
 }
 
 void Fl_Spinner_set_text_font(Fl_Spinner *self, int s) {
@@ -61,7 +66,8 @@ void Fl_Spinner_set_text_font(Fl_Spinner *self, int s) {
 }
 
 int Fl_Spinner_text_size(const Fl_Spinner *self) {
-    LOCK(auto ret = self->textsize()); return ret;
+    LOCK(auto ret = self->textsize());
+    return ret;
 }
 
 void Fl_Spinner_set_text_size(Fl_Spinner *self, int s) {
@@ -69,7 +75,8 @@ void Fl_Spinner_set_text_size(Fl_Spinner *self, int s) {
 }
 
 unsigned int Fl_Spinner_text_color(const Fl_Spinner *self) {
-    LOCK(auto ret = self->textcolor()); return ret;
+    LOCK(auto ret = self->textcolor());
+    return ret;
 }
 
 void Fl_Spinner_set_text_color(Fl_Spinner *self, unsigned int n) {
@@ -77,7 +84,8 @@ void Fl_Spinner_set_text_color(Fl_Spinner *self, unsigned int n) {
 }
 
 double Fl_Spinner_value(const Fl_Spinner *self) {
-    LOCK(auto ret = self->value()); return ret;
+    LOCK(auto ret = self->value());
+    return ret;
 }
 
 void Fl_Spinner_set_value(Fl_Spinner *self, double val) {
@@ -113,11 +121,13 @@ void Fl_Chart_set_bounds(Fl_Chart *self, double a, double b) {
 }
 
 int Fl_Chart_size(const Fl_Chart *self) {
-    LOCK(auto ret = self->size()); return ret;
+    LOCK(auto ret = self->size());
+    return ret;
 }
 
 int Fl_Chart_maxsize(const Fl_Chart *self) {
-    LOCK(auto ret = self->maxsize()); return ret;
+    LOCK(auto ret = self->maxsize());
+    return ret;
 }
 
 void Fl_Chart_set_maxsize(Fl_Chart *self, int m) {
@@ -125,7 +135,8 @@ void Fl_Chart_set_maxsize(Fl_Chart *self, int m) {
 }
 
 int Fl_Chart_text_font(const Fl_Chart *self) {
-    LOCK(auto ret = self->textfont()); return ret;
+    LOCK(auto ret = self->textfont());
+    return ret;
 }
 
 void Fl_Chart_set_text_font(Fl_Chart *self, int s) {
@@ -133,7 +144,8 @@ void Fl_Chart_set_text_font(Fl_Chart *self, int s) {
 }
 
 int Fl_Chart_text_size(const Fl_Chart *self) {
-    LOCK(auto ret = self->textsize()); return ret;
+    LOCK(auto ret = self->textsize());
+    return ret;
 }
 
 void Fl_Chart_set_text_size(Fl_Chart *self, int s) {
@@ -141,7 +153,8 @@ void Fl_Chart_set_text_size(Fl_Chart *self, int s) {
 }
 
 unsigned int Fl_Chart_text_color(const Fl_Chart *self) {
-    LOCK(auto ret = self->textcolor()); return ret;
+    LOCK(auto ret = self->textcolor());
+    return ret;
 }
 
 void Fl_Chart_set_text_color(Fl_Chart *self, unsigned int n) {
@@ -149,7 +162,8 @@ void Fl_Chart_set_text_color(Fl_Chart *self, unsigned int n) {
 }
 
 int Fl_Chart_is_autosize(const Fl_Chart *self) {
-    LOCK(auto ret = self->autosize()); return ret;
+    LOCK(auto ret = self->autosize());
+    return ret;
 }
 
 void Fl_Chart_make_autosize(Fl_Chart *self, int n) {
@@ -161,7 +175,8 @@ WIDGET_CLASS(Fl_Progress)
 WIDGET_DEFINE(Fl_Progress)
 
 double Fl_Progress_minimum(Fl_Progress *self) {
-    LOCK(auto ret = self->minimum()); return ret;
+    LOCK(auto ret = self->minimum());
+    return ret;
 }
 
 void Fl_Progress_set_minimum(Fl_Progress *self, double a) {
@@ -169,7 +184,8 @@ void Fl_Progress_set_minimum(Fl_Progress *self, double a) {
 }
 
 double Fl_Progress_maximum(Fl_Progress *self) {
-    LOCK(auto ret = self->maximum()); return ret;
+    LOCK(auto ret = self->maximum());
+    return ret;
 }
 
 void Fl_Progress_set_maximum(Fl_Progress *self, double a) {
@@ -177,7 +193,8 @@ void Fl_Progress_set_maximum(Fl_Progress *self, double a) {
 }
 
 double Fl_Progress_value(Fl_Progress *self) {
-    LOCK(auto ret = self->value()); return ret;
+    LOCK(auto ret = self->value());
+    return ret;
 }
 
 void Fl_Progress_set_value(Fl_Progress *self, double val) {
@@ -185,7 +202,8 @@ void Fl_Progress_set_value(Fl_Progress *self, double val) {
 }
 
 float Fl_Tooltip_delay(void) {
-    LOCK(auto ret = Fl_Tooltip::delay()); return ret;
+    LOCK(auto ret = Fl_Tooltip::delay());
+    return ret;
 }
 
 void Fl_Tooltip_set_delay(float f) {
@@ -193,7 +211,8 @@ void Fl_Tooltip_set_delay(float f) {
 }
 
 float Fl_Tooltip_hidedelay(void) {
-    LOCK(auto ret = Fl_Tooltip::hidedelay()); return ret;
+    LOCK(auto ret = Fl_Tooltip::hidedelay());
+    return ret;
 }
 
 void Fl_Tooltip_set_hidedelay(float f) {
@@ -201,7 +220,8 @@ void Fl_Tooltip_set_hidedelay(float f) {
 }
 
 float Fl_Tooltip_hoverdelay(void) {
-    LOCK(auto ret = Fl_Tooltip::hoverdelay()); return ret;
+    LOCK(auto ret = Fl_Tooltip::hoverdelay());
+    return ret;
 }
 
 void Fl_Tooltip_set_hoverdelay(float f) {
@@ -209,7 +229,8 @@ void Fl_Tooltip_set_hoverdelay(float f) {
 }
 
 int Fl_Tooltip_enabled(void) {
-    LOCK(auto ret = Fl_Tooltip::enabled()); return ret;
+    LOCK(auto ret = Fl_Tooltip::enabled());
+    return ret;
 }
 
 void Fl_Tooltip_enable(int b) {
@@ -225,7 +246,8 @@ void Fl_Tooltip_enter_area(Fl_Widget *w, int X, int Y, int W, int H, const char 
 }
 
 void *Fl_Tooltip_current_widget(void) {
-    LOCK(auto ret = Fl_Tooltip::current()); return ret;
+    LOCK(auto ret = Fl_Tooltip::current());
+    return ret;
 }
 
 void Fl_Tooltip_set_current_widget(Fl_Widget *w) {
@@ -233,7 +255,8 @@ void Fl_Tooltip_set_current_widget(Fl_Widget *w) {
 }
 
 int Fl_Tooltip_font(void) {
-    LOCK(auto ret = Fl_Tooltip::font()); return ret;
+    LOCK(auto ret = Fl_Tooltip::font());
+    return ret;
 }
 
 void Fl_Tooltip_set_font(int i) {
@@ -241,7 +264,8 @@ void Fl_Tooltip_set_font(int i) {
 }
 
 int Fl_Tooltip_font_size(void) {
-    LOCK(auto ret = Fl_Tooltip::size()); return ret;
+    LOCK(auto ret = Fl_Tooltip::size());
+    return ret;
 }
 
 void Fl_Tooltip_set_font_size(int s) {
@@ -249,7 +273,8 @@ void Fl_Tooltip_set_font_size(int s) {
 }
 
 int Fl_Tooltip_color(void) {
-    LOCK(auto ret = Fl_Tooltip::color()); return ret;
+    LOCK(auto ret = Fl_Tooltip::color());
+    return ret;
 }
 
 void Fl_Tooltip_set_color(unsigned int c) {
@@ -257,7 +282,8 @@ void Fl_Tooltip_set_color(unsigned int c) {
 }
 
 int Fl_Tooltip_text_color(void) {
-    LOCK(auto ret = Fl_Tooltip::textcolor()); return ret;
+    LOCK(auto ret = Fl_Tooltip::textcolor());
+    return ret;
 }
 
 void Fl_Tooltip_set_text_color(unsigned int c) {
@@ -265,7 +291,8 @@ void Fl_Tooltip_set_text_color(unsigned int c) {
 }
 
 int Fl_Tooltip_margin_width(void) {
-    LOCK(auto ret = Fl_Tooltip::margin_width()); return ret;
+    LOCK(auto ret = Fl_Tooltip::margin_width());
+    return ret;
 }
 
 void Fl_Tooltip_set_margin_width(int v) {
@@ -273,7 +300,8 @@ void Fl_Tooltip_set_margin_width(int v) {
 }
 
 int Fl_Tooltip_margin_height(void) {
-    LOCK(auto ret = Fl_Tooltip::margin_height()); return ret;
+    LOCK(auto ret = Fl_Tooltip::margin_height());
+    return ret;
 }
 
 void Fl_Tooltip_set_margin_height(int v) {
@@ -281,7 +309,8 @@ void Fl_Tooltip_set_margin_height(int v) {
 }
 
 int Fl_Tooltip_wrap_width(void) {
-    LOCK(auto ret = Fl_Tooltip::wrap_width()); return ret;
+    LOCK(auto ret = Fl_Tooltip::wrap_width());
+    return ret;
 }
 
 void Fl_Tooltip_set_wrap_width(int v) {
@@ -289,7 +318,8 @@ void Fl_Tooltip_set_wrap_width(int v) {
 }
 
 void *Fl_Tooltip_current_window(void) {
-    LOCK(auto ret = (void *)Fl_Tooltip::current_window()); return ret;
+    LOCK(auto ret = (void *)Fl_Tooltip::current_window());
+    return ret;
 }
 
 WIDGET_CLASS(Fl_Help_View)
@@ -297,21 +327,24 @@ WIDGET_CLASS(Fl_Help_View)
 WIDGET_DEFINE(Fl_Help_View)
 
 const char *Fl_Help_View_directory(const Fl_Help_View *self) {
-    LOCK(auto ret = self->directory()); return ret;
+    LOCK(auto ret = self->directory());
+    return ret;
 }
 
 const char *Fl_Help_View_filename(const Fl_Help_View *self) {
-    LOCK(auto ret = self->filename()); return ret;
+    LOCK(auto ret = self->filename());
+    return ret;
 }
 
 int Fl_Help_View_find(Fl_Help_View *self, const char *s, int p) {
 
-    LOCK(auto ret =self->find(s, p));
+    LOCK(auto ret = self->find(s, p));
     return ret;
 }
 
 const char *Fl_Help_View_value(const Fl_Help_View *self) {
-    LOCK(auto ret = self->value()); return ret;
+    LOCK(auto ret = self->value());
+    return ret;
 }
 
 void Fl_Help_View_set_value(Fl_Help_View *self, const char *val) {
@@ -335,7 +368,8 @@ void Fl_Help_View_set_topline2(Fl_Help_View *self, int v) {
 }
 
 int Fl_Help_View_topline(const Fl_Help_View *self) {
-    LOCK(auto ret = self->topline()); return ret;
+    LOCK(auto ret = self->topline());
+    return ret;
 }
 
 void Fl_Help_View_set_leftline(Fl_Help_View *self, int v) {
@@ -343,7 +377,8 @@ void Fl_Help_View_set_leftline(Fl_Help_View *self, int v) {
 }
 
 int Fl_Help_View_leftline(const Fl_Help_View *self) {
-    LOCK(auto ret = self->leftline()); return ret;
+    LOCK(auto ret = self->leftline());
+    return ret;
 }
 
 void Fl_Help_View_set_text_color(Fl_Help_View *self, unsigned int c) {
@@ -351,7 +386,8 @@ void Fl_Help_View_set_text_color(Fl_Help_View *self, unsigned int c) {
 }
 
 unsigned int Fl_Help_View_text_color(Fl_Help_View *self) {
-    LOCK(auto ret = self->textcolor()); return ret;
+    LOCK(auto ret = self->textcolor());
+    return ret;
 }
 
 void Fl_Help_View_set_text_font(Fl_Help_View *self, int f) {
@@ -359,7 +395,8 @@ void Fl_Help_View_set_text_font(Fl_Help_View *self, int f) {
 }
 
 int Fl_Help_View_text_font(Fl_Help_View *self) {
-    LOCK(auto ret = self->textfont()); return ret;
+    LOCK(auto ret = self->textfont());
+    return ret;
 }
 
 void Fl_Help_View_set_text_size(Fl_Help_View *self, int s) {
@@ -367,11 +404,13 @@ void Fl_Help_View_set_text_size(Fl_Help_View *self, int s) {
 }
 
 int Fl_Help_View_text_size(Fl_Help_View *self) {
-    LOCK(auto ret = self->textsize()); return ret;
+    LOCK(auto ret = self->textsize());
+    return ret;
 }
 
 int Fl_Help_View_scrollbar_size(const Fl_Help_View *self) {
-    LOCK(auto ret = self->scrollbar_size()); return ret;
+    LOCK(auto ret = self->scrollbar_size());
+    return ret;
 }
 
 void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize) {
@@ -380,7 +419,7 @@ void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize) {
 
 int Fl_Help_View_load(Fl_Help_View *self, const char *f) {
 
-    LOCK(auto ret =self->load(f));
+    LOCK(auto ret = self->load(f));
     return ret;
 }
 
@@ -393,7 +432,8 @@ void Fl_Input_Choice_set_down_box(Fl_Input_Choice *self, int box) {
 }
 
 int Fl_Input_Choice_down_box(const Fl_Input_Choice *self) {
-    LOCK(auto ret = self->down_box()); return ret;
+    LOCK(auto ret = self->down_box());
+    return ret;
 }
 
 void Fl_Input_Choice_add(Fl_Input_Choice *self, const char *s) {
@@ -405,7 +445,8 @@ void Fl_Input_Choice_clear(Fl_Input_Choice *self) {
 }
 
 const char *Fl_Input_Choice_value(const Fl_Input_Choice *self) {
-    LOCK(auto ret = self->value()); return ret;
+    LOCK(auto ret = self->value());
+    return ret;
 }
 
 void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val) {
@@ -417,11 +458,13 @@ void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val) {
 }
 
 void *Fl_Input_Choice_input(Fl_Input_Choice *self) {
-    LOCK(auto ret = self->input()); return ret;
+    LOCK(auto ret = self->input());
+    return ret;
 }
 
 void *Fl_Input_Choice_menu_button(Fl_Input_Choice *self) {
-    LOCK(auto ret = self->menubutton()); return ret;
+    LOCK(auto ret = self->menubutton());
+    return ret;
 }
 
 void Fl_Input_Choice_set_text_color(Fl_Input_Choice *self, unsigned int c) {
@@ -429,7 +472,8 @@ void Fl_Input_Choice_set_text_color(Fl_Input_Choice *self, unsigned int c) {
 }
 
 unsigned int Fl_Input_Choice_text_color(Fl_Input_Choice *self) {
-    LOCK(auto ret = self->textcolor()); return ret;
+    LOCK(auto ret = self->textcolor());
+    return ret;
 }
 
 void Fl_Input_Choice_set_text_font(Fl_Input_Choice *self, int f) {
@@ -437,7 +481,8 @@ void Fl_Input_Choice_set_text_font(Fl_Input_Choice *self, int f) {
 }
 
 int Fl_Input_Choice_text_font(Fl_Input_Choice *self) {
-    LOCK(auto ret = self->textfont()); return ret;
+    LOCK(auto ret = self->textfont());
+    return ret;
 }
 
 void Fl_Input_Choice_set_text_size(Fl_Input_Choice *self, int s) {
@@ -445,5 +490,6 @@ void Fl_Input_Choice_set_text_size(Fl_Input_Choice *self, int s) {
 }
 
 int Fl_Input_Choice_text_size(Fl_Input_Choice *self) {
-    LOCK(auto ret = self->textsize()); return ret;
+    LOCK(auto ret = self->textsize());
+    return ret;
 }

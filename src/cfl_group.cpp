@@ -178,7 +178,7 @@ WIDGET_CLASS(Fl_Flex)
 
 WIDGET_DEFINE(Fl_Flex)
 
-void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget* w, int size) {
+void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget *w, int size) {
     LOCK(self->setSize(w, size));
 }
 

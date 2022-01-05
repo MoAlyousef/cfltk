@@ -170,7 +170,7 @@ void Fl_Help_Dialog_hide(Fl_Help_Dialog *self) {
 
 int Fl_Help_Dialog_load(Fl_Help_Dialog *self, const char *f) {
 
-    LOCK(auto ret =self->load(f));
+    LOCK(auto ret = self->load(f));
     return ret;
 }
 

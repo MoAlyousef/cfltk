@@ -151,10 +151,10 @@ int Fl_Text_Buffer_search_backward(const Fl_Text_Buffer *self, int start_pos,
                                    const char *search_string, int *found_pos, int match_case);
 
 int Fl_Text_Buffer_findchar_forward(const Fl_Text_Buffer *self, int start_pos,
-                                  unsigned int search_char, int *found_pos);
+                                    unsigned int search_char, int *found_pos);
 
 int Fl_Text_Buffer_findchar_backward(const Fl_Text_Buffer *self, int start_pos,
-                                   unsigned int search_char, int *found_pos);
+                                     unsigned int search_char, int *found_pos);
 
 WIDGET_DECLARE(Fl_Text_Display)
 
