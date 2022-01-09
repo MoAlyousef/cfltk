@@ -238,6 +238,8 @@ void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align);
 
 void Fl_draw_check(int x, int y, int w, int h, unsigned int col);
 
+int Fl_add_symbol(const char *name, void (*drawit)(unsigned int), int scalable);
+
 #ifdef __cplusplus
 }
 #endif
