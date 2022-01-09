@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #ifdef _WIN32
 #ifndef _WIN32_WINNT
@@ -53,64 +54,14 @@ static void v_unload_private_font(const char *pf) {
 #define v_unload_private_font(PATH) FcConfigAppFontClear(NULL)
 #endif
 
-#if !defined(__ANDROID__)
-#define STB_TRUETYPE_IMPLEMENTATION
-#include "stb_truetype.h"
-#endif
-
 #if defined(_MSC_VER) && _MSC_VER < 1900
 #define snprintf _snprintf
 #endif
 
-const char *Fl_load_font(const char *path) {
-#if !defined(__ANDROID__)
-    stbtt_fontinfo font;
-    FILE *fptr = fopen(path, "rb");
-    if (!fptr)
-        return nullptr;
-    if (fseek(fptr, 0, SEEK_END)) {
-        fclose(fptr);
-        return nullptr;
-    }
-    size_t fsize = ftell(fptr);
-    rewind(fptr);
-    unsigned char *buffer = (unsigned char *)malloc(fsize);
-    if (!buffer) {
-        fclose(fptr);
-        return nullptr;
-    }
-    size_t sz = fread(buffer, 1, fsize, fptr);
-    fclose(fptr);
-    if (sz != fsize) {
-        free(buffer);
-        return nullptr;
-    }
-    int init_ret = stbtt_InitFont(&font, buffer, stbtt_GetFontOffsetForIndex(buffer, 0));
-    if (!init_ret) {
-        free(buffer);
-        return nullptr;
-    }
-    int length = 0;
-
-    const char *info = stbtt_GetFontNameString(&font, &length, STBTT_PLATFORM_ID_MAC,
-                                               STBTT_MAC_EID_ROMAN, STBTT_MAC_LANG_ENGLISH, 4);
-
-    char *str = (char *)malloc(length + 1);
-    snprintf(str, length + 1, "%s", info);
-    auto ret = i_load_private_font(path);
-    int f = 16;
-    if (ret) {
-        Fl::set_font(f, str);
-    }
-    free(buffer);
-    return str;
-#else
-    return NULL;
-#endif
+int Fl_load_font(const char *path) {
+    return i_load_private_font(path);
 }
 
 void Fl_unload_font(const char *path) {
-#if !defined(__ANDROID__)
     v_unload_private_font(path);
-#endif
 }

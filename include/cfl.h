@@ -211,7 +211,7 @@ int Fl_api_version(void);
 
 int Fl_abi_version(void);
 
-const char *Fl_load_font(const char *path);
+int Fl_load_font(const char *path);
 
 void Fl_unload_font(const char *path);
 
