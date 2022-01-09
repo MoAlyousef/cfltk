@@ -204,14 +204,6 @@ int Fl_compose_state(void) {
     return Fl::compose_state;
 }
 
-void Fl_reset_marked_text(void) {
-    Fl::reset_marked_text();
-}
-
-void Fl_insertion_point_location(int x, int y, int height) {
-    Fl::insertion_point_location(x, y, height);
-}
-
 void Fl_copy(const char *stuff, int len, int destination) {
     Fl::copy(stuff, len, destination);
 }

@@ -85,10 +85,6 @@ void Fl_compose_reset(void);
 
 int Fl_compose_state(void);
 
-void Fl_reset_marked_text(void);
-
-void Fl_insertion_point_location(int x, int y, int height);
-
 void Fl_copy(const char *stuff, int len, int destination);
 
 void Fl_paste_text(Fl_Widget *, int src);
