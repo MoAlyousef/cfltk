@@ -565,5 +565,5 @@ void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {
 }
 
 int Fl_add_symbol(const char *name, void (*drawit)(unsigned int), int scalable) {
-    fl_add_symbol(name, drawit, scalable);
+    return fl_add_symbol(name, drawit, scalable);
 }
