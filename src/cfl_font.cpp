@@ -59,9 +59,15 @@ static void v_unload_private_font(const char *pf) {
 #endif
 
 int Fl_load_font(const char *path) {
+#ifndef __ANDROID__
     return i_load_private_font(path);
+#else
+    return 0;
+#endif
 }
 
 void Fl_unload_font(const char *path) {
+#ifndef __ANDROID__
     v_unload_private_font(path);
+#endif
 }
