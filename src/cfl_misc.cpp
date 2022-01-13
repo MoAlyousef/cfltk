@@ -92,6 +92,15 @@ void Fl_Spinner_set_value(Fl_Spinner *self, double val) {
     LOCK(self->value(val));
 }
 
+void Fl_Spinner_set_wrap(Fl_Spinner *self, int flag) {
+    LOCK(self->wrap(flag));
+}
+
+int Fl_Spinner_wrap(const Fl_Spinner *self) {
+    LOCK(auto ret = self->wrap());
+    return ret;
+}
+
 WIDGET_CLASS(Fl_Clock)
 
 WIDGET_DEFINE(Fl_Clock)

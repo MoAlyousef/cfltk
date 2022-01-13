@@ -43,6 +43,10 @@ double Fl_Spinner_value(const Fl_Spinner *);
 
 void Fl_Spinner_set_value(Fl_Spinner *, double);
 
+void Fl_Spinner_set_wrap(Fl_Spinner *self, int flag);
+
+int Fl_Spinner_wrap(const Fl_Spinner *self);
+
 WIDGET_DECLARE(Fl_Clock)
 
 WIDGET_DECLARE(Fl_Chart)
