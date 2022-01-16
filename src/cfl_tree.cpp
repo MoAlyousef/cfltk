@@ -623,6 +623,15 @@ void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item, int (*cb)(Fl_Tree_Item *
     LOCK(((Fl_Tree_Item_Derived *)item)->cb = cb; ((Fl_Tree_Item_Derived *)item)->draw_data = data;)
 }
 
+void Fl_Tree_Item_set_user_data(Fl_Tree_Item *item, void *data) {
+    LOCK(item->user_data(data));
+}
+
+void *Fl_Tree_Item_user_data(const Fl_Tree_Item *item) {
+    LOCK(auto ret = item->user_data());
+    return ret;
+}
+
 int Fl_Tree_Item_x(const Fl_Tree_Item *self) {
     LOCK(auto ret = self->x());
     return ret;

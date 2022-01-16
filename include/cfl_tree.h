@@ -261,6 +261,10 @@ Fl_Tree_Item *Fl_Tree_Item_new(Fl_Tree *tree, const char *txt);
 void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item, int (*cb)(Fl_Tree_Item *self, int, void *),
                                     void *data);
 
+void Fl_Tree_Item_set_user_data(Fl_Tree_Item *item, void *data);
+
+void *Fl_Tree_Item_user_data(const Fl_Tree_Item *item);
+
 int Fl_Tree_Item_x(const Fl_Tree_Item *self);
 
 int Fl_Tree_Item_y(const Fl_Tree_Item *self);
