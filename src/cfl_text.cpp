@@ -619,6 +619,14 @@ int Fl_Text_Editor_tab_nav(const Fl_Text_Editor *self) {
     return ret;
 }
 
+void Fl_Text_Editor_add_key_binding(Fl_Text_Editor *self, int key, int state, int (*kf)(int, Fl_Text_Editor *)) {
+    LOCK(self->add_key_binding(key, state, kf));
+}
+
+void Fl_Text_Editor_remove_key_binding(Fl_Text_Editor *self, int key, int state) {
+    LOCK(self->remove_key_binding(key, state));
+}
+
 WIDGET_CLASS(Fl_Simple_Terminal)
 
 WIDGET_DEFINE(Fl_Simple_Terminal)
