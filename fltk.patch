@@ -1,23 +1,3 @@
-diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 1a614bee4..e655820b7 100644
---- a/src/CMakeLists.txt
-+++ b/src/CMakeLists.txt
-@@ -303,6 +303,7 @@ elseif (ANDROID)
- 
-   set (DRIVER_FILES
-     drivers/Android/Fl_Android_Application.cxx
-+    drivers/Posix/Fl_Posix_System_Driver.cxx
-     drivers/Android/Fl_Android_System_Driver.cxx
-     drivers/Android/Fl_Android_Screen_Driver.cxx
-     drivers/Android/Fl_Android_Screen_Keyboard.cxx
-@@ -314,6 +315,7 @@ elseif (ANDROID)
-   )
-   set (DRIVER_HEADER_FILES
-     drivers/Android/Fl_Android_Application.H
-+    drivers/Posix/Fl_Posix_System_Driver.H
-     drivers/Android/Fl_Android_System_Driver.H
-     drivers/Android/Fl_Android_Screen_Driver.H
-     drivers/Android/Fl_Android_Window_Driver.H
 diff --git a/src/Fl_win32.cxx b/src/Fl_win32.cxx
 index 3ca0744cc..4daedefbb 100644
 --- a/src/Fl_win32.cxx
@@ -55,35 +35,3 @@ index 3ca0744cc..4daedefbb 100644
    }
  };
  static Fl_Win32_At_Exit win32_at_exit;
-diff --git a/src/drivers/Android/Fl_Android_System_Driver.H b/src/drivers/Android/Fl_Android_System_Driver.H
-index 5e6dafb1e..a985d9324 100644
---- a/src/drivers/Android/Fl_Android_System_Driver.H
-+++ b/src/drivers/Android/Fl_Android_System_Driver.H
-@@ -25,6 +25,7 @@
- #include <string.h>
- #include <FL/fl_string.h>
- #include "../../Fl_System_Driver.H"
-+#include "../Posix/Fl_Posix_System_Driver.H"
- #include <stdarg.h>
- 
- /*
-@@ -38,7 +39,7 @@
-  - multithreading
-  */
- 
--class Fl_Android_System_Driver : public Fl_System_Driver
-+class Fl_Android_System_Driver : public Fl_Posix_System_Driver
- {
- #if 0
- public:
-@@ -122,9 +123,8 @@ public:
-   virtual void add_fd(int fd, Fl_FD_Handler cb, void* = 0);
-   virtual void remove_fd(int, int when);
-   virtual void remove_fd(int);
--  virtual void gettime(time_t *sec, int *usec);
--#endif
-   virtual char *strdup(const char *s) {return ::strdup(s);}
-+#endif
- };
- 
- #endif // FL_ANDROID_SYSTEM_DRIVER_H
