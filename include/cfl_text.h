@@ -26,7 +26,7 @@ extern "C" {
     int widget##_move_down(widget *);                                                              \
     void widget##_show_cursor(widget *, int boolean);                                              \
     void widget##_set_highlight_data(widget *self, void *sbuff, unsigned int *color, int *font,    \
-                                     int *fontsz, int *attr, int *bgcolor, int sz);                \
+                                     int *fontsz, unsigned *attr, unsigned int *bgcolor, int sz);  \
     void widget##_set_cursor_style(widget *, int style);                                           \
     void widget##_set_cursor_color(widget *, unsigned int color);                                  \
     void widget##_set_scrollbar_size(widget *, int newSize);                                       \

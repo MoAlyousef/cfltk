@@ -74,7 +74,7 @@
         LOCK(if (boolean) self->show_cursor(); else self->hide_cursor());                          \
     }                                                                                              \
     void widget##_set_highlight_data(widget *self, void *sbuff, unsigned int *color, int *font,    \
-                                     int *fontsz, int *attr, int *bgcolor, int sz) {               \
+                                     int *fontsz, unsigned *attr, unsigned int *bgcolor, int sz) { \
         Fl_Text_Display::Style_Table_Entry *stable = new Fl_Text_Display::Style_Table_Entry[sz];   \
         if (!stable)                                                                               \
             return;                                                                                \
