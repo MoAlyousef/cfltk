@@ -79,7 +79,7 @@
         if (!stable)                                                                               \
             return;                                                                                \
         for (int i = 0; i < sz; ++i) {                                                             \
-            stable[i] = {color[i], font[i], fontsz[i], attr[i], bgcolor[i], 0};                    \
+            stable[i] = {color[i], font[i], fontsz[i], attr[i], bgcolor[i]};                       \
         }                                                                                          \
         LOCK(self->highlight_data((Fl_Text_Buffer *)sbuff, stable, sz, 'A', 0, 0));                \
     }                                                                                              \
