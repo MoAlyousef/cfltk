@@ -74,12 +74,12 @@
         LOCK(if (boolean) self->show_cursor(); else self->hide_cursor());                          \
     }                                                                                              \
     void widget##_set_highlight_data(widget *self, void *sbuff, unsigned int *color, int *font,    \
-                                     int *fontsz, int sz) {                                        \
+                                     int *fontsz, int *attr, int *bgcolor, int sz) {               \
         Fl_Text_Display::Style_Table_Entry *stable = new Fl_Text_Display::Style_Table_Entry[sz];   \
         if (!stable)                                                                               \
             return;                                                                                \
         for (int i = 0; i < sz; ++i) {                                                             \
-            stable[i] = {color[i], font[i], fontsz[i], 0};                                         \
+            stable[i] = {color[i], font[i], fontsz[i], attr[i], bgcolor[i], 0};                    \
         }                                                                                          \
         LOCK(self->highlight_data((Fl_Text_Buffer *)sbuff, stable, sz, 'A', 0, 0));                \
     }                                                                                              \
@@ -619,7 +619,8 @@ int Fl_Text_Editor_tab_nav(const Fl_Text_Editor *self) {
     return ret;
 }
 
-void Fl_Text_Editor_add_key_binding(Fl_Text_Editor *self, int key, int state, int (*kf)(int, Fl_Text_Editor *)) {
+void Fl_Text_Editor_add_key_binding(Fl_Text_Editor *self, int key, int state,
+                                    int (*kf)(int, Fl_Text_Editor *)) {
     LOCK(self->add_key_binding(key, state, kf));
 }
 
