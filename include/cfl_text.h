@@ -116,6 +116,20 @@ void Fl_Text_Buffer_remove_selection(Fl_Text_Buffer *self);
 
 void Fl_Text_Buffer_replace_selection(Fl_Text_Buffer *self, const char *text);
 
+void Fl_Text_Buffer_secondary_select(Fl_Text_Buffer *self, int start, int end);
+
+int Fl_Text_Buffer_secondary_selected(Fl_Text_Buffer *self);
+
+void Fl_Text_Buffer_secondary_unselect(Fl_Text_Buffer *self);
+
+int Fl_Text_Buffer_secondary_selection_position(Fl_Text_Buffer *self, int *start, int *end);
+
+char *Fl_Text_Buffer_secondary_selection_text(Fl_Text_Buffer *self);
+
+void Fl_Text_Buffer_remove_secondary_selection(Fl_Text_Buffer *self);
+
+void Fl_Text_Buffer_replace_secondary_selection(Fl_Text_Buffer *self, const char *text);
+
 void Fl_Text_Buffer_highlight(Fl_Text_Buffer *self, int start, int end);
 
 int Fl_Text_Buffer_is_highlighted(Fl_Text_Buffer *self);
