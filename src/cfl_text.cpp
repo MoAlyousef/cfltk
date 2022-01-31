@@ -205,6 +205,27 @@
     int widget##_wrapped_row(const widget *self, int row) {                                        \
         LOCK(auto ret = self->wrapped_row(row));                                                   \
         return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_grammar_underline_color(widget *self, unsigned int color) {                  \
+        LOCK(self->grammar_underline_color((Fl_Color)color));                                      \
+    }                                                                                              \
+    unsigned int widget##_grammar_underline_color(const widget *self) {                            \
+        LOCK(auto ret = self->grammar_underline_color());                                          \
+        return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_spelling_underline_color(widget *self, unsigned int color) {                 \
+        LOCK(self->spelling_underline_color((Fl_Color)color));                                     \
+    }                                                                                              \
+    unsigned int widget##_spelling_underline_color(const widget *self) {                           \
+        LOCK(auto ret = self->spelling_underline_color());                                         \
+        return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_secondary_selection_color(widget *self, unsigned int color) {                \
+        LOCK(self->secondary_selection_color((Fl_Color)color));                                    \
+    }                                                                                              \
+    unsigned int widget##_secondary_selection_color(const widget *self) {                          \
+        LOCK(auto ret = self->secondary_selection_color());                                        \
+        return ret;                                                                                \
     }
 
 Fl_Text_Buffer *Fl_Text_Buffer_new(void) {
@@ -315,7 +336,6 @@ void Fl_Text_Buffer_remove_selection(Fl_Text_Buffer *self) {
 void Fl_Text_Buffer_replace_selection(Fl_Text_Buffer *self, const char *text) {
     LOCK(self->replace_selection(text));
 }
-
 
 void Fl_Text_Buffer_secondary_select(Fl_Text_Buffer *self, int start, int end) {
     LOCK(self->secondary_select(start, end));

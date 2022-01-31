@@ -60,7 +60,13 @@ extern "C" {
     int widget##_in_selection(const widget *self, int x, int y);                                   \
     void widget##_wrap_mode(widget *self, int wrap, int wrap_margin);                              \
     int widget##_wrapped_column(const widget *self, int row, int column);                          \
-    int widget##_wrapped_row(const widget *self, int row);
+    int widget##_wrapped_row(const widget *self, int row);                                         \
+    void widget##_set_grammar_underline_color(widget *self, unsigned int color);                   \
+    unsigned int widget##_grammar_underline_color(const widget *self);                             \
+    void widget##_set_spelling_underline_color(widget *self, unsigned int color);                  \
+    unsigned int widget##_spelling_underline_color(const widget *self);                            \
+    void widget##_set_secondary_selection_color(widget *self, unsigned int color);                 \
+    unsigned int widget##_secondary_selection_color(const widget *self);
 
 typedef void (*Fl_Text_Modify_Cb)(int pos, int nInserted, int nDeleted, int nRestyled,
                                   const char *deletedText, void *cbArg);
