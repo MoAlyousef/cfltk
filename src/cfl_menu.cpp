@@ -345,6 +345,17 @@ const Fl_Menu_Item *Fl_Menu_Item_at(const Fl_Menu_Item *self, int idx) {
     return ret;
 }
 
+int Fl_Menu_Item_add(Fl_Menu_Item *self, const char *name, int shortcut, Fl_Callback *cb,
+                     void *data, int flag) {
+    LOCK(auto ret = self->add(name, shortcut, cb, data, flag));
+    return ret;
+}
+int Fl_Menu_Item_insert(Fl_Menu_Item *self, int index, const char *name, int shortcut,
+                        Fl_Callback *cb, void *data, int flag) {
+    LOCK(auto ret = self->insert(index, name, shortcut, cb, data, flag));
+    return ret;
+}
+
 void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut) {
 #ifdef __APPLE__
     LOCK(fl_mac_set_about(cb, user_data, shortcut));
