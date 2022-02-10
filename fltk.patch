@@ -1,8 +1,8 @@
 diff --git a/src/Fl_win32.cxx b/src/Fl_win32.cxx
-index 3ca0744cc..4daedefbb 100644
+index 6e9e8933f..9de5ca5bf 100644
 --- a/src/Fl_win32.cxx
 +++ b/src/Fl_win32.cxx
-@@ -603,19 +603,19 @@ class Fl_Win32_At_Exit {
+@@ -610,16 +610,16 @@ class Fl_Win32_At_Exit {
  public:
    Fl_Win32_At_Exit() {}
    ~Fl_Win32_At_Exit() {
@@ -16,9 +16,6 @@ index 3ca0744cc..4daedefbb 100644
 -    // to work around it anyway.
 -    if (clipboard_wnd != NULL)
 -      fl_clipboard_notify_untarget(clipboard_wnd);
--#if USE_GDIPLUS
--    Fl_GDIplus_Graphics_Driver::shutdown();
--#endif
 +//     fl_free_fonts(); // do some Windows cleanup
 +//     fl_cleanup_pens();
 +//     OleUninitialize();
@@ -29,9 +26,38 @@ index 3ca0744cc..4daedefbb 100644
 +//     // to work around it anyway.
 +//     if (clipboard_wnd != NULL)
 +//       fl_clipboard_notify_untarget(clipboard_wnd);
-+// #if USE_GDIPLUS
-+//     Fl_GDIplus_Graphics_Driver::shutdown();
-+// #endif
-   }
- };
- static Fl_Win32_At_Exit win32_at_exit;
+ #if USE_GDIPLUS
+     Fl_GDIplus_Graphics_Driver::shutdown();
+ #endif
+@@ -1208,6 +1208,8 @@ static Fl_Window *resize_bug_fix;
+ extern void fl_save_pen(void);
+ extern void fl_restore_pen(void);
+ 
++static bool left_window = true;
++
+ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+ 
+   // Copy the message to fl_msg so add_handler code can see it.
+@@ -1351,6 +1353,14 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
+         return 0;
+ 
+       case WM_MOUSEMOVE:
++      if (left_window) {
++          Fl_Window *tw = window;
++          while (tw->parent()) // find top level window
++            tw = tw->window();
++          Fl::handle(FL_ENTER, tw);
++          left_window = false;
++          return 0;
++        }
+ #ifdef USE_TRACK_MOUSE
+         if (track_mouse_win != window) {
+           TRACKMOUSEEVENT tme;
+@@ -1370,6 +1380,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
+           while (tw->parent()) // find top level window
+             tw = tw->window();
+           Fl::belowmouse(0);
++          left_window = true;
+           Fl::handle(FL_LEAVE, tw);
+         }
+         track_mouse_win = 0; // force TrackMouseEvent() restart
