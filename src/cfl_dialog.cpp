@@ -494,4 +494,9 @@ void Fl_message_title_default(const char *title) {
     LOCK(fl_message_title_default(title));
 }
 
+void *Fl_message_icon(void) {
+    LOCK(auto ret = fl_message_icon());
+    return ret;
+}
+
 #undef LOCK

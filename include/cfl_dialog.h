@@ -219,6 +219,8 @@ void Fl_message_title(const char *title);
 
 void Fl_message_title_default(const char *title);
 
+void *Fl_message_icon(void);
+
 #ifdef __cplusplus
 }
 #endif
