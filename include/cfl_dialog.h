@@ -208,6 +208,18 @@ void Fl_File_Chooser_set_show_label(const char *msg);
 
 void Fl_File_Chooser_set_hidden_label(const char *msg);
 
+void Fl_File_Chooser_set_position(Fl_File_Chooser *self, int x, int y);
+
+void Fl_File_Chooser_set_size(Fl_File_Chooser *self, int w, int h);
+
+int Fl_File_Chooser_x(const Fl_File_Chooser *self);
+
+int Fl_File_Chooser_y(const Fl_File_Chooser *self);
+
+int Fl_File_Chooser_w(const Fl_File_Chooser *self);
+
+int Fl_File_Chooser_h(const Fl_File_Chooser *self);
+
 char *Fl_dir_chooser(const char *message, const char *fname, int relative);
 
 char *Fl_file_chooser(const char *message, const char *pat, const char *fname, int relative);

@@ -470,6 +470,34 @@ void Fl_File_Chooser_set_hidden_label(const char *msg) {
     LOCK(Fl_File_Chooser::hidden_label = msg)
 }
 
+void Fl_File_Chooser_set_position(Fl_File_Chooser *self, int x, int y) {
+    LOCK(self->position(x, y));
+}
+
+void Fl_File_Chooser_set_size(Fl_File_Chooser *self, int w, int h) {
+    LOCK(self->size(w, h));
+}
+
+int Fl_File_Chooser_x(const Fl_File_Chooser *self) {
+    LOCK(auto ret = self->x());
+    return ret;
+}
+
+int Fl_File_Chooser_y(const Fl_File_Chooser *self) {
+    LOCK(auto ret = self->y());
+    return ret;
+}
+
+int Fl_File_Chooser_w(const Fl_File_Chooser *self) {
+    LOCK(auto ret = self->w());
+    return ret;
+}
+
+int Fl_File_Chooser_h(const Fl_File_Chooser *self) {
+    LOCK(auto ret = self->h());
+    return ret;
+}
+
 char *Fl_dir_chooser(const char *message, const char *fname, int relative) {
     LOCK(auto ret = fl_dir_chooser(message, fname, relative));
     return ret;
