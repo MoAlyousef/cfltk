@@ -239,6 +239,8 @@ int Fl_message_hotspot(void);
 
 void Fl_message_set_font(int f, int s);
 
+void Fl_message_icon_label(const char *label);
+
 #ifdef __cplusplus
 }
 #endif

@@ -540,4 +540,8 @@ void Fl_message_set_font(int f, int s) {
     LOCK(fl_message_font((Fl_Font)f, (Fl_Fontsize)s));
 }
 
+void Fl_message_icon_label(const char *label) {
+    LOCK(fl_message_icon_label(label));
+}
+
 #undef LOCK
