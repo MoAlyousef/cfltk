@@ -233,6 +233,12 @@ void Fl_message_title_default(const char *title);
 
 void *Fl_message_icon(void);
 
+void Fl_message_set_hotspot(int enable);
+
+int Fl_message_hotspot(void);
+
+void Fl_message_set_font(int f, int s);
+
 #ifdef __cplusplus
 }
 #endif

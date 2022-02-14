@@ -527,4 +527,17 @@ void *Fl_message_icon(void) {
     return ret;
 }
 
+void Fl_message_set_hotspot(int enable) {
+    LOCK(fl_message_hotspot(enable));
+}
+
+int Fl_message_hotspot(void) {
+    LOCK(auto ret = fl_message_hotspot());
+    return ret;
+}
+
+void Fl_message_set_font(int f, int s) {
+    LOCK(fl_message_font((Fl_Font)f, (Fl_Fontsize)s));
+}
+
 #undef LOCK
