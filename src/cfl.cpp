@@ -273,6 +273,10 @@ void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned cha
     Fl::set_color(c, r, g, b);
 }
 
+void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+    Fl::set_color(c, r, g, b, a);
+}
+
 const char *Fl_get_font(int idx) {
     return Fl::get_font(idx);
 }

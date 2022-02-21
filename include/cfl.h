@@ -115,6 +115,8 @@ unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b)
 
 void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned char b);
 
+void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+
 const char *Fl_get_font(int idx);
 
 const char *Fl_get_font_name(int idx);
