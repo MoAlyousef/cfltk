@@ -6,9 +6,10 @@
 #elif __APPLE__
 extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #elif __ANDROID__
-#else
+#elif FLTK_USE_X11
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
+#else
 #endif
 
 #include <FL/Enumerations.H>
@@ -60,11 +61,12 @@ struct Window_Derived : public Widget_Derived<Win> {
         cfltk_setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
 #elif defined(__ANDROID__)
         // Do nothing
-#else
+#elif defined(FLTK_USE_X11)
         uint32_t cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
         Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
+#else                        
 #endif
         alpha_ = alpha;
     }
@@ -232,7 +234,7 @@ Fl_Window *Fl_Window_find_by_handle(void *handle) {
 
 winid resolve_raw_handle(void *handle) {
     winid w;
-#if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
+#if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__) || defined(FLTK_USE_WAYLAND)
     w.opaque = *(Window *)handle;
 #else
     w.x_id = *(Window *)handle;
@@ -250,7 +252,7 @@ void *Fl_display(void) {
 }
 
 void *Fl_gc(void) {
-#if !defined(__ANDROID__)
+#if !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
     return fl_gc;
 #endif
     return NULL;
@@ -263,7 +265,7 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
     if (!handle)
         return;
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__)
+#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
     LOCK(Fl_X::set_xid(self, *(Window *)handle));
 #else
     LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
