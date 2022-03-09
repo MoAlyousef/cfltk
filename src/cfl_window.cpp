@@ -30,6 +30,10 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #include <FL/fl_draw.H>
 #include <FL/platform.H>
 
+#if defined (FLTK_USE_WAYLAND)
+#include "../fltk/src/drivers/Wayland/Fl_Wayland_Window_Driver.H"
+#endif
+
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -234,8 +238,12 @@ Fl_Window *Fl_Window_find_by_handle(void *handle) {
 
 winid resolve_raw_handle(void *handle) {
     winid w;
-#if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__) || defined(FLTK_USE_WAYLAND)
+#if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
     w.opaque = *(Window *)handle;
+#elif defined (FLTK_USE_WAYLAND)
+    auto h = (Window *)handle;
+    auto surface = (*h)->wl_surface;
+    w.opaque = surface;
 #else
     w.x_id = *(Window *)handle;
 #endif
