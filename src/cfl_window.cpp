@@ -77,8 +77,6 @@ struct Window_Derived : public Widget_Derived<Win> {
     for (auto i = 3; i < size; i = i + 4) {
         buf->draw_buffer[i] = alpha;
     }
-    buf->draw_buffer_needs_commit = true;
-    ((Fl_Cairo_Graphics_Driver*)fl_graphics_driver)->needs_commit_tag(&buf->draw_buffer_needs_commit);
 #else                       
 #endif
         alpha_ = alpha;
