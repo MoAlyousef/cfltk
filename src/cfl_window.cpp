@@ -32,6 +32,7 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 
 #if defined (FLTK_USE_WAYLAND)
 #include "../fltk/src/drivers/Wayland/Fl_Wayland_Window_Driver.H"
+#include "../fltk/src/drivers/Wayland/Fl_Wayland_Graphics_Driver.H"
 #endif
 
 #include <stdint.h>
@@ -70,7 +71,15 @@ struct Window_Derived : public Widget_Derived<Win> {
         Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
-#else                        
+#elif defined(FLTK_USE_WAYLAND)
+    auto buf = fl_xid(this)->buffer;
+    auto size = buf->data_size;
+    for (auto i = 3; i < size; i = i + 4) {
+        buf->draw_buffer[i] = alpha;
+    }
+    buf->draw_buffer_needs_commit = true;
+    ((Fl_Cairo_Graphics_Driver*)fl_graphics_driver)->needs_commit_tag(&buf->draw_buffer_needs_commit);
+#else                       
 #endif
         alpha_ = alpha;
     }
