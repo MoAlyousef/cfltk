@@ -31,8 +31,7 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #include <FL/platform.H>
 
 #if defined (FLTK_USE_WAYLAND)
-#include "../fltk/src/drivers/Wayland/Fl_Wayland_Window_Driver.H"
-#include "../fltk/src/drivers/Wayland/Fl_Wayland_Graphics_Driver.H"
+#include <cairo/cairo.h>
 #endif
 
 #include <stdint.h>
@@ -72,11 +71,9 @@ struct Window_Derived : public Widget_Derived<Win> {
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
 #elif defined(FLTK_USE_WAYLAND)
-    auto buf = fl_xid(this)->buffer;
-    auto size = buf->data_size;
-    for (auto i = 3; i < size; i = i + 4) {
-        buf->draw_buffer[i] = alpha;
-    }
+    auto cr = fl_wl_cairo();
+    cairo_set_source_rgba(cr, 0, 0, 0, (float)alpha/255.0);
+    cairo_save(cr);
 #else                       
 #endif
         alpha_ = alpha;
@@ -248,9 +245,8 @@ winid resolve_raw_handle(void *handle) {
 #if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
     w.opaque = *(Window *)handle;
 #elif defined (FLTK_USE_WAYLAND)
-    auto h = (Window *)handle;
-    auto surface = (*h)->wl_surface;
-    w.opaque = surface;
+    auto h = fl_wl_surface(*(Window *)handle);
+    w.opaque = h;
 #else
     w.x_id = *(Window *)handle;
 #endif
