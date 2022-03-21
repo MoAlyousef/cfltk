@@ -32,6 +32,11 @@
         LOCK(self->swap(a, b));                                                                    \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
+        for (int i = 0; i < self->size(); i++) {                                                   \
+            auto icon = self->icon(i + 1);                                                         \
+            if (icon)                                                                              \
+                delete icon;                                                                       \
+        }                                                                                          \
         LOCK(self->clear());                                                                       \
     }                                                                                              \
     int widget##_size(const widget *self) {                                                        \
@@ -64,8 +69,10 @@
         LOCK(self->textsize(s));                                                                   \
     }                                                                                              \
     void widget##_set_icon(widget *self, int line, void *icon) {                                   \
-        LOCK(auto old = self->icon(line); if (!icon) self->icon(line, NULL);                       \
-             else self->icon(line, ((Fl_Image *)icon)->copy()); delete old;)                       \
+        LOCK(auto old = self->icon(line); if (!icon) self->icon(line, NULL); else {                \
+            self->icon(line, ((Fl_Image *)icon)->copy());                                          \
+            delete old;                                                                            \
+        })                                                                                         \
     }                                                                                              \
     void *widget##_icon(const widget *self, int line) {                                            \
         LOCK(auto temp = self->icon(line));                                                        \
