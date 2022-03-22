@@ -32,12 +32,11 @@
         LOCK(self->swap(a, b));                                                                    \
     }                                                                                              \
     void widget##_clear(widget *self) {                                                            \
-        for (int i = 0; i < self->size(); i++) {                                                   \
+        LOCK(for (int i = 0; i < self->size(); i++) {                                              \
             auto icon = self->icon(i + 1);                                                         \
             if (icon)                                                                              \
                 delete icon;                                                                       \
-        }                                                                                          \
-        LOCK(self->clear());                                                                       \
+        } self->clear());                                                                          \
     }                                                                                              \
     int widget##_size(const widget *self) {                                                        \
         LOCK(auto ret = self->size());                                                             \
