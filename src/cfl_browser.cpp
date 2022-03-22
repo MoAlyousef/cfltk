@@ -17,7 +17,7 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_remove(widget *self, int line) {                                                 \
-        LOCK(self->remove(line));                                                                  \
+        LOCK(auto icon = self->icon(line); if (icon) delete icon; self->remove(line));             \
     }                                                                                              \
     void widget##_add(widget *self, const char *newtext) {                                         \
         LOCK(self->add(newtext));                                                                  \
