@@ -257,6 +257,8 @@ winid resolve_raw_handle(void *handle) {
 void *Fl_display(void) {
 #if defined(__APPLE__) || defined(__ANDROID__)
     return 0;
+#elif defined(FLTK_USE_WAYLAND)
+    return fl_wl_display();
 #else
     return fl_display;
 #endif
