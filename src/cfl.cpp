@@ -575,8 +575,24 @@ int Fl_screen_num(int x, int y) {
     return Fl::screen_num(x, y);
 }
 
+int Fl_screen_num_inside(int x, int y, int w, int h) {
+    return Fl::screen_num(x, y, w, h);
+}
+
 void Fl_screen_xywh(int *X, int *Y, int *W, int *H, int n) {
     Fl::screen_xywh(*X, *Y, *W, *H, n);
+}
+
+void Fl_screen_xywh_at(int *X, int *Y, int *W, int *H, int mx, int my) {
+    Fl::screen_xywh(*X, *Y, *W, *H, mx, my);
+}
+
+void Fl_screen_xywh_inside(int *X, int *Y, int *W, int *H, int mx, int my, int mw, int mh) {
+    Fl::screen_xywh(*X, *Y, *W, *H, mx, my, mw, mh);
+}
+
+void Fl_screen_xywh_mouse(int *X, int *Y, int *W, int *H) {
+    Fl::screen_xywh(*X, *Y, *W, *H);
 }
 
 void Fl_screen_dpi(float *h, float *v, int n) {
@@ -585,6 +601,18 @@ void Fl_screen_dpi(float *h, float *v, int n) {
 
 void Fl_screen_work_area(int *X, int *Y, int *W, int *H, int n) {
     Fl::screen_work_area(*X, *Y, *W, *H, n);
+}
+
+void Fl_screen_work_area_at(int *X, int *Y, int *W, int *H, int mx, int my) {
+    Fl::screen_work_area(*X, *Y, *W, *H, mx, my);
+}
+
+void Fl_screen_work_area_mouse(int *X, int *Y, int *W, int *H) {
+    Fl::screen_work_area(*X, *Y, *W, *H);
+}
+
+void Fl_keyboard_screen_scaling(int value) {
+    Fl::keyboard_screen_scaling(value);
 }
 
 void *Fl_event_clipboard(void) {

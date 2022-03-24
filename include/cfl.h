@@ -247,11 +247,25 @@ int Fl_screen_count(void);
 
 int Fl_screen_num(int x, int y);
 
+int Fl_screen_num_inside(int x, int y, int w, int h);
+
 void Fl_screen_xywh(int *X, int *Y, int *W, int *H, int n);
+
+void Fl_screen_xywh_at(int *X, int *Y, int *W, int *H, int mx, int my);
+
+void Fl_screen_xywh_inside(int *X, int *Y, int *W, int *H, int mx, int my, int mw, int mh);
+
+void Fl_screen_xywh_mouse(int *X, int *Y, int *W, int *H);
 
 void Fl_screen_dpi(float *h, float *v, int n);
 
 void Fl_screen_work_area(int *X, int *Y, int *W, int *H, int n);
+
+void Fl_screen_work_area_at(int *X, int *Y, int *W, int *H, int mx, int my);
+
+void Fl_screen_work_area_mouse(int *X, int *Y, int *W, int *H);
+
+void Fl_keyboard_screen_scaling(int value);
 
 void Fl_open_display(void);
 
