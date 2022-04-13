@@ -158,6 +158,13 @@
     void *widget##_hscrollbar(widget *self) {                                                      \
         LOCK(auto ret = &self->hscrollbar);                                                        \
         return ret;                                                                                \
+    }                                                                                              \
+    void *widget##_data(const widget *self, int line) {                                            \
+        LOCK(auto ret = self->data(line));                                                         \
+        return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_data(widget *self, int line, void *data) {                                   \
+        LOCK(self->data(line, data));                                                              \
     }
 
 WIDGET_CLASS(Fl_Browser)
@@ -349,4 +356,14 @@ const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self) {
 const void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self) {
     LOCK(auto ret = &self->hscrollbar);
     return ret;
+}
+
+void *Fl_Check_Browser_data(const Fl_Check_Browser *self, int line) {
+    return NULL;
+}
+
+void Fl_Check_Browser_set_data(Fl_Check_Browser *self, int line, void *data) {
+    (void)self;
+    (void)line;
+    (void)data;
 }

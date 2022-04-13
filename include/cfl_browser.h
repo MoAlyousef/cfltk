@@ -47,7 +47,9 @@ extern "C" {
     void widget##_set_scrollbar_size(widget *self, int newSize);                                   \
     void widget##_sort(widget *self);                                                              \
     void *widget##_scrollbar(widget *self);                                                        \
-    void *widget##_hscrollbar(widget *self);
+    void *widget##_hscrollbar(widget *self);                                                       \
+    void *widget##_data(const widget *self, int line);                                             \
+    void widget##_set_data(widget *self, int line, void *data);
 
 WIDGET_DECLARE(Fl_Browser)
 
@@ -138,6 +140,10 @@ int Fl_Check_Browser_text_font(Fl_Check_Browser *self);
 void Fl_Check_Browser_set_text_size(Fl_Check_Browser *self, int s);
 
 int Fl_Check_Browser_text_size(Fl_Check_Browser *self);
+
+void *Fl_Check_Browser_data(const Fl_Check_Browser *self, int line);
+
+void Fl_Check_Browser_set_data(Fl_Check_Browser *self, int line, void *data);
 
 #ifdef __cplusplus
 }
