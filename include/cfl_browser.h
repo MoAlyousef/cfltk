@@ -141,10 +141,6 @@ void Fl_Check_Browser_set_text_size(Fl_Check_Browser *self, int s);
 
 int Fl_Check_Browser_text_size(Fl_Check_Browser *self);
 
-void *Fl_Check_Browser_data(const Fl_Check_Browser *self, int line);
-
-void Fl_Check_Browser_set_data(Fl_Check_Browser *self, int line, void *data);
-
 #ifdef __cplusplus
 }
 #endif

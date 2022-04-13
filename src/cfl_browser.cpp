@@ -357,13 +357,3 @@ const void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self) {
     LOCK(auto ret = &self->hscrollbar);
     return ret;
 }
-
-void *Fl_Check_Browser_data(const Fl_Check_Browser *self, int line) {
-    return NULL;
-}
-
-void Fl_Check_Browser_set_data(Fl_Check_Browser *self, int line, void *data) {
-    (void)self;
-    (void)line;
-    (void)data;
-}
