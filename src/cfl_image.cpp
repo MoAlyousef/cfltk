@@ -271,7 +271,7 @@ Fl_Shared_Image *Fl_Shared_Image_get(const char *name, int W, int H) {
 }
 
 Fl_Shared_Image *Fl_Shared_Image_from_rgb(Fl_RGB_Image *rgb, int own_it) {
-    LOCK(auto ret = Fl_Shared_Image::get(rgb, own_it));
+    LOCK(auto ret = Fl_Shared_Image::get((Fl_RGB_Image *)rgb->copy(), own_it));
     return ret;
 }
 
