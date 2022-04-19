@@ -180,7 +180,7 @@ Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
 IMAGE_DEFINE(Fl_Tiled_Image)
 
 Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
-    LOCK(auto ret = new Fl_Tiled_Image(i, w, h));
+    LOCK(auto ret = new Fl_Tiled_Image(i->copy(), w, h));
     return ret;
 }
 
