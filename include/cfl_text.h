@@ -186,6 +186,8 @@ void Fl_Text_Display_set_buffer(Fl_Text_Display *, Fl_Text_Buffer *);
 
 Fl_Text_Buffer *Fl_Text_Display_get_style_buffer(Fl_Text_Display *);
 
+void Fl_Text_Display_show_insert_position(Fl_Text_Display *);
+
 DISPLAY_DECLARE(Fl_Text_Display)
 
 WIDGET_DECLARE(Fl_Text_Editor)

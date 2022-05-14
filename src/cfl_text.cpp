@@ -476,6 +476,10 @@ Fl_Text_Buffer *Fl_Text_Display_get_style_buffer(Fl_Text_Display *self) {
     return ret;
 }
 
+void Fl_Text_Display_show_insert_position(Fl_Text_Display *self) {
+    LOCK(self->show_insert_position());
+}
+
 DISPLAY_DEFINE(Fl_Text_Display)
 
 WIDGET_CLASS(Fl_Text_Editor)
