@@ -227,7 +227,7 @@
         LOCK(auto ret = self->secondary_selection_color());                                        \
         return ret;                                                                                \
     }                                                                                              \
-    void widget##_show_insert_position(const widget *self) {                                       \
+    void widget##_show_insert_position(widget *self) {                                             \
         LOCK(self->show_insert_position());                                                        \
     }
 
