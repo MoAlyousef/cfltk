@@ -226,6 +226,9 @@
     unsigned int widget##_secondary_selection_color(const widget *self) {                          \
         LOCK(auto ret = self->secondary_selection_color());                                        \
         return ret;                                                                                \
+    }                                                                                              \
+    void widget##_show_insert_position(const widget *self) {                                       \
+        LOCK(self->show_insert_position());                                                        \
     }
 
 Fl_Text_Buffer *Fl_Text_Buffer_new(void) {
