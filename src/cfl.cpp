@@ -714,3 +714,7 @@ int Fl_gl_visual(int mode) {
     return Fl::gl_visual(mode);
 }
 #endif
+
+void Fl_open_callback(void (*cb)(const char *)) {
+    fl_open_callback(cb);
+}

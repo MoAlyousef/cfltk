@@ -325,6 +325,8 @@ void Fl_add_clipboard_notify(void (*cb)(int source, void *data), void *data);
 
 void Fl_remove_clipboard_notify(void (*cb)(int source, void *data));
 
+void Fl_open_callback(void (*cb)(const char *));
+
 #ifdef __cplusplus
 }
 #endif
