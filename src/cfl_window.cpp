@@ -30,7 +30,7 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #include <FL/fl_draw.H>
 #include <FL/platform.H>
 
-#if defined (FLTK_USE_WAYLAND)
+#if defined(FLTK_USE_WAYLAND)
 #include <cairo/cairo.h>
 #endif
 
@@ -71,10 +71,10 @@ struct Window_Derived : public Widget_Derived<Win> {
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
 #elif defined(FLTK_USE_WAYLAND)
-    auto cr = fl_wl_cairo();
-    cairo_set_source_rgba(cr, 0, 0, 0, (float)alpha/255.0);
-    cairo_save(cr);
-#else                       
+        auto cr = fl_wl_cairo();
+        cairo_set_source_rgba(cr, 0, 0, 0, (float)alpha / 255.0);
+        cairo_save(cr);
+#else
 #endif
         alpha_ = alpha;
     }
@@ -208,7 +208,8 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                                                \
     }                                                                                              \
     const char *widget##_xclass(const widget *self) {                                              \
-        LOCK(return self->xclass());                                                               \
+        LOCK(auto ret = self->xclass());                                                           \
+        return ret;                                                                                \
     }                                                                                              \
     void widget##_set_default_xclass(const char *s) {                                              \
         LOCK(widget::default_xclass(s));                                                           \
@@ -225,6 +226,13 @@ struct Window_Derived : public Widget_Derived<Win> {
     int widget##_override(const widget *self) {                                                    \
         LOCK(auto ret = self->override());                                                         \
         return ret;                                                                                \
+    }                                                                                              \
+    const char *widget##_icon_label(const widget *self) {                                          \
+        LOCK(auto ret = self->iconlabel());                                                        \
+        return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_icon_label(widget *self, const char *label) {                                \
+        LOCK(self->iconlabel(label));                                                              \
     }
 
 WINDOW_CLASS(Fl_Window)
@@ -244,7 +252,7 @@ winid resolve_raw_handle(void *handle) {
     winid w;
 #if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
     w.opaque = *(Window *)handle;
-#elif defined (FLTK_USE_WAYLAND)
+#elif defined(FLTK_USE_WAYLAND)
     auto h = fl_wl_surface(*(Window *)handle);
     w.opaque = h;
 #else

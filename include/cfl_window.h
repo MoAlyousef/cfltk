@@ -50,7 +50,9 @@ typedef union {
     void widget##_set_xclass(widget *self, const char *s);                                         \
     void widget##_clear_modal_states(widget *self);                                                \
     void widget##_set_override(widget *);                                                          \
-    int widget##_override(const widget *);
+    int widget##_override(const widget *);                                                         \
+    const char *widget##_icon_label(const widget *);                                               \
+    void widget##_set_icon_label(widget *, const char *);
 
 WIDGET_DECLARE(Fl_Window)
 
