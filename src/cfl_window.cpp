@@ -71,9 +71,6 @@ struct Window_Derived : public Widget_Derived<Win> {
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
 #elif defined(FLTK_USE_WAYLAND)
-        auto cr = fl_wl_cairo();
-        cairo_set_source_rgba(cr, 0, 0, 0, (float)alpha / 255.0);
-        cairo_save(cr);
 #else
 #endif
         alpha_ = alpha;
@@ -82,6 +79,18 @@ struct Window_Derived : public Widget_Derived<Win> {
     void force_pos(int flag) {
         this->force_position(flag);
     }
+
+#if FLTK_USE_WAYLAND
+    virtual void draw() override {
+        auto col = this->color();
+        double r = ((col >> 24) & 0xff) / 255.0;
+        double g = ((col >> 16) & 0xff) / 255.0;
+        double b = ((col >> 8) & 0xff) / 255.0;
+        cairo_set_source_rgba(fl_wl_cairo(), r, g, b, alpha_ / 255.0);
+        fl_rectf(0, 0, this->w(), this->h());
+        Widget_Derived<Win>::draw();
+    }
+#endif
 };
 
 #define WINDOW_CLASS(window) using window##_Derived = Window_Derived<window>;
