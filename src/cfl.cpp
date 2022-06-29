@@ -391,6 +391,10 @@ void *Fl_next_window(const void *prev) {
     return (void *)Fl::next_window((Fl_Window *)prev);
 }
 
+void *Fl_modal(void) {
+    return (void *)Fl::modal();
+}
+
 int Fl_should_program_quit(void) {
     return Fl::program_should_quit();
 }

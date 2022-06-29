@@ -161,6 +161,8 @@ void *Fl_first_window(void);
 
 void *Fl_next_window(const void *);
 
+void *Fl_modal(void);
+
 int Fl_should_program_quit(void);
 
 void Fl_program_should_quit(int flag);
