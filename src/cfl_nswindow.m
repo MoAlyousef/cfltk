@@ -1,3 +1,4 @@
+#include <AppKit/NSWindow.h>
 #import <Cocoa/Cocoa.h>
 
 void cfltk_setWindowTransparency(void *xid, unsigned char val) {
@@ -30,4 +31,9 @@ void cfltk_winShow(void *xid) {
 void cfltk_winHide(void *xid) {
     NSWindow *win = (NSWindow *)xid;
     [win orderOut:win];
+}
+
+void cfltk_setOnTop(void *xid) {
+    NSWindow *win = (NSWindow *)xid;
+    [win setLevel:NSMainMenuWindowLevel + 2];
 }
