@@ -49,7 +49,8 @@ extern "C" {
     void *widget##_scrollbar(widget *self);                                                        \
     void *widget##_hscrollbar(widget *self);                                                       \
     void *widget##_data(const widget *self, int line);                                             \
-    void widget##_set_data(widget *self, int line, void *data);
+    void widget##_set_data(widget *self, int line, void *data);                                    \
+    void widget##_hide_line(widget *self, int line);
 
 WIDGET_DECLARE(Fl_Browser)
 

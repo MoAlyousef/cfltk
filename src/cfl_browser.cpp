@@ -165,6 +165,9 @@
     }                                                                                              \
     void widget##_set_data(widget *self, int line, void *data) {                                   \
         LOCK(self->data(line, data));                                                              \
+    }                                                                                              \
+    void widget##_hide_line(widget *self, int line) {                                              \
+        LOCK(self->hide(line));                                                                    \
     }
 
 WIDGET_CLASS(Fl_Browser)
