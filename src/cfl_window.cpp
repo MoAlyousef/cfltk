@@ -298,9 +298,9 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
     LOCK(Fl_X::set_xid(self, *(Window *)handle));
 #else
-    LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
-         xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
-         if (!i) return; i = xp; Fl_X::first = xp;)
+    // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
+    //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
+    //      if (!i) return; i = xp; Fl_X::first = xp;)
 #endif
 }
 
