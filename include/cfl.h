@@ -329,6 +329,8 @@ void Fl_remove_clipboard_notify(void (*cb)(int source, void *data));
 
 void Fl_open_callback(void (*cb)(const char *));
 
+void Fl_disable_wayland(void);
+
 #ifdef __cplusplus
 }
 #endif

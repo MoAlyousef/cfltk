@@ -722,3 +722,7 @@ int Fl_gl_visual(int mode) {
 void Fl_open_callback(void (*cb)(const char *)) {
     fl_open_callback(cb);
 }
+
+void Fl_disable_wayland(void) {
+    fl_disable_wayland();
+}
