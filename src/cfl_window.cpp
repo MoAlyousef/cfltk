@@ -80,7 +80,7 @@ struct Window_Derived : public Widget_Derived<Win> {
         this->force_position(flag);
     }
 
-#if FLTK_USE_WAYLAND
+#if FLTK_USE_WAYLAND && !CFLTK_USE_GL
     virtual void draw() override {
         auto col = this->color();
         double r = ((col >> 24) & 0xff) / 255.0;
