@@ -20,6 +20,6 @@ jobs:
           sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev
          fi
       shell: bash
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Build
       run: git submodule update --init --recursive && cmake -Bbin -DCMAKE_BUILD_TYPE=Release -DOPTION_USE_SYSTEM_LIBPNG=OFF -DOPTION_USE_SYSTEM_LIBJPEG=OFF -DOPTION_USE_SYSTEM_ZLIB=OFF -DOPTION_USE_GL=OFF -DFLTK_BUILD_EXAMPLES=OFF -DFLTK_BUILD_TEST=OFF -DOPTION_USE_THREADS=ON -DOPTION_LARGE_FILE=ON -DOPTION_BUILD_HTML_DOCUMENTATION=OFF -DOPTION_BUILD_PDF_DOCUMENTATION=OFF && cmake --build bin --parallel
