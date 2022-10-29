@@ -83,6 +83,8 @@ double Fl_Color_Chooser_g(Fl_Color_Chooser *self);
 
 double Fl_Color_Chooser_b(Fl_Color_Chooser *self);
 
+int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g, double b);
+
 GROUP_DECLARE(Fl_Color_Chooser)
 
 WIDGET_DECLARE(Fl_Flex)

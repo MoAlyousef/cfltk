@@ -172,6 +172,11 @@ double Fl_Color_Chooser_b(Fl_Color_Chooser *self) {
     return ret;
 }
 
+int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g, double b) {
+    LOCK(auto ret = self->rgb(r, g, b));
+    return ret;
+}
+
 GROUP_DEFINE(Fl_Color_Chooser)
 
 WIDGET_CLASS(Fl_Flex)
