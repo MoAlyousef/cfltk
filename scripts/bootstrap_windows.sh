@@ -12,4 +12,4 @@ cmake -B bin -S . \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
     -GNinja
 
-sudo cmake --build bin --parallel --target install
+cmake --build bin --parallel --target install
