@@ -1,4 +1,7 @@
+pacman --noconfirm -S $MINGW_PACKAGE_PREFIX-cmake $MINGW_PACKAGE_PREFIX-ninja --needed
+
 cmake -B bin -S . \
+    -DCMAKE_INSTALL_PREFIX="$MINGW_PREFIX" \
     -DCMAKE_BUILD_TYPE=Release \
     -DOPTION_USE_SYSTEM_LIBPNG=OFF \
     -DOPTION_USE_SYSTEM_LIBJPEG=OFF \
@@ -12,4 +15,4 @@ cmake -B bin -S . \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
     -GNinja
 
-cmake --build bin --parallel --target install
+cmake --build bin --target install --config Release --prefix "/"
