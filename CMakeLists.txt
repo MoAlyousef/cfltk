@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.3.19)
+set(CFLTK_PROJECT_VERSION 1.3.20)
 project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -61,7 +61,6 @@ set(CFLTK_SRCS
     src/cfl_surface.cpp
     src/cfl_font.cpp
     src/cfl_utils.cpp
-    FL_FLex/FL_Flex.cpp
     )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -94,7 +93,7 @@ if(USE_SYSTEM_FLTK)
     )
 else()
     target_include_directories(cfltk PUBLIC 
-    $<BUILD_INTERFACE:include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk FL_FLex>  
+    $<BUILD_INTERFACE:include fltk ${CMAKE_CURRENT_BINARY_DIR}/fltk>  
     $<INSTALL_INTERFACE:include/cfltk>
     )
 endif()

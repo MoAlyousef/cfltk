@@ -13,7 +13,7 @@
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Wizard.H>
 #include <FL/fl_draw.H>
-#include <FL_Flex.H>
+#include <FL/Fl_Flex.H>
 
 WIDGET_CLASS(Fl_Group)
 
@@ -187,10 +187,6 @@ void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget *w, int size) {
     LOCK(self->setSize(w, size));
 }
 
-void Fl_Flex_set_debug(int val) {
-    LOCK(Fl_Flex::setDebug(val));
-}
-
 void Fl_Flex_set_margin(Fl_Flex *self, int m) {
     LOCK(self->margin(m));
 }
@@ -201,11 +197,11 @@ int Fl_Flex_margin(const Fl_Flex *self) {
 }
 
 void Fl_Flex_set_pad(Fl_Flex *self, int p) {
-    LOCK(self->pad(p));
+    LOCK(self->gap(p));
 }
 
 int Fl_Flex_pad(const Fl_Flex *self) {
-    LOCK(auto ret = self->pad());
+    LOCK(auto ret = self->gap());
     return ret;
 }
 

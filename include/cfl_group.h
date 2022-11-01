@@ -91,8 +91,6 @@ WIDGET_DECLARE(Fl_Flex)
 
 void Fl_Flex_set_size(Fl_Flex *self, Fl_Widget *w, int size);
 
-void Fl_Flex_set_debug(int val);
-
 void Fl_Flex_set_margin(Fl_Flex *self, int m);
 
 int Fl_Flex_margin(const Fl_Flex *self);
