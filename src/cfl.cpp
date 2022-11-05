@@ -724,5 +724,5 @@ void Fl_open_callback(void (*cb)(const char *)) {
 }
 
 void Fl_disable_wayland(void) {
-    fl_disable_wayland();
+    // fl_disable_wayland();
 }
