@@ -19,7 +19,7 @@ extern "C" {
     void widget##_set_text_size(widget *, int c);                                                  \
     unsigned int widget##_text_color(widget *);                                                    \
     void widget##_set_text_color(widget *, unsigned int c);                                        \
-    void widget##_add_choice(widget *, const char *);                                              \
+    int widget##_add_choice(widget *, const char *);                                               \
     const char *widget##_get_choice(widget *);                                                     \
     int widget##_value(widget *);                                                                  \
     int widget##_set_value(widget *, int v);                                                       \
@@ -134,6 +134,10 @@ int Fl_Menu_Item_add(Fl_Menu_Item *self, const char *name, int shortcut, Fl_Call
 
 int Fl_Menu_Item_insert(Fl_Menu_Item *self, int index, const char *name, int shortcut,
                         Fl_Callback *cb, void *data, int flag);
+
+void Fl_Menu_Item_set_shortcut(Fl_Menu_Item *self, int shortcut);
+
+void Fl_Menu_Item_set_flag(Fl_Menu_Item *self, int flag);
 
 void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut);
 

@@ -53,8 +53,9 @@
     void widget##_set_text_color(widget *self, unsigned int c) {                                   \
         LOCK(self->textcolor(c));                                                                  \
     }                                                                                              \
-    void widget##_add_choice(widget *self, const char *str) {                                      \
-        LOCK(self->add(str));                                                                      \
+    int widget##_add_choice(widget *self, const char *str) {                                       \
+        LOCK(auto ret = self->add(str));                                                           \
+        return ret;                                                                                \
     }                                                                                              \
     const char *widget##_get_choice(widget *self) {                                                \
         LOCK(auto ret = self->text());                                                             \
@@ -354,6 +355,14 @@ int Fl_Menu_Item_insert(Fl_Menu_Item *self, int index, const char *name, int sho
                         Fl_Callback *cb, void *data, int flag) {
     LOCK(auto ret = self->insert(index, name, shortcut, cb, data, flag));
     return ret;
+}
+
+void Fl_Menu_Item_set_shortcut(Fl_Menu_Item *self, int shortcut) {
+    LOCK(self->shortcut(shortcut));
+}
+
+void Fl_Menu_Item_set_flag(Fl_Menu_Item *self, int flag) {
+    LOCK(self->flags = flag);
 }
 
 void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut) {
