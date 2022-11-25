@@ -228,8 +228,10 @@ int Fl_scheme(void) {
         return 1;
     } else if (!strcmp(v, "gleam")) {
         return 2;
-    } else {
+    } else if (!strcmp(v, "oxy")) {
         return 3;
+    } else {
+        return 4;
     }
 }
 
