@@ -129,6 +129,13 @@
     }                                                                                              \
     void widget##_global(widget *self) {                                                           \
         LOCK(self->global());                                                                      \
+    }                                                                                              \
+    int widget##_item_pathname(const widget *self, char *pathname, int pathnamelen,                \
+                               const Fl_Menu_Item *item) {                                         \
+        char temp[256] = {0};                                                                      \
+        LOCK(auto ret = self->item_pathname(temp, 256, item);                                      \
+             if (ret == 0) strncpy(pathname, temp, strlen(temp)););                                \
+        return ret;                                                                                \
     }
 
 WIDGET_CLASS(Fl_Menu_Bar)

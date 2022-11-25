@@ -36,7 +36,9 @@ extern "C" {
     void widget##_remove(widget *self, int idx);                                                   \
     void widget##_set_down_box(widget *self, int box);                                             \
     int widget##_down_box(const widget *self);                                                     \
-    void widget##_global(widget *self);
+    void widget##_global(widget *self);                                                            \
+    int widget##_item_pathname(const widget *self, char *pathname, int pathnamelen,                  \
+                             const Fl_Menu_Item *item);
 
 typedef struct Fl_Menu_Item Fl_Menu_Item;
 
