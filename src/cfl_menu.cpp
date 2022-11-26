@@ -138,6 +138,8 @@
         return ret;                                                                                \
     }
 
+MENU_DEFINE(Fl_Menu_)
+
 WIDGET_CLASS(Fl_Menu_Bar)
 
 WIDGET_DEFINE(Fl_Menu_Bar)

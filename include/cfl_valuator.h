@@ -24,7 +24,7 @@ extern "C" {
     double widget##_clamp(widget *, double);                                                       \
     double widget##_increment(widget *, double, int);
 
-WIDGET_DECLARE(Fl_Valuator)
+typedef struct Fl_Valuator Fl_Valuator;
 
 VALUATOR_DECLARE(Fl_Valuator)
 
