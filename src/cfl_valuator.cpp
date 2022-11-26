@@ -82,8 +82,6 @@
         return ret;                                                                                \
     }
 
-VALUATOR_DEFINE(Fl_Valuator)
-
 WIDGET_CLASS(Fl_Slider)
 
 WIDGET_DEFINE(Fl_Slider)
