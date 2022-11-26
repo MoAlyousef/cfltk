@@ -83,6 +83,8 @@ int Fl_Chart_is_autosize(const Fl_Chart *self);
 
 void Fl_Chart_make_autosize(Fl_Chart *self, int n);
 
+void Fl_Chart_bounds(Fl_Chart* self, double *a,double *b);
+
 WIDGET_DECLARE(Fl_Progress)
 
 double Fl_Progress_minimum(Fl_Progress *);
@@ -115,11 +117,11 @@ void Fl_Tooltip_enable(int b);
 
 void Fl_Tooltip_disable(void);
 
-void (*Fl_Tooltip_enter)(Fl_Widget *w);
+// void (*Fl_Tooltip_enter)(Fl_Widget *w);
 
 void Fl_Tooltip_enter_area(Fl_Widget *w, int X, int Y, int W, int H, const char *tip);
 
-void (*Fl_Tooltip_exit)(Fl_Widget *w);
+// void (*Fl_Tooltip_exit)(Fl_Widget *w);
 
 void *Fl_Tooltip_current_widget(void);
 

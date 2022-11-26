@@ -91,7 +91,7 @@ void Fl_paste_text(Fl_Widget *, int src);
 
 void Fl_paste_image(Fl_Widget *widget, int src);
 
-void Fl_set_scheme(const char *scheme);
+int Fl_set_scheme(const char *scheme);
 
 int Fl_scheme(void);
 
@@ -120,6 +120,8 @@ void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, u
 const char *Fl_get_font(int idx);
 
 const char *Fl_get_font_name(int idx);
+
+const char *Fl_get_font_name2(int idx, int *attributes);
 
 int Fl_get_font_sizes(int font, int **sizep);
 
@@ -330,6 +332,12 @@ void Fl_remove_clipboard_notify(void (*cb)(int source, void *data));
 void Fl_open_callback(void (*cb)(const char *));
 
 void Fl_disable_wayland(void);
+
+Fl_Widget* Fl_Widget_Tracker_widget(Fl_Widget_Tracker* t);
+
+int Fl_Widget_Tracker_exists(Fl_Widget_Tracker* t);
+
+void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b);
 
 #ifdef __cplusplus
 }

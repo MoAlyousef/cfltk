@@ -216,8 +216,8 @@ void Fl_paste_image(Fl_Widget *widget, int src) {
     Fl::paste(*widget, src, Fl::clipboard_image);
 }
 
-void Fl_set_scheme(const char *scheme) {
-    Fl::scheme(scheme);
+int Fl_set_scheme(const char *scheme) {
+    return Fl::scheme(scheme);
 }
 
 int Fl_scheme(void) {
@@ -285,6 +285,10 @@ const char *Fl_get_font(int idx) {
 
 const char *Fl_get_font_name(int idx) {
     return Fl::get_font_name(idx);
+}
+
+const char *Fl_get_font_name2(int idx, int *attributes) {
+    return Fl::get_font_name(idx, attributes);
 }
 
 int Fl_get_font_sizes(int font, int **sizep) {
@@ -727,4 +731,16 @@ void Fl_open_callback(void (*cb)(const char *)) {
 
 void Fl_disable_wayland(void) {
     FL_EXPORT bool fl_disable_wayland = true;
+}
+
+Fl_Widget* Fl_Widget_Tracker_widget(Fl_Widget_Tracker* t) {
+  return t->widget();
+}
+
+int Fl_Widget_Tracker_exists(Fl_Widget_Tracker* t) {
+  return t->exists();
+}
+
+void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b) {
+  Fl::get_color((Fl_Color)col, *r, *g, *b);
 }

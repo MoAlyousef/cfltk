@@ -86,6 +86,9 @@
     void widget##_topline(widget *self, int line) {                                                \
         LOCK(self->topline(line));                                                                 \
     }                                                                                              \
+    int widget##_is_topline(widget *self) {                                                \
+        LOCK(auto ret = self->topline()); return ret;                                                                 \
+    }                                                                                              \
     void widget##_bottomline(widget *self, int line) {                                             \
         LOCK(self->bottomline(line));                                                              \
     }                                                                                              \

@@ -190,6 +190,8 @@ enum Fl_Align {
     Fl_Align_Right = 0x0008,
     Fl_Align_Inside = 0x0010,
     Fl_Align_TextOverImage = 0x0020,
+    Fl_Align_ImageOverText = 0x000,
+    Fl_Align_NoWrap = 0x000,
     Fl_Align_Clip = 0x0040,
     Fl_Align_Wrap = 0x0080,
     Fl_Align_ImageNextToText = 0x0100,

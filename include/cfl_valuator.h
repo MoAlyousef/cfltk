@@ -24,6 +24,10 @@ extern "C" {
     double widget##_clamp(widget *, double);                                                       \
     double widget##_increment(widget *, double, int);
 
+WIDGET_DECLARE(Fl_Valuator)
+
+VALUATOR_DECLARE(Fl_Valuator)
+
 WIDGET_DECLARE(Fl_Slider)
 
 float Fl_Slider_slider_size(const Fl_Slider *self);

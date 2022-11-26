@@ -27,6 +27,7 @@ extern "C" {
     void *widget##_icon(const widget *, int line);                                                 \
     void widget##_remove_icon(widget *, int line);                                                 \
     void widget##_topline(widget *self, int line);                                                 \
+    int widget##_is_topline(widget *self);                                                 \
     void widget##_bottomline(widget *self, int line);                                              \
     void widget##_middleline(widget *self, int line);                                              \
     char widget##_format_char(const widget *self);                                                 \

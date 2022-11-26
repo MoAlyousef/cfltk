@@ -242,6 +242,9 @@ struct Window_Derived : public Widget_Derived<Win> {
     }                                                                                              \
     void widget##_set_icon_label(widget *self, const char *label) {                                \
         LOCK(self->iconlabel(label));                                                              \
+    }\
+    void widget##_set_icons(widget *w, const void *images[], int length) {\
+        w->icons((const Fl_RGB_Image **)images, length);\
     }
 
 WINDOW_CLASS(Fl_Window)
