@@ -10,6 +10,7 @@ struct Fl_Widget_Derived : public Fl_Widget {
     void *ev_data_ = NULL;
     void *draw_data_ = NULL;
     void *resize_data_ = NULL;
+    void *deleter_data_ = NULL;
 
     typedef int (*handler)(Fl_Widget *, int, void *data);
     handler inner_handler = NULL;
@@ -19,6 +20,8 @@ struct Fl_Widget_Derived : public Fl_Widget {
     deleter_fp deleter = NULL;
     typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
     resizer resize_handler = NULL;
+    typedef void (*deleter_fp2)(Fl_Widget *, void *);
+    deleter_fp2 deleter2 = NULL;
 
     Fl_Widget_Derived(int x, int y, int w, int h, const char *title = 0)
         : Fl_Widget(x, y, w, h, title) {
@@ -56,6 +59,13 @@ struct Fl_Widget_Derived : public Fl_Widget {
 
     void set_resizer_data(void *data) {
         resize_data_ = data;
+    }
+
+    void set_deleter2(deleter_fp2 h) {
+        deleter2 = h;
+    }
+    void set_deleter_data(void *data) {
+        deleter_data_ = data;
     }
 
     int handle(int event) override {

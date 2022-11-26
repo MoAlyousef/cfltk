@@ -91,7 +91,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     int widget##_visible_r(const widget *self);                                                    \
     unsigned int widget##_active(const widget *self);                                              \
     int widget##_active_r(const widget *self);                                                     \
-    Fl_Callback *widget##_callback(const widget *self);
+    Fl_Callback *widget##_callback(const widget *self);                                            \
+    void widget##_set_deletion_callback(widget *self, void (*)(Fl_Widget *, void *), void *data);
 
 #define WIDGET_CLASS(widget) using widget##_Derived = Widget_Derived<widget>;
 
@@ -382,6 +383,11 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     Fl_Callback *widget##_callback(const widget *self) {                                           \
         LOCK(auto ret = self->callback());                                                         \
         return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_deletion_callback(widget *self, void (*cb)(Fl_Widget *, void *),             \
+                                        void *data) {                                              \
+        LOCK(((widget##_Derived *)self)->set_deleter2(cb);                                         \
+             ((widget##_Derived *)self)->set_deleter_data(data));                                  \
     }
 
 #define GROUP_DECLARE(widget)                                                                      \

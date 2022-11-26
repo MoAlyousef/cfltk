@@ -8,6 +8,7 @@ struct Widget_Derived : public T {
     void *ev_data_ = NULL;
     void *draw_data_ = NULL;
     void *resize_data_ = NULL;
+    void *deleter_data_ = NULL;
 
     typedef int (*handler)(Fl_Widget *, int, void *data);
     handler inner_handler = NULL;
@@ -17,6 +18,8 @@ struct Widget_Derived : public T {
     deleter_fp deleter = NULL;
     typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
     resizer resize_handler = NULL;
+    typedef void (*deleter_fp2)(Fl_Widget *, void *);
+    deleter_fp2 deleter2 = NULL;
 
     Widget_Derived(int x, int y, int w, int h, const char *title = 0) : T(x, y, w, h, title) {
     }
@@ -72,22 +75,32 @@ struct Widget_Derived : public T {
         else {
         }
     }
+    void set_deleter2(deleter_fp2 h) {
+        deleter2 = h;
+    }
+    void set_deleter_data(void *data) {
+        deleter_data_ = data;
+    }
     ~Widget_Derived() {
-        if (ev_data_)
-            deleter(ev_data_);
-        ev_data_ = NULL;
-        if (resize_data_)
-            deleter(resize_data_);
-        resize_data_ = NULL;
-        inner_handler = NULL;
-        if (draw_data_)
-            deleter(draw_data_);
-        draw_data_ = NULL;
-        inner_drawer = NULL;
-        if (this->user_data())
-            deleter(this->user_data());
-        this->user_data(NULL);
-        this->callback((void (*)(Fl_Widget *, void *))NULL);
+        if (deleter_data_) {
+            deleter2(this, deleter_data_);
+        } else {
+            if (ev_data_)
+                deleter(ev_data_);
+            ev_data_ = NULL;
+            if (resize_data_)
+                deleter(resize_data_);
+            resize_data_ = NULL;
+            inner_handler = NULL;
+            if (draw_data_)
+                deleter(draw_data_);
+            draw_data_ = NULL;
+            inner_drawer = NULL;
+            if (this->user_data())
+                deleter(this->user_data());
+            this->user_data(NULL);
+            this->callback((void (*)(Fl_Widget *, void *))NULL);
+        }
     }
 };
 
