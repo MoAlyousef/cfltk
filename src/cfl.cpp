@@ -275,7 +275,8 @@ void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned cha
     Fl::set_color(c, r, g, b);
 }
 
-void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b,
+                             unsigned char a) {
     Fl::set_color(c, r, g, b, a);
 }
 
@@ -733,14 +734,14 @@ void Fl_disable_wayland(void) {
     FL_EXPORT bool fl_disable_wayland = true;
 }
 
-Fl_Widget* Fl_Widget_Tracker_widget(Fl_Widget_Tracker* t) {
-  return t->widget();
+Fl_Widget *Fl_Widget_Tracker_widget(Fl_Widget_Tracker *t) {
+    return t->widget();
 }
 
-int Fl_Widget_Tracker_exists(Fl_Widget_Tracker* t) {
-  return t->exists();
+int Fl_Widget_Tracker_exists(Fl_Widget_Tracker *t) {
+    return t->exists();
 }
 
 void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b) {
-  Fl::get_color((Fl_Color)col, *r, *g, *b);
+    Fl::get_color((Fl_Color)col, *r, *g, *b);
 }

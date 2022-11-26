@@ -115,7 +115,8 @@ unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b)
 
 void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned char b);
 
-void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b,
+                             unsigned char a);
 
 const char *Fl_get_font(int idx);
 
@@ -333,9 +334,9 @@ void Fl_open_callback(void (*cb)(const char *));
 
 void Fl_disable_wayland(void);
 
-Fl_Widget* Fl_Widget_Tracker_widget(Fl_Widget_Tracker* t);
+Fl_Widget *Fl_Widget_Tracker_widget(Fl_Widget_Tracker *t);
 
-int Fl_Widget_Tracker_exists(Fl_Widget_Tracker* t);
+int Fl_Widget_Tracker_exists(Fl_Widget_Tracker *t);
 
 void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b);
 

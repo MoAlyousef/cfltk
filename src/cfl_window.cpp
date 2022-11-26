@@ -242,9 +242,9 @@ struct Window_Derived : public Widget_Derived<Win> {
     }                                                                                              \
     void widget##_set_icon_label(widget *self, const char *label) {                                \
         LOCK(self->iconlabel(label));                                                              \
-    }\
-    void widget##_set_icons(widget *w, const void *images[], int length) {\
-        w->icons((const Fl_RGB_Image **)images, length);\
+    }                                                                                              \
+    void widget##_set_icons(widget *w, const void *images[], int length) {                         \
+        w->icons((const Fl_RGB_Image **)images, length);                                           \
     }
 
 WINDOW_CLASS(Fl_Window)
@@ -265,7 +265,7 @@ winid resolve_raw_handle(void *handle) {
 #if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
     w.opaque = *(Window *)handle;
 #elif defined(FLTK_USE_WAYLAND)
-    auto h = fl_wl_surface((wld_window*)handle);
+    auto h = fl_wl_surface((wld_window *)handle);
     w.opaque = h;
 #else
     w.x_id = *(Window *)handle;
@@ -301,9 +301,9 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
     LOCK(Fl_X::set_xid(self, *(Window *)handle));
 #else
-    // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
-    //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
-    //      if (!i) return; i = xp; Fl_X::first = xp;)
+        // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
+        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
+        //      if (!i) return; i = xp; Fl_X::first = xp;)
 #endif
 }
 

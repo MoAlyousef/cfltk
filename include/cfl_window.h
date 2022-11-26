@@ -52,8 +52,8 @@ typedef union {
     void widget##_set_override(widget *);                                                          \
     int widget##_override(const widget *);                                                         \
     const char *widget##_icon_label(const widget *);                                               \
-    void widget##_set_icon_label(widget *, const char *);\
-    void widget##_set_icons(widget* w, const void* images[], int length);
+    void widget##_set_icon_label(widget *, const char *);                                          \
+    void widget##_set_icons(widget *w, const void *images[], int length);
 
 WIDGET_DECLARE(Fl_Window)
 
