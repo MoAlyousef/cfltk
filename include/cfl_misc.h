@@ -83,7 +83,7 @@ int Fl_Chart_is_autosize(const Fl_Chart *self);
 
 void Fl_Chart_make_autosize(Fl_Chart *self, int n);
 
-void Fl_Chart_bounds(Fl_Chart* self, double *a,double *b);
+void Fl_Chart_bounds(Fl_Chart *self, double *a, double *b);
 
 WIDGET_DECLARE(Fl_Progress)
 

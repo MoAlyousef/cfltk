@@ -179,7 +179,7 @@ void Fl_Chart_make_autosize(Fl_Chart *self, int n) {
     LOCK(self->autosize(n));
 }
 
-void Fl_Chart_bounds(Fl_Chart* self, double *a,double *b) {
+void Fl_Chart_bounds(Fl_Chart *self, double *a, double *b) {
     LOCK(self->bounds(a, b));
 }
 

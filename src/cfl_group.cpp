@@ -4,6 +4,7 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Color_Chooser.H>
+#include <FL/Fl_Flex.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Pack.H>
@@ -13,7 +14,6 @@
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Wizard.H>
 #include <FL/fl_draw.H>
-#include <FL/Fl_Flex.H>
 
 WIDGET_CLASS(Fl_Group)
 

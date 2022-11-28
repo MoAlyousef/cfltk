@@ -5,8 +5,8 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef _WIN32
 #ifndef _WIN32_WINNT

@@ -97,21 +97,25 @@ struct Fl_Widget_Derived : public Fl_Widget {
     }
 
     ~Fl_Widget_Derived() {
-        if (ev_data_)
-            deleter(ev_data_);
-        ev_data_ = NULL;
-        if (resize_data_)
-            deleter(resize_data_);
-        resize_data_ = NULL;
-        inner_handler = NULL;
-        if (draw_data_)
-            deleter(draw_data_);
-        draw_data_ = NULL;
-        inner_drawer = NULL;
-        if (user_data())
-            deleter(user_data());
-        user_data(NULL);
-        callback((void (*)(Fl_Widget *, void *))NULL);
+        if (deleter_data_) {
+            deleter2(this, deleter_data_);
+        } else {
+            if (ev_data_)
+                deleter(ev_data_);
+            ev_data_ = NULL;
+            if (resize_data_)
+                deleter(resize_data_);
+            resize_data_ = NULL;
+            inner_handler = NULL;
+            if (draw_data_)
+                deleter(draw_data_);
+            draw_data_ = NULL;
+            inner_drawer = NULL;
+            if (user_data())
+                deleter(user_data());
+            user_data(NULL);
+            callback((void (*)(Fl_Widget *, void *))NULL);
+        }
     }
 };
 
