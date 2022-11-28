@@ -61,13 +61,6 @@ struct Fl_Widget_Derived : public Fl_Widget {
         resize_data_ = data;
     }
 
-    void set_deleter2(deleter_fp2 h) {
-        deleter2 = h;
-    }
-    void set_deleter_data(void *data) {
-        deleter_data_ = data;
-    }
-
     int handle(int event) override {
         int local = 0;
         if (inner_handler) {
@@ -97,9 +90,9 @@ struct Fl_Widget_Derived : public Fl_Widget {
     }
 
     ~Fl_Widget_Derived() {
-        if (deleter_data_) {
+        if (deleter2 && deleter_data_) {
             deleter2(this, deleter_data_);
-        } else {
+        } else if (deleter) {
             if (ev_data_)
                 deleter(ev_data_);
             ev_data_ = NULL;

@@ -75,16 +75,11 @@ struct Widget_Derived : public T {
         else {
         }
     }
-    void set_deleter2(deleter_fp2 h) {
-        deleter2 = h;
-    }
-    void set_deleter_data(void *data) {
-        deleter_data_ = data;
-    }
+
     ~Widget_Derived() {
-        if (deleter_data_) {
+        if (deleter2 && deleter_data_) {
             deleter2(this, deleter_data_);
-        } else {
+        } else if (deleter) {
             if (ev_data_)
                 deleter(ev_data_);
             ev_data_ = NULL;

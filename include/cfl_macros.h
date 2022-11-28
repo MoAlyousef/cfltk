@@ -386,8 +386,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                                              \
     void widget##_set_deletion_callback(widget *self, void (*cb)(Fl_Widget *, void *),             \
                                         void *data) {                                              \
-        LOCK(((widget##_Derived *)self)->set_deleter2(cb);                                         \
-             ((widget##_Derived *)self)->set_deleter_data(data));                                  \
+        LOCK(((widget##_Derived *)self)->deleter2 = cb;                                            \
+             ((widget##_Derived *)self)->deleter_data_ = data);                                    \
     }
 
 #define GROUP_DECLARE(widget)                                                                      \
