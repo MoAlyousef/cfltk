@@ -240,6 +240,10 @@ void Fl_draw_check(int x, int y, int w, int h, unsigned int col);
 
 int Fl_add_symbol(const char *name, void (*drawit)(unsigned int), int scalable);
 
+void Fl_rounded_rect(int x, int y, int w, int h, int r);
+
+void Fl_rounded_rectf(int x, int y, int w, int h, int r);
+
 #ifdef __cplusplus
 }
 #endif

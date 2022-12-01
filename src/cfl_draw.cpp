@@ -567,3 +567,11 @@ void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {
 int Fl_add_symbol(const char *name, void (*drawit)(unsigned int), int scalable) {
     return fl_add_symbol(name, drawit, scalable);
 }
+
+void Fl_rounded_rect(int x, int y, int w, int h, int r) {
+    fl_rounded_rect(x, y, w, h, r);
+}
+
+void Fl_rounded_rectf(int x, int y, int w, int h, int r) {
+    fl_rounded_rectf(x, y, w, h, r);
+}
