@@ -6,6 +6,7 @@
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl_Image.H>
+#include <FL/Fl_ICO_Image.H>
 #include <FL/Fl_JPEG_Image.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_PNM_Image.H>
@@ -302,6 +303,18 @@ int Fl_Shared_Image_ld(const Fl_Shared_Image *self) {
 
 void Fl_Shared_Image_inactive(Fl_Shared_Image *self) {
     LOCK(self->inactive());
+}
+
+IMAGE_DEFINE(Fl_ICO_Image)
+
+Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id) {
+    LOCK(auto ret = new Fl_ICO_Image(filename, id));
+    return ret;
+}
+
+Fl_ICO_Image *Fl_ICO_Image_from_data(const unsigned char *bits, unsigned long len, int id) {
+    LOCK(auto ret = new Fl_ICO_Image(NULL, id, bits, len));
+    return ret;
 }
 
 void Fl_register_images(void) {

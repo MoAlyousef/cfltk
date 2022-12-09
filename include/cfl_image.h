@@ -97,6 +97,12 @@ Fl_Shared_Image *Fl_Shared_Image_from_rgb(Fl_RGB_Image *rgb, int own_it);
 
 int Fl_Shared_Image_fail(Fl_Shared_Image *self);
 
+IMAGE_DECLARE(Fl_ICO_Image)
+
+Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id);
+
+Fl_ICO_Image *Fl_ICO_Image_from_data(const unsigned char *bits, unsigned long len, int id);
+
 void Fl_register_images(void);
 
 #ifdef __cplusplus
