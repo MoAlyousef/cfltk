@@ -5,8 +5,8 @@
 #include <FL/Fl.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_GIF_Image.H>
-#include <FL/Fl_Image.H>
 #include <FL/Fl_ICO_Image.H>
+#include <FL/Fl_Image.H>
 #include <FL/Fl_JPEG_Image.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_PNM_Image.H>
@@ -315,6 +315,13 @@ Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id) {
 Fl_ICO_Image *Fl_ICO_Image_from_data(const unsigned char *bits, unsigned long len, int id) {
     LOCK(auto ret = new Fl_ICO_Image(NULL, id, bits, len));
     return ret;
+}
+
+void *const Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self, unsigned long *size) {
+    LOCK(auto ret = self->icondirentry(); *size = self->idcount(););
+    auto temp = new Fl_ICO_Image::IconDirEntry[*size];
+    memcpy(temp, ret, *size);
+    return temp;
 }
 
 void Fl_register_images(void) {

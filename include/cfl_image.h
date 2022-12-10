@@ -103,6 +103,8 @@ Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id);
 
 Fl_ICO_Image *Fl_ICO_Image_from_data(const unsigned char *bits, unsigned long len, int id);
 
+void *const Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self, unsigned long *size);
+
 void Fl_register_images(void);
 
 #ifdef __cplusplus
