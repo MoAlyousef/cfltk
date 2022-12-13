@@ -58,7 +58,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         widget *self, void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *), void *data);    \
     void widget##_set_when(widget *, int);                                                         \
     int widget##_when(const widget *);                                                             \
-    void *widget##_image(const widget *);                                                          \
+    const void *widget##_image(const widget *);                                                    \
     void *widget##_parent(const widget *self);                                                     \
     unsigned int widget##_selection_color(widget *);                                               \
     void widget##_set_selection_color(widget *, unsigned int color);                               \
@@ -84,7 +84,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void *widget##_as_window(widget *self);                                                        \
     void *widget##_as_group(widget *self);                                                         \
     void widget##_set_deimage(widget *, void *);                                                   \
-    void *widget##_deimage(const widget *);                                                        \
+    const void *widget##_deimage(const widget *);                                                  \
     void widget##_set_callback(widget *, Fl_Callback *, void *);                                   \
     void widget##_set_deleter(widget *, void (*)(void *));                                         \
     int widget##_visible(const widget *self);                                                      \
@@ -228,8 +228,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         delete ((widget##_Derived *)self);                                                         \
     }                                                                                              \
     void widget##_set_image(widget *self, void *image) {                                           \
-        LOCK(auto old = self->image(); if (!image) self->image(NULL);                              \
-             else self->image(((Fl_Image *)image)->copy()); delete old;)                           \
+        LOCK(self->bind_image(((Fl_Image *)image)));                                               \
     }                                                                                              \
     void widget##_handle(widget *self, custom_handler_callback cb, void *data) {                   \
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
@@ -245,12 +244,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(auto ret = self->when());                                                             \
         return ret;                                                                                \
     }                                                                                              \
-    void *widget##_image(const widget *self) {                                                     \
+    const void *widget##_image(const widget *self) {                                               \
         LOCK(auto temp = self->image());                                                           \
-        if (!temp)                                                                                 \
-            return NULL;                                                                           \
-        LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
-        return ret;                                                                                \
+        return temp;                                                                               \
     }                                                                                              \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data) {                        \
         LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
@@ -348,15 +344,11 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_deimage(widget *self, void *image) {                                         \
-        LOCK(auto old = self->deimage(); if (!image) self->deimage(NULL);                          \
-             else self->deimage(((Fl_Image *)image)->copy()); delete old;)                         \
+        LOCK(self->bind_deimage(((Fl_Image *)image)));                                             \
     }                                                                                              \
-    void *widget##_deimage(const widget *self) {                                                   \
+    const void *widget##_deimage(const widget *self) {                                             \
         LOCK(auto temp = self->deimage());                                                         \
-        if (!temp)                                                                                 \
-            return NULL;                                                                           \
-        LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
-        return ret;                                                                                \
+        return temp;                                                                               \
     }                                                                                              \
     void widget##_set_callback(widget *self, Fl_Callback *cb, void *data) {                        \
         LOCK(self->callback(cb, data));                                                            \
