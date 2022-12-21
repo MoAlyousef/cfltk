@@ -24,10 +24,6 @@ option(CFLTK_SINGLE_THREADED "Disable multithreaded support" OFF)
 option(CFLTK_LINK_IMAGES "Links image libraries" ON)
 option(CFLTK_CARGO_BUILD "cfltk is built using Cargo" OFF)
 
-if(EXISTS "/usr/include/cairo/cairo.h")
-    include_directories("/usr/include/cairo")
-endif()
-
 # If cmake can't find the installed fltk, you might have to set the FLTK_DIR enviromental variable,
 # export FLTK_DIR=/path/to/fltk
 if(USE_SYSTEM_FLTK)
