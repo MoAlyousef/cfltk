@@ -31,6 +31,10 @@ struct Fl_Widget_Derived : public Fl_Widget {
         return (Fl_Widget *)this;
     }
 
+    static Fl_Widget *from_dyn_ptr(Fl_Widget *ptr) {
+        return dynamic_cast<Fl_Widget *>(ptr);
+    }
+
     void widget_resize(int x, int y, int w, int h) {
         Fl_Widget::resize(x, y, w, h);
         redraw();

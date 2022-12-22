@@ -26,6 +26,11 @@ struct Widget_Derived : public T {
     operator T *() {
         return (T *)this;
     }
+
+    static T *from_dyn_ptr(Fl_Widget *ptr) {
+        return dynamic_cast<T *>(ptr);
+    }
+
     void widget_resize(int x, int y, int w, int h) {
         Fl_Widget::resize(x, y, w, h);
         this->redraw();
