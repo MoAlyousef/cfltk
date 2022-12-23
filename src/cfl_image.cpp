@@ -327,3 +327,4 @@ void *const Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self, unsigned long *s
 void Fl_register_images(void) {
     LOCK(fl_register_images());
 }
+
