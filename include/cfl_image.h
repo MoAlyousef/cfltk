@@ -21,8 +21,7 @@ extern "C" {
     int image##_data_h(const image *self);                                                         \
     int image##_d(const image *self);                                                              \
     int image##_ld(const image *self);                                                             \
-    void image##_inactive(image *self);                                                            \
-    image *image##_from_dyn_ptr(Fl_Image *other);
+    void image##_inactive(image *self);
 
 IMAGE_DECLARE(Fl_Image)
 

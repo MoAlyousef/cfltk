@@ -73,9 +73,6 @@
     }                                                                                              \
     void image##_inactive(image *self) {                                                           \
         LOCK(self->inactive());                                                                    \
-    }                                                                                              \
-    image *image##_from_dyn_ptr(Fl_Image *other) {                                                 \
-        return dynamic_cast<image *>(other);                                                       \
     }
 
 void Fl_Image_set_scaling_algorithm(int algorithm) {
@@ -330,4 +327,3 @@ void *const Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self, unsigned long *s
 void Fl_register_images(void) {
     LOCK(fl_register_images());
 }
-
