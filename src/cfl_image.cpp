@@ -73,6 +73,9 @@
     }                                                                                              \
     void image##_inactive(image *self) {                                                           \
         LOCK(self->inactive());                                                                    \
+    }                                                                                              \
+    image *image##_from_dyn_ptr(Fl_Image *other) {                                                 \
+        return dynamic_cast<image *>(other);                                                       \
     }
 
 void Fl_Image_set_scaling_algorithm(int algorithm) {
