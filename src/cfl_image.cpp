@@ -34,9 +34,6 @@
         LOCK(auto ret = self->h());                                                                \
         return ret;                                                                                \
     }                                                                                              \
-    void image##_delete(image *self) {                                                             \
-        delete self;                                                                               \
-    }                                                                                              \
     int image##_count(image *self) {                                                               \
         LOCK(auto ret = self->count());                                                            \
         return ret;                                                                                \
@@ -73,6 +70,14 @@
     }                                                                                              \
     void image##_inactive(image *self) {                                                           \
         LOCK(self->inactive());                                                                    \
+    }                                                                                              \
+    image *image##_from_dyn_ptr(Fl_Image *other) {                                                 \
+        return dynamic_cast<image *>(other);                                                       \
+    }
+
+#define IMAGE_DELETE(image)                                                                        \
+    void image##_delete(image *self) {                                                             \
+        delete self;                                                                               \
     }
 
 void Fl_Image_set_scaling_algorithm(int algorithm) {
@@ -86,6 +91,8 @@ int Fl_Image_scaling_algorithm(void) {
 
 IMAGE_DEFINE(Fl_JPEG_Image)
 
+IMAGE_DELETE(Fl_JPEG_Image)
+
 Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_JPEG_Image(filename));
     return ret;
@@ -98,7 +105,11 @@ Fl_JPEG_Image *Fl_JPEG_Image_from(const unsigned char *data) {
 
 IMAGE_DEFINE(Fl_Image)
 
+IMAGE_DELETE(Fl_Image)
+
 IMAGE_DEFINE(Fl_PNG_Image)
+
+IMAGE_DELETE(Fl_PNG_Image)
 
 Fl_PNG_Image *Fl_PNG_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_PNG_Image(filename));
@@ -111,6 +122,8 @@ Fl_PNG_Image *Fl_PNG_Image_from(const unsigned char *data, int size) {
 }
 
 IMAGE_DEFINE(Fl_SVG_Image)
+
+IMAGE_DELETE(Fl_SVG_Image)
 
 Fl_SVG_Image *Fl_SVG_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_SVG_Image(filename));
@@ -128,6 +141,8 @@ void Fl_SVG_Image_normalize(Fl_SVG_Image *self) {
 
 IMAGE_DEFINE(Fl_BMP_Image)
 
+IMAGE_DELETE(Fl_BMP_Image)
+
 Fl_BMP_Image *Fl_BMP_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_BMP_Image(filename));
     return ret;
@@ -139,6 +154,8 @@ Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data, long len) {
 }
 
 IMAGE_DEFINE(Fl_GIF_Image)
+
+IMAGE_DELETE(Fl_GIF_Image)
 
 Fl_GIF_Image *Fl_GIF_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_GIF_Image(filename));
@@ -152,12 +169,16 @@ Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len) {
 
 IMAGE_DEFINE(Fl_Pixmap)
 
+IMAGE_DELETE(Fl_Pixmap)
+
 Fl_Pixmap *Fl_Pixmap_new(const char *const *D) {
     LOCK(auto ret = new Fl_Pixmap(D));
     return ret;
 }
 
 IMAGE_DEFINE(Fl_XPM_Image)
+
+IMAGE_DELETE(Fl_XPM_Image)
 
 Fl_XPM_Image *Fl_XPM_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_XPM_Image(filename));
@@ -166,12 +187,16 @@ Fl_XPM_Image *Fl_XPM_Image_new(const char *filename) {
 
 IMAGE_DEFINE(Fl_XBM_Image)
 
+IMAGE_DELETE(Fl_XBM_Image)
+
 Fl_XBM_Image *Fl_XBM_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_XBM_Image(filename));
     return ret;
 }
 
 IMAGE_DEFINE(Fl_PNM_Image)
+
+IMAGE_DELETE(Fl_PNM_Image)
 
 Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_PNM_Image(filename));
@@ -180,12 +205,16 @@ Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
 
 IMAGE_DEFINE(Fl_Tiled_Image)
 
+IMAGE_DELETE(Fl_Tiled_Image)
+
 Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
     LOCK(auto ret = new Fl_Tiled_Image(i->copy(), w, h));
     return ret;
 }
 
 IMAGE_DEFINE(Fl_RGB_Image)
+
+IMAGE_DELETE(Fl_RGB_Image)
 
 Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
     int temp = 0;
@@ -224,46 +253,10 @@ Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
     return rgb;
 }
 
-void Fl_Shared_Image_draw(Fl_Shared_Image *self, int X, int Y, int W, int H) {
-    LOCK(self->draw(X, Y, W, H));
-}
-
-void Fl_Shared_Image_draw_ext(Fl_Shared_Image *self, int X, int Y, int W, int H, int cx, int cy) {
-    LOCK(self->draw(X, Y, W, H, cx, cy));
-}
-
-int Fl_Shared_Image_width(Fl_Shared_Image *self) {
-    LOCK(auto ret = self->w());
-    return ret;
-}
-
-int Fl_Shared_Image_height(Fl_Shared_Image *self) {
-    LOCK(auto ret = self->h());
-    return ret;
-}
+IMAGE_DEFINE(Fl_Shared_Image)
 
 void Fl_Shared_Image_delete(Fl_Shared_Image *self) {
     LOCK(self->release());
-}
-
-int Fl_Shared_Image_count(Fl_Shared_Image *self) {
-    LOCK(auto ret = self->count());
-    return ret;
-}
-
-const char *const *Fl_Shared_Image_data(Fl_Shared_Image *self) {
-    LOCK(auto ret = self->data());
-    return ret;
-}
-
-Fl_Shared_Image *Fl_Shared_Image_copy(Fl_Shared_Image *self) {
-    LOCK(auto ret = (Fl_Shared_Image *)self->copy());
-    return ret;
-}
-
-void Fl_Shared_Image_scale(Fl_Shared_Image *self, int width, int height, int proportional,
-                           int can_expand) {
-    LOCK(self->scale(width, height, proportional, can_expand));
 }
 
 Fl_Shared_Image *Fl_Shared_Image_get(const char *name, int W, int H) {
@@ -276,36 +269,9 @@ Fl_Shared_Image *Fl_Shared_Image_from_rgb(Fl_RGB_Image *rgb, int own_it) {
     return ret;
 }
 
-int Fl_Shared_Image_fail(Fl_Shared_Image *self) {
-    LOCK(auto ret = self->fail());
-    return ret;
-}
-
-int Fl_Shared_Image_data_w(const Fl_Shared_Image *self) {
-    LOCK(auto ret = self->data_w());
-    return ret;
-}
-
-int Fl_Shared_Image_data_h(const Fl_Shared_Image *self) {
-    LOCK(auto ret = self->data_h());
-    return ret;
-}
-
-int Fl_Shared_Image_d(const Fl_Shared_Image *self) {
-    LOCK(auto ret = self->d());
-    return ret;
-}
-
-int Fl_Shared_Image_ld(const Fl_Shared_Image *self) {
-    LOCK(auto ret = self->ld());
-    return ret;
-}
-
-void Fl_Shared_Image_inactive(Fl_Shared_Image *self) {
-    LOCK(self->inactive());
-}
-
 IMAGE_DEFINE(Fl_ICO_Image)
+
+IMAGE_DELETE(Fl_ICO_Image)
 
 Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id) {
     LOCK(auto ret = new Fl_ICO_Image(filename, id));
