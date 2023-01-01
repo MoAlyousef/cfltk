@@ -15,4 +15,4 @@ cmake -B bin -S . \
     -DOPTION_USE_CAIRO=ON \
     -DOPTION_USE_WAYLAND=OFF
 
-sudo cmake --build bin --parallel --target install
+cmake --build bin --parallel

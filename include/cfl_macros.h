@@ -379,10 +379,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                                              \
     void widget##_set_deletion_callback(widget *self, void (*cb)(Fl_Widget *, void *),             \
                                         void *data) {                                              \
-        if (dynamic_cast<widget##_Derived *>(self)) {                                              \
             LOCK(((widget##_Derived *)self)->deleter2 = cb;                                        \
                  ((widget##_Derived *)self)->deleter_data_ = data);                                \
-        }                                                                                          \
     }                                                                                              \
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr) {                                                \
         return widget##_Derived::from_dyn_ptr(ptr);                                                \
