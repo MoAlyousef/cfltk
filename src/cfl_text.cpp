@@ -229,6 +229,9 @@
     }                                                                                              \
     void widget##_show_insert_position(widget *self) {                                             \
         LOCK(self->show_insert_position());                                                        \
+    }                                                                                              \
+    void widget##_overstrike(widget *self, const char *text) {                                     \
+        LOCK(self->overstrike(text));                                                              \
     }
 
 Fl_Text_Buffer *Fl_Text_Buffer_new(void) {

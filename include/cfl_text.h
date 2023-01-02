@@ -67,7 +67,8 @@ extern "C" {
     unsigned int widget##_spelling_underline_color(const widget *self);                            \
     void widget##_set_secondary_selection_color(widget *self, unsigned int color);                 \
     unsigned int widget##_secondary_selection_color(const widget *self);                           \
-    void widget##_show_insert_position(widget *self);
+    void widget##_show_insert_position(widget *self);                                              \
+    void widget##_overstrike(widget *self, const char *text);
 
 typedef void (*Fl_Text_Modify_Cb)(int pos, int nInserted, int nDeleted, int nRestyled,
                                   const char *deletedText, void *cbArg);
