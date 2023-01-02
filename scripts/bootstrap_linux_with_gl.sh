@@ -13,6 +13,7 @@ cmake -B bin -S . \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
     -DOPTION_USE_PANGO=ON \
     -DOPTION_USE_CAIRO=ON \
-    -DOPTION_USE_WAYLAND=OFF
+    -DOPTION_USE_WAYLAND=OFF \
+    -DFLTK_BUILD_FLUID=OFF
 
 cmake --build bin --parallel

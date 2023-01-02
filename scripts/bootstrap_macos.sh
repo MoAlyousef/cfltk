@@ -9,6 +9,7 @@ cmake -B bin -S . \
     -DOPTION_USE_THREADS=ON \
     -DOPTION_LARGE_FILE=ON \
     -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
-    -DOPTION_BUILD_PDF_DOCUMENTATION=OFF
+    -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
+    -DFLTK_BUILD_FLUID=OFF
 
 sudo cmake --build bin --parallel --target install

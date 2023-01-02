@@ -1,4 +1,3 @@
-
 cmake -B bin -S . \
     -DCMAKE_INSTALL_PREFIX="$MINGW_PREFIX" \
     -DCMAKE_BUILD_TYPE=Release \
@@ -12,6 +11,7 @@ cmake -B bin -S . \
     -DOPTION_LARGE_FILE=ON \
     -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
-    -GNinja
+    -GNinja \
+    -DFLTK_BUILD_FLUID=OFF
 
 cmake --build bin --target install --config Release
