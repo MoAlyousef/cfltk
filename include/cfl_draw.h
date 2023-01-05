@@ -103,6 +103,8 @@ void Fl_arc2(double x, double y, double r, double start, double end);
 
 void Fl_circle(double x, double y, double r);
 
+void Fl_draw_circle(int x, int y, int d, unsigned int c);
+
 void Fl_end_points(void);
 
 void Fl_end_line(void);

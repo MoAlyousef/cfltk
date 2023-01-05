@@ -249,6 +249,11 @@ void Fl_circle(double x, double y, double r) {
     fl_circle(x, y, r);
 }
 
+void Fl_draw_circle(int x, int y, int d, unsigned int c) {
+    fl_open_display();
+    fl_draw_circle(x, y, d, (Fl_Color)c);
+}
+
 void Fl_end_points(void) {
     fl_open_display();
     fl_end_points();

@@ -745,3 +745,7 @@ int Fl_Widget_Tracker_exists(Fl_Widget_Tracker *t) {
 void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b) {
     Fl::get_color((Fl_Color)col, *r, *g, *b);
 }
+
+int Fl_callback_reason(void) {
+    return Fl::callback_reason();
+}

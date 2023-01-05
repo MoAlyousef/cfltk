@@ -340,6 +340,8 @@ int Fl_Widget_Tracker_exists(Fl_Widget_Tracker *t);
 
 void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b);
 
+int Fl_callback_reason(void);
+
 #ifdef __cplusplus
 }
 #endif
