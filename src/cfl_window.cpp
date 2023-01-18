@@ -135,13 +135,13 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_region(const widget *self) {                                                    \
-        Fl_X *t = Fl_X::i(self);                                                                   \
+        Fl_X *t = Fl_X::flx(self);                                                                   \
         if (!t)                                                                                    \
             return NULL;                                                                           \
         return t->region;                                                                          \
     }                                                                                              \
     void widget##_set_region(widget *self, void *r) {                                              \
-        LOCK(Fl_X *t = Fl_X::i(self); if (!t) return; t->region = (Fl_Region)r;)                   \
+        LOCK(Fl_X *t = Fl_X::flx(self); if (!t) return; t->region = (Fl_Region)r;)                   \
     }                                                                                              \
     void widget##_iconize(widget *self) {                                                          \
         LOCK(self->iconize())                                                                      \
@@ -302,7 +302,7 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
     LOCK(Fl_X::set_xid(self, *(Window *)handle));
 #else
         // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
-        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::i(self);
+        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::flx(self);
         //      if (!i) return; i = xp; Fl_X::first = xp;)
 #endif
 }
