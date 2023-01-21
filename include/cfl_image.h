@@ -62,6 +62,32 @@ Fl_GIF_Image *Fl_GIF_Image_new(const char *filename);
 
 Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len);
 
+IMAGE_DECLARE(Fl_Anim_GIF_Image)
+
+Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_new(const char *filename, void *canvas, unsigned short flags);
+
+Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_from(const char *imagename, const unsigned char *data,
+                                          const unsigned long length, void *canvas,
+                                          unsigned short flags);
+
+double Fl_Anim_GIF_Image_delay(const Fl_Anim_GIF_Image *self, int frame_);
+
+void Fl_Anim_GIF_Image_set_delay(Fl_Anim_GIF_Image *self, int frame, double delay);
+
+int Fl_Anim_GIF_Image_is_animated(const Fl_Anim_GIF_Image *self);
+
+void Fl_Anim_GIF_Image_set_speed(Fl_Anim_GIF_Image *self, double speed);
+
+double Fl_Anim_GIF_Image_speed(Fl_Anim_GIF_Image *self);
+
+int Fl_Anim_GIF_Image_start(Fl_Anim_GIF_Image *self);
+
+int Fl_Anim_GIF_Image_stop(Fl_Anim_GIF_Image *self);
+
+int Fl_Anim_GIF_Image_next(Fl_Anim_GIF_Image *self);
+
+int Fl_Anim_GIF_Image_playing(const Fl_Anim_GIF_Image *self);
+
 IMAGE_DECLARE(Fl_Pixmap)
 
 Fl_Pixmap *Fl_Pixmap_new(const char *const *D);

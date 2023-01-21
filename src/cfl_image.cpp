@@ -3,6 +3,7 @@
 #include "cfl_widget.hpp"
 
 #include <FL/Fl.H>
+#include <FL/Fl_Anim_GIF_Image.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl_ICO_Image.H>
@@ -164,6 +165,65 @@ Fl_GIF_Image *Fl_GIF_Image_new(const char *filename) {
 
 Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len) {
     LOCK(auto ret = new Fl_GIF_Image(NULL, data, len));
+    return ret;
+}
+
+IMAGE_DEFINE(Fl_Anim_GIF_Image)
+
+IMAGE_DELETE(Fl_Anim_GIF_Image)
+
+Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_new(const char *filename, void *canvas, unsigned short flags) {
+    LOCK(auto ret = new Fl_Anim_GIF_Image(filename, (Fl_Widget *)canvas, flags));
+    return ret;
+}
+
+Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_from(const char *imagename, const unsigned char *data,
+                                          const unsigned long length, void *canvas,
+                                          unsigned short flags) {
+    LOCK(auto ret = new Fl_Anim_GIF_Image(imagename, data, length, (Fl_Widget *)canvas, flags));
+    return ret;
+}
+
+double Fl_Anim_GIF_Image_delay(const Fl_Anim_GIF_Image *self, int frame_) {
+    LOCK(auto ret = self->delay(frame_));
+    return ret;
+}
+
+void Fl_Anim_GIF_Image_set_delay(Fl_Anim_GIF_Image *self, int frame, double delay) {
+    LOCK(self->delay(frame, delay));
+}
+
+int Fl_Anim_GIF_Image_is_animated(const Fl_Anim_GIF_Image *self) {
+    LOCK(auto ret = self->is_animated());
+    return ret;
+}
+
+void Fl_Anim_GIF_Image_set_speed(Fl_Anim_GIF_Image *self, double speed) {
+    LOCK(self->speed(speed));
+}
+
+double Fl_Anim_GIF_Image_speed(Fl_Anim_GIF_Image *self) {
+    LOCK(auto ret = self->speed());
+    return ret;
+}
+
+int Fl_Anim_GIF_Image_start(Fl_Anim_GIF_Image *self) {
+    LOCK(auto ret = self->start());
+    return ret;
+}
+
+int Fl_Anim_GIF_Image_stop(Fl_Anim_GIF_Image *self) {
+    LOCK(auto ret = self->stop());
+    return ret;
+}
+
+int Fl_Anim_GIF_Image_next(Fl_Anim_GIF_Image *self) {
+    LOCK(auto ret = self->next());
+    return ret;
+}
+
+int Fl_Anim_GIF_Image_playing(const Fl_Anim_GIF_Image *self) {
+    LOCK(auto ret = self->playing());
     return ret;
 }
 
