@@ -126,7 +126,8 @@ include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake
                                  VERSION ${CFLTK_PROJECT_VERSION}
-                                 COMPATIBILITY SameMajorVersion)
+                                 COMPATIBILITY SameMajorVersion
+                                 )
 
 install(TARGETS cfltk
     EXPORT cfltkConfig
