@@ -50,8 +50,8 @@ static void v_unload_private_font(const char *pf) {
 #else /* Assume X11 with XFT/fontconfig - this will break on systems using legacy Xlib fonts */
 #include <fontconfig/fontconfig.h>
 #define USE_XFT 1
-#define i_load_private_font(PATH) (int)FcConfigAppFontAddFile(NULL, (const FcChar8 *)(PATH))
-#define v_unload_private_font(PATH) FcConfigAppFontClear(NULL)
+#define i_load_private_font(PATH) (int)FcConfigAppFontAddFile(nullptr, (const FcChar8 *)(PATH))
+#define v_unload_private_font(PATH) FcConfigAppFontClear(nullptr)
 #endif
 
 #if defined(_MSC_VER) && _MSC_VER < 1900

@@ -26,7 +26,7 @@ void Fl_Surface_Device_push_current(Fl_Surface_Device *new_current){
     LOCK(Fl_Surface_Device::push_current(new_current))}
 
 Fl_Surface_Device *Fl_Surface_Device_pop_current(void) {
-    Fl_Surface_Device *ret = 0;
+    Fl_Surface_Device *ret = nullptr;
     LOCK(Fl_Surface_Device::pop_current());
     return ret;
 }

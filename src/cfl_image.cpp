@@ -100,7 +100,7 @@ Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename) {
 }
 
 Fl_JPEG_Image *Fl_JPEG_Image_from(const unsigned char *data) {
-    LOCK(auto ret = new Fl_JPEG_Image(NULL, data));
+    LOCK(auto ret = new Fl_JPEG_Image(nullptr, data));
     return ret;
 }
 
@@ -118,7 +118,7 @@ Fl_PNG_Image *Fl_PNG_Image_new(const char *filename) {
 }
 
 Fl_PNG_Image *Fl_PNG_Image_from(const unsigned char *data, int size) {
-    LOCK(auto ret = new Fl_PNG_Image(NULL, data, size));
+    LOCK(auto ret = new Fl_PNG_Image(nullptr, data, size));
     return ret;
 }
 
@@ -132,7 +132,7 @@ Fl_SVG_Image *Fl_SVG_Image_new(const char *filename) {
 }
 
 Fl_SVG_Image *Fl_SVG_Image_from(const char *data) {
-    LOCK(auto ret = new Fl_SVG_Image(NULL, data));
+    LOCK(auto ret = new Fl_SVG_Image(nullptr, data));
     return ret;
 }
 
@@ -150,7 +150,7 @@ Fl_BMP_Image *Fl_BMP_Image_new(const char *filename) {
 }
 
 Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data, long len) {
-    LOCK(auto ret = new Fl_BMP_Image(NULL, data, len));
+    LOCK(auto ret = new Fl_BMP_Image(nullptr, data, len));
     return ret;
 }
 
@@ -164,7 +164,7 @@ Fl_GIF_Image *Fl_GIF_Image_new(const char *filename) {
 }
 
 Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len) {
-    LOCK(auto ret = new Fl_GIF_Image(NULL, data, len));
+    LOCK(auto ret = new Fl_GIF_Image(nullptr, data, len));
     return ret;
 }
 
@@ -284,18 +284,18 @@ Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int dept
         temp = abs(ld);
     }
     auto sz = abs(temp * H);
-    unsigned char *arr = new unsigned char[sz];
+    auto *arr = new unsigned char[sz];
     if (!arr)
-        return NULL;
+        return nullptr;
     memset(arr, 0, sz);
     memcpy(arr, bits, sz);
-    LOCK(Fl_RGB_Image *img = new Fl_RGB_Image(arr, W, H, depth, ld); if (!img) return NULL;
+    LOCK(auto *img = new Fl_RGB_Image(arr, W, H, depth, ld); if (!img) return nullptr;
          img->alloc_array = 1);
     return img;
 }
 
 Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, int depth, int ld) {
-    LOCK(Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth, ld); if (!img) return NULL;
+    LOCK(auto *img = new Fl_RGB_Image(bits, W, H, depth, ld); if (!img) return nullptr;
          img->alloc_array = 0);
     return img;
 }
@@ -303,7 +303,7 @@ Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H, in
 extern int fl_convert_pixmap(const char *const *cdata, unsigned char *out, unsigned int bg);
 
 Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
-    auto rgb = new Fl_RGB_Image(0, pxm->data_w(), pxm->data_h(), 4);
+    auto rgb = new Fl_RGB_Image(nullptr, pxm->data_w(), pxm->data_h(), 4);
     if (pxm && pxm->data_w() > 0 && pxm->data_h() > 0) {
         rgb->array = new uchar[pxm->data_w() * pxm->data_h() * rgb->d()];
         rgb->alloc_array = 1;
@@ -339,7 +339,7 @@ Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id) {
 }
 
 Fl_ICO_Image *Fl_ICO_Image_from_data(const unsigned char *bits, unsigned long len, int id) {
-    LOCK(auto ret = new Fl_ICO_Image(NULL, id, bits, len));
+    LOCK(auto ret = new Fl_ICO_Image(nullptr, id, bits, len));
     return ret;
 }
 

@@ -41,7 +41,7 @@ template <typename Win>
 struct Window_Derived : public Widget_Derived<Win> {
     unsigned char alpha_ = 255;
 
-    Window_Derived(int x, int y, int w, int h, const char *title = 0)
+    Window_Derived(int x, int y, int w, int h, const char *title = nullptr)
         : Widget_Derived<Win>(x, y, w, h, title) {
     }
 
@@ -66,7 +66,7 @@ struct Window_Derived : public Widget_Derived<Win> {
 #elif defined(__ANDROID__)
         // Do nothing
 #elif defined(FLTK_USE_X11)
-        uint32_t cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
+        auto cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
         Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
         XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
                         (unsigned char *)&cardinal_alpha, 1);
@@ -81,7 +81,7 @@ struct Window_Derived : public Widget_Derived<Win> {
     }
 
 #if FLTK_USE_WAYLAND && !CFLTK_USE_GL
-    virtual void draw() override {
+    void draw() override {
         auto col = this->color();
         double r = ((col >> 24) & 0xff) / 255.0;
         double g = ((col >> 16) & 0xff) / 255.0;
@@ -122,9 +122,8 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_raw_handle(const widget *w) {                                                   \
-        LOCK(Window temp = fl_xid(w);                                                              \
-             if (!temp) { return NULL; } Window *xid = (Window *)malloc(sizeof(Window));           \
-             if (!xid) return NULL; memcpy(xid, &temp, sizeof(Window)));                           \
+        LOCK(Window temp = fl_xid(w); if (!temp) { return nullptr; } auto *xid = new Window;       \
+             if (!xid) return nullptr; memcpy(xid, &temp, sizeof(Window)));                        \
         return xid;                                                                                \
     }                                                                                              \
     void widget##_set_border(widget *self, int flag) {                                             \
@@ -135,13 +134,13 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                                                \
     }                                                                                              \
     void *widget##_region(const widget *self) {                                                    \
-        Fl_X *t = Fl_X::flx(self);                                                                   \
+        Fl_X *t = Fl_X::flx(self);                                                                 \
         if (!t)                                                                                    \
-            return NULL;                                                                           \
+            return nullptr;                                                                        \
         return t->region;                                                                          \
     }                                                                                              \
     void widget##_set_region(widget *self, void *r) {                                              \
-        LOCK(Fl_X *t = Fl_X::flx(self); if (!t) return; t->region = (Fl_Region)r;)                   \
+        LOCK(Fl_X *t = Fl_X::flx(self); if (!t) return; t->region = (Fl_Region)r;)                 \
     }                                                                                              \
     void widget##_iconize(widget *self) {                                                          \
         LOCK(self->iconize())                                                                      \
@@ -168,13 +167,13 @@ struct Window_Derived : public Widget_Derived<Win> {
         LOCK(self->hotspot(wid))                                                                   \
     }                                                                                              \
     void widget##_set_shape(widget *self, const void *image) {                                     \
-        LOCK(auto old = self->shape(); if (!image) self->shape(NULL);                              \
+        LOCK(auto old = self->shape(); if (!image) self->shape(nullptr);                           \
              else self->shape(((Fl_Image *)image)->copy()); delete old;)                           \
     }                                                                                              \
     const void *widget##_shape(widget *self) {                                                     \
         LOCK(auto temp = self->shape());                                                           \
         if (!temp)                                                                                 \
-            return NULL;                                                                           \
+            return nullptr;                                                                        \
         LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
         return ret;                                                                                \
     }                                                                                              \
@@ -270,7 +269,7 @@ winid resolve_raw_handle(void *handle) {
 #else
     w.x_id = *(Window *)handle;
 #endif
-    free(handle);
+    delete (Window *)handle;
     return w;
 }
 
@@ -288,7 +287,7 @@ void *Fl_gc(void) {
 #if !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
     return fl_gc;
 #endif
-    return NULL;
+    return nullptr;
 }
 
 void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
@@ -336,12 +335,16 @@ GROUP_DEFINE(Fl_Menu_Window)
 WINDOW_DEFINE(Fl_Menu_Window)
 
 struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
-    void *overlay_draw_data_ = NULL;
+    Fl_Overlay_Window_Derived(const Fl_Overlay_Window_Derived &) = delete;
+    Fl_Overlay_Window_Derived(Fl_Overlay_Window_Derived &&) = delete;
+    Fl_Overlay_Window_Derived &operator=(const Fl_Overlay_Window_Derived &other) = delete;
+    Fl_Overlay_Window_Derived &operator=(Fl_Overlay_Window_Derived &&other) = delete;
+    void *overlay_draw_data_ = nullptr;
 
     typedef void (*drawer)(Fl_Widget *, void *data);
-    drawer inner_overlay_drawer = NULL;
+    drawer inner_overlay_drawer = nullptr;
 
-    Fl_Overlay_Window_Derived(int x, int y, int w, int h, const char *title = 0)
+    Fl_Overlay_Window_Derived(int x, int y, int w, int h, const char *title = nullptr)
         : Window_Derived<Fl_Overlay_Window>(x, y, w, h, title) {
     }
 
@@ -367,8 +370,8 @@ struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
     ~Fl_Overlay_Window_Derived() {
         if (overlay_draw_data_)
             deleter(overlay_draw_data_);
-        overlay_draw_data_ = NULL;
-        inner_overlay_drawer = NULL;
+        overlay_draw_data_ = nullptr;
+        inner_overlay_drawer = nullptr;
     }
 };
 

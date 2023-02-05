@@ -31,11 +31,11 @@
         LOCK(self->maximum_size(m));                                                               \
     }                                                                                              \
     int widget##_position(widget *self) {                                                          \
-        LOCK(auto ret = self->position());                                                         \
+        LOCK(auto ret = self->insert_position());                                                  \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_set_position(widget *self, int p) {                                               \
-        LOCK(auto ret = self->position(p));                                                        \
+        LOCK(auto ret = self->insert_position(p));                                                 \
         return ret;                                                                                \
     }                                                                                              \
     int widget##_set_mark(widget *self, int m) {                                                   \

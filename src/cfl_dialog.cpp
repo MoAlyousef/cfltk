@@ -17,7 +17,7 @@ Fl_Native_File_Chooser *Fl_Native_File_Chooser_new(int val) {
     LOCK(auto ret = new Fl_Native_File_Chooser(val));
     return ret;
 #else
-    return NULL;
+    return nullptr;
 #endif
 }
 
@@ -28,7 +28,7 @@ void Fl_Native_File_Chooser_delete(Fl_Native_File_Chooser *self) {
 const char *Fl_Native_File_Chooser_filename(Fl_Native_File_Chooser *self) {
     LOCK(const char *x = self->filename());
     if (!strcmp(x, ""))
-        return NULL;
+        return nullptr;
     else
         return x;
 }
@@ -36,7 +36,7 @@ const char *Fl_Native_File_Chooser_filename(Fl_Native_File_Chooser *self) {
 const char *Fl_Native_File_Chooser_filenames(Fl_Native_File_Chooser *self, int cnt) {
     LOCK(const char *x = self->filename(cnt));
     if (!strcmp(x, ""))
-        return NULL;
+        return nullptr;
     else
         return x;
 }
@@ -103,27 +103,27 @@ void Fl_alert2(const char *txt) {
 }
 
 int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2) {
-    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = NULL;
+    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = nullptr;
          auto ret = fl_choice("%s", b0, b1, b2, txt));
     return ret;
 }
 
 int Fl_choice_n(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2) {
-    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = NULL;
+    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = nullptr;
          auto ret = fl_choice_n("%s", b0, b1, b2, txt));
     return ret;
 }
 
 int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2) {
     if (strlen(b2) == 0)
-        b2 = NULL;
+        b2 = nullptr;
     LOCK(auto ret = fl_choice("%s", b0, b1, b2, txt));
     return ret;
 }
 
 int Fl_choice2_n(const char *txt, const char *b0, const char *b1, const char *b2) {
     if (strlen(b2) == 0)
-        b2 = NULL;
+        b2 = nullptr;
     LOCK(auto ret = fl_choice_n("%s", b0, b1, b2, txt));
     return ret;
 }

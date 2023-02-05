@@ -285,7 +285,7 @@ void Fl_Text_Buffer_copy(Fl_Text_Buffer *self, Fl_Text_Buffer *fromBuf, int from
 
 int Fl_Text_Buffer_undo(Fl_Text_Buffer *self, int *cp) {
     (void)cp;
-    LOCK(auto ret = self->undo(NULL));
+    LOCK(auto ret = self->undo(nullptr));
     return ret;
 }
 
@@ -465,7 +465,7 @@ WIDGET_CLASS(Fl_Text_Display)
 WIDGET_DEFINE(Fl_Text_Display)
 
 void Fl_Text_Display_init(Fl_Text_Display *self) {
-    LOCK(Fl_Text_Buffer *buff = new Fl_Text_Buffer(); self->buffer(buff));
+    LOCK(auto *buff = new Fl_Text_Buffer(); self->buffer(buff));
 }
 
 Fl_Text_Buffer *Fl_Text_Display_get_buffer(Fl_Text_Display *self) {
@@ -489,7 +489,7 @@ WIDGET_CLASS(Fl_Text_Editor)
 WIDGET_DEFINE(Fl_Text_Editor)
 
 void Fl_Text_Editor_init(Fl_Text_Editor *self) {
-    LOCK(Fl_Text_Buffer *buff = new Fl_Text_Buffer(); self->buffer(buff));
+    LOCK(auto *buff = new Fl_Text_Buffer(); self->buffer(buff));
 }
 
 Fl_Text_Buffer *Fl_Text_Editor_get_buffer(Fl_Text_Editor *self) {
@@ -691,7 +691,7 @@ WIDGET_CLASS(Fl_Simple_Terminal)
 WIDGET_DEFINE(Fl_Simple_Terminal)
 
 void Fl_Simple_Terminal_init(Fl_Simple_Terminal *self) {
-    LOCK(Fl_Text_Buffer *buff = new Fl_Text_Buffer(); self->buffer(buff));
+    LOCK(auto *buff = new Fl_Text_Buffer(); self->buffer(buff));
 }
 
 Fl_Text_Buffer *Fl_Simple_Terminal_get_buffer(Fl_Simple_Terminal *self) {

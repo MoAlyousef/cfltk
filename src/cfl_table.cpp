@@ -10,12 +10,12 @@
 
 template <typename Table>
 struct Table_Derived : public Widget_Derived<Table> {
-    void *draw_cell_data_ = NULL;
+    void *draw_cell_data_ = nullptr;
 
     typedef void (*cell_drawer)(Fl_Widget *, int, int, int, int, int, int, int, void *data);
-    cell_drawer inner_cell_drawer = NULL;
+    cell_drawer inner_cell_drawer = nullptr;
 
-    Table_Derived(int x, int y, int w, int h, const char *title = 0)
+    Table_Derived(int x, int y, int w, int h, const char *title = nullptr)
         : Widget_Derived<Table>(x, y, w, h, title) {
     }
     operator Table *() {
@@ -49,7 +49,7 @@ struct Table_Derived : public Widget_Derived<Table> {
     }
     int cursor2rowcol_(int *r, int *c, int *flag) {
         int R = 0, C = 0;
-        Fl_Table::ResizeFlag Flag = (Fl_Table::ResizeFlag)0;
+        auto Flag = (Fl_Table::ResizeFlag)0;
         auto ret = this->cursor2rowcol(R, C, Flag);
         *r = R, *c = C, *flag = (int)Flag;
         return (int)ret;

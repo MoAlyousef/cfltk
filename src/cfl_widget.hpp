@@ -5,23 +5,27 @@
 
 template <typename T>
 struct Widget_Derived : public T {
-    void *ev_data_ = NULL;
-    void *draw_data_ = NULL;
-    void *resize_data_ = NULL;
-    void *deleter_data_ = NULL;
+    Widget_Derived(const Widget_Derived &) = delete;
+    Widget_Derived(Widget_Derived &&) = delete;
+    Widget_Derived &operator=(const Widget_Derived &other) = delete;
+    Widget_Derived &operator=(Widget_Derived &&other) = delete;
+    void *ev_data_ = nullptr;
+    void *draw_data_ = nullptr;
+    void *resize_data_ = nullptr;
+    void *deleter_data_ = nullptr;
 
-    typedef int (*handler)(Fl_Widget *, int, void *data);
-    handler inner_handler = NULL;
-    typedef void (*drawer)(Fl_Widget *, void *data);
-    drawer inner_drawer = NULL;
-    typedef void (*deleter_fp)(void *);
-    deleter_fp deleter = NULL;
-    typedef void (*resizer)(Fl_Widget *, int, int, int, int, void *data);
-    resizer resize_handler = NULL;
-    typedef void (*deleter_fp2)(Fl_Widget *, void *);
-    deleter_fp2 deleter2 = NULL;
+    using handler = int (*)(Fl_Widget *, int, void *data);
+    handler inner_handler = nullptr;
+    using drawer = void (*)(Fl_Widget *, void *);
+    drawer inner_drawer = nullptr;
+    using deleter_fp = void (*)(void *);
+    deleter_fp deleter = nullptr;
+    using resizer = void (*)(Fl_Widget *, int, int, int, int, void *);
+    resizer resize_handler = nullptr;
+    using deleter_fp2 = void (*)(Fl_Widget *, void *);
+    deleter_fp2 deleter2 = nullptr;
 
-    Widget_Derived(int x, int y, int w, int h, const char *title = 0) : T(x, y, w, h, title) {
+    Widget_Derived(int x, int y, int w, int h, const char *title = nullptr) : T(x, y, w, h, title) {
     }
     operator T *() {
         return (T *)this;
@@ -35,7 +39,7 @@ struct Widget_Derived : public T {
         Fl_Widget::resize(x, y, w, h);
         this->redraw();
     }
-    virtual void resize(int x, int y, int w, int h) override {
+    void resize(int x, int y, int w, int h) override {
         T::resize(x, y, w, h);
         if (resize_handler)
             resize_handler(this, x, y, w, h, resize_data_);
@@ -87,19 +91,19 @@ struct Widget_Derived : public T {
         } else if (deleter) {
             if (ev_data_)
                 deleter(ev_data_);
-            ev_data_ = NULL;
+            ev_data_ = nullptr;
             if (resize_data_)
                 deleter(resize_data_);
-            resize_data_ = NULL;
-            inner_handler = NULL;
+            resize_data_ = nullptr;
+            inner_handler = nullptr;
             if (draw_data_)
                 deleter(draw_data_);
-            draw_data_ = NULL;
-            inner_drawer = NULL;
+            draw_data_ = nullptr;
+            inner_drawer = nullptr;
             if (this->user_data())
                 deleter(this->user_data());
-            this->user_data(NULL);
-            this->callback((void (*)(Fl_Widget *, void *))NULL);
+            this->user_data(nullptr);
+            this->callback((void (*)(Fl_Widget *, void *))nullptr);
         }
     }
 };

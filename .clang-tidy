@@ -1,0 +1,20 @@
+---
+Checks: 'clang-diagnostic-*,
+clang-analyzer-*,
+cppcoreguidelines-*,
+modernize-*,
+-modernize-use-trailing-return-type,
+-cppcoreguidelines-pro-bounds-pointer-arithmetic,
+-cppcoreguidelines-owning-memory,
+-cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+-cppcoreguidelines-macro-usage,
+-cppcoreguidelines-avoid-magic-numbers,
+-cppcoreguidelines-pro-type-const-cast,
+-modernize-deprecated-headers,
+-modernize-use-override,
+-cppcoreguidelines-pro-type-vararg,
+-cppcoreguidelines-avoid-c-arrays,
+-modernize-avoid-c-arrays,
+-cppcoreguidelines-pro-bounds-constant-array-index'
+WarningsAsErrors: true
+HeaderFilterRegex: ''

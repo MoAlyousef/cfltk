@@ -68,7 +68,7 @@
         LOCK(self->textsize(s));                                                                   \
     }                                                                                              \
     void widget##_set_icon(widget *self, int line, void *icon) {                                   \
-        LOCK(auto old = self->icon(line); if (!icon) self->icon(line, NULL); else {                \
+        LOCK(auto old = self->icon(line); if (!icon) self->icon(line, nullptr); else {             \
             self->icon(line, ((Fl_Image *)icon)->copy());                                          \
             delete old;                                                                            \
         })                                                                                         \
@@ -76,7 +76,7 @@
     void *widget##_icon(const widget *self, int line) {                                            \
         LOCK(auto temp = self->icon(line));                                                        \
         if (!temp)                                                                                 \
-            return NULL;                                                                           \
+            return nullptr;                                                                        \
         LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
         return ret;                                                                                \
     }                                                                                              \
@@ -125,11 +125,11 @@
         LOCK(self->make_visible(line));                                                            \
     }                                                                                              \
     int widget##_position(const widget *self) {                                                    \
-        LOCK(auto ret = self->position());                                                         \
+        LOCK(auto ret = self->vposition());                                                        \
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_position(widget *self, int pos) {                                            \
-        LOCK(self->position(pos));                                                                 \
+        LOCK(self->vposition(pos));                                                                \
     }                                                                                              \
     int widget##_hposition(const widget *self) {                                                   \
         LOCK(auto ret = self->hposition());                                                        \
@@ -316,12 +316,12 @@ int Fl_Check_Browser_text_size(Fl_Check_Browser *self) {
 }
 
 int Fl_Check_Browser_position(const Fl_Check_Browser *self) {
-    LOCK(auto ret = self->position());
+    LOCK(auto ret = self->vposition());
     return ret;
 }
 
 void Fl_Check_Browser_set_position(Fl_Check_Browser *self, int pos) {
-    LOCK(self->position(pos));
+    LOCK(self->vposition(pos));
 }
 
 int Fl_Check_Browser_hposition(const Fl_Check_Browser *self) {

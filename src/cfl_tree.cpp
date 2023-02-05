@@ -63,14 +63,14 @@ Fl_Tree_Item *Fl_Tree_insert(Fl_Tree *self, Fl_Tree_Item *item, const char *name
 
 const Fl_Tree_Item *Fl_Tree_find_item(const Fl_Tree *self, const char *path) {
     if (!path || strlen(path) == 0)
-        return NULL;
+        return nullptr;
     LOCK(const Fl_Tree_Item *item = self->find_item(path));
     return item;
 }
 
 Fl_Tree_Item *Fl_Tree_find_item_mut(Fl_Tree *self, const char *path) {
     if (!path || strlen(path) == 0)
-        return NULL;
+        return nullptr;
     LOCK(Fl_Tree_Item *item = self->find_item(path));
     return item;
 }
@@ -380,39 +380,39 @@ void Fl_Tree_set_connectorwidth(Fl_Tree *self, int val) {
 void *Fl_Tree_usericon(const Fl_Tree *self) {
     LOCK(auto temp = self->usericon());
     if (!temp)
-        return NULL;
+        return nullptr;
     LOCK(auto ret = ((Fl_Image *)temp)->copy());
     return ret;
 }
 
 void Fl_Tree_set_usericon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->usericon(); if (!val) self->usericon(NULL);
+    LOCK(auto old = self->usericon(); if (!val) self->usericon(nullptr);
          else self->usericon(((Fl_Image *)val)->copy()); delete old;)
 }
 
 void *Fl_Tree_openicon(const Fl_Tree *self) {
     LOCK(auto temp = self->openicon());
     if (!temp)
-        return NULL;
+        return nullptr;
     LOCK(auto ret = ((Fl_Image *)temp)->copy());
     return ret;
 }
 
 void Fl_Tree_set_openicon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->openicon(); if (!val) self->openicon(NULL);
+    LOCK(auto old = self->openicon(); if (!val) self->openicon(nullptr);
          else self->openicon(((Fl_Image *)val)->copy()); delete old;)
 }
 
 void *Fl_Tree_closeicon(const Fl_Tree *self) {
     LOCK(auto temp = self->closeicon());
     if (!temp)
-        return NULL;
+        return nullptr;
     LOCK(auto ret = ((Fl_Image *)temp)->copy());
     return ret;
 }
 
 void Fl_Tree_set_closeicon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->closeicon(); if (!val) self->closeicon(NULL);
+    LOCK(auto old = self->closeicon(); if (!val) self->closeicon(nullptr);
          else self->closeicon(((Fl_Image *)val)->copy()); delete old;)
 }
 
@@ -597,13 +597,13 @@ int Fl_Tree_item_pathname(const Fl_Tree *self, char *pathname, int pathnamelen,
 
 class Fl_Tree_Item_Derived : public Fl_Tree_Item {
   public:
-    void *draw_data = NULL;
+    void *draw_data = nullptr;
     using draw_cb = int (*)(Fl_Tree_Item *, int, void *data);
-    draw_cb cb = NULL;
+    draw_cb cb = nullptr;
     Fl_Tree_Item_Derived(Fl_Tree *tree, const char *txt) : Fl_Tree_Item(tree) {
         label(txt);
     }
-    int draw_item_content(int render) {
+    int draw_item_content(int render) override {
         fl_open_display();
         if (cb) {
             return cb(this, render, draw_data);
@@ -681,7 +681,7 @@ void Fl_Tree_set_Item_label(Fl_Tree_Item *self, const char *val) {
 }
 
 const char *Fl_Tree_Item_label(const Fl_Tree_Item *self) {
-    LOCK(const char *label = self->label(); char *buf = (char *)malloc(strlen(label) + 1);
+    LOCK(const char *label = self->label(); auto *buf = new char[strlen(label) + 1];
          memcpy(buf, label, strlen(label) + 1));
     return buf;
 }
@@ -995,7 +995,7 @@ int Fl_Tree_Item_Array_remove_item(Fl_Tree_Item_Array *self, Fl_Tree_Item *item)
 Fl_Tree_Item *Fl_Tree_Item_Array_at(Fl_Tree_Item_Array *self, int index) {
     LOCK(int total = self->total());
     if (index >= total)
-        return NULL;
+        return nullptr;
     LOCK(auto ret = (*self)[index]);
     return ret;
 }
@@ -1007,12 +1007,12 @@ void Fl_Tree_Item_Array_delete(Fl_Tree_Item_Array *self) {
 void *Fl_Tree_Item_usericon(const Fl_Tree_Item *self) {
     LOCK(auto temp = self->usericon());
     if (!temp)
-        return NULL;
+        return nullptr;
     LOCK(auto ret = ((Fl_Image *)temp)->copy());
     return ret;
 }
 
 void Fl_Tree_Item_set_usericon(Fl_Tree_Item *self, void *val) {
-    LOCK(auto old = self->usericon(); if (!val) self->usericon(NULL);
+    LOCK(auto old = self->usericon(); if (!val) self->usericon(nullptr);
          else self->usericon(((Fl_Image *)val)->copy()); delete old;)
 }

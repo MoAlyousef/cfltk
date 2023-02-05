@@ -110,8 +110,10 @@
         for (int i = 0; i < self->size(); i++) {                                                   \
             temp[i] = item[i];                                                                     \
             if (item[i].text) {                                                                    \
-                auto c = new char[strlen(item[i].text) + 1];                                       \
-                strcpy(c, item[i].text);                                                           \
+                auto len = strlen(item[i].text) + 1;                                               \
+                auto c = new char[len];                                                            \
+                memset(c, 0, len);                                                                 \
+                strncpy(c, item[i].text, len - 1);                                                 \
                 temp[i].text = c;                                                                  \
             }                                                                                      \
         }                                                                                          \
@@ -168,13 +170,13 @@ WIDGET_DEFINE(Fl_Sys_Menu_Bar)
 MENU_DEFINE(Fl_Sys_Menu_Bar)
 
 Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz) {
-    Fl_Menu_Item *items = new Fl_Menu_Item[sz + 1];
+    auto *items = new Fl_Menu_Item[sz + 1];
     if (!items)
-        return NULL;
+        return nullptr;
     for (int i = 0; i < sz; i++) {
         items[i] = {args[i]};
     }
-    items[sz] = {NULL};
+    items[sz] = {nullptr};
     return items;
 }
 
@@ -321,8 +323,8 @@ void Fl_Menu_Item_image(Fl_Menu_Item *self, void *image) {
 
 void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left) {
     LOCK(
-        Fl_Image *temp = NULL;
-        if (image) { temp = ((Fl_Image *)image)->copy(); } Fl_Multi_Label *ml = new Fl_Multi_Label;
+        Fl_Image *temp = nullptr;
+        if (image) { temp = ((Fl_Image *)image)->copy(); } auto *ml = new Fl_Multi_Label;
         if (on_left) {
             ml->typea = FL_IMAGE_LABEL;
             ml->labela = (const char *)temp;
