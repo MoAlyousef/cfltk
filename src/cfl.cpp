@@ -731,7 +731,7 @@ void Fl_open_callback(void (*cb)(const char *)) {
 }
 
 void Fl_disable_wayland(void) {
-    FL_EXPORT bool fl_disable_wayland = true;
+    bool fl_disable_wayland = true;
 }
 
 Fl_Widget *Fl_Widget_Tracker_widget(Fl_Widget_Tracker *t) {

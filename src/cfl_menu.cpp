@@ -136,7 +136,7 @@
                                const Fl_Menu_Item *item) {                                         \
         char temp[256] = {0};                                                                      \
         LOCK(auto ret = self->item_pathname(temp, 256, item);                                      \
-             if (ret == 0) strncpy(pathname, temp, strlen(temp)););                                \
+             if (ret == 0) strncpy(pathname, temp, strlen(temp) + 1););                            \
         return ret;                                                                                \
     }
 

@@ -9,6 +9,7 @@
 #include <FL/Fl_Window.H>
 #include <FL/fl_draw.H>
 #include <FL/fl_show_colormap.H>
+#include <FL/Fl_Graphics_Driver.H>
 #include <FL/platform.H>
 
 void Fl_set_color_int(unsigned int c) {
@@ -24,6 +25,7 @@ unsigned int Fl_get_color(void) {
 }
 
 void Fl_push_clip(int x, int y, int w, int h) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_push_clip(x, y, w, h);
 }
@@ -250,6 +252,7 @@ void Fl_circle(double x, double y, double r) {
 }
 
 void Fl_draw_circle(int x, int y, int d, unsigned int c) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw_circle(x, y, d, (Fl_Color)c);
 }
@@ -323,6 +326,7 @@ int Fl_font(void) {
 }
 
 int Fl_size(void) {
+    if (!fl_gc) return 0;
     return fl_size();
 }
 
@@ -376,21 +380,25 @@ const char *Fl_local_to_mac_roman(const char *t, int n) {
 }
 
 void Fl_draw(const char *str, int x, int y) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw(str, x, y);
 }
 
 void Fl_draw2(int angle, const char *str, int x, int y) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw(angle, str, x, y);
 }
 
 void Fl_draw3(const char *str, int n, int x, int y) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw(str, n, x, y);
 }
 
 void Fl_draw4(int angle, const char *str, int n, int x, int y) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw(angle, str, n, x, y);
 }
@@ -407,6 +415,7 @@ void Fl_measure(const char *str, int *x, int *y, int draw_symbols) {
 
 void Fl_draw5(const char *str, int x, int y, int w, int h, int align, void **img,
               int draw_symbols) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw(str, x, y, w, h, align, (Fl_Image *)*img, draw_symbols);
 }
@@ -422,16 +431,19 @@ void Fl_frame2(const char *s, int x, int y, int w, int h) {
 }
 
 void Fl_draw_box(int box_type, int x, int y, int w, int h, unsigned int c) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw_box((Fl_Boxtype)box_type, x, y, w, h, c);
 }
 
 void Fl_draw_image(const unsigned char *buf, int X, int Y, int W, int H, int D, int L) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw_image(buf, X, Y, W, H, D, L);
 }
 
 void Fl_draw_image_mono(const unsigned char *buf, int X, int Y, int W, int H, int D, int L) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw_image_mono(buf, X, Y, W, H, D, L);
 }
@@ -560,11 +572,13 @@ void Fl_rescale_offscreen(void **ctx) {
 }
 
 void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw(str, x, y, w, h, (Fl_Align)align, nullptr, 1);
 }
 
 void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {
+    if (!fl_gc) return;
     fl_open_display();
     fl_draw_check(Fl_Rect(x, y, w, h), (Fl_Color)col);
 }
