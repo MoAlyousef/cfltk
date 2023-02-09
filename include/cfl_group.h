@@ -57,6 +57,8 @@ void Fl_Tabs_set_tab_align(Fl_Tabs *self, int a);
 
 int Fl_Tabs_tab_align(const Fl_Tabs *self);
 
+void Fl_Tabs_handle_overflow(Fl_Tabs *self, int ov);
+
 GROUP_DECLARE(Fl_Tabs)
 
 WIDGET_DECLARE(Fl_Tile)

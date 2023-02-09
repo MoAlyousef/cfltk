@@ -124,6 +124,10 @@ int Fl_Tabs_tab_align(const Fl_Tabs *self) {
     return ret;
 }
 
+void Fl_Tabs_handle_overflow(Fl_Tabs *self, int ov) {
+    LOCK(self->handle_overflow(ov));
+}
+
 GROUP_DEFINE(Fl_Tabs)
 
 WIDGET_CLASS(Fl_Tile)
