@@ -104,6 +104,13 @@
     }                                                                                              \
     void widget##_set_wrap(widget *self, int boolean) {                                            \
         LOCK(self->wrap(boolean));                                                                 \
+    };                                                                                             \
+    void widget##_set_tab_nav(widget *self, int flag) {                                            \
+        LOCK(self->tab_nav(flag));                                                                 \
+    }                                                                                              \
+    int widget##_tab_nav(const widget *self) {                                                     \
+        LOCK(auto ret = self->tab_nav());                                                          \
+        return ret;                                                                                \
     }
 
 WIDGET_CLASS(Fl_Input)

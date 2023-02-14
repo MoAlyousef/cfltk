@@ -31,7 +31,9 @@ extern "C" {
     int widget##_readonly(widget *);                                                               \
     void widget##_set_readonly(widget *, int boolean);                                             \
     int widget##_wrap(widget *);                                                                   \
-    void widget##_set_wrap(widget *, int boolean);
+    void widget##_set_wrap(widget *, int boolean);                                                 \
+    void widget##_set_tab_nav(widget *, int flag);                                                 \
+    int widget##_tab_nav(const widget *);
 
 WIDGET_DECLARE(Fl_Input)
 
