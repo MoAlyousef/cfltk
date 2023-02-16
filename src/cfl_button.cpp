@@ -13,6 +13,7 @@
 #include <FL/Fl_Repeat_Button.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Round_Button.H>
+#include <FL/Fl_Shortcut_Button.H>
 #include <FL/Fl_Toggle_Button.H>
 
 #define BUTTON_DEFINE(widget)                                                                      \
@@ -164,3 +165,9 @@ WIDGET_CLASS(Fl_Return_Button)
 WIDGET_DEFINE(Fl_Return_Button)
 
 BUTTON_DEFINE(Fl_Return_Button)
+
+WIDGET_CLASS(Fl_Shortcut_Button)
+
+WIDGET_DEFINE(Fl_Shortcut_Button)
+
+BUTTON_DEFINE(Fl_Shortcut_Button)

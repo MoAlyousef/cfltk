@@ -84,6 +84,10 @@ WIDGET_DECLARE(Fl_Return_Button)
 
 BUTTON_DECLARE(Fl_Return_Button)
 
+WIDGET_DECLARE(Fl_Shortcut_Button)
+
+BUTTON_DECLARE(Fl_Shortcut_Button)
+
 #ifdef __cplusplus
 }
 #endif
