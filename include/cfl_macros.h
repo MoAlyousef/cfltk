@@ -80,6 +80,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_handle_data(widget *self, void *data);                                       \
     unsigned char widget##_damage(const widget *self);                                             \
     void widget##_set_damage(widget *self, unsigned char flag);                                    \
+    void widget##_set_damage_area(widget *self, unsigned char flag, int x, int y, int w, int h);   \
     void widget##_clear_damage(widget *self);                                                      \
     void *widget##_as_window(widget *self);                                                        \
     void *widget##_as_group(widget *self);                                                         \
@@ -333,6 +334,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                                              \
     void widget##_set_damage(widget *self, unsigned char flag) {                                   \
         LOCK(self->damage(flag));                                                                  \
+    }                                                                                              \
+    void widget##_set_damage_area(widget *self, unsigned char flag, int x, int y, int w, int h) {  \
+        LOCK(self->damage(flag, x, y, w, h));                                                      \
     }                                                                                              \
     void widget##_clear_damage(widget *self) {                                                     \
         LOCK(self->clear_damage());                                                                \
