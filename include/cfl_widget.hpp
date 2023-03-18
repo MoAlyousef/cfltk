@@ -13,6 +13,7 @@ struct Widget_Derived : public T {
     void *draw_data_ = nullptr;
     void *resize_data_ = nullptr;
     void *deleter_data_ = nullptr;
+    bool super_draw = true;
 
     using handler = int (*)(Fl_Widget *, int, void *data);
     handler inner_handler = nullptr;
@@ -78,7 +79,7 @@ struct Widget_Derived : public T {
         draw_data_ = data;
     }
     void draw() override {
-        T::draw();
+        if (super_draw) T::draw();
         if (inner_drawer)
             inner_drawer(this, draw_data_);
         else {
