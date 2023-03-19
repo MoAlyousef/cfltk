@@ -704,44 +704,26 @@ unsigned int Fl_show_colormap(unsigned int old_col) {
 }
 
 void Fl_copy_offscreen(int x, int y, int w, int h, void *pixmap, int srcx, int srcy) {
-    if (!fl_graphics_driver)
-        return;
-    fl_open_display();
     fl_copy_offscreen(x, y, w, h, (Fl_Offscreen)pixmap, srcx, srcy);
 }
 
 void *Fl_create_offscreen(int w, int h) {
-    if (!fl_graphics_driver)
-        return nullptr;
-    fl_open_display();
     return (void *)fl_create_offscreen(w, h);
 }
 
 void Fl_begin_offscreen(void *b) {
-    if (!fl_graphics_driver)
-        return;
-    fl_open_display();
     fl_begin_offscreen((Fl_Offscreen)b);
 }
 
 void Fl_end_offscreen(void) {
-    if (!fl_graphics_driver)
-        return;
-    fl_open_display();
     fl_end_offscreen();
 }
 
 void Fl_delete_offscreen(void *bitmap) {
-    if (!fl_graphics_driver)
-        return;
-    fl_open_display();
     fl_delete_offscreen((Fl_Offscreen)bitmap);
 }
 
 void Fl_rescale_offscreen(void **ctx) {
-    if (!fl_graphics_driver)
-        return;
-    fl_open_display();
     fl_rescale_offscreen(*(Fl_Offscreen *)ctx);
 }
 
