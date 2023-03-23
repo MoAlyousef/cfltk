@@ -231,7 +231,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         delete ((widget##_Derived *)self);                                                         \
     }                                                                                              \
     void widget##_set_image(widget *self, void *image) {                                           \
-        LOCK(self->bind_image(image ? ((Fl_Image *)image)->copy() : nullptr));                     \
+        LOCK(self->image(((Fl_Image *)image)));                                                    \
     }                                                                                              \
     void widget##_handle(widget *self, custom_handler_callback cb, void *data) {                   \
         LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
@@ -350,7 +350,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_deimage(widget *self, void *image) {                                         \
-        LOCK(self->bind_deimage(image ? ((Fl_Image *)image)->copy() : nullptr));                   \
+        LOCK(self->deimage(((Fl_Image *)image)));                                                  \
     }                                                                                              \
     const void *widget##_deimage(const widget *self) {                                             \
         LOCK(auto temp = self->deimage());                                                         \
