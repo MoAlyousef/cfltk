@@ -58,6 +58,10 @@ MENU_DECLARE(Fl_Choice)
 
 WIDGET_DECLARE(Fl_Sys_Menu_Bar)
 
+void Fl_Sys_Menu_Bar_set_window_menu_style(int style);
+
+void Fl_Sys_Menu_Bar_about(Fl_Sys_Menu_Bar *self, Fl_Callback *cb, void *data);
+
 MENU_DECLARE(Fl_Sys_Menu_Bar)
 
 Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz);
@@ -142,6 +146,26 @@ void Fl_Menu_Item_set_shortcut(Fl_Menu_Item *self, int shortcut);
 void Fl_Menu_Item_set_flag(Fl_Menu_Item *self, int flag);
 
 void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut);
+
+void Fl_Mac_App_Menu_custom_application_menu_items(const Fl_Menu_Item *m);
+
+void Fl_Mac_App_Menu_set_about(const char *about);
+
+void Fl_Mac_App_Menu_set_print(const char *print);
+
+void Fl_Mac_App_Menu_set_print_no_titlebar(const char *print_no_titlebar);
+
+void Fl_Mac_App_Menu_set_toggle_print_titlebar(const char *toggle_print_titlebar);
+
+void Fl_Mac_App_Menu_set_services(const char *services);
+
+void Fl_Mac_App_Menu_set_hide(const char *hide);
+
+void Fl_Mac_App_Menu_set_hide_others(const char *hide_others);
+
+void Fl_Mac_App_Menu_set_show(const char *show);
+
+void Fl_Mac_App_Menu_set_quit(const char *quit);
 
 #ifdef __cplusplus
 }

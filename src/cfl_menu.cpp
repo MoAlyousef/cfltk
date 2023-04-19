@@ -167,6 +167,14 @@ WIDGET_CLASS(Fl_Sys_Menu_Bar)
 
 WIDGET_DEFINE(Fl_Sys_Menu_Bar)
 
+void Fl_Sys_Menu_Bar_set_window_menu_style(int style) {
+    LOCK(Fl_Sys_Menu_Bar::window_menu_style((Fl_Sys_Menu_Bar::window_menu_style_enum)style));
+}
+
+void Fl_Sys_Menu_Bar_about(Fl_Sys_Menu_Bar *self, Fl_Callback *cb, void *data) {
+    LOCK(self->about(cb, data));
+}
+
 MENU_DEFINE(Fl_Sys_Menu_Bar)
 
 Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz) {
@@ -378,4 +386,64 @@ void Fl_mac_set_about(Fl_Callback *cb, void *user_data, int shortcut) {
 #ifdef __APPLE__
     LOCK(fl_mac_set_about(cb, user_data, shortcut));
 #endif
+}
+
+void Fl_Mac_App_Menu_custom_application_menu_items(const Fl_Menu_Item *m) {
+#ifdef __APPLE__
+    Fl_Mac_App_Menu::custom_application_menu_items(m);
+#endif
+}
+
+void Fl_Mac_App_Menu_set_about(const char *about) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::about = about);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_print(const char *print) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::print = print);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_print_no_titlebar(const char *print_no_titlebar) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::print_no_titlebar = print_no_titlebar);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_toggle_print_titlebar(const char *toggle_print_titlebar) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::toggle_print_titlebar = toggle_print_titlebar);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_services(const char *services) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::services = services);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_hide(const char *hide) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::hide = hide);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_hide_others(const char *hide_others) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::hide_others = hide_others);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_show(const char *show) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::show = show);
+#endif    
+}
+
+void Fl_Mac_App_Menu_set_quit(const char *quit) {
+#ifdef __APPLE__    
+    LOCK(Fl_Mac_App_Menu::quit = quit);
+#endif    
 }
