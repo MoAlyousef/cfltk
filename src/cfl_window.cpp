@@ -264,7 +264,7 @@ winid resolve_raw_handle(void *handle) {
 #if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
     w.opaque = *(Window *)handle;
 #elif defined(FLTK_USE_WAYLAND)
-    auto h = fl_wl_surface(fl_wl_xid((const Fl_Window *)handle));
+    auto h = fl_wl_surface((wld_window *)(*(Window *)handle));
     w.opaque = h;
 #else
     w.x_id = *(Window *)handle;
