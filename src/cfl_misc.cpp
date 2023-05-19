@@ -263,7 +263,7 @@ void *Fl_Tooltip_current_widget(void) {
     return ret;
 }
 
-void Fl_Tooltip_set_current_widget(Fl_Widget *w) {
+void Fl_Tooltip_current(Fl_Widget *w) {
     LOCK(Fl_Tooltip::current(w));
 }
 
