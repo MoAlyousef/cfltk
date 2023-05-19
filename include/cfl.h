@@ -174,6 +174,8 @@ int Fl_event_inside(int, int, int, int);
 
 Fl_Widget *Fl_belowmouse(void);
 
+void Fl_set_belowmouse(Fl_Widget *w);
+
 void Fl_delete_widget(Fl_Widget *w);
 
 Fl_Widget_Tracker *Fl_Widget_Tracker_new(Fl_Widget *w);

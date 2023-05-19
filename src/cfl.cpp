@@ -418,6 +418,10 @@ Fl_Widget *Fl_belowmouse(void) {
     return Fl::belowmouse();
 }
 
+void Fl_set_belowmouse(Fl_Widget *w) {
+    Fl::belowmouse(w);
+}
+
 void Fl_delete_widget(Fl_Widget *w) {
     Fl::delete_widget(w);
 }
