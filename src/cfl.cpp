@@ -753,3 +753,11 @@ void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsi
 int Fl_callback_reason(void) {
     return Fl::callback_reason();
 }
+
+void *Fl_get_fl_msg(void) {
+#ifdef _WIN32
+    return &fl_msg;
+#else
+    return NULL;
+#endif
+}

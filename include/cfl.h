@@ -344,6 +344,8 @@ void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsi
 
 int Fl_callback_reason(void);
 
+void *Fl_get_fl_msg(void);
+
 #ifdef __cplusplus
 }
 #endif
