@@ -101,6 +101,10 @@ void Fl_Flex_set_pad(Fl_Flex *self, int p);
 
 int Fl_Flex_pad(const Fl_Flex *self);
 
+void Fl_Flex_set_margins(Fl_Flex *self, int x1, int y1, int x2, int y2);
+
+int Fl_Flex_margins(const Fl_Flex *self, int *x1, int *y1, int *x2, int *y2);
+
 GROUP_DECLARE(Fl_Flex)
 
 #ifdef __cplusplus

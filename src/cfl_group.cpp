@@ -209,4 +209,13 @@ int Fl_Flex_pad(const Fl_Flex *self) {
     return ret;
 }
 
+void Fl_Flex_set_margins(Fl_Flex *self, int x1, int y1, int x2, int y2) {
+    LOCK(self->margin(x1, y1, x2, y2));
+}
+
+int Fl_Flex_margins(const Fl_Flex *self, int *x1, int *y1, int *x2, int *y2) {
+    LOCK(auto ret = self->margin(x1, y1, x2, y2));
+    return ret;
+}
+
 GROUP_DEFINE(Fl_Flex)
