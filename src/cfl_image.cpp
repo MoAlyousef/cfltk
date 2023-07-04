@@ -93,6 +93,15 @@ int Fl_Image_scaling_algorithm(void) {
     return (int)ret;
 }
 
+void Fl_RGB_Image_set_scaling_algorithm(int algorithm) {
+    LOCK(Fl_Image::RGB_scaling((Fl_RGB_Scaling)algorithm));
+}
+
+int Fl_RGB_Image_scaling_algorithm(void) {
+    LOCK(auto ret = Fl_Image::RGB_scaling());
+    return (int)ret;
+}
+
 IMAGE_DEFINE(Fl_JPEG_Image)
 
 IMAGE_DELETE(Fl_JPEG_Image)
