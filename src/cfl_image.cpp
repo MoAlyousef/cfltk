@@ -46,6 +46,9 @@
     image *image##_copy(image *self) {                                                             \
         return (image *)self->copy();                                                              \
     }                                                                                              \
+    image *image##_copy_sized(image *self, int W, int H) {                                         \
+        return (image *)self->copy(W, H);                                                          \
+    }                                                                                              \
     void image##_scale(image *self, int width, int height, int proportional, int can_expand) {     \
         LOCK(self->scale(width, height, proportional, can_expand));                                \
     }                                                                                              \

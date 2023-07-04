@@ -15,6 +15,7 @@ extern "C" {
     int image##_count(image *self);                                                                \
     const char *const *image##_data(image *self);                                                  \
     image *image##_copy(image *self);                                                              \
+    image *image##_copy_sized(image *self, int W, int H);                                          \
     void image##_scale(image *self, int width, int height, int proportional, int can_expand);      \
     int image##_fail(image *self);                                                                 \
     int image##_data_w(const image *self);                                                         \
