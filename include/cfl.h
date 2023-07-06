@@ -346,6 +346,18 @@ int Fl_callback_reason(void);
 
 void *Fl_get_fl_msg(void);
 
+void *Fl_cairo_make_current(Fl_Widget *w);
+
+void Fl_set_cairo_autolink_context(int alink);
+
+int Fl_cairo_autolink_context();
+
+void *Fl_cairo_cc();
+
+void Fl_set_cairo_cc(void *c, int own);
+
+void Fl_cairo_flush(void *c);
+
 #ifdef __cplusplus
 }
 #endif

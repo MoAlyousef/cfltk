@@ -14,6 +14,7 @@ option(CFLTK_SINGLE_THREADED "Disable multithreaded support" OFF)
 option(CFLTK_LINK_IMAGES "Links image libraries" ON)
 option(CFLTK_CARGO_BUILD "cfltk is built using Cargo" OFF)
 option(CFLTK_MSVC_CRT_STATIC "cfltk is built with crt-static" OFF)
+option(CFLTK_USE_CAIROEXT "Uses CairoExt FLTK feature" OFF)
 
 if(MSVC)
     string(REGEX REPLACE "/EHsc" "/EHs-c-" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -74,6 +75,12 @@ endif()
 
 if (CFLTK_USE_OPENGL)
     set(CFLTK_SRCS ${CFLTK_SRCS} src/glad.c)
+endif()
+
+if (CFLTK_USE_CAIROEXT)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(CAIRO REQUIRED IMPORTED_TARGET "cairo")
+    include_directories(cfltk PUBLIC  ${CAIRO_INCLUDE_DIRS})
 endif()
 
 if(CFLTK_BUILD_SHARED)

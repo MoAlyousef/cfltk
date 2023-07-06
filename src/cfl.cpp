@@ -761,3 +761,42 @@ void *Fl_get_fl_msg(void) {
     return NULL;
 #endif
 }
+
+void *Fl_cairo_make_current(Fl_Widget *w) {
+#ifdef FLTK_HAVE_CAIRO
+    return Fl::cairo_make_current((Fl_Window *)w);
+#endif
+    return 0;
+}
+
+void Fl_set_cairo_autolink_context(int alink) {
+#ifdef FLTK_HAVE_CAIRO
+    Fl::cairo_autolink_context(alink);
+#endif
+}
+
+int Fl_cairo_autolink_context() {
+#ifdef FLTK_HAVE_CAIRO
+    return Fl::cairo_autolink_context();
+#endif
+    return 0;
+}
+
+void *Fl_cairo_cc() {
+#ifdef FLTK_HAVE_CAIRO
+    return Fl::cairo_cc();
+#endif
+    return 0;
+}
+
+void Fl_set_cairo_cc(void *c, int own) {
+#ifdef FLTK_HAVE_CAIRO
+    Fl::cairo_cc((cairo_t *)c, own);
+#endif
+}
+
+void Fl_cairo_flush(void *c) {
+#ifdef FLTK_HAVE_CAIRO
+    Fl::cairo_flush((cairo_t *)c);
+#endif
+}
