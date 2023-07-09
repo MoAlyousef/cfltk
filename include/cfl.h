@@ -358,6 +358,10 @@ void Fl_set_cairo_cc(void *c, int own);
 
 void Fl_cairo_flush(void *c);
 
+int Fl_option(int opt);
+
+void Fl_set_option(int opt, int val);
+
 #ifdef __cplusplus
 }
 #endif
