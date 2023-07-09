@@ -802,9 +802,9 @@ void Fl_cairo_flush(void *c) {
 }
 
 int Fl_option(int opt) {
-    return Fl::option((Fl_Option)opt);
+    return Fl::option((Fl::Fl_Option)opt);
 }
 
 void Fl_set_option(int opt, int val) {
-    Fl::option((Fl_Option)opt, val);
+    Fl::option((Fl::Fl_Option)opt, val);
 }
