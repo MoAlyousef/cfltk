@@ -79,11 +79,11 @@ struct Widget_Derived : public T {
         draw_data_ = data;
     }
     void draw() override {
-        if (super_draw) T::draw();
         if (inner_drawer)
             inner_drawer(this, draw_data_);
         else {
         }
+        if (super_draw) T::draw();
     }
 
     ~Widget_Derived() {
