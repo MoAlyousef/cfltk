@@ -4,9 +4,6 @@ project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 option(CFLTK_BUILD_SHARED "Builds a shared library" OFF)
 option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
 option(CFLTK_USE_OPENGL "Uses OpenGL" OFF)
@@ -93,6 +90,8 @@ if(CFLTK_BUILD_SHARED)
 else()
     add_library(cfltk STATIC ${CFLTK_SRCS})
 endif()
+
+target_compile_features(cfltk PRIVATE cxx_std_17)
 
 if(USE_SYSTEM_FLTK)
     target_include_directories(cfltk PUBLIC 

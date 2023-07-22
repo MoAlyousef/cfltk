@@ -3,6 +3,16 @@
 
 #include <FL/Fl_Widget.H>
 
+template <class T, class U>
+struct is_same {
+    constexpr static inline bool value = false;
+};
+
+template <class T>
+struct is_same<T, T> {
+    constexpr static inline bool value = true;
+};
+
 template <typename T>
 struct Widget_Derived : public T {
     Widget_Derived(const Widget_Derived &) = delete;
@@ -14,6 +24,7 @@ struct Widget_Derived : public T {
     void *resize_data_ = nullptr;
     void *deleter_data_ = nullptr;
     bool super_draw = true;
+    bool super_draw_first = true;
 
     using handler = int (*)(Fl_Widget *, int, void *data);
     handler inner_handler = nullptr;
@@ -48,18 +59,6 @@ struct Widget_Derived : public T {
             LOCK(Fl::handle(28, this->top_window()));
         }
     }
-    void set_handler(handler h) {
-        inner_handler = h;
-    }
-    void set_handler_data(void *data) {
-        ev_data_ = data;
-    }
-    void set_resizer(resizer h) {
-        resize_handler = h;
-    }
-    void set_resizer_data(void *data) {
-        resize_data_ = data;
-    }
     int handle(int event) override {
         int local = 0;
         if (inner_handler) {
@@ -72,18 +71,19 @@ struct Widget_Derived : public T {
             return T::handle(event);
         }
     }
-    void set_drawer(drawer h) {
-        inner_drawer = h;
-    }
-    void set_drawer_data(void *data) {
-        draw_data_ = data;
-    }
     void draw() override {
+        if constexpr (!is_same<T, Fl_Widget>::value) {
+            if (super_draw && super_draw_first)
+                T::draw();
+        }
         if (inner_drawer)
             inner_drawer(this, draw_data_);
         else {
         }
-        if (super_draw) T::draw();
+        if constexpr (!is_same<T, Fl_Widget>::value) {
+            if (super_draw && !super_draw_first)
+                T::draw();
+        }
     }
 
     ~Widget_Derived() {
@@ -104,7 +104,7 @@ struct Widget_Derived : public T {
             if (this->user_data())
                 deleter(this->user_data());
             this->user_data(nullptr);
-            this->callback((void (*)(Fl_Widget *, void *))nullptr);
+            this->callback((void (*)(Fl_Widget *, void *)) nullptr);
         }
     }
 };

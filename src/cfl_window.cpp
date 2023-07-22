@@ -380,8 +380,8 @@ WIDGET_DEFINE(Fl_Overlay_Window)
 GROUP_DEFINE(Fl_Overlay_Window)
 
 void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self, custom_draw_callback cb, void *data) {
-    LOCK(((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer_data(data);
-         ((Fl_Overlay_Window_Derived *)self)->set_overlay_drawer(cb));
+    LOCK(((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_ = data;
+         ((Fl_Overlay_Window_Derived *)self)->inner_overlay_drawer = cb);
 }
 
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self) {

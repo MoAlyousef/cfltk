@@ -95,7 +95,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     Fl_Callback *widget##_callback(const widget *self);                                            \
     void widget##_set_deletion_callback(widget *self, void (*)(Fl_Widget *, void *), void *data);  \
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr);                                                 \
-    void widget##_super_draw(Fl_Widget *ptr, int flag);
+    void widget##_super_draw(Fl_Widget *ptr, int flag);                                            \
+    void widget##_super_draw_first(Fl_Widget *ptr, int flag);
 
 #define WIDGET_CLASS(widget) using widget##_Derived = Widget_Derived<widget>;
 
@@ -234,8 +235,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         LOCK(self->bind_image(image ? ((Fl_Image *)image)->copy() : nullptr));                     \
     }                                                                                              \
     void widget##_handle(widget *self, custom_handler_callback cb, void *data) {                   \
-        LOCK(((widget##_Derived *)self)->set_handler_data(data);                                   \
-             ((widget##_Derived *)self)->set_handler(cb));                                         \
+        LOCK(((widget##_Derived *)self)->ev_data_ = data;                                          \
+             ((widget##_Derived *)self)->inner_handler = cb);                                      \
     }                                                                                              \
     int widget##_handle_event(widget *self, int event) {                                           \
         LOCK(auto ret = ((widget##_Derived *)self)->handle(event));                                \
@@ -253,13 +254,13 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return temp;                                                                               \
     }                                                                                              \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data) {                        \
-        LOCK(((widget##_Derived *)self)->set_drawer_data(data);                                    \
-             ((widget##_Derived *)self)->set_drawer(cb));                                          \
+        LOCK(((widget##_Derived *)self)->draw_data_ = data;                                        \
+             ((widget##_Derived *)self)->inner_drawer = cb);                                       \
     }                                                                                              \
     void widget##_resize_callback(                                                                 \
         widget *self, void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *), void *data) {   \
-        LOCK(((widget##_Derived *)self)->set_resizer_data(data);                                   \
-             ((widget##_Derived *)self)->set_resizer(cb));                                         \
+        LOCK(((widget##_Derived *)self)->resize_data_ = data;                                      \
+             ((widget##_Derived *)self)->resize_handler = cb);                                     \
     }                                                                                              \
     void *widget##_parent(const widget *self) {                                                    \
         LOCK(auto ret = (Fl_Group *)self->parent());                                               \
@@ -391,8 +392,11 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr) {                                                \
         return widget##_Derived::from_dyn_ptr(ptr);                                                \
     }                                                                                              \
-    void widget##_super_draw(Fl_Widget *self, int flag) {                                           \
+    void widget##_super_draw(Fl_Widget *self, int flag) {                                          \
         ((widget##_Derived *)self)->super_draw = flag;                                             \
+    }                                                                                              \
+    void widget##_super_draw_first(Fl_Widget *self, int flag) {                                    \
+        ((widget##_Derived *)self)->super_draw_first = flag;                                       \
     }
 
 #define GROUP_DECLARE(widget)                                                                      \

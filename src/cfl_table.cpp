@@ -21,12 +21,6 @@ struct Table_Derived : public Widget_Derived<Table> {
     operator Table *() {
         return (Table *)this;
     }
-    void set_cell_drawer(cell_drawer h) {
-        inner_cell_drawer = h;
-    }
-    void set_cell_drawer_data(void *data) {
-        draw_cell_data_ = data;
-    }
     void draw_cell(Fl_Table::TableContext context, int R, int C, int X, int Y, int W,
                    int H) override {
         Table::draw_cell(context, R, C, X, Y, W, H);
@@ -235,8 +229,8 @@ struct Table_Derived : public Widget_Derived<Table> {
     void table##_draw_cell(table *self,                                                            \
                            void (*cb)(Fl_Widget *, int, int, int, int, int, int, int, void *),     \
                            void *data) {                                                           \
-        LOCK(((table##_Derived *)self)->set_cell_drawer_data(data);                                \
-             ((table##_Derived *)self)->set_cell_drawer(cb));                                      \
+        LOCK(((table##_Derived *)self)->draw_cell_data_ = data;                                    \
+             ((table##_Derived *)self)->inner_cell_drawer = cb);                                   \
     }                                                                                              \
     void *table##_draw_cell_data(const table *self) {                                              \
         LOCK(auto ret = ((table##_Derived *)self)->draw_cell_data_);                               \
