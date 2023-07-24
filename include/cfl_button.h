@@ -86,6 +86,12 @@ BUTTON_DECLARE(Fl_Return_Button)
 
 WIDGET_DECLARE(Fl_Shortcut_Button)
 
+int Fl_Shortcut_Button_default_value(Fl_Shortcut_Button *self);
+
+void Fl_Shortcut_Button_set_default_value(Fl_Shortcut_Button *self, int flag);
+
+void Fl_Shortcut_Button_default_clear(Fl_Shortcut_Button *self);
+
 BUTTON_DECLARE(Fl_Shortcut_Button)
 
 #ifdef __cplusplus

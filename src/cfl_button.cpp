@@ -170,4 +170,17 @@ WIDGET_CLASS(Fl_Shortcut_Button)
 
 WIDGET_DEFINE(Fl_Shortcut_Button)
 
+int Fl_Shortcut_Button_default_value(Fl_Shortcut_Button *self) {
+    LOCK(auto ret = self->default_value());
+    return ret;
+}
+
+void Fl_Shortcut_Button_set_default_value(Fl_Shortcut_Button *self, int flag) {
+    LOCK(self->default_value(flag));
+}
+
+void Fl_Shortcut_Button_default_clear(Fl_Shortcut_Button *self) {
+    LOCK(self->default_clear());
+}
+
 BUTTON_DEFINE(Fl_Shortcut_Button)
