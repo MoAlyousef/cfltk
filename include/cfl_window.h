@@ -61,6 +61,8 @@ GROUP_DECLARE(Fl_Window)
 
 WINDOW_DECLARE(Fl_Window)
 
+Fl_Window *Fl_Window_new_wh(int width, int height, const char *title);
+
 Fl_Window *Fl_Window_find_by_handle(void *handle);
 
 winid resolve_raw_handle(void *handle);
