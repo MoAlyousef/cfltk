@@ -71,6 +71,10 @@ int Fl_event_length(void);
 
 int Fl_event_state(void);
 
+int Fl_w(void);
+
+int Fl_h(void);
+
 int Fl_screen_x(void);
 
 int Fl_screen_y(void);

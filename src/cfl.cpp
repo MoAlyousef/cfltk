@@ -173,6 +173,14 @@ int Fl_event_state(void) {
     return Fl::event_state();
 }
 
+int Fl_w(void) {
+    return Fl::w();
+}
+
+int Fl_h(void) {
+    return Fl::h();
+}
+
 int Fl_screen_x(void) {
     return Fl::x();
 }

@@ -254,6 +254,11 @@ GROUP_DEFINE(Fl_Window)
 
 WINDOW_DEFINE(Fl_Window)
 
+Fl_Window *Fl_Window_new_wh(int width, int height, const char *title) {
+	LOCK(auto ret = new Fl_Window(width, height, title));
+	return ret;
+}
+
 Fl_Window *Fl_Window_find_by_handle(void *handle) {
     LOCK(auto ret = fl_find(*(Window *)handle));
     return ret;
