@@ -574,6 +574,19 @@ void Fl_remove_idle(void (*cb)(void *), void *arg) {
     LOCK(Fl::remove_idle(cb, arg));
 }
 
+void Fl_add_check(void (*cb)(void *), void *arg) {
+    LOCK(Fl::add_check(cb, arg));
+}
+
+int Fl_has_check(void (*cb)(void *), void *arg) {
+    LOCK(auto ret = Fl::has_check(cb, arg));
+    return ret;
+}
+
+void Fl_remove_check(void (*cb)(void *), void *arg) {
+    LOCK(Fl::remove_check(cb, arg));
+}
+
 void Fl_flush(void) {
     Fl::flush();
 }

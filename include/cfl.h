@@ -246,6 +246,12 @@ int Fl_has_idle(void (*)(void *), void *);
 
 void Fl_remove_idle(void (*)(void *), void *);
 
+void Fl_add_check(void (*)(void *), void *);
+
+int Fl_has_check(void (*)(void *), void *);
+
+void Fl_remove_check(void (*)(void *), void *);
+
 void Fl_flush(void);
 
 void Fl_set_screen_scale(int n, float val);
