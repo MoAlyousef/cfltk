@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-void Fl_mutex_lock();
-void Fl_mutex_unlock();
+void Fl_mutex_lock(void);
+void Fl_mutex_unlock(void);
 
 #ifndef LOCK
 #define LOCK(x)                                                                                    \

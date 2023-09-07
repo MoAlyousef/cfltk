@@ -360,9 +360,9 @@ void *Fl_cairo_make_current(Fl_Widget *w);
 
 void Fl_set_cairo_autolink_context(int alink);
 
-int Fl_cairo_autolink_context();
+int Fl_cairo_autolink_context(void);
 
-void *Fl_cairo_cc();
+void *Fl_cairo_cc(void);
 
 void Fl_set_cairo_cc(void *c, int own);
 
