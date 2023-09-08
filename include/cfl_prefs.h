@@ -23,9 +23,13 @@ Fl_Preferences *Fl_Preferences_from_parent_idx(Fl_Preferences *parent, int group
 
 Fl_Preferences *Fl_Preferences_copy(const Fl_Preferences *);
 
+void Fl_Preferences_delete(Fl_Preferences *);
+
 Fl_Preferences *Fl_Preferences_from_id(void *id);
 
 int Fl_Preferences_filename(Fl_Preferences *prefs, char *buffer, unsigned long buffer_size);
+
+char Fl_Preferences_get_userdata_path(Fl_Preferences *prefs, char *path, int pathlen);
 
 void *Fl_Preferences_id(Fl_Preferences *prefs);
 

@@ -35,12 +35,20 @@ Fl_Preferences *Fl_Preferences_copy(const Fl_Preferences *other) {
     return new Fl_Preferences(*other);
 }
 
+void Fl_Preferences_delete(Fl_Preferences *self_) {
+    delete self_;
+}
+
 Fl_Preferences *Fl_Preferences_from_id(void *id) {
     return new Fl_Preferences(id);
 }
 
 int Fl_Preferences_filename(Fl_Preferences *prefs, char *buffer, size_t buffer_size) {
     return prefs->filename(buffer, buffer_size);
+}
+
+char Fl_Preferences_get_userdata_path(Fl_Preferences *prefs, char *path, int pathlen) {
+    return prefs->get_userdata_path(path, pathlen);
 }
 
 void *Fl_Preferences_id(Fl_Preferences *prefs) {
