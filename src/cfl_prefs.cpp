@@ -21,7 +21,7 @@ Fl_Preferences *Fl_Preferences_new(int root, const char *vendor, const char *app
 Fl_Preferences *Fl_Preferences_from_path(const char *path, const char *vendor,
                                          const char *application) {
     return new Fl_Preferences(path, vendor, application);
-                                         }
+}
 
 Fl_Preferences *Fl_Preferences_from_parent_group(Fl_Preferences *parent, const char *group) {
     return new Fl_Preferences(parent, group);
@@ -43,7 +43,7 @@ Fl_Preferences *Fl_Preferences_from_id(void *id) {
     return new Fl_Preferences(id);
 }
 
-int Fl_Preferences_filename(Fl_Preferences *prefs, char *buffer, size_t buffer_size) {
+int Fl_Preferences_filename(Fl_Preferences *prefs, char *buffer, unsigned long buffer_size) {
     return prefs->filename(buffer, buffer_size);
 }
 
@@ -141,28 +141,28 @@ char Fl_Preferences_geti(Fl_Preferences *prefs, const char *entry, int *value, i
 
 char Fl_Preferences_getf(Fl_Preferences *prefs, const char *entry, float *value,
                          float defaultValue) {
-                            return prefs->get(entry, *value, defaultValue);
-                         }
+    return prefs->get(entry, *value, defaultValue);
+}
 
 char Fl_Preferences_getd(Fl_Preferences *prefs, const char *entry, double *value,
                          double defaultValue) {
-                            return prefs->get(entry, *value, defaultValue);
-                         }
+    return prefs->get(entry, *value, defaultValue);
+}
 
 char Fl_Preferences_gets(Fl_Preferences *prefs, const char *entry, char *value,
                          const char *defaultValue, int maxSize) {
-                            return prefs->get(entry, value, defaultValue, maxSize);
-                         }
+    return prefs->get(entry, value, defaultValue, maxSize);
+}
 
 char Fl_Preferences_getv(Fl_Preferences *prefs, const char *entry, void *value,
                          const void *defaultValue, int defaultSize, int maxSize) {
-                            return prefs->get(entry, value, defaultValue, defaultSize, maxSize);
-                         }
+    return prefs->get(entry, value, defaultValue, defaultSize, maxSize);
+}
 
 char Fl_Preferences_getv2(Fl_Preferences *prefs, const char *entry, void *value,
                           const void *defaultValue, int defaultSize, int *size) {
-                            return prefs->get(entry, value, defaultValue, defaultSize, size);
-                          }
+    return prefs->get(entry, value, defaultValue, defaultSize, size);
+}
 
 int Fl_Preferences_size(Fl_Preferences *prefs, const char *entry) {
     return prefs->size(entry);
