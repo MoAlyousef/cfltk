@@ -187,7 +187,7 @@ Fl_Menu_Item *Fl_Menu_Item_new2(char **args, int *shortcuts, Fl_Callback **cb, i
                                 cb[i],
                                 (void *)0,
                                 flags[i],
-                                labeltype[i],
+                                (uchar)labeltype[i],
                                 (Fl_Font)labelfont[i],
                                 (Fl_Fontsize)labelsize[i],
                                 (Fl_Color)labelcolor[i]};
