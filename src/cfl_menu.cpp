@@ -348,7 +348,7 @@ void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left) {
 
 int Fl_Menu_Item_children(const Fl_Menu_Item *self) {
     if (!self->submenu())
-        return 0;
+        return self->size() - 1;
     LOCK(int i = 0; while (true) {
         if (!self[i].text) {
             break;
