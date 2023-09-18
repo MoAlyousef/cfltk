@@ -175,6 +175,27 @@ Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz) {
     return items;
 }
 
+Fl_Menu_Item *Fl_Menu_Item_new2(char **args, int *shortcuts, Fl_Callback **cb, int *flags,
+                                int *labeltype, int *labelfont, int *labelsize,
+                                unsigned int *labelcolor, int sz) {
+    auto *items = new Fl_Menu_Item[sz + 1];
+    if (!items)
+        return nullptr;
+    for (int i = 0; i < sz; i++) {
+        items[i] = Fl_Menu_Item{args[i],
+                                shortcuts[i],
+                                cb[i],
+                                (void *)0,
+                                flags[i],
+                                labeltype[i],
+                                (Fl_Font)labelfont[i],
+                                (Fl_Fontsize)labelsize[i],
+                                (Fl_Color)labelcolor[i]};
+    }
+    items[sz] = {nullptr};
+    return items;
+}
+
 void Fl_Menu_Item_delete(Fl_Menu_Item *self) {
     delete[] self;
 }
@@ -382,55 +403,55 @@ void Fl_Mac_App_Menu_custom_application_menu_items(const Fl_Menu_Item *m) {
 }
 
 void Fl_Mac_App_Menu_set_about(const char *about) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::about = about);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_print(const char *print) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::print = print);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_print_no_titlebar(const char *print_no_titlebar) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::print_no_titlebar = print_no_titlebar);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_toggle_print_titlebar(const char *toggle_print_titlebar) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::toggle_print_titlebar = toggle_print_titlebar);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_services(const char *services) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::services = services);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_hide(const char *hide) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::hide = hide);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_hide_others(const char *hide_others) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::hide_others = hide_others);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_show(const char *show) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::show = show);
-#endif    
+#endif
 }
 
 void Fl_Mac_App_Menu_set_quit(const char *quit) {
-#ifdef __APPLE__    
+#ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::quit = quit);
-#endif    
+#endif
 }
