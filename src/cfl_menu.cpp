@@ -104,20 +104,7 @@
         return ret;                                                                                \
     }                                                                                              \
     void widget##_set_menu(widget *self, const Fl_Menu_Item *item) {                               \
-        Fl_Menu_Item *temp = new Fl_Menu_Item[self->size()];                                       \
-        if (!temp)                                                                                 \
-            return;                                                                                \
-        for (int i = 0; i < self->size(); i++) {                                                   \
-            temp[i] = item[i];                                                                     \
-            if (item[i].text) {                                                                    \
-                auto len = strlen(item[i].text) + 1;                                               \
-                auto c = new char[len];                                                            \
-                memset(c, 0, len);                                                                 \
-                strncpy(c, item[i].text, len - 1);                                                 \
-                temp[i].text = c;                                                                  \
-            }                                                                                      \
-        }                                                                                          \
-        LOCK(self->menu(temp));                                                                    \
+        LOCK(self->menu(item));                                                                    \
     }                                                                                              \
     void widget##_remove(widget *self, int idx) {                                                  \
         LOCK(self->remove(idx));                                                                   \
