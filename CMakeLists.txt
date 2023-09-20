@@ -195,9 +195,9 @@ install(
 include(GNUInstallDirs)
 
 if(UNIX AND NOT APPLE)
-    string(APPEND pc_req_private " x11 xinerama xcursor xfixes xext xrender xft fontconfig cairo pango pangoxft pangocairo gobject-2.0 wayland-client wayland-cursor xkbcommon dbus-1")
+    string(APPEND pc_req_private " x11 xinerama xcursor xfixes xext xrender xft fontconfig cairo pango pangoxft pangocairo gobject-2.0 wayland-client wayland-cursor xkbcommon")
     if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        string(APPEND pc_libs_private " -pthread")
+        string(APPEND pc_libs_private " -ldbus-1 -pthread")
     endif()
 elseif(APPLE)
     string(APPEND pc_libs_private " -framework Cocoa -framework Carbon -framework ApplicationServices -framework OpenGL -lc++abi")
