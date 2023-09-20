@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.4.12)
-project(cfltk VERSION ${CFLTK_PROJECT_VERSION})
+set(CFLTK_PROJECT_VERSION 1.4.13)
+
+project(cfltk 
+    HOMEPAGE_URL https://github.com/MoAlyousef/cfltk
+    DESCRIPTION "C Bindings for FLTK"
+    VERSION ${CFLTK_PROJECT_VERSION}
+    )
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -107,18 +113,38 @@ else()
 endif()
 
 set(CFLTK_LIBS fltk)
+set(pc_req_private)
+set(pc_libs_private "-lfltk")
+set(other_c_flags)
+
+if (CFLTK_LINK_IMAGES)
+    set(CFLTK_LIBS ${CFLTK_LIBS} fltk_images fltk_z fltk_jpeg fltk_png)
+    string(APPEND pc_libs_private " -lfltk_images -lfltk_z -lfltk_jpeg -lfltk_png")
+endif()
 
 if (CFLTK_USE_OPENGL)
     set(CFLTK_LIBS ${CFLTK_LIBS} fltk_gl)
     target_compile_definitions(cfltk PUBLIC CFLTK_USE_GL)
+    string(APPEND pc_libs_private " -lfltk_gl")
+    string(APPEND other_c_flags "-DCFLTK_USE_GL")
+    if(UNIX AND NOT APPLE)
+        string(APPEND pc_req_private " glx glu gl wayland-egl egl")
+    elseif(APPLE)
+        string(APPEND pc_libs_private " -framework OpenGL")
+    elseif(WIN32)
+        string(APPEND pc_libs_private " -lopengl32 -lglu32")
+    endif()
+endif()
+
+if (CFLTK_USE_CAIROEXT)
+    if(WIN32 OR APPLE)
+        string(APPEND pc_req_private " cairo")
+    endif()
 endif()
 
 if (CFLTK_SINGLE_THREADED)
     target_compile_definitions(cfltk PUBLIC CFLTK_SINGLE_THREADED)
-endif()
-
-if (CFLTK_LINK_IMAGES)
-    set(CFLTK_LIBS ${CFLTK_LIBS} fltk_images fltk_z fltk_jpeg fltk_png)
+    string(APPEND other_c_flags " -DCFLTK_SINGLE_THREADED")
 endif()
 
 if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
@@ -164,3 +190,29 @@ install(EXPORT
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk
     )
+
+# gen pkg-config
+include(GNUInstallDirs)
+
+if(UNIX AND NOT APPLE)
+    string(APPEND pc_req_private " x11 xinerama xcursor xfixes xext xrender xft fontconfig cairo pango pangoxft pangocairo gobject-2.0 wayland-client wayland-cursor xkbcommon dbus-1")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        string(APPEND pc_libs_private " -lcxxrt")
+    else()
+        string(APPEND pc_libs_private " -lsupc++ -pthread")
+    endif()
+elseif(APPLE)
+    string(APPEND pc_libs_private " -framework Cocoa -framework Carbon -framework ApplicationServices -framework OpenGL -lc++abi")
+elseif(WIN32)
+    string(APPEND pc_libs_private " -lgdiplus -lws2_32 -lcomctl32 -lgdi32 -loleaut32 -lole32 -luuid -lshell32 -ladvapi32 -lcomdlg32 -lwinspool -luser32 -lkernel32 -lodbc32")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        string(APPEND pc_libs_private " -lsupc++ -lgcc -pthread")
+    endif()
+endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cfltk.pc.in ${CMAKE_CURRENT_BINARY_DIR}/cfltk.pc @ONLY)
+
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
+)
