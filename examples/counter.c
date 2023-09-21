@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 #define BLUE 0x42A5F500
-#define SEL_BLUE 0x2196F300
+#define SEL_BLUE 0x3f51b500
 #define GRAY 0x75757500
 #define WIDTH 600
 #define HEIGHT 400
