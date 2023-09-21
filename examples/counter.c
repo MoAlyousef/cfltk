@@ -3,15 +3,16 @@
 #include <cfl_button.h>
 #include <cfl_draw.h>
 #include <cfl_enums.h>
+#include <cfl_group.h>
 #include <cfl_image.h> // Fl_register_images
 #include <cfl_widget.h>
 #include <cfl_window.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BLUE Fl_get_rgb_color(0x42, 0xA5, 0xF5)
-#define SEL_BLUE Fl_get_rgb_color(0x21, 0x96, 0xF3)
-#define GRAY Fl_get_rgb_color(0x75, 0x75, 0x75)
+#define BLUE 0x42A5F500
+#define SEL_BLUE 0x2196F300
+#define GRAY 0x75757500
 #define WIDTH 600
 #define HEIGHT 400
 
@@ -34,12 +35,28 @@ void draw(Fl_Widget *w, void *data) {
 int main(void) {
     Fl_init_all(); // init all styles
     Fl_Window *w = Fl_Window_new(100, 100, WIDTH, HEIGHT, "Flutter-like");
-    Fl_Box *bar = Fl_Box_new(0, 0, WIDTH, 60, "  FLTK App!");
-    Fl_Box *text = Fl_Box_new(250, 180, 100, 40, "You have pushed the button this many times:");
-    Fl_Box *count = Fl_Box_new(250, 220, 100, 40, "0");
+    Fl_Flex *col = Fl_Flex_new(0, 0, WIDTH, HEIGHT, NULL);
+    Fl_Box *bar = Fl_Box_new(0, 0, 0, 0, "  FLTK App!");
+    Fl_Flex_set_size(col, (Fl_Widget *)bar, 60);
+    Fl_Box_set_align(bar, Fl_Align_Left | Fl_Align_Inside);
+    Fl_Box *text = Fl_Box_new(0, 0, 0, 0, "You have pushed the button this many times:");
+    Fl_Box_set_align(text, Fl_Align_Bottom | Fl_Align_Inside);
+    Fl_Box *count = Fl_Box_new(0, 0, 0, 0, "0");
+    Fl_Box_set_align(count, Fl_Align_Top | Fl_Align_Inside);
+    Fl_Flex *row = Fl_Flex_new(0, 0, 0, 0, NULL);
+    Fl_Flex_set_type(row, 1); // row
+    Fl_Flex_set_size(col, (Fl_Widget *)row, 60);
+    Fl_Box_new(0, 0, 0, 0, NULL);
     Fl_Button *but = Fl_Button_new(WIDTH - 100, HEIGHT - 100, 60, 60, "@+6plus");
-    Fl_Window_resizable(w, w);
+    Fl_Flex_set_size(row, (Fl_Widget *)but, 60);
+    Fl_Box *spacing1 = Fl_Box_new(0, 0, 0, 0, NULL);
+    Fl_Flex_set_size(row, (Fl_Widget *)spacing1, 20);
+    Fl_Flex_end(row);
+    Fl_Box *spacing2 = Fl_Box_new(0, 0, 0, 0, NULL);
+    Fl_Flex_set_size(col, (Fl_Widget *)spacing2, 20);
+    Fl_Flex_end(col);
     Fl_Window_end(w);
+    Fl_Window_resizable(w, w);
     Fl_Window_show(w);
 
     Fl_background(255, 255, 255);
@@ -49,7 +66,6 @@ int main(void) {
     Fl_Box_set_label_size(bar, 22);
     Fl_Box_set_label_color(bar, Fl_Color_White);
     Fl_Box_set_color(bar, BLUE);
-    Fl_Box_set_align(bar, Fl_Align_Left | Fl_Align_Inside);
     Fl_Box_draw(bar, draw, NULL);
 
     Fl_Box_set_label_size(text, 18);
