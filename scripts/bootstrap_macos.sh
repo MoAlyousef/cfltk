@@ -10,6 +10,9 @@ cmake -B bin -S . \
     -DOPTION_LARGE_FILE=ON \
     -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
-    -DFLTK_BUILD_FLUID=OFF
+    -DFLTK_BUILD_FLUID=OFF \
+    -DFLTK_BUILD_FLTK_OPTIONS=OFF
 
-sudo cmake --build bin --parallel --target install
+sudo cmake --build bin --parallel
+
+sudo cmake --install bin

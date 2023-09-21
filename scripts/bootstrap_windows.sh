@@ -12,6 +12,9 @@ cmake -B bin -S . \
     -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
     -GNinja \
-    -DFLTK_BUILD_FLUID=OFF
+    -DFLTK_BUILD_FLUID=OFF \
+    -DFLTK_BUILD_FLTK_OPTIONS=OFF
 
-cmake --build bin --target install --config Release
+cmake --build bin --config Release
+
+sudo cmake --install bin

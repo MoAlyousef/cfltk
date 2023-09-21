@@ -13,7 +13,10 @@ cmake -B bin -S . \
     -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
     -DOPTION_USE_PANGO=ON \
     -DOPTION_USE_CAIRO=ON \
-    -DOPTION_USE_WAYLAND=OFF \
-    -DFLTK_BUILD_FLUID=OFF
+    -DOPTION_ALLOW_GTK_PLUGIN=OFF \
+    -DFLTK_BUILD_FLUID=OFF \
+    -DFLTK_BUILD_FLTK_OPTIONS=OFF
 
 cmake --build bin --parallel
+
+sudo cmake --install bin
