@@ -236,13 +236,11 @@ WIDGET_CLASS(Fl_Check_Browser)
 WIDGET_DEFINE(Fl_Check_Browser)
 
 int Fl_Check_Browser_add(Fl_Check_Browser *self, const char *s, int b) {
-
     LOCK(auto ret = self->add(s, b));
     return ret;
 }
 
 int Fl_Check_Browser_remove(Fl_Check_Browser *self, int item) {
-
     LOCK(auto ret = self->remove(item));
     return ret;
 }

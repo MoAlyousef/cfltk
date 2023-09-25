@@ -102,6 +102,8 @@ int Fl_Text_Buffer_undo(Fl_Text_Buffer *self, int *cp);
 
 void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag);
 
+int Fl_Text_Buffer_can_undo(const Fl_Text_Buffer *self);
+
 int Fl_Text_Buffer_load_file(Fl_Text_Buffer *self, const char *file);
 
 int Fl_Text_Buffer_save_file(Fl_Text_Buffer *self, const char *file);
@@ -178,6 +180,10 @@ int Fl_Text_Buffer_findchar_forward(const Fl_Text_Buffer *self, int start_pos,
 int Fl_Text_Buffer_findchar_backward(const Fl_Text_Buffer *self, int start_pos,
                                      unsigned int search_char, int *found_pos);
 
+int Fl_Text_Buffer_redo(Fl_Text_Buffer *self, int *cp);
+
+int Fl_Text_Buffer_can_redo(const Fl_Text_Buffer *self);
+
 WIDGET_DECLARE(Fl_Text_Display)
 
 void Fl_Text_Display_init(Fl_Text_Display *);
@@ -209,6 +215,8 @@ int Fl_Text_Editor_kf_cut(Fl_Text_Editor *e);
 int Fl_Text_Editor_kf_paste(Fl_Text_Editor *e);
 
 int Fl_Text_Editor_kf_undo(Fl_Text_Editor *e);
+
+int Fl_Text_Editor_kf_redo(Fl_Text_Editor *e);
 
 int Fl_Text_Editor_kf_default(int c, Fl_Text_Editor *e);
 

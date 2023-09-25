@@ -372,6 +372,8 @@ int Fl_option(int opt);
 
 void Fl_set_option(int opt, int val);
 
+void Fl_load_system_icons(void);
+
 #ifdef __cplusplus
 }
 #endif

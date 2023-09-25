@@ -350,7 +350,6 @@ const char *Fl_Help_View_filename(const Fl_Help_View *self) {
 }
 
 int Fl_Help_View_find(Fl_Help_View *self, const char *s, int p) {
-
     LOCK(auto ret = self->find(s, p));
     return ret;
 }
@@ -431,7 +430,6 @@ void Fl_Help_View_set_scrollbar_size(Fl_Help_View *self, int newSize) {
 }
 
 int Fl_Help_View_load(Fl_Help_View *self, const char *f) {
-
     LOCK(auto ret = self->load(f));
     return ret;
 }

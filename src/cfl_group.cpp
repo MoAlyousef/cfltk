@@ -95,7 +95,6 @@ Fl_Widget *Fl_Tabs_value(Fl_Tabs *self) {
 }
 
 int Fl_Tabs_set_value(Fl_Tabs *self, Fl_Widget *w) {
-
     LOCK(auto ret = self->value(w));
     return ret;
 }
@@ -106,7 +105,6 @@ Fl_Widget *Fl_Tabs_push(const Fl_Tabs *self) {
 }
 
 int Fl_Tabs_set_push(Fl_Tabs *self, Fl_Widget *w) {
-
     LOCK(auto ret = self->push(w));
     return ret;
 }

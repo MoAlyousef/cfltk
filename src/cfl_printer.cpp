@@ -17,13 +17,11 @@ void Fl_Printer_delete(Fl_Printer *self) {
 
 int Fl_Printer_begin_job(Fl_Printer *self, int pagecount, int *frompage, int *topage,
                          char **perr_message) {
-
     LOCK(auto ret = self->begin_job(pagecount, frompage, topage, perr_message));
     return ret;
 }
 
 int Fl_Printer_begin_page(Fl_Printer *self) {
-
     LOCK(auto ret = self->begin_page());
     return ret;
 }
@@ -62,7 +60,6 @@ void Fl_Printer_untranslate(Fl_Printer *self) {
 }
 
 int Fl_Printer_end_page(Fl_Printer *self) {
-
     LOCK(auto ret = self->end_page());
     return ret;
 }

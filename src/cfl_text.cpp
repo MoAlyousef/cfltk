@@ -293,6 +293,11 @@ void Fl_Text_Buffer_canUndo(Fl_Text_Buffer *self, char flag) {
     LOCK(self->canUndo(flag));
 }
 
+int Fl_Text_Buffer_can_undo(const Fl_Text_Buffer *self) {
+    LOCK(int ret = self->can_undo());
+    return ret;
+}
+
 int Fl_Text_Buffer_load_file(Fl_Text_Buffer *self, const char *file) {
     LOCK(auto ret = self->loadfile(file));
     return ret;
@@ -460,6 +465,16 @@ int Fl_Text_Buffer_findchar_backward(const Fl_Text_Buffer *self, int start_pos,
     return ret;
 }
 
+int Fl_Text_Buffer_redo(Fl_Text_Buffer *self, int *cp) {
+    LOCK(int ret = self->redo(cp));
+    return ret;
+}
+
+int Fl_Text_Buffer_can_redo(const Fl_Text_Buffer *self) {
+    LOCK(int ret = self->can_redo());
+    return ret;
+}
+
 WIDGET_CLASS(Fl_Text_Display)
 
 WIDGET_DEFINE(Fl_Text_Display)
@@ -509,151 +524,131 @@ Fl_Text_Buffer *Fl_Text_Editor_get_style_buffer(Fl_Text_Editor *self) {
 DISPLAY_DEFINE(Fl_Text_Editor)
 
 int Fl_Text_Editor_kf_copy(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_copy(1, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_cut(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_cut(1, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_paste(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_paste(1, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_undo(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_undo(1, e));
     return ret;
 }
 
-int Fl_Text_Editor_kf_default(int c, Fl_Text_Editor *e) {
+int Fl_Text_Editor_kf_redo(Fl_Text_Editor *e) {
+    LOCK(auto ret = Fl_Text_Editor::kf_redo(1, e));
+    return ret;
+}
 
+int Fl_Text_Editor_kf_default(int c, Fl_Text_Editor *e) {
     LOCK(auto ret = Fl_Text_Editor::kf_default(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_ignore(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_ignore(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_backspace(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_backspace(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_enter(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_enter(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_move(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_move(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_shift_move(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_shift_move(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_ctrl_move(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_ctrl_move(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_c_s_move(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_c_s_move(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_meta_move(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_meta_move(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_m_s_move(int c, Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_m_s_move(c, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_home(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_home(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_end(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_end(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_left(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_left(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_up(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_up(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_right(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_right(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_down(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_down(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_page_up(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_page_up(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_page_down(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_page_down(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_insert(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_insert(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_delete(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_delete(0, e));
     return ret;
 }
 
 int Fl_Text_Editor_kf_select_all(Fl_Text_Editor *e) {
-
     LOCK(auto ret = Fl_Text_Editor::kf_select_all(0, e));
     return ret;
 }
@@ -663,7 +658,6 @@ void Fl_Text_Editor_set_insert_mode(Fl_Text_Editor *self, int b) {
 }
 
 int Fl_Text_Editor_insert_mode(Fl_Text_Editor *self) {
-
     LOCK(auto ret = self->insert_mode());
     return ret;
 }
