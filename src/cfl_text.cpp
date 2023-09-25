@@ -741,6 +741,10 @@ void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s) {
     LOCK(self->text(s));
 }
 
+void Fl_Simple_Terminal_set_text2(Fl_Simple_Terminal *self, const char *s, int len) {
+    LOCK(self->text(s, len));
+}
+
 const char *Fl_Simple_Terminal_text(const Fl_Simple_Terminal *self) {
     LOCK(auto ret = self->text());
     return ret;
