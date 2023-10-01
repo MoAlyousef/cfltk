@@ -70,6 +70,13 @@
         LOCK(auto ret = self->cut());                                                              \
         return ret;                                                                                \
     }                                                                                              \
+    unsigned int widget##_cursor_color(widget *self) {                                             \
+        LOCK(auto ret = self->cursor_color());                                                     \
+        return ret;                                                                                \
+    }                                                                                              \
+    void widget##_set_cursor_color(widget *self, unsigned int s) {                                 \
+        LOCK(self->cursor_color(s));                                                               \
+    }                                                                                              \
     int widget##_text_font(widget *self) {                                                         \
         LOCK(auto ret = self->textfont());                                                         \
         return ret;                                                                                \

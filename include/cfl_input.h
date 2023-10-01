@@ -22,6 +22,8 @@ extern "C" {
     int widget##_copy(widget *, int clipboard);                                                    \
     int widget##_undo(widget *);                                                                   \
     int widget##_copy_cuts(widget *);                                                              \
+    unsigned int widget##_cursor_color(widget *);                                                  \
+    void widget##_set_cursor_color(widget *, unsigned int s);                                      \
     int widget##_text_font(widget *);                                                              \
     void widget##_set_text_font(widget *, int s);                                                  \
     unsigned int widget##_text_color(widget *);                                                    \
