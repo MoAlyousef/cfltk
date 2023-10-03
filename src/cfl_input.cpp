@@ -70,7 +70,7 @@
         LOCK(auto ret = self->cut());                                                              \
         return ret;                                                                                \
     }                                                                                              \
-    unsigned int widget##_cursor_color(widget *self) {                                             \
+    unsigned int widget##_cursor_color(const widget *self) {                                       \
         LOCK(auto ret = self->cursor_color());                                                     \
         return ret;                                                                                \
     }                                                                                              \
