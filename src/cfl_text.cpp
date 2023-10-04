@@ -256,6 +256,10 @@ void Fl_Text_Buffer_append(Fl_Text_Buffer *self, const char *txt) {
     LOCK(self->append(txt));
 }
 
+void Fl_Text_Buffer_append2(Fl_Text_Buffer *self, const char *txt, int len) {
+    LOCK(self->append(txt, len));
+}
+
 void Fl_Text_Buffer_remove(Fl_Text_Buffer *self, int start, int end) {
     LOCK(self->remove(start, end));
 }
