@@ -5,6 +5,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Color_Chooser.H>
 #include <FL/Fl_Flex.H>
+#include <FL/Fl_Grid.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Pack.H>
@@ -217,3 +218,83 @@ int Fl_Flex_margins(const Fl_Flex *self, int *x1, int *y1, int *x2, int *y2) {
 }
 
 GROUP_DEFINE(Fl_Flex)
+
+WIDGET_CLASS(Fl_Grid)
+
+WIDGET_DEFINE(Fl_Grid)
+
+void Fl_Grid_set_layout(Fl_Grid *self, int rows, int cols, int margin, int gap) {
+    LOCK(self->layout(rows, cols, margin, gap));
+}
+
+void Fl_Grid_layout(Fl_Grid *self) {
+    LOCK(self->layout());
+}
+
+void Fl_Grid_clear_layout(Fl_Grid *self) {
+    LOCK(self->clear_layout());
+}
+
+void Fl_Grid_set_need_layout(Fl_Grid *self, int set) {
+    LOCK(self->need_layout(set));
+}
+
+int Fl_Grid_need_layout(const Fl_Grid *self) {
+    LOCK(auto ret = self->need_layout());
+    return ret;
+}
+
+void Fl_Grid_set_margin(Fl_Grid *self, int left, int top, int right, int bottom) {
+    LOCK(self->margin(left, top, right, bottom));
+}
+
+void Fl_Grid_set_gap(Fl_Grid *self, int row_gap, int col_gap) {
+    LOCK(self->gap(row_gap, col_gap));
+}
+
+void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col, unsigned short align) {
+    LOCK(self->widget(wi, row, col, align));
+}
+
+void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col, int rowspan,
+                             int colspan, unsigned short align) {
+    LOCK(self->widget(wi, row, col, rowspan, colspan, align));
+}
+
+void Fl_Grid_set_col_width(Fl_Grid *self, int col, int value) {
+    LOCK(self->col_width(col, value));
+}
+
+void Fl_Grid_set_col_weight(Fl_Grid *self, int col, int value) {
+    LOCK(self->col_weight(col, value));
+}
+
+void Fl_Grid_set_col_gap(Fl_Grid *self, int col, int value) {
+    LOCK(self->col_gap(col, value));
+}
+
+void Fl_Grid_set_row_height(Fl_Grid *self, int row, int value) {
+    LOCK(self->row_height(row, value));
+}
+
+void Fl_Grid_set_row_weight(Fl_Grid *self, int row, int value) {
+    LOCK(self->row_weight(row, value));
+}
+
+void Fl_Grid_set_row_gap(Fl_Grid *self, int row, int value) {
+    LOCK(self->row_gap(row, value));
+}
+
+void Fl_Grid_show_grid(Fl_Grid *self, int set) {
+    LOCK(self->show_grid(set));
+}
+
+void Fl_Grid_show_grid_with_color(Fl_Grid *self, int set, unsigned int col) {
+    LOCK(self->show_grid(set, (Fl_Color)col));
+}
+
+void Fl_Grid_debug(Fl_Grid *self, int level) {
+    LOCK(self->debug(level));
+}
+
+GROUP_DEFINE(Fl_Grid)
