@@ -253,12 +253,12 @@ void Fl_Grid_set_gap(Fl_Grid *self, int row_gap, int col_gap) {
 }
 
 void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col, unsigned short align) {
-    LOCK(self->widget(wi, row, col, align));
+    LOCK(auto ret = self->widget(wi, row, col, align)); return ret;
 }
 
 void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col, int rowspan,
                              int colspan, unsigned short align) {
-    LOCK(self->widget(wi, row, col, rowspan, colspan, align));
+    LOCK(auto ret = self->widget(wi, row, col, rowspan, colspan, align)); return ret;
 }
 
 void Fl_Grid_set_col_width(Fl_Grid *self, int col, int value) {
