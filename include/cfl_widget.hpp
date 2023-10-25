@@ -13,6 +13,11 @@ struct is_same<T, T> {
     constexpr static inline bool value = true;
 };
 
+struct Deleter {
+    void (*deleter)(void *d);
+    void *d[4];
+};
+
 template <typename T>
 struct Widget_Derived : public T {
     Widget_Derived(const Widget_Derived &) = delete;
@@ -90,21 +95,21 @@ struct Widget_Derived : public T {
         if (deleter2 && deleter_data_) {
             deleter2(this, deleter_data_);
         } else if (deleter) {
-            if (ev_data_)
-                deleter(ev_data_);
-            ev_data_ = nullptr;
-            if (resize_data_)
-                deleter(resize_data_);
-            resize_data_ = nullptr;
-            inner_handler = nullptr;
-            if (draw_data_)
-                deleter(draw_data_);
-            draw_data_ = nullptr;
-            inner_drawer = nullptr;
-            if (this->user_data())
-                deleter(this->user_data());
+            auto user_data = this->user_data();
             this->user_data(nullptr);
             this->callback((void (*)(Fl_Widget *, void *)) nullptr);
+            void *d[4] = { user_data, this->ev_data_, this->draw_data_, this->resize_data_ };
+            auto data = new Deleter{};
+            data->deleter = deleter;
+            memcpy(data->d, d, sizeof(d));
+            Fl::add_timeout(0.0001, [](void *d) {
+                auto w = (Deleter *)d;
+                for (int i = 0; i < 4; i++) {
+                if (w->d[i])
+                    w->deleter(w->d[i]);
+                }
+                delete w;
+            }, data);
         }
     }
 };
