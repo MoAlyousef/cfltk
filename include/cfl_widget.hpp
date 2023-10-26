@@ -102,7 +102,7 @@ struct Widget_Derived : public T {
             auto data = new Deleter{};
             data->deleter = deleter;
             memcpy(data->d, d, sizeof(d));
-            Fl::add_timeout(0.0001, [](void *d) {
+            Fl::add_timeout(0.0, [](void *d) {
                 auto w = (Deleter *)d;
                 for (int i = 0; i < 4; i++) {
                 if (w->d[i])
