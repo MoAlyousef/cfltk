@@ -12,48 +12,52 @@ typedef union {
     void *opaque;
 } winid;
 
-#define WINDOW_DECLARE(widget)                                                                     \
-    void widget##_make_modal(widget *, unsigned int boolean);                                      \
-    void widget##_fullscreen(widget *, unsigned int boolean);                                      \
-    void widget##_make_current(widget *);                                                          \
-    void widget##_set_icon(widget *, const void *);                                                \
-    void *widget##_icon(const widget *);                                                           \
-    void widget##_set_cursor(widget *self, int cursor);                                            \
-    int widget##_shown(widget *self);                                                              \
-    void *widget##_raw_handle(const widget *w);                                                    \
-    void widget##_set_border(widget *, int flag);                                                  \
-    int widget##_border(const widget *);                                                           \
-    void *widget##_region(const widget *self);                                                     \
-    void widget##_set_region(widget *self, void *r);                                               \
-    void widget##_iconize(widget *self);                                                           \
-    unsigned int widget##_fullscreen_active(const widget *self);                                   \
-    void widget##_free_position(widget *self);                                                     \
-    int widget##_decorated_w(const widget *self);                                                  \
-    int widget##_decorated_h(const widget *self);                                                  \
-    void widget##_size_range(widget *self, int, int, int, int);                                    \
-    void widget##_hotspot(widget *self, Fl_Widget *wid);                                           \
-    void widget##_set_shape(widget *self, const void *image);                                      \
-    const void *widget##_shape(widget *self);                                                      \
-    int widget##_x_root(const widget *self);                                                       \
-    int widget##_y_root(const widget *self);                                                       \
-    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y);         \
-    void widget##_default_cursor(widget *self, int cursor);                                        \
-    int widget##_screen_num(widget *);                                                             \
-    void widget##_set_screen_num(widget *, int screen_num);                                        \
-    void widget##_wait_for_expose(widget *);                                                       \
-    void widget##_set_alpha(widget *self, unsigned char val);                                      \
-    unsigned char widget##_alpha(const widget *self);                                              \
-    void widget##_force_position(widget *self, int flag);                                          \
-    const char *widget##_default_xclass(void);                                                     \
-    const char *widget##_xclass(const widget *self);                                               \
-    void widget##_set_default_xclass(const char *s);                                               \
-    void widget##_set_xclass(widget *self, const char *s);                                         \
-    void widget##_clear_modal_states(widget *self);                                                \
-    void widget##_set_override(widget *);                                                          \
-    int widget##_override(const widget *);                                                         \
-    const char *widget##_icon_label(const widget *);                                               \
-    void widget##_set_icon_label(widget *, const char *);                                          \
-    void widget##_set_icons(widget *w, const void *images[], int length);
+#define WINDOW_DECLARE(widget)                                                 \
+    void widget##_make_modal(widget *, unsigned int boolean);                  \
+    void widget##_fullscreen(widget *, unsigned int boolean);                  \
+    void widget##_make_current(widget *);                                      \
+    void widget##_set_icon(widget *, const void *);                            \
+    void *widget##_icon(const widget *);                                       \
+    void widget##_set_cursor(widget *self, int cursor);                        \
+    int widget##_shown(widget *self);                                          \
+    void *widget##_raw_handle(const widget *w);                                \
+    void widget##_set_border(widget *, int flag);                              \
+    int widget##_border(const widget *);                                       \
+    void *widget##_region(const widget *self);                                 \
+    void widget##_set_region(widget *self, void *r);                           \
+    void widget##_iconize(widget *self);                                       \
+    unsigned int widget##_fullscreen_active(const widget *self);               \
+    void widget##_free_position(widget *self);                                 \
+    int widget##_decorated_w(const widget *self);                              \
+    int widget##_decorated_h(const widget *self);                              \
+    void widget##_size_range(widget *self, int, int, int, int);                \
+    void widget##_hotspot(widget *self, Fl_Widget *wid);                       \
+    void widget##_set_shape(widget *self, const void *image);                  \
+    const void *widget##_shape(widget *self);                                  \
+    int widget##_x_root(const widget *self);                                   \
+    int widget##_y_root(const widget *self);                                   \
+    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, \
+                                   int hot_y);                                 \
+    void widget##_default_cursor(widget *self, int cursor);                    \
+    int widget##_screen_num(widget *);                                         \
+    void widget##_set_screen_num(widget *, int screen_num);                    \
+    void widget##_wait_for_expose(widget *);                                   \
+    void widget##_set_alpha(widget *self, unsigned char val);                  \
+    unsigned char widget##_alpha(const widget *self);                          \
+    void widget##_force_position(widget *self, int flag);                      \
+    const char *widget##_default_xclass(void);                                 \
+    const char *widget##_xclass(const widget *self);                           \
+    void widget##_set_default_xclass(const char *s);                           \
+    void widget##_set_xclass(widget *self, const char *s);                     \
+    void widget##_clear_modal_states(widget *self);                            \
+    void widget##_set_override(widget *);                                      \
+    int widget##_override(const widget *);                                     \
+    const char *widget##_icon_label(const widget *);                           \
+    void widget##_set_icon_label(widget *, const char *);                      \
+    void widget##_set_icons(widget *w, const void *images[], int length);      \
+    void widget##_maximize(widget *w);                                         \
+    void widget##_un_maximize(widget *w);                                      \
+    unsigned int widget##_maximize_active(const widget *w);
 
 WIDGET_DECLARE(Fl_Window)
 
@@ -99,7 +103,8 @@ WIDGET_DECLARE(Fl_Overlay_Window)
 
 GROUP_DECLARE(Fl_Overlay_Window)
 
-void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self, custom_draw_callback cb, void *data);
+void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self,
+                                    custom_draw_callback cb, void *data);
 
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self);
 
@@ -177,7 +182,8 @@ int Fl_Glut_Window_can_do(Fl_Glut_Window *self);
 
 void *Fl_Glut_Window_context(const Fl_Glut_Window *self);
 
-void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx, int destroy_flag);
+void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx,
+                                int destroy_flag);
 
 void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self);
 

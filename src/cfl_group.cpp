@@ -175,7 +175,8 @@ double Fl_Color_Chooser_b(Fl_Color_Chooser *self) {
     return ret;
 }
 
-int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g, double b) {
+int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g,
+                             double b) {
     LOCK(auto ret = self->rgb(r, g, b));
     return ret;
 }
@@ -223,7 +224,8 @@ WIDGET_CLASS(Fl_Grid)
 
 WIDGET_DEFINE(Fl_Grid)
 
-void Fl_Grid_set_layout(Fl_Grid *self, int rows, int cols, int margin, int gap) {
+void Fl_Grid_set_layout(Fl_Grid *self, int rows, int cols, int margin,
+                        int gap) {
     LOCK(self->layout(rows, cols, margin, gap));
 }
 
@@ -244,7 +246,8 @@ int Fl_Grid_need_layout(const Fl_Grid *self) {
     return ret;
 }
 
-void Fl_Grid_set_margin(Fl_Grid *self, int left, int top, int right, int bottom) {
+void Fl_Grid_set_margin(Fl_Grid *self, int left, int top, int right,
+                        int bottom) {
     LOCK(self->margin(left, top, right, bottom));
 }
 
@@ -252,13 +255,16 @@ void Fl_Grid_set_gap(Fl_Grid *self, int row_gap, int col_gap) {
     LOCK(self->gap(row_gap, col_gap));
 }
 
-void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col, unsigned short align) {
-    LOCK(auto ret = self->widget(wi, row, col, align)); return ret;
+void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col,
+                         unsigned short align) {
+    LOCK(auto ret = self->widget(wi, row, col, align));
+    return ret;
 }
 
-void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col, int rowspan,
-                             int colspan, unsigned short align) {
-    LOCK(auto ret = self->widget(wi, row, col, rowspan, colspan, align)); return ret;
+void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col,
+                             int rowspan, int colspan, unsigned short align) {
+    LOCK(auto ret = self->widget(wi, row, col, rowspan, colspan, align));
+    return ret;
 }
 
 void Fl_Grid_set_col_width(Fl_Grid *self, int col, int value) {

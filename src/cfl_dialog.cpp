@@ -33,7 +33,8 @@ const char *Fl_Native_File_Chooser_filename(Fl_Native_File_Chooser *self) {
         return x;
 }
 
-const char *Fl_Native_File_Chooser_filenames(Fl_Native_File_Chooser *self, int cnt) {
+const char *Fl_Native_File_Chooser_filenames(Fl_Native_File_Chooser *self,
+                                             int cnt) {
     LOCK(const char *x = self->filename(cnt));
     if (!strcmp(x, ""))
         return nullptr;
@@ -46,7 +47,8 @@ int Fl_Native_File_Chooser_count(Fl_Native_File_Chooser *self) {
     return ret;
 }
 
-void Fl_Native_File_Chooser_set_directory(Fl_Native_File_Chooser *self, const char *val) {
+void Fl_Native_File_Chooser_set_directory(Fl_Native_File_Chooser *self,
+                                          const char *val) {
     LOCK(self->directory(val));
 }
 
@@ -69,15 +71,18 @@ void Fl_Native_File_Chooser_set_type(Fl_Native_File_Chooser *self, int typ) {
     LOCK(self->type(typ));
 }
 
-void Fl_Native_File_Chooser_set_title(Fl_Native_File_Chooser *self, const char *title) {
+void Fl_Native_File_Chooser_set_title(Fl_Native_File_Chooser *self,
+                                      const char *title) {
     LOCK(self->title(title));
 }
 
-void Fl_Native_File_Chooser_set_filter(Fl_Native_File_Chooser *self, const char *f) {
+void Fl_Native_File_Chooser_set_filter(Fl_Native_File_Chooser *self,
+                                       const char *f) {
     LOCK(self->filter(f));
 }
 
-void Fl_Native_File_Chooser_set_preset_file(Fl_Native_File_Chooser *self, const char *f) {
+void Fl_Native_File_Chooser_set_preset_file(Fl_Native_File_Chooser *self,
+                                            const char *f) {
     LOCK(self->preset_file(f));
 }
 
@@ -102,26 +107,30 @@ void Fl_alert2(const char *txt) {
     LOCK(fl_alert("%s", txt));
 }
 
-int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2) {
+int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1,
+              const char *b2) {
     LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = nullptr;
          auto ret = fl_choice("%s", b0, b1, b2, txt));
     return ret;
 }
 
-int Fl_choice_n(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2) {
+int Fl_choice_n(int x, int y, const char *txt, const char *b0, const char *b1,
+                const char *b2) {
     LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = nullptr;
          auto ret = fl_choice_n("%s", b0, b1, b2, txt));
     return ret;
 }
 
-int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2) {
+int Fl_choice2(const char *txt, const char *b0, const char *b1,
+               const char *b2) {
     if (strlen(b2) == 0)
         b2 = nullptr;
     LOCK(auto ret = fl_choice("%s", b0, b1, b2, txt));
     return ret;
 }
 
-int Fl_choice2_n(const char *txt, const char *b0, const char *b1, const char *b2) {
+int Fl_choice2_n(const char *txt, const char *b0, const char *b1,
+                 const char *b2) {
     if (strlen(b2) == 0)
         b2 = nullptr;
     LOCK(auto ret = fl_choice_n("%s", b0, b1, b2, txt));
@@ -177,7 +186,8 @@ void Fl_Help_Dialog_position(Fl_Help_Dialog *self, int xx, int yy) {
     LOCK(self->position(xx, yy));
 }
 
-void Fl_Help_Dialog_resize(Fl_Help_Dialog *self, int xx, int yy, int ww, int hh) {
+void Fl_Help_Dialog_resize(Fl_Help_Dialog *self, int xx, int yy, int ww,
+                           int hh) {
     LOCK(self->resize(xx, yy, ww, hh));
 }
 
@@ -227,7 +237,8 @@ void Fl_beep(int type) {
     LOCK(fl_beep(type));
 }
 
-Fl_File_Chooser *Fl_File_Chooser_new(const char *d, const char *p, int t, const char *title) {
+Fl_File_Chooser *Fl_File_Chooser_new(const char *d, const char *p, int t,
+                                     const char *title) {
     LOCK(auto ret = new Fl_File_Chooser(d, p, t, title));
     return ret;
 }
@@ -251,7 +262,8 @@ void *Fl_File_Chooser_showHiddenButton(Fl_File_Chooser *self) {
     return ret;
 }
 
-void Fl_File_Chooser_set_callback(Fl_File_Chooser *self, void (*cb)(Fl_File_Chooser *, void *),
+void Fl_File_Chooser_set_callback(Fl_File_Chooser *self,
+                                  void (*cb)(Fl_File_Chooser *, void *),
                                   void *d) {
     LOCK(self->callback(cb, d));
 }
@@ -502,13 +514,14 @@ char *Fl_dir_chooser(const char *message, const char *fname, int relative) {
     return ret;
 }
 
-char *Fl_file_chooser(const char *message, const char *pat, const char *fname, int relative) {
+char *Fl_file_chooser(const char *message, const char *pat, const char *fname,
+                      int relative) {
     LOCK(auto ret = fl_file_chooser(message, pat, fname, relative));
     return ret;
 }
 
-int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g, unsigned char *b,
-                     int cmode) {
+int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g,
+                     unsigned char *b, int cmode) {
     LOCK(auto ret = fl_color_chooser(name, *r, *g, *b, cmode));
     return ret;
 }

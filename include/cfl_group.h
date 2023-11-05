@@ -85,7 +85,8 @@ double Fl_Color_Chooser_g(Fl_Color_Chooser *self);
 
 double Fl_Color_Chooser_b(Fl_Color_Chooser *self);
 
-int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g, double b);
+int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g,
+                             double b);
 
 GROUP_DECLARE(Fl_Color_Chooser)
 
@@ -119,14 +120,16 @@ void Fl_Grid_set_need_layout(Fl_Grid *self, int set);
 
 int Fl_Grid_need_layout(const Fl_Grid *self);
 
-void Fl_Grid_set_margin(Fl_Grid *self, int left, int top, int right, int bottom);
+void Fl_Grid_set_margin(Fl_Grid *self, int left, int top, int right,
+                        int bottom);
 
 void Fl_Grid_set_gap(Fl_Grid *self, int row_gap, int col_gap);
 
-void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col, unsigned short align);
+void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col,
+                         unsigned short align);
 
-void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col, int rowspan,
-                             int colspan, unsigned short align);
+void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col,
+                             int rowspan, int colspan, unsigned short align);
 
 void Fl_Grid_set_col_width(Fl_Grid *self, int col, int value);
 

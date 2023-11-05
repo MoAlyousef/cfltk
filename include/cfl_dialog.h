@@ -17,7 +17,8 @@ const char *Fl_Native_File_Chooser_filenames(Fl_Native_File_Chooser *, int);
 
 int Fl_Native_File_Chooser_count(Fl_Native_File_Chooser *);
 
-void Fl_Native_File_Chooser_set_directory(Fl_Native_File_Chooser *, const char *val);
+void Fl_Native_File_Chooser_set_directory(Fl_Native_File_Chooser *,
+                                          const char *val);
 
 const char *Fl_Native_File_Chooser_directory(Fl_Native_File_Chooser *);
 
@@ -27,11 +28,13 @@ void Fl_Native_File_Chooser_set_option(Fl_Native_File_Chooser *, int opt);
 
 void Fl_Native_File_Chooser_set_type(Fl_Native_File_Chooser *, int typ);
 
-void Fl_Native_File_Chooser_set_title(Fl_Native_File_Chooser *, const char *title);
+void Fl_Native_File_Chooser_set_title(Fl_Native_File_Chooser *,
+                                      const char *title);
 
 void Fl_Native_File_Chooser_set_filter(Fl_Native_File_Chooser *, const char *f);
 
-void Fl_Native_File_Chooser_set_preset_file(Fl_Native_File_Chooser *, const char *f);
+void Fl_Native_File_Chooser_set_preset_file(Fl_Native_File_Chooser *,
+                                            const char *f);
 
 const char *Fl_Native_File_Chooser_errmsg(Fl_Native_File_Chooser *);
 
@@ -39,9 +42,11 @@ void Fl_message(int x, int y, const char *txt);
 
 void Fl_alert(int x, int y, const char *txt);
 
-int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2);
+int Fl_choice(int x, int y, const char *txt, const char *b0, const char *b1,
+              const char *b2);
 
-int Fl_choice_n(int x, int y, const char *txt, const char *b0, const char *b1, const char *b2);
+int Fl_choice_n(int x, int y, const char *txt, const char *b0, const char *b1,
+                const char *b2);
 
 const char *Fl_input(int x, int y, const char *txt, const char *deflt);
 
@@ -53,7 +58,8 @@ void Fl_alert2(const char *txt);
 
 int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2);
 
-int Fl_choice2_n(const char *txt, const char *b0, const char *b1, const char *b2);
+int Fl_choice2_n(const char *txt, const char *b0, const char *b1,
+                 const char *b2);
 
 const char *Fl_input2(const char *txt, const char *deflt);
 
@@ -97,7 +103,8 @@ void Fl_beep(int type);
 
 typedef struct Fl_File_Chooser Fl_File_Chooser;
 
-Fl_File_Chooser *Fl_File_Chooser_new(const char *d, const char *p, int t, const char *title);
+Fl_File_Chooser *Fl_File_Chooser_new(const char *d, const char *p, int t,
+                                     const char *title);
 
 void Fl_File_Chooser_delete(Fl_File_Chooser *self);
 
@@ -107,7 +114,8 @@ void *Fl_File_Chooser_previewButton(Fl_File_Chooser *self);
 
 void *Fl_File_Chooser_showHiddenButton(Fl_File_Chooser *self);
 
-void Fl_File_Chooser_set_callback(Fl_File_Chooser *self, void (*cb)(Fl_File_Chooser *, void *),
+void Fl_File_Chooser_set_callback(Fl_File_Chooser *self,
+                                  void (*cb)(Fl_File_Chooser *, void *),
                                   void *d);
 
 void Fl_File_Chooser_set_color(Fl_File_Chooser *self, unsigned int c);
@@ -222,10 +230,11 @@ int Fl_File_Chooser_h(const Fl_File_Chooser *self);
 
 char *Fl_dir_chooser(const char *message, const char *fname, int relative);
 
-char *Fl_file_chooser(const char *message, const char *pat, const char *fname, int relative);
+char *Fl_file_chooser(const char *message, const char *pat, const char *fname,
+                      int relative);
 
-int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g, unsigned char *b,
-                     int cmode);
+int Fl_color_chooser(const char *name, unsigned char *r, unsigned char *g,
+                     unsigned char *b, int cmode);
 
 void Fl_message_title(const char *title);
 

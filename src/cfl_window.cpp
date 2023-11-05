@@ -62,14 +62,16 @@ struct Window_Derived : public Widget_Derived<Win> {
         }
         SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha), LWA_ALPHA);
 #elif defined(__APPLE__)
-        cfltk_setWindowTransparency((void *)fl_xid(this), alpha); // definition in separate .m file
+        cfltk_setWindowTransparency((void *)fl_xid(this),
+                                    alpha); // definition in separate .m file
 #elif defined(__ANDROID__)
         // Do nothing
 #elif defined(FLTK_USE_X11)
-        auto cardinal_alpha = (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
+        auto cardinal_alpha =
+            (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
         Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
-        XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace,
-                        (unsigned char *)&cardinal_alpha, 1);
+        XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32,
+                        PropModeReplace, (unsigned char *)&cardinal_alpha, 1);
 #elif defined(FLTK_USE_WAYLAND)
 #else
 #endif
@@ -95,155 +97,173 @@ struct Window_Derived : public Widget_Derived<Win> {
 
 #define WINDOW_CLASS(window) using window##_Derived = Window_Derived<window>;
 
-#define WINDOW_DEFINE(widget)                                                                      \
-    void widget##_make_modal(widget *self, unsigned int boolean) {                                 \
-        LOCK(                                                                                      \
-            if (boolean) { self->set_modal(); } else { self->set_non_modal(); })                   \
-    }                                                                                              \
-    void widget##_fullscreen(widget *self, unsigned int boolean) {                                 \
-        LOCK(                                                                                      \
-            if (boolean) { self->fullscreen(); } else { self->fullscreen_off(); })                 \
-    }                                                                                              \
-    void widget##_make_current(widget *self) {                                                     \
-        LOCK(((Fl_Window *)self)->make_current());                                                 \
-    }                                                                                              \
-    void widget##_set_icon(widget *self, const void *image) {                                      \
-        LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image)));                               \
-    }                                                                                              \
-    void *widget##_icon(const widget *self) {                                                      \
-        LOCK(auto ret = (Fl_Image *)self->icon());                                                 \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_set_cursor(widget *self, int cursor) {                                           \
-        LOCK(self->cursor((Fl_Cursor)cursor));                                                     \
-    }                                                                                              \
-    int widget##_shown(widget *self) {                                                             \
-        LOCK(auto ret = self->shown());                                                            \
-        return ret;                                                                                \
-    }                                                                                              \
-    void *widget##_raw_handle(const widget *w) {                                                   \
-        LOCK(Window temp = fl_xid(w); if (!temp) { return nullptr; } auto *xid = new Window;       \
-             if (!xid) return nullptr; memcpy(xid, &temp, sizeof(Window)));                        \
-        return xid;                                                                                \
-    }                                                                                              \
-    void widget##_set_border(widget *self, int flag) {                                             \
-        LOCK(self->border(flag));                                                                  \
-    }                                                                                              \
-    int widget##_border(const widget *self) {                                                      \
-        LOCK(auto ret = self->border());                                                           \
-        return ret;                                                                                \
-    }                                                                                              \
-    void *widget##_region(const widget *self) {                                                    \
-        Fl_X *t = Fl_X::flx(self);                                                                 \
-        if (!t)                                                                                    \
-            return nullptr;                                                                        \
-        return t->region;                                                                          \
-    }                                                                                              \
-    void widget##_set_region(widget *self, void *r) {                                              \
-        LOCK(Fl_X *t = Fl_X::flx(self); if (!t) return; t->region = (Fl_Region)r;)                 \
-    }                                                                                              \
-    void widget##_iconize(widget *self) {                                                          \
-        LOCK(self->iconize())                                                                      \
-    }                                                                                              \
-    unsigned int widget##_fullscreen_active(const widget *self) {                                  \
-        LOCK(auto ret = self->fullscreen_active());                                                \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_free_position(widget *self) {                                                    \
-        LOCK(self->free_position())                                                                \
-    }                                                                                              \
-    int widget##_decorated_w(const widget *self) {                                                 \
-        LOCK(auto ret = self->decorated_w());                                                      \
-        return ret;                                                                                \
-    }                                                                                              \
-    int widget##_decorated_h(const widget *self) {                                                 \
-        LOCK(auto ret = self->decorated_h());                                                      \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_size_range(widget *self, int minw, int minh, int maxw, int maxh) {               \
-        LOCK(self->size_range(minw, minh, maxw, maxh))                                             \
-    }                                                                                              \
-    void widget##_hotspot(widget *self, Fl_Widget *wid) {                                          \
-        LOCK(self->hotspot(wid))                                                                   \
-    }                                                                                              \
-    void widget##_set_shape(widget *self, const void *image) {                                     \
-        LOCK(auto old = self->shape(); if (!image) self->shape(nullptr);                           \
-             else self->shape(((Fl_Image *)image)->copy()); delete old;)                           \
-    }                                                                                              \
-    const void *widget##_shape(widget *self) {                                                     \
-        LOCK(auto temp = self->shape());                                                           \
-        if (!temp)                                                                                 \
-            return nullptr;                                                                        \
-        LOCK(auto ret = ((Fl_Image *)temp)->copy());                                               \
-        return ret;                                                                                \
-    }                                                                                              \
-    int widget##_x_root(const widget *self) {                                                      \
-        LOCK(auto ret = self->x_root());                                                           \
-        return ret;                                                                                \
-    }                                                                                              \
-    int widget##_y_root(const widget *self) {                                                      \
-        LOCK(auto ret = self->y_root());                                                           \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, int hot_y) {        \
-        LOCK(self->cursor((const Fl_RGB_Image *)image, hot_x, hot_y));                             \
-    }                                                                                              \
-    void widget##_default_cursor(widget *self, int cursor) {                                       \
-        LOCK(self->default_cursor((Fl_Cursor)cursor));                                             \
-    }                                                                                              \
-    int widget##_screen_num(widget *self) {                                                        \
-        LOCK(auto ret = self->screen_num());                                                       \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_set_screen_num(widget *self, int screen_num) {                                   \
-        LOCK(self->screen_num(screen_num));                                                        \
-    }                                                                                              \
-    void widget##_wait_for_expose(widget *self) {                                                  \
-        LOCK(self->wait_for_expose());                                                             \
-    }                                                                                              \
-    void widget##_set_alpha(widget *self, unsigned char val) {                                     \
-        LOCK(((widget##_Derived *)self)->set_alpha(val));                                          \
-    }                                                                                              \
-    unsigned char widget##_alpha(const widget *self) {                                             \
-        LOCK(auto ret = ((widget##_Derived *)self)->alpha());                                      \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_force_position(widget *self, int flag) {                                         \
-        LOCK(((widget##_Derived *)self)->force_pos(flag));                                         \
-    }                                                                                              \
-    const char *widget##_default_xclass(void) {                                                    \
-        LOCK(auto ret = widget::default_xclass());                                                 \
-        return ret;                                                                                \
-    }                                                                                              \
-    const char *widget##_xclass(const widget *self) {                                              \
-        LOCK(auto ret = self->xclass());                                                           \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_set_default_xclass(const char *s) {                                              \
-        LOCK(widget::default_xclass(s));                                                           \
-    }                                                                                              \
-    void widget##_set_xclass(widget *self, const char *s) {                                        \
-        LOCK(self->xclass(s));                                                                     \
-    }                                                                                              \
-    void widget##_clear_modal_states(widget *self) {                                               \
-        LOCK(self->clear_modal_states());                                                          \
-    }                                                                                              \
-    void widget##_set_override(widget *self) {                                                     \
-        LOCK(self->set_override());                                                                \
-    }                                                                                              \
-    int widget##_override(const widget *self) {                                                    \
-        LOCK(auto ret = self->override());                                                         \
-        return ret;                                                                                \
-    }                                                                                              \
-    const char *widget##_icon_label(const widget *self) {                                          \
-        LOCK(auto ret = self->iconlabel());                                                        \
-        return ret;                                                                                \
-    }                                                                                              \
-    void widget##_set_icon_label(widget *self, const char *label) {                                \
-        LOCK(self->iconlabel(label));                                                              \
-    }                                                                                              \
-    void widget##_set_icons(widget *w, const void *images[], int length) {                         \
-        w->icons((const Fl_RGB_Image **)images, length);                                           \
+#define WINDOW_DEFINE(widget)                                                  \
+    void widget##_make_modal(widget *self, unsigned int boolean) {             \
+        LOCK(                                                                  \
+            if (boolean) { self->set_modal(); } else {                         \
+                self->set_non_modal();                                         \
+            })                                                                 \
+    }                                                                          \
+    void widget##_fullscreen(widget *self, unsigned int boolean) {             \
+        LOCK(                                                                  \
+            if (boolean) { self->fullscreen(); } else {                        \
+                self->fullscreen_off();                                        \
+            })                                                                 \
+    }                                                                          \
+    void widget##_make_current(widget *self) {                                 \
+        LOCK(((Fl_Window *)self)->make_current());                             \
+    }                                                                          \
+    void widget##_set_icon(widget *self, const void *image) {                  \
+        LOCK(self->icon((const Fl_RGB_Image *)((Fl_Image *)image)));           \
+    }                                                                          \
+    void *widget##_icon(const widget *self) {                                  \
+        LOCK(auto ret = (Fl_Image *)self->icon());                             \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_set_cursor(widget *self, int cursor) {                       \
+        LOCK(self->cursor((Fl_Cursor)cursor));                                 \
+    }                                                                          \
+    int widget##_shown(widget *self) {                                         \
+        LOCK(auto ret = self->shown());                                        \
+        return ret;                                                            \
+    }                                                                          \
+    void *widget##_raw_handle(const widget *w) {                               \
+        LOCK(Window temp = fl_xid(w);                                          \
+             if (!temp) { return nullptr; } auto *xid = new Window;            \
+             if (!xid) return nullptr; memcpy(xid, &temp, sizeof(Window)));    \
+        return xid;                                                            \
+    }                                                                          \
+    void widget##_set_border(widget *self, int flag) {                         \
+        LOCK(self->border(flag));                                              \
+    }                                                                          \
+    int widget##_border(const widget *self) {                                  \
+        LOCK(auto ret = self->border());                                       \
+        return ret;                                                            \
+    }                                                                          \
+    void *widget##_region(const widget *self) {                                \
+        Fl_X *t = Fl_X::flx(self);                                             \
+        if (!t)                                                                \
+            return nullptr;                                                    \
+        return t->region;                                                      \
+    }                                                                          \
+    void widget##_set_region(widget *self, void *r) {                          \
+        LOCK(Fl_X *t = Fl_X::flx(self); if (!t) return;                        \
+             t->region = (Fl_Region)r;)                                        \
+    }                                                                          \
+    void widget##_iconize(widget *self) {                                      \
+        LOCK(self->iconize())                                                  \
+    }                                                                          \
+    unsigned int widget##_fullscreen_active(const widget *self) {              \
+        LOCK(auto ret = self->fullscreen_active());                            \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_free_position(widget *self) {                                \
+        LOCK(self->free_position())                                            \
+    }                                                                          \
+    int widget##_decorated_w(const widget *self) {                             \
+        LOCK(auto ret = self->decorated_w());                                  \
+        return ret;                                                            \
+    }                                                                          \
+    int widget##_decorated_h(const widget *self) {                             \
+        LOCK(auto ret = self->decorated_h());                                  \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_size_range(widget *self, int minw, int minh, int maxw,       \
+                             int maxh) {                                       \
+        LOCK(self->size_range(minw, minh, maxw, maxh))                         \
+    }                                                                          \
+    void widget##_hotspot(widget *self, Fl_Widget *wid) {                      \
+        LOCK(self->hotspot(wid))                                               \
+    }                                                                          \
+    void widget##_set_shape(widget *self, const void *image) {                 \
+        LOCK(auto old = self->shape(); if (!image) self->shape(nullptr);       \
+             else self->shape(((Fl_Image *)image)->copy()); delete old;)       \
+    }                                                                          \
+    const void *widget##_shape(widget *self) {                                 \
+        LOCK(auto temp = self->shape());                                       \
+        if (!temp)                                                             \
+            return nullptr;                                                    \
+        LOCK(auto ret = ((Fl_Image *)temp)->copy());                           \
+        return ret;                                                            \
+    }                                                                          \
+    int widget##_x_root(const widget *self) {                                  \
+        LOCK(auto ret = self->x_root());                                       \
+        return ret;                                                            \
+    }                                                                          \
+    int widget##_y_root(const widget *self) {                                  \
+        LOCK(auto ret = self->y_root());                                       \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, \
+                                   int hot_y) {                                \
+        LOCK(self->cursor((const Fl_RGB_Image *)image, hot_x, hot_y));         \
+    }                                                                          \
+    void widget##_default_cursor(widget *self, int cursor) {                   \
+        LOCK(self->default_cursor((Fl_Cursor)cursor));                         \
+    }                                                                          \
+    int widget##_screen_num(widget *self) {                                    \
+        LOCK(auto ret = self->screen_num());                                   \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_set_screen_num(widget *self, int screen_num) {               \
+        LOCK(self->screen_num(screen_num));                                    \
+    }                                                                          \
+    void widget##_wait_for_expose(widget *self) {                              \
+        LOCK(self->wait_for_expose());                                         \
+    }                                                                          \
+    void widget##_set_alpha(widget *self, unsigned char val) {                 \
+        LOCK(((widget##_Derived *)self)->set_alpha(val));                      \
+    }                                                                          \
+    unsigned char widget##_alpha(const widget *self) {                         \
+        LOCK(auto ret = ((widget##_Derived *)self)->alpha());                  \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_force_position(widget *self, int flag) {                     \
+        LOCK(((widget##_Derived *)self)->force_pos(flag));                     \
+    }                                                                          \
+    const char *widget##_default_xclass(void) {                                \
+        LOCK(auto ret = widget::default_xclass());                             \
+        return ret;                                                            \
+    }                                                                          \
+    const char *widget##_xclass(const widget *self) {                          \
+        LOCK(auto ret = self->xclass());                                       \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_set_default_xclass(const char *s) {                          \
+        LOCK(widget::default_xclass(s));                                       \
+    }                                                                          \
+    void widget##_set_xclass(widget *self, const char *s) {                    \
+        LOCK(self->xclass(s));                                                 \
+    }                                                                          \
+    void widget##_clear_modal_states(widget *self) {                           \
+        LOCK(self->clear_modal_states());                                      \
+    }                                                                          \
+    void widget##_set_override(widget *self) {                                 \
+        LOCK(self->set_override());                                            \
+    }                                                                          \
+    int widget##_override(const widget *self) {                                \
+        LOCK(auto ret = self->override());                                     \
+        return ret;                                                            \
+    }                                                                          \
+    const char *widget##_icon_label(const widget *self) {                      \
+        LOCK(auto ret = self->iconlabel());                                    \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_set_icon_label(widget *self, const char *label) {            \
+        LOCK(self->iconlabel(label));                                          \
+    }                                                                          \
+    void widget##_set_icons(widget *w, const void *images[], int length) {     \
+        w->icons((const Fl_RGB_Image **)images, length);                       \
+    }                                                                          \
+    void widget##_maximize(widget *w) {                                        \
+        LOCK(w->maximize());                                                   \
+    }                                                                          \
+    void widget##_un_maximize(widget *w) {                                     \
+        LOCK(w->un_maximize());                                                \
+    }                                                                          \
+    unsigned int widget##_maximize_active(const widget *w) {                   \
+        LOCK(auto ret = w->maximize_active());                                 \
+        return ret;                                                            \
     }
 
 WINDOW_CLASS(Fl_Window)
@@ -255,8 +275,8 @@ GROUP_DEFINE(Fl_Window)
 WINDOW_DEFINE(Fl_Window)
 
 Fl_Window *Fl_Window_new_wh(int width, int height, const char *title) {
-	LOCK(auto ret = new Fl_Window(width, height, title));
-	return ret;
+    LOCK(auto ret = new Fl_Window(width, height, title));
+    return ret;
 }
 
 Fl_Window *Fl_Window_find_by_handle(void *handle) {
@@ -302,12 +322,14 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
     if (!handle)
         return;
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
+#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) &&        \
+    !defined(FLTK_USE_WAYLAND)
     LOCK(Fl_X::set_xid(self, *(Window *)handle));
 #else
-        // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window *)handle; xp->xid = h;
-        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i = Fl_X::flx(self);
-        //      if (!i) return; i = xp; Fl_X::first = xp;)
+        // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window
+        // *)handle; xp->xid = h;
+        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i =
+        //      Fl_X::flx(self); if (!i) return; i = xp; Fl_X::first = xp;)
 #endif
 }
 
@@ -342,14 +364,17 @@ WINDOW_DEFINE(Fl_Menu_Window)
 struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
     Fl_Overlay_Window_Derived(const Fl_Overlay_Window_Derived &) = delete;
     Fl_Overlay_Window_Derived(Fl_Overlay_Window_Derived &&) = delete;
-    Fl_Overlay_Window_Derived &operator=(const Fl_Overlay_Window_Derived &other) = delete;
-    Fl_Overlay_Window_Derived &operator=(Fl_Overlay_Window_Derived &&other) = delete;
+    Fl_Overlay_Window_Derived &
+    operator=(const Fl_Overlay_Window_Derived &other) = delete;
+    Fl_Overlay_Window_Derived &
+    operator=(Fl_Overlay_Window_Derived &&other) = delete;
     void *overlay_draw_data_ = nullptr;
 
     typedef void (*drawer)(Fl_Widget *, void *data);
     drawer inner_overlay_drawer = nullptr;
 
-    Fl_Overlay_Window_Derived(int x, int y, int w, int h, const char *title = nullptr)
+    Fl_Overlay_Window_Derived(int x, int y, int w, int h,
+                              const char *title = nullptr)
         : Window_Derived<Fl_Overlay_Window>(x, y, w, h, title) {
     }
 
@@ -384,7 +409,8 @@ WIDGET_DEFINE(Fl_Overlay_Window)
 
 GROUP_DEFINE(Fl_Overlay_Window)
 
-void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self, custom_draw_callback cb, void *data) {
+void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self,
+                                    custom_draw_callback cb, void *data) {
     LOCK(((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_ = data;
          ((Fl_Overlay_Window_Derived *)self)->inner_overlay_drawer = cb);
 }
@@ -551,7 +577,8 @@ void *Fl_Glut_Window_context(const Fl_Glut_Window *self) {
     return ret;
 }
 
-void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx, int destroy_flag) {
+void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx,
+                                int destroy_flag) {
     LOCK(self->context((GLContext)ctx, destroy_flag));
 }
 

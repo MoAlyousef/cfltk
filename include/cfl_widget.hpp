@@ -42,7 +42,8 @@ struct Widget_Derived : public T {
     using deleter_fp2 = void (*)(Fl_Widget *, void *);
     deleter_fp2 deleter2 = nullptr;
 
-    Widget_Derived(int x, int y, int w, int h, const char *title = nullptr) : T(x, y, w, h, title) {
+    Widget_Derived(int x, int y, int w, int h, const char *title = nullptr)
+        : T(x, y, w, h, title) {
     }
     operator T *() {
         return (T *)this;
@@ -98,18 +99,22 @@ struct Widget_Derived : public T {
             auto user_data = this->user_data();
             this->user_data(nullptr);
             this->callback((void (*)(Fl_Widget *, void *)) nullptr);
-            void *d[4] = { user_data, this->ev_data_, this->draw_data_, this->resize_data_ };
+            void *d[4] = {user_data, this->ev_data_, this->draw_data_,
+                          this->resize_data_};
             auto data = new Deleter{};
             data->deleter = deleter;
             memcpy(data->d, d, sizeof(d));
-            Fl::add_timeout(0.0, [](void *d) {
-                auto w = (Deleter *)d;
-                for (int i = 0; i < 4; i++) {
-                if (w->d[i])
-                    w->deleter(w->d[i]);
-                }
-                delete w;
-            }, data);
+            Fl::add_timeout(
+                0.0,
+                [](void *d) {
+                    auto w = (Deleter *)d;
+                    for (int i = 0; i < 4; i++) {
+                        if (w->d[i])
+                            w->deleter(w->d[i]);
+                    }
+                    delete w;
+                },
+                data);
         }
     }
 };

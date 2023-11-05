@@ -37,24 +37,30 @@ void Fl_Image_Surface_set_origin(Fl_Image_Surface *self, int x, int y);
 
 void Fl_Image_Surface_rescale(Fl_Image_Surface *self);
 
-void Fl_Image_Surface_draw(Fl_Image_Surface *self, void *widget, int delta_x, int delta_y);
+void Fl_Image_Surface_draw(Fl_Image_Surface *self, void *widget, int delta_x,
+                           int delta_y);
 
-void Fl_Image_Surface_draw_decorated_window(Fl_Image_Surface *self, void *widget, int delta_x,
+void Fl_Image_Surface_draw_decorated_window(Fl_Image_Surface *self,
+                                            void *widget, int delta_x,
                                             int delta_y);
 
 typedef struct Fl_SVG_File_Surface Fl_SVG_File_Surface;
 
-Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(int width, int height, const char *file);
+Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(int width, int height,
+                                             const char *file);
 
 void Fl_SVG_File_Surface_delete(Fl_SVG_File_Surface *self);
 
 void Fl_SVG_File_Surface_origin(Fl_SVG_File_Surface *self, int x, int y);
 
-int Fl_SVG_File_Surface_printable_rect(Fl_SVG_File_Surface *self, int *w, int *h);
+int Fl_SVG_File_Surface_printable_rect(Fl_SVG_File_Surface *self, int *w,
+                                       int *h);
 
-void Fl_SVG_File_Surface_draw(Fl_SVG_File_Surface *self, void *widget, int delta_x, int delta_y);
+void Fl_SVG_File_Surface_draw(Fl_SVG_File_Surface *self, void *widget,
+                              int delta_x, int delta_y);
 
-void Fl_SVG_File_Surface_draw_decorated_window(Fl_SVG_File_Surface *self, void *widget, int delta_x,
+void Fl_SVG_File_Surface_draw_decorated_window(Fl_SVG_File_Surface *self,
+                                               void *widget, int delta_x,
                                                int delta_y);
 
 #ifdef __cplusplus

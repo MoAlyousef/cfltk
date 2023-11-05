@@ -9,9 +9,9 @@ void Fl_mutex_lock(void);
 void Fl_mutex_unlock(void);
 
 #ifndef LOCK
-#define LOCK(x)                                                                                    \
-    Fl_mutex_lock();                                                                               \
-    x;                                                                                             \
+#define LOCK(x)                                                                \
+    Fl_mutex_lock();                                                           \
+    x;                                                                         \
     Fl_mutex_unlock();
 #endif
 

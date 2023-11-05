@@ -24,7 +24,8 @@ static int i_load_private_font(const char *pf) {
     CFURLRef fontURL = CFURLCreateFromFileSystemRepresentation(
         kCFAllocatorDefault, (const UInt8 *)pf, strlen(pf), false);
     // Try to load the font file
-    if (CTFontManagerRegisterFontsForURL(fontURL, kCTFontManagerScopeProcess, &err)) {
+    if (CTFontManagerRegisterFontsForURL(fontURL, kCTFontManagerScopeProcess,
+                                         &err)) {
         result = 1; // OK, we loaded the font, set this non-zero
     } else {
         printf("Failed loading font: %s\n", pf);
@@ -41,16 +42,19 @@ static void v_unload_private_font(const char *pf) {
     CFURLRef fontURL = CFURLCreateFromFileSystemRepresentation(
         kCFAllocatorDefault, (const UInt8 *)pf, strlen(pf), false);
     // Try to unregister the font
-    CTFontManagerUnregisterFontsForURL(fontURL, kCTFontManagerScopeProcess, &err);
+    CTFontManagerUnregisterFontsForURL(fontURL, kCTFontManagerScopeProcess,
+                                       &err);
     if (fontURL)
         CFRelease(fontURL);
 } // v_unload_private_font
 #elif __ANDROID__
 // Nothing!
-#else /* Assume X11 with XFT/fontconfig - this will break on systems using legacy Xlib fonts */
+#else /* Assume X11 with XFT/fontconfig - this will break on systems using     \
+         legacy Xlib fonts */
 #include <fontconfig/fontconfig.h>
 #define USE_XFT 1
-#define i_load_private_font(PATH) (int)FcConfigAppFontAddFile(nullptr, (const FcChar8 *)(PATH))
+#define i_load_private_font(PATH)                                              \
+    (int)FcConfigAppFontAddFile(nullptr, (const FcChar8 *)(PATH))
 #define v_unload_private_font(PATH) FcConfigAppFontClear(nullptr)
 #endif
 

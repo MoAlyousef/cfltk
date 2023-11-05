@@ -46,17 +46,20 @@ Fl_Tree_Item *Fl_Tree_add(Fl_Tree *self, const char *name) {
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_add_item(Fl_Tree *self, const char *name, Fl_Tree_Item *item) {
+Fl_Tree_Item *Fl_Tree_add_item(Fl_Tree *self, const char *name,
+                               Fl_Tree_Item *item) {
     LOCK(auto ret = self->add(name, item));
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_insert_above(Fl_Tree *self, Fl_Tree_Item *above, const char *name) {
+Fl_Tree_Item *Fl_Tree_insert_above(Fl_Tree *self, Fl_Tree_Item *above,
+                                   const char *name) {
     LOCK(auto ret = self->insert_above(above, name));
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_insert(Fl_Tree *self, Fl_Tree_Item *item, const char *name, int pos) {
+Fl_Tree_Item *Fl_Tree_insert(Fl_Tree *self, Fl_Tree_Item *item,
+                             const char *name, int pos) {
     LOCK(auto ret = self->insert(item, name, pos));
     return ret;
 }
@@ -128,7 +131,8 @@ Fl_Tree_Item *Fl_Tree_last_visible_item(Fl_Tree *self) {
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_next_visible_item(Fl_Tree *self, Fl_Tree_Item *start, int dir) {
+Fl_Tree_Item *Fl_Tree_next_visible_item(Fl_Tree *self, Fl_Tree_Item *start,
+                                        int dir) {
     LOCK(auto ret = self->next_visible_item(start, dir));
     return ret;
 }
@@ -143,20 +147,22 @@ Fl_Tree_Item *Fl_Tree_last_selected_item(Fl_Tree *self) {
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_next_item(Fl_Tree *self, Fl_Tree_Item *item, int dir, int visible) {
+Fl_Tree_Item *Fl_Tree_next_item(Fl_Tree *self, Fl_Tree_Item *item, int dir,
+                                int visible) {
     LOCK(auto ret = self->next_item(item, dir, visible));
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_next_selected_item(Fl_Tree *self, Fl_Tree_Item *item, int dir) {
+Fl_Tree_Item *Fl_Tree_next_selected_item(Fl_Tree *self, Fl_Tree_Item *item,
+                                         int dir) {
     LOCK(auto ret = self->next_selected_item(item, dir));
     return ret;
 }
 
 int Fl_Tree_get_selected_items(Fl_Tree *self, Fl_Tree_Item_Array **arr) {
     int c = 0;
-    LOCK(for (Fl_Tree_Item *i = self->first_selected_item(); i; i = self->next_selected_item(i))
-             c++;
+    LOCK(for (Fl_Tree_Item *i = self->first_selected_item(); i;
+              i = self->next_selected_item(i)) c++;
          if (c == 0) return 0; *arr = new Fl_Tree_Item_Array(c);
          int ret = self->get_selected_items(**arr));
     return ret;
@@ -164,9 +170,10 @@ int Fl_Tree_get_selected_items(Fl_Tree *self, Fl_Tree_Item_Array **arr) {
 
 int Fl_Tree_get_items(Fl_Tree *self, Fl_Tree_Item_Array **arr) {
     int c = 0;
-    LOCK(for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i)) c++; if (c == 0) return 0;
-         *arr = new Fl_Tree_Item_Array(c);
-         for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i))(*arr)->add(i));
+    LOCK(for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i)) c++;
+         if (c == 0) return 0; *arr = new Fl_Tree_Item_Array(c);
+         for (Fl_Tree_Item *i = self->first(); i; i = self->next_item(i))(*arr)
+             ->add(i));
     return c;
 }
 
@@ -225,14 +232,15 @@ int Fl_Tree_select_all(Fl_Tree *self, Fl_Tree_Item *item, int docallback) {
     return ret;
 }
 
-int Fl_Tree_extend_selection_dir(Fl_Tree *self, Fl_Tree_Item *from, Fl_Tree_Item *to, int dir,
-                                 int val, int visible) {
+int Fl_Tree_extend_selection_dir(Fl_Tree *self, Fl_Tree_Item *from,
+                                 Fl_Tree_Item *to, int dir, int val,
+                                 int visible) {
     LOCK(auto ret = self->extend_selection_dir(from, to, dir, val, visible));
     return ret;
 }
 
-int Fl_Tree_extend_selection(Fl_Tree *self, Fl_Tree_Item *from, Fl_Tree_Item *to, int val,
-                             int visible) {
+int Fl_Tree_extend_selection(Fl_Tree *self, Fl_Tree_Item *from,
+                             Fl_Tree_Item *to, int val, int visible) {
     LOCK(auto ret = self->extend_selection(from, to, val, visible));
     return ret;
 }
@@ -618,9 +626,11 @@ Fl_Tree_Item *Fl_Tree_Item_new(Fl_Tree *tree, const char *label) {
     return ret;
 }
 
-void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item, int (*cb)(Fl_Tree_Item *, int, void *),
+void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item,
+                                    int (*cb)(Fl_Tree_Item *, int, void *),
                                     void *data) {
-    LOCK(((Fl_Tree_Item_Derived *)item)->cb = cb; ((Fl_Tree_Item_Derived *)item)->draw_data = data;)
+    LOCK(((Fl_Tree_Item_Derived *)item)->cb = cb;
+         ((Fl_Tree_Item_Derived *)item)->draw_data = data;)
 }
 
 void Fl_Tree_Item_set_user_data(Fl_Tree_Item *item, void *data) {
@@ -681,7 +691,8 @@ void Fl_Tree_set_Item_label(Fl_Tree_Item *self, const char *val) {
 }
 
 const char *Fl_Tree_Item_label(const Fl_Tree_Item *self) {
-    LOCK(const char *label = self->label(); auto *buf = new char[strlen(label) + 1];
+    LOCK(const char *label = self->label();
+         auto *buf = new char[strlen(label) + 1];
          memcpy(buf, label, strlen(label) + 1));
     return buf;
 }
@@ -769,12 +780,14 @@ void Fl_Tree_Item_clear_children(Fl_Tree_Item *self) {
     LOCK(self->clear_children());
 }
 
-int Fl_Tree_Item_swap_children(Fl_Tree_Item *self, Fl_Tree_Item *a, Fl_Tree_Item *b) {
+int Fl_Tree_Item_swap_children(Fl_Tree_Item *self, Fl_Tree_Item *a,
+                               Fl_Tree_Item *b) {
     LOCK(auto ret = self->swap_children(a, b));
     return ret;
 }
 
-const Fl_Tree_Item *Fl_Tree_Item_find_child_item(const Fl_Tree_Item *self, const char *name) {
+const Fl_Tree_Item *Fl_Tree_Item_find_child_item(const Fl_Tree_Item *self,
+                                                 const char *name) {
     LOCK(auto ret = self->find_child_item(name));
     return ret;
 }
@@ -784,7 +797,8 @@ Fl_Tree_Item *Fl_Tree_Item_replace(Fl_Tree_Item *self, Fl_Tree_Item *new_item) {
     return ret;
 }
 
-Fl_Tree_Item *Fl_Tree_Item_replace_child(Fl_Tree_Item *self, Fl_Tree_Item *olditem,
+Fl_Tree_Item *Fl_Tree_Item_replace_child(Fl_Tree_Item *self,
+                                         Fl_Tree_Item *olditem,
                                          Fl_Tree_Item *newitem) {
     LOCK(auto ret = self->replace_child(olditem, newitem));
     return ret;
@@ -795,7 +809,8 @@ Fl_Tree_Item *Fl_Tree_Item_deparent(Fl_Tree_Item *self, int index) {
     return ret;
 }
 
-int Fl_Tree_Item_reparent(Fl_Tree_Item *self, Fl_Tree_Item *newchild, int index) {
+int Fl_Tree_Item_reparent(Fl_Tree_Item *self, Fl_Tree_Item *newchild,
+                          int index) {
     LOCK(auto ret = self->reparent(newchild, index));
     return ret;
 }
@@ -975,11 +990,13 @@ void Fl_Tree_Item_Array_add(Fl_Tree_Item_Array *self, Fl_Tree_Item *val) {
     LOCK(self->add(val));
 }
 
-void Fl_Tree_Item_Array_insert(Fl_Tree_Item_Array *self, int pos, Fl_Tree_Item *new_item) {
+void Fl_Tree_Item_Array_insert(Fl_Tree_Item_Array *self, int pos,
+                               Fl_Tree_Item *new_item) {
     LOCK(self->insert(pos, new_item));
 }
 
-void Fl_Tree_Item_Array_replace(Fl_Tree_Item_Array *self, int pos, Fl_Tree_Item *new_item) {
+void Fl_Tree_Item_Array_replace(Fl_Tree_Item_Array *self, int pos,
+                                Fl_Tree_Item *new_item) {
     LOCK(self->replace(pos, new_item));
 }
 
@@ -987,7 +1004,8 @@ void Fl_Tree_Item_Array_remove(Fl_Tree_Item_Array *self, int index) {
     LOCK(self->remove(index));
 }
 
-int Fl_Tree_Item_Array_remove_item(Fl_Tree_Item_Array *self, Fl_Tree_Item *item) {
+int Fl_Tree_Item_Array_remove_item(Fl_Tree_Item_Array *self,
+                                   Fl_Tree_Item *item) {
     LOCK(auto ret = self->remove(item));
     return ret;
 }

@@ -3,15 +3,15 @@
 #include "cfl.h"
 
 #include <FL/Enumerations.H>
+#include <FL/Fl_File_Icon.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
-#include <FL/Fl_File_Icon.H>
 
 #ifndef LOCK
-#define LOCK(x)                                                                                    \
-    Fl::lock();                                                                                    \
-    x;                                                                                             \
+#define LOCK(x)                                                                \
+    Fl::lock();                                                                \
+    x;                                                                         \
     Fl::unlock();
 #endif
 
@@ -276,16 +276,18 @@ void Fl_set_box_border_radius_max(int R) {
     Fl::box_border_radius_max(R);
 }
 
-unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b) {
+unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g,
+                              unsigned char b) {
     return fl_rgb_color(r, g, b);
 }
 
-void Fl_set_color(unsigned int c, unsigned char r, unsigned char g, unsigned char b) {
+void Fl_set_color(unsigned int c, unsigned char r, unsigned char g,
+                  unsigned char b) {
     Fl::set_color(c, r, g, b);
 }
 
-void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g, unsigned char b,
-                             unsigned char a) {
+void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g,
+                             unsigned char b, unsigned char a) {
     Fl::set_color(c, r, g, b, a);
 }
 
@@ -624,7 +626,8 @@ void Fl_screen_xywh_at(int *X, int *Y, int *W, int *H, int mx, int my) {
     Fl::screen_xywh(*X, *Y, *W, *H, mx, my);
 }
 
-void Fl_screen_xywh_inside(int *X, int *Y, int *W, int *H, int mx, int my, int mw, int mh) {
+void Fl_screen_xywh_inside(int *X, int *Y, int *W, int *H, int mx, int my,
+                           int mw, int mh) {
     Fl::screen_xywh(*X, *Y, *W, *H, mx, my, mw, mh);
 }
 
@@ -687,8 +690,8 @@ unsigned int Fl_darker(unsigned int c) {
     return fl_darker(c);
 }
 
-void Fl_set_box_type_cb(int box, void (*cb)(int, int, int, int, unsigned int), int x, int y, int w,
-                        int h) {
+void Fl_set_box_type_cb(int box, void (*cb)(int, int, int, int, unsigned int),
+                        int x, int y, int w, int h) {
     Fl::set_boxtype((Fl_Boxtype)box, cb, x, y, w, h);
 }
 
@@ -768,7 +771,8 @@ int Fl_Widget_Tracker_exists(Fl_Widget_Tracker *t) {
     return t->exists();
 }
 
-void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b) {
+void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g,
+                      unsigned char *b) {
     Fl::get_color((Fl_Color)col, *r, *g, *b);
 }
 

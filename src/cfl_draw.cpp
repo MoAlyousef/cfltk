@@ -12,7 +12,6 @@
 #include <FL/fl_show_colormap.H>
 #include <FL/platform.H>
 
-
 void Fl_set_color_int(unsigned int c) {
     fl_color(c);
 }
@@ -127,8 +126,8 @@ void Fl_rectf_with_color(int x, int y, int w, int h, unsigned int c) {
     fl_rectf(x, y, w, h, c);
 }
 
-void Fl_rectf_with_rgb(int x, int y, int w, int h, unsigned char r, unsigned char g,
-                       unsigned char b) {
+void Fl_rectf_with_rgb(int x, int y, int w, int h, unsigned char r,
+                       unsigned char g, unsigned char b) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -275,7 +274,8 @@ void Fl_rotate(double d) {
     fl_rotate(d);
 }
 
-void Fl_mult_matrix(double a, double b, double c, double d, double x, double y) {
+void Fl_mult_matrix(double a, double b, double c, double d, double x,
+                    double y) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -317,8 +317,8 @@ void Fl_vertex(double x, double y) {
     fl_vertex(x, y);
 }
 
-void Fl_curve(double X0, double Y0, double X1, double Y1, double X2, double Y2, double X3,
-              double Y3) {
+void Fl_curve(double X0, double Y0, double X1, double Y1, double X2, double Y2,
+              double X3, double Y3) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -537,8 +537,8 @@ void Fl_measure(const char *str, int *x, int *y, int draw_symbols) {
     fl_measure(str, *x, *y, draw_symbols);
 }
 
-void Fl_draw5(const char *str, int x, int y, int w, int h, int align, void **img,
-              int draw_symbols) {
+void Fl_draw5(const char *str, int x, int y, int w, int h, int align,
+              void **img, int draw_symbols) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -566,14 +566,16 @@ void Fl_draw_box(int box_type, int x, int y, int w, int h, unsigned int c) {
     fl_draw_box((Fl_Boxtype)box_type, x, y, w, h, c);
 }
 
-void Fl_draw_image(const unsigned char *buf, int X, int Y, int W, int H, int D, int L) {
+void Fl_draw_image(const unsigned char *buf, int X, int Y, int W, int H, int D,
+                   int L) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
     fl_draw_image(buf, X, Y, W, H, D, L);
 }
 
-void Fl_draw_image_mono(const unsigned char *buf, int X, int Y, int W, int H, int D, int L) {
+void Fl_draw_image_mono(const unsigned char *buf, int X, int Y, int W, int H,
+                        int D, int L) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -584,7 +586,8 @@ char Fl_can_do_alpha_blending(void) {
     return fl_can_do_alpha_blending();
 }
 
-unsigned char *Fl_read_image(unsigned char *p, int X, int Y, int W, int H, int alpha) {
+unsigned char *Fl_read_image(unsigned char *p, int X, int Y, int W, int H,
+                             int alpha) {
     if (!fl_graphics_driver)
         return nullptr;
     fl_open_display();
@@ -667,12 +670,13 @@ void Fl_set_cursor2(int cursor, int fg, int bg) {
     return fl_cursor((Fl_Cursor)cursor, fg, bg);
 }
 
-const char *Fl_expand_text(const char *from, char *buf, int maxbuf, double maxw, int *n,
-                           double *width, int wrap, int draw_symbols) {
+const char *Fl_expand_text(const char *from, char *buf, int maxbuf, double maxw,
+                           int *n, double *width, int wrap, int draw_symbols) {
     if (!fl_graphics_driver)
         return nullptr;
     fl_open_display();
-    return fl_expand_text(from, buf, maxbuf, maxw, *n, *width, wrap, draw_symbols);
+    return fl_expand_text(from, buf, maxbuf, maxw, *n, *width, wrap,
+                          draw_symbols);
 }
 
 void Fl_set_status(int X, int Y, int W, int H) {
@@ -703,7 +707,8 @@ unsigned int Fl_show_colormap(unsigned int old_col) {
     return fl_show_colormap((Fl_Color)old_col);
 }
 
-void Fl_copy_offscreen(int x, int y, int w, int h, void *pixmap, int srcx, int srcy) {
+void Fl_copy_offscreen(int x, int y, int w, int h, void *pixmap, int srcx,
+                       int srcy) {
     fl_copy_offscreen(x, y, w, h, (Fl_Offscreen)pixmap, srcx, srcy);
 }
 
@@ -741,7 +746,8 @@ void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {
     fl_draw_check(Fl_Rect(x, y, w, h), (Fl_Color)col);
 }
 
-int Fl_add_symbol(const char *name, void (*drawit)(unsigned int), int scalable) {
+int Fl_add_symbol(const char *name, void (*drawit)(unsigned int),
+                  int scalable) {
     return fl_add_symbol(name, drawit, scalable);
 }
 
