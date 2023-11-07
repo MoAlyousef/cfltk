@@ -53,6 +53,10 @@ struct Widget_Derived : public T {
         return dynamic_cast<T *>(ptr);
     }
 
+    static Widget_Derived *from_derived_dyn_ptr(Fl_Widget *ptr) {
+        return dynamic_cast<Widget_Derived *>(ptr);
+    }
+
     void widget_resize(int x, int y, int w, int h) {
         Fl_Widget::resize(x, y, w, h);
         this->redraw();
