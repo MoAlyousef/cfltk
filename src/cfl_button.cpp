@@ -41,7 +41,9 @@
     int widget##_down_box(const widget *self) {                                \
         LOCK(auto ret = self->down_box());                                     \
         return ret;                                                            \
-    }
+    }\
+    void widget##_set_compact(widget *self, unsigned char v) { LOCK(self->compact(v)); }                  \
+    unsigned char widget##_compact(const widget *self) { LOCK(auto ret = self->compact()); return ret; }
 
 WIDGET_CLASS(Fl_Button)
 
