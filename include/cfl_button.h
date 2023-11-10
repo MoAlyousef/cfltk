@@ -16,7 +16,7 @@ extern "C" {
     void widget##_set_down_box(widget *self, int);                             \
     int widget##_down_box(const widget *self);                                 \
     void widget##_set_compact(widget *self, unsigned char v);                  \
-    unsigned char widget##_compact(const widget *self);
+    unsigned char widget##_compact(widget *self);
 
 WIDGET_DECLARE(Fl_Button)
 

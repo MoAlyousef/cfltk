@@ -45,7 +45,7 @@
     void widget##_set_compact(widget *self, unsigned char v) {                 \
         LOCK(self->compact(v));                                                \
     }                                                                          \
-    unsigned char widget##_compact(const widget *self) {                       \
+    unsigned char widget##_compact(widget *self) {                             \
         LOCK(auto ret = self->compact());                                      \
         return ret;                                                            \
     }
