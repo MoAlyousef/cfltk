@@ -151,6 +151,167 @@ void Fl_Grid_debug(Fl_Grid *self, int level);
 
 GROUP_DECLARE(Fl_Grid)
 
+WIDGET_DECLARE(Fl_Terminal)
+
+int Fl_Terminal_ansi(Fl_Terminal *self);
+
+void Fl_Terminal_set_ansi(Fl_Terminal *self, int boolean);
+
+void Fl_Terminal_append(Fl_Terminal *self, const char *txt);
+
+void Fl_Terminal_append2(Fl_Terminal *self, const char *txt, int len);
+
+void Fl_Terminal_append_ascii(Fl_Terminal *self, const char *txt);
+
+// void Fl_Terminal_append_ascii2(Fl_Terminal *self, const char *txt, int len);
+
+void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt);
+
+void Fl_Terminal_append_utf8_2(Fl_Terminal *self, const char *txt, int len);
+
+// int Fl_Terminal_box(Fl_Terminal *self); // Actually Fl_BoxType       todo?:
+// handled in cfl_macros.h
+
+// void Fl_Terminal_set_box(Fl_Terminal *self, int set);
+
+void Fl_Terminal_clear_history(Fl_Terminal *self);
+
+int Fl_Terminal_cursor_col(Fl_Terminal *self);
+
+// void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int set);     // Can't
+// use: not public
+
+int Fl_Terminal_cursor_row(Fl_Terminal *self);
+
+// void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int set);     // Can't
+// use: not public
+
+unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_cursor_bg_color(Fl_Terminal *self, unsigned set);
+
+unsigned Fl_Terminal_cursor_fg_color(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_cursor_fg_color(Fl_Terminal *self, unsigned set);
+
+int Fl_Terminal_display_columns(Fl_Terminal *self);
+
+void Fl_Terminal_set_display_columns(Fl_Terminal *self, int set);
+
+int Fl_Terminal_display_rows(Fl_Terminal *self);
+
+void Fl_Terminal_set_display_rows(Fl_Terminal *self, int set);
+
+// todo? int Fl_Terminal_draw(Fl_Terminal *self);
+
+// todo?  constructor?
+
+// todo? int Fl_Terminal_handle(Fl_Terminal *self);
+
+int Fl_Terminal_history_lines(Fl_Terminal *self);
+
+void Fl_Terminal_set_history_lines(Fl_Terminal *self, int set);
+
+int Fl_Terminal_history_rows(Fl_Terminal *self);
+
+void Fl_Terminal_set_history_rows(Fl_Terminal *self, int set);
+
+int Fl_Terminal_history_use(Fl_Terminal *self);
+
+int Fl_Terminal_margin_bottom(Fl_Terminal *self);
+
+void Fl_Terminal_set_margin_bottom(Fl_Terminal *self, int set);
+
+int Fl_Terminal_margin_left(Fl_Terminal *self);
+
+void Fl_Terminal_set_margin_left(Fl_Terminal *self, int set);
+
+int Fl_Terminal_margin_right(Fl_Terminal *self);
+
+void Fl_Terminal_set_margin_right(Fl_Terminal *self, int set);
+
+int Fl_Terminal_margin_top(Fl_Terminal *self);
+
+void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set);
+
+void Fl_Terminal_print_char(Fl_Terminal *self, char c);
+
+void Fl_Terminal_print_char2(Fl_Terminal *self, const char *txt, int len);
+
+// Fl_Terminal_printf not supported for Rust
+
+void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col);
+
+void Fl_Terminal_put_char2(Fl_Terminal *self, const char *txt, int len, int row,
+                           int col);
+
+float Fl_Terminal_redraw_rate(Fl_Terminal *self);
+
+void Fl_Terminal_set_redraw_rate(Fl_Terminal *self, float set);
+
+int Fl_Terminal_redraw_style(Fl_Terminal *self); // Actually enum RedrawStyle
+
+void Fl_Terminal_set_redraw_style(Fl_Terminal *self, int set);
+
+void Fl_Terminal_reset_terminal(Fl_Terminal *self);
+
+// todo? int Fl_Terminal_resize(Fl_Terminal *self, int X, int Y, int W, int H);
+
+int Fl_Terminal_scrollbar_actual_size(Fl_Terminal *self);
+
+int Fl_Terminal_scrollbar_size(Fl_Terminal *self);
+
+void Fl_Terminal_set_scrollbar_size(Fl_Terminal *self, int set);
+
+unsigned Fl_Terminal_selection_bg_color(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_selection_bg_color(Fl_Terminal *self, unsigned set);
+
+unsigned Fl_Terminal_selection_fg_color(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_selection_fg_color(Fl_Terminal *self, unsigned set);
+
+int Fl_Terminal_show_unknown(Fl_Terminal *self);
+
+void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean);
+
+void Fl_Terminal_text_attrib(Fl_Terminal *self,
+                             unsigned set); // Actually Fl_Color
+
+unsigned Fl_Terminal_text_bg_color(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_text_bg_color(Fl_Terminal *self, unsigned set);
+
+unsigned
+Fl_Terminal_text_bg_color_default(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_text_bg_color_default(Fl_Terminal *self, unsigned set);
+
+void Fl_Terminal_set_text_bg_color_xterm(Fl_Terminal *self, unsigned char set);
+
+unsigned Fl_Terminal_text_fg_color(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_text_fg_color(Fl_Terminal *self, unsigned set);
+
+unsigned
+Fl_Terminal_text_fg_color_default(Fl_Terminal *self); // Actually Fl_Color
+
+void Fl_Terminal_set_text_fg_color_default(Fl_Terminal *self, unsigned set);
+
+void Fl_Terminal_set_text_fg_color_xterm(Fl_Terminal *self, unsigned char set);
+
+int Fl_Terminal_text_font(Fl_Terminal *self); // Actually Fl_Font
+
+void Fl_Terminal_set_text_font(Fl_Terminal *self, int set);
+
+int Fl_Terminal_text_size(Fl_Terminal *self);
+
+void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
+
+// Fl_Terminal_vprintf not supported for Rust
+
+GROUP_DECLARE(Fl_Terminal)
+
 #ifdef __cplusplus
 }
 #endif

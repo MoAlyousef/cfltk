@@ -17,3 +17,7 @@ compile_commands.json
 /temp
 /.cache
 /examples/bin
+/out
+/\.vs/cfltk/FileContentIndex
+/\.vs/cfltk/v17
+.*\.sqlite
