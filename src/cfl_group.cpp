@@ -452,17 +452,17 @@ void Fl_Terminal_print_char(Fl_Terminal *self, char c) {
     LOCK(self->print_char(c));
 }
 
-//void Fl_Terminal_print_char_u8(Fl_Terminal *self, const char *txt, int len) {
-//    LOCK(self->print_char(txt, len));
-//}
+void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len) {
+    LOCK(self->print_char(txt, len));
+}
 
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col) {
     LOCK(self->putchar(c, row, col));
 }
 
-void Fl_Terminal_put_char_u8(Fl_Terminal *self, const char *txt, int len, int row,
-                           int col) {
-    LOCK(self->putchar(txt, len, row, col));
+void Fl_Terminal_put_char_utf8(Fl_Terminal *self, const char *txt, int len, int drow,
+                           int dcol) {
+    LOCK(self->putchar(txt, len, drow, dcol));
 }
 
 float Fl_Terminal_redraw_rate(Fl_Terminal *self) {
