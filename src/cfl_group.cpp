@@ -323,24 +323,20 @@ void Fl_Terminal_append(Fl_Terminal *self, const char *txt) {
     LOCK(self->append(txt));
 }
 
-void Fl_Terminal_append2(Fl_Terminal *self, const char *txt, int len) {
-    LOCK(self->append(txt));
+void Fl_Terminal_append_u8(Fl_Terminal *self, const char *txt, int len) {
+    LOCK(self->append(txt, len));
 }
 
 void Fl_Terminal_append_ascii(Fl_Terminal *self, const char *txt) {
     LOCK(self->append_ascii(txt));
 }
 
-// void Fl_Terminal_append_ascii2(Fl_Terminal *self, const char *txt, int len) {
-//     LOCK(self->append_ascii(txt));
-// }
-
 void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt) {
     LOCK(self->append_utf8(txt));
 }
 
-void Fl_Terminal_append_utf8_2(Fl_Terminal *self, const char *txt, int len) {
-    LOCK(self->append_utf8(txt));
+void Fl_Terminal_append_utf8_u8(Fl_Terminal *self, const char *txt, int len) {
+    LOCK(self->append_utf8(txt, len));
 }
 
 void Fl_Terminal_clear_history(Fl_Terminal *self) {
@@ -456,15 +452,15 @@ void Fl_Terminal_print_char(Fl_Terminal *self, char c) {
     LOCK(self->print_char(c));
 }
 
-void Fl_Terminal_print_char2(Fl_Terminal *self, const char *txt, int len) {
-    LOCK(self->print_char(txt, len));
-}
+//void Fl_Terminal_print_char_u8(Fl_Terminal *self, const char *txt, int len) {
+//    LOCK(self->print_char(txt, len));
+//}
 
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col) {
     LOCK(self->putchar(c, row, col));
 }
 
-void Fl_Terminal_put_char2(Fl_Terminal *self, const char *txt, int len, int row,
+void Fl_Terminal_put_char_u8(Fl_Terminal *self, const char *txt, int len, int row,
                            int col) {
     LOCK(self->putchar(txt, len, row, col));
 }

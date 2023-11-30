@@ -159,15 +159,13 @@ void Fl_Terminal_set_ansi(Fl_Terminal *self, int boolean);
 
 void Fl_Terminal_append(Fl_Terminal *self, const char *txt);
 
-void Fl_Terminal_append2(Fl_Terminal *self, const char *txt, int len);
+void Fl_Terminal_append_u8(Fl_Terminal *self, const char *txt, int len);
 
 void Fl_Terminal_append_ascii(Fl_Terminal *self, const char *txt);
 
-// void Fl_Terminal_append_ascii2(Fl_Terminal *self, const char *txt, int len);
-
 void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt);
 
-void Fl_Terminal_append_utf8_2(Fl_Terminal *self, const char *txt, int len);
+void Fl_Terminal_append_utf8_u8(Fl_Terminal *self, const char *txt, int len);
 
 // int Fl_Terminal_box(Fl_Terminal *self); // Actually Fl_BoxType       todo?:
 // handled in cfl_macros.h
@@ -236,13 +234,13 @@ void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set);
 
 void Fl_Terminal_print_char(Fl_Terminal *self, char c);
 
-void Fl_Terminal_print_char2(Fl_Terminal *self, const char *txt, int len);
+//void Fl_Terminal_print_char_u8(Fl_Terminal *self, const char *txt, int len);
 
 // Fl_Terminal_printf not supported for Rust
 
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col);
 
-void Fl_Terminal_put_char2(Fl_Terminal *self, const char *txt, int len, int row,
+void Fl_Terminal_put_char_u8(Fl_Terminal *self, const char *txt, int len, int row,
                            int col);
 
 float Fl_Terminal_redraw_rate(Fl_Terminal *self);
