@@ -11,6 +11,7 @@
 #include <FL/Fl_Pack.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Tabs.H>
+#include <FL/Fl_Terminal.H>
 #include <FL/Fl_Tile.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Wizard.H>
@@ -304,3 +305,300 @@ void Fl_Grid_debug(Fl_Grid *self, int level) {
 }
 
 GROUP_DEFINE(Fl_Grid)
+
+WIDGET_CLASS(Fl_Terminal)
+
+WIDGET_DEFINE(Fl_Terminal)
+
+void Fl_Terminal_set_ansi(Fl_Terminal *self, int boolean) {
+    LOCK(self->ansi(boolean));
+}
+
+int Fl_Terminal_ansi(Fl_Terminal *self) {
+    LOCK(auto ret = self->ansi());
+    return ret;
+}
+
+void Fl_Terminal_append(Fl_Terminal *self, const char *txt) {
+    LOCK(self->append(txt));
+}
+
+void Fl_Terminal_append_u8(Fl_Terminal *self, const char *txt, int len) {
+    LOCK(self->append(txt, len));
+}
+
+void Fl_Terminal_append_ascii(Fl_Terminal *self, const char *txt) {
+    LOCK(self->append_ascii(txt));
+}
+
+void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt) {
+    LOCK(self->append_utf8(txt));
+}
+
+void Fl_Terminal_append_utf8_u8(Fl_Terminal *self, const char *txt, int len) {
+    LOCK(self->append_utf8(txt, len));
+}
+
+void Fl_Terminal_clear_history(Fl_Terminal *self) {
+    LOCK(self->clear_history());
+}
+
+int Fl_Terminal_cursor_col(Fl_Terminal *self) {
+    LOCK(auto ret = self->cursor_col());
+    return ret;
+}
+
+int Fl_Terminal_cursor_row(Fl_Terminal *self) {
+    LOCK(auto ret = self->cursor_row());
+    return ret;
+}
+
+unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal *self) {
+    LOCK(auto ret = self->cursorbgcolor());
+    return ret;
+}
+
+void Fl_Terminal_set_cursor_bg_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->cursorbgcolor((Fl_Color)set));
+}
+
+unsigned Fl_Terminal_cursor_fg_color(Fl_Terminal *self) {
+    LOCK(auto ret = self->cursorfgcolor());
+    return ret;
+}
+
+void Fl_Terminal_set_cursor_fg_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->cursorfgcolor((Fl_Color)set));
+}
+
+int Fl_Terminal_display_columns(Fl_Terminal *self) {
+    LOCK(auto ret = self->display_columns());
+    return ret;
+}
+
+void Fl_Terminal_set_display_columns(Fl_Terminal *self, int set) {
+    LOCK(self->display_columns(set));
+}
+
+int Fl_Terminal_display_rows(Fl_Terminal *self) {
+    LOCK(auto ret = self->display_rows());
+    return ret;
+}
+
+void Fl_Terminal_set_display_rows(Fl_Terminal *self, int set) {
+    LOCK(self->display_rows(set));
+}
+
+int Fl_Terminal_history_lines(Fl_Terminal *self) {
+    LOCK(auto ret = self->history_lines());
+    return ret;
+}
+
+void Fl_Terminal_set_history_lines(Fl_Terminal *self, int set) {
+    LOCK(self->history_lines(set));
+}
+
+int Fl_Terminal_history_rows(Fl_Terminal *self) {
+    LOCK(auto ret = self->history_rows());
+    return ret;
+}
+
+void Fl_Terminal_set_history_rows(Fl_Terminal *self, int set) {
+    LOCK(self->history_rows(set));
+}
+
+int Fl_Terminal_history_use(Fl_Terminal *self) {
+    LOCK(auto ret = self->history_use());
+    return ret;
+}
+
+int Fl_Terminal_margin_bottom(Fl_Terminal *self) {
+    LOCK(auto ret = self->margin_bottom());
+    return ret;
+}
+
+void Fl_Terminal_set_margin_bottom(Fl_Terminal *self, int set) {
+    LOCK(self->margin_bottom(set));
+}
+
+int Fl_Terminal_margin_left(Fl_Terminal *self) {
+    LOCK(auto ret = self->margin_left());
+    return ret;
+}
+
+void Fl_Terminal_set_margin_left(Fl_Terminal *self, int set) {
+    LOCK(self->margin_left(set));
+}
+
+int Fl_Terminal_margin_right(Fl_Terminal *self) {
+    LOCK(auto ret = self->margin_right());
+    return ret;
+}
+
+void Fl_Terminal_set_margin_right(Fl_Terminal *self, int set) {
+    LOCK(self->margin_right(set));
+}
+
+int Fl_Terminal_margin_top(Fl_Terminal *self) {
+    LOCK(auto ret = self->margin_top());
+    return ret;
+}
+
+void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set) {
+    LOCK(self->margin_top(set));
+}
+
+void Fl_Terminal_print_char(Fl_Terminal *self, char c) {
+    LOCK(self->print_char(c));
+}
+
+void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len) {
+    LOCK(self->print_char(txt, len));
+}
+
+void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col) {
+    LOCK(self->putchar(c, row, col));
+}
+
+void Fl_Terminal_put_char_utf8(Fl_Terminal *self, const char *txt, int len, int drow,
+                           int dcol) {
+    LOCK(self->putchar(txt, len, drow, dcol));
+}
+
+float Fl_Terminal_redraw_rate(Fl_Terminal *self) {
+    LOCK(auto ret = self->redraw_rate());
+    return ret;
+}
+
+void Fl_Terminal_set_redraw_rate(Fl_Terminal *self, float set) {
+    LOCK(self->redraw_rate(set));
+}
+
+int Fl_Terminal_redraw_style(
+    Fl_Terminal *self) { // Actually returns enum RedrawStyle
+    LOCK(auto ret = self->redraw_style());
+    return ret;
+}
+
+void Fl_Terminal_set_redraw_style(Fl_Terminal *self, int set) {
+    LOCK(self->redraw_style((Fl_Terminal::RedrawStyle)set));
+}
+
+void Fl_Terminal_reset_terminal(Fl_Terminal *self) {
+    LOCK(self->reset_terminal());
+}
+
+int Fl_Terminal_scrollbar_actual_size(Fl_Terminal *self) {
+    LOCK(auto ret = self->scrollbar_actual_size());
+    return ret;
+}
+
+int Fl_Terminal_scrollbar_size(Fl_Terminal *self) {
+    LOCK(auto ret = self->scrollbar_size());
+    return ret;
+}
+
+void Fl_Terminal_set_scrollbar_size(Fl_Terminal *self, int set) {
+    LOCK(self->scrollbar_size(set));
+}
+
+unsigned
+Fl_Terminal_selection_bg_color(Fl_Terminal *self) { // Actually returns Fl_Color
+    LOCK(auto ret = self->selectionbgcolor());
+    return ret;
+}
+
+void Fl_Terminal_set_selection_bg_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->selectionbgcolor(set));
+}
+
+unsigned
+Fl_Terminal_selection_fg_color(Fl_Terminal *self) { // Actually returns Fl_Color
+    LOCK(auto ret = self->selectionfgcolor());
+    return ret;
+}
+
+void Fl_Terminal_set_selection_fg_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->selectionfgcolor(set));
+}
+
+int Fl_Terminal_show_unknown(Fl_Terminal *self) {
+    LOCK(auto ret = self->show_unknown());
+    return ret;
+}
+
+void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean) {
+    LOCK(self->show_unknown(boolean));
+}
+
+void Fl_Terminal_text_attrib(Fl_Terminal *self, unsigned set) {
+    LOCK(self->textattrib(set));
+}
+
+unsigned
+Fl_Terminal_text_bg_color(Fl_Terminal *self) { // Actually returns Fl_Color
+    LOCK(auto ret = self->textbgcolor());
+    return ret;
+}
+
+void Fl_Terminal_set_text_bg_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->textbgcolor(set));
+}
+
+unsigned Fl_Terminal_text_bg_color_default(
+    Fl_Terminal *self) { // Actually returns Fl_Color
+    LOCK(auto ret = self->textbgcolor_default());
+    return ret;
+}
+
+void Fl_Terminal_set_text_bg_color_default(Fl_Terminal *self, unsigned set) {
+    LOCK(self->textbgcolor_default(set));
+}
+
+void Fl_Terminal_set_text_bg_color_xterm(Fl_Terminal *self, unsigned char set) {
+    LOCK(self->textbgcolor_xterm(set));
+}
+
+unsigned
+Fl_Terminal_text_fg_color(Fl_Terminal *self) { // Actually returns Fl_Color
+    LOCK(auto ret = self->textfgcolor());
+    return ret;
+}
+
+void Fl_Terminal_set_text_fg_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->textfgcolor(set));
+}
+
+unsigned Fl_Terminal_text_fg_color_default(
+    Fl_Terminal *self) { // Actually returns Fl_Color
+    LOCK(auto ret = self->textfgcolor_default());
+    return ret;
+}
+
+void Fl_Terminal_set_text_fg_color_default(Fl_Terminal *self, unsigned set) {
+    LOCK(self->textfgcolor_default(set));
+}
+
+void Fl_Terminal_set_text_fg_color_xterm(Fl_Terminal *self, unsigned char set) {
+    LOCK(self->textfgcolor_xterm(set));
+}
+
+int Fl_Terminal_text_font(Fl_Terminal *self) { // Actually Fl_Font
+    LOCK(auto ret = self->textfont());
+    return ret;
+}
+
+void Fl_Terminal_set_text_font(Fl_Terminal *self, int set) {
+    LOCK(self->textfont(set));
+}
+
+int Fl_Terminal_text_size(Fl_Terminal *self) {
+    LOCK(auto ret = self->textsize());
+    return ret;
+}
+
+void Fl_Terminal_set_text_size(Fl_Terminal *self, int set) {
+    LOCK(self->textsize(set));
+}
+
+GROUP_DEFINE(Fl_Terminal)
