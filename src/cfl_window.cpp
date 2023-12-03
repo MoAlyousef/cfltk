@@ -487,6 +487,14 @@ void Fl_Gl_Window_swap_buffers(Fl_Gl_Window *self) {
     LOCK(self->swap_buffers());
 }
 
+void Fl_Gl_Window_set_swap_interval(Fl_Gl_Window *self, int frames) {
+    LOCK(self->swap_interval(frames));
+}
+
+int Fl_Gl_Window_swap_interval(const Fl_Gl_Window *self) {
+    LOCK(auto ret = self->swap_interval()); return ret;
+}
+
 void Fl_Gl_Window_ortho(Fl_Gl_Window *self) {
     LOCK(self->ortho());
 }
@@ -584,6 +592,14 @@ void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx,
 
 void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self) {
     LOCK(self->swap_buffers());
+}
+
+void Fl_Glut_Window_set_swap_interval(Fl_Glut_Window *self, int frames) {
+    LOCK(self->swap_interval(frames));
+}
+
+int Fl_Glut_Window_swap_interval(const Fl_Glut_Window *self) {
+    LOCK(auto ret = self->swap_interval()); return ret;
 }
 
 void Fl_Glut_Window_ortho(Fl_Glut_Window *self) {

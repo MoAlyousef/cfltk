@@ -140,6 +140,10 @@ void Fl_Gl_Window_set_context(Fl_Gl_Window *self, void *ctx, int destroy_flag);
 
 void Fl_Gl_Window_swap_buffers(Fl_Gl_Window *self);
 
+void Fl_Gl_Window_set_swap_interval(Fl_Gl_Window *self, int frames);
+
+int Fl_Gl_Window_swap_interval(const Fl_Gl_Window *self);
+
 void Fl_Gl_Window_ortho(Fl_Gl_Window *self);
 
 int Fl_Gl_Window_can_do_overlay(Fl_Gl_Window *self);
@@ -186,6 +190,10 @@ void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx,
                                 int destroy_flag);
 
 void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self);
+
+void Fl_Glut_Window_set_swap_interval(Fl_Glut_Window *self, int frames);
+
+int Fl_Glut_Window_swap_interval(const Fl_Glut_Window *self);
 
 void Fl_Glut_Window_ortho(Fl_Glut_Window *self);
 
