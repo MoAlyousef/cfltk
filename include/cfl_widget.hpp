@@ -13,11 +13,6 @@ struct is_same<T, T> {
     constexpr static inline bool value = true;
 };
 
-struct Deleter {
-    void (*deleter)(void *d);
-    void *d[4];
-};
-
 template <typename T>
 struct Widget_Derived : public T {
     Widget_Derived(const Widget_Derived &) = delete;
