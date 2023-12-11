@@ -57,23 +57,21 @@ struct Widget_Derived : public T {
         this->redraw();
     }
     void resize(int x, int y, int w, int h) override {
-        T::resize(x, y, w, h);
-        if (resize_handler)
-            resize_handler(this, x, y, w, h, resize_data_);
         if (this->as_window() == this->top_window()) {
             LOCK(Fl::handle(28, this->top_window()));
         }
+        if (resize_handler)
+            resize_handler(this, x, y, w, h, resize_data_);
+        T::resize(x, y, w, h);
     }
     int handle(int event) override {
+        int ret =  T::handle(event);
         int local = 0;
         if (inner_handler) {
             local = inner_handler(this, event, ev_data_);
-            if (local == 0)
-                return T::handle(event);
-            else
-                return T::handle(event) | local;
+            return ret | local;
         } else {
-            return T::handle(event);
+            return ret;
         }
     }
     void draw() override {
@@ -95,13 +93,14 @@ struct Widget_Derived : public T {
         if (deleter2 && deleter_data_) {
             deleter2(this, deleter_data_);
         } else if (deleter) {
+            resize_handler = nullptr;
+            inner_handler = nullptr;
             if (ev_data_)
                 deleter(ev_data_);
             ev_data_ = nullptr;
             if (resize_data_)
                 deleter(resize_data_);
             resize_data_ = nullptr;
-            inner_handler = nullptr;
             if (draw_data_)
                 deleter(draw_data_);
             draw_data_ = nullptr;
