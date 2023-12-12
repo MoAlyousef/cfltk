@@ -1,6 +1,8 @@
 #ifndef __CFL_GROUP_H__
 #define __CFL_GROUP_H__
 
+#include <stdarg.h>
+
 #include "cfl_macros.h"
 
 #ifdef __cplusplus
@@ -167,22 +169,25 @@ void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt);
 
 void Fl_Terminal_append_utf8_u8(Fl_Terminal *self, const char *txt, int len);
 
-// int Fl_Terminal_box(Fl_Terminal *self); // Actually Fl_BoxType       todo?:
-// handled in cfl_macros.h
-
-// void Fl_Terminal_set_box(Fl_Terminal *self, int set);
+void Fl_Terminal_clear_to_color(Fl_Terminal *self, unsigned set);
 
 void Fl_Terminal_clear_history(Fl_Terminal *self);
 
+void Fl_Terminal_clear_screen(Fl_Terminal *self, int boolean);
+
+void Fl_Terminal_clear_screen_home(Fl_Terminal *self, int boolean);
+
 int Fl_Terminal_cursor_col(Fl_Terminal *self);
 
-// void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int set);     // Can't
-// use: not public
+// void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int set);
+// Can't use: not public
+
+void Fl_Terminal_cursor_home(Fl_Terminal *self);
 
 int Fl_Terminal_cursor_row(Fl_Terminal *self);
 
-// void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int set);     // Can't
-// use: not public
+// void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int set);
+// Can't use: not public
 
 unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal *self); // Actually Fl_Color
 
@@ -199,12 +204,6 @@ void Fl_Terminal_set_display_columns(Fl_Terminal *self, int set);
 int Fl_Terminal_display_rows(Fl_Terminal *self);
 
 void Fl_Terminal_set_display_rows(Fl_Terminal *self, int set);
-
-// todo? int Fl_Terminal_draw(Fl_Terminal *self);
-
-// todo?  constructor?
-
-// todo? int Fl_Terminal_handle(Fl_Terminal *self);
 
 int Fl_Terminal_history_lines(Fl_Terminal *self);
 
@@ -232,11 +231,16 @@ int Fl_Terminal_margin_top(Fl_Terminal *self);
 
 void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set);
 
+unsigned Fl_Terminal_output_translate(Fl_Terminal *self); // Returns OutFlags
+
+void Fl_Terminal_set_output_translate(Fl_Terminal *self, unsigned set);
+
 void Fl_Terminal_print_char(Fl_Terminal *self, char c);
 
 void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len);
 
-// Fl_Terminal_printf not supported for Rust
+// Note: Fl_Terminal_printf not supported for Rust
+void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...);
 
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col);
 
@@ -287,6 +291,9 @@ void Fl_Terminal_set_text_bg_color_default(Fl_Terminal *self, unsigned set);
 
 void Fl_Terminal_set_text_bg_color_xterm(Fl_Terminal *self, unsigned char set);
 
+//? todo:  unsigned text_color(*self)  ?  Documented but not implemented in Fl_Terminal.cxx
+void Fl_Terminal_set_text_color(Fl_Terminal *self, unsigned set);
+
 unsigned Fl_Terminal_text_fg_color(Fl_Terminal *self); // Actually Fl_Color
 
 void Fl_Terminal_set_text_fg_color(Fl_Terminal *self, unsigned set);
@@ -305,10 +312,10 @@ void Fl_Terminal_set_text_font(Fl_Terminal *self, int set);
 int Fl_Terminal_text_size(Fl_Terminal *self);
 
 void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
-
 const char *Fl_Terminal_selection_text(const Fl_Terminal *self);
 
-// Fl_Terminal_vprintf not supported for Rust
+// Note: Fl_Terminal_vprintf not supported for Rust
+void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, va_list ap);
 
 GROUP_DECLARE(Fl_Terminal)
 
