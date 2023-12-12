@@ -306,6 +306,8 @@ int Fl_Terminal_text_size(Fl_Terminal *self);
 
 void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
 
+const char *Fl_Terminal_selection_text(const Fl_Terminal *self);
+
 // Fl_Terminal_vprintf not supported for Rust
 
 GROUP_DECLARE(Fl_Terminal)

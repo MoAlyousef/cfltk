@@ -306,7 +306,27 @@ void Fl_Grid_debug(Fl_Grid *self, int level) {
 
 GROUP_DEFINE(Fl_Grid)
 
-WIDGET_CLASS(Fl_Terminal)
+struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
+    Fl_Terminal_Derived(const Fl_Terminal_Derived &) = delete;
+    Fl_Terminal_Derived(Fl_Terminal_Derived &&) = delete;
+    Fl_Terminal_Derived &
+    operator=(const Fl_Terminal_Derived &other) = delete;
+    Fl_Terminal_Derived &
+    operator=(Fl_Terminal_Derived &&other) = delete;
+
+    Fl_Terminal_Derived(int x, int y, int w, int h,
+                              const char *title = nullptr)
+        : Widget_Derived<Fl_Terminal>(x, y, w, h, title) {
+    }
+
+    operator Fl_Terminal *() {
+        return (Fl_Terminal *)this;
+    }
+
+    const char *get_selection_text() const {
+        return this->selection_text();
+    }
+};
 
 WIDGET_DEFINE(Fl_Terminal)
 
@@ -599,6 +619,11 @@ int Fl_Terminal_text_size(Fl_Terminal *self) {
 
 void Fl_Terminal_set_text_size(Fl_Terminal *self, int set) {
     LOCK(self->textsize(set));
+}
+
+const char *Fl_Terminal_selection_text(const Fl_Terminal *self) {
+    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->get_selection_text());
+    return ret;
 }
 
 GROUP_DEFINE(Fl_Terminal)
