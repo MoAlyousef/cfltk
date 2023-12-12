@@ -82,17 +82,17 @@ struct Window_Derived : public Widget_Derived<Win> {
         this->force_position(flag);
     }
 
-#if FLTK_USE_WAYLAND && !CFLTK_USE_GL
-    void draw() override {
-        auto col = this->color();
-        double r = ((col >> 24) & 0xff) / 255.0;
-        double g = ((col >> 16) & 0xff) / 255.0;
-        double b = ((col >> 8) & 0xff) / 255.0;
-        cairo_set_source_rgba(fl_wl_gc(), r, g, b, alpha_ / 255.0);
-        fl_rectf(0, 0, this->w(), this->h());
-        Widget_Derived<Win>::draw();
-    }
-#endif
+// #if FLTK_USE_WAYLAND && !CFLTK_USE_GL
+//     void draw() override {
+//         auto col = this->color();
+//         double r = ((col >> 24) & 0xff) / 255.0;
+//         double g = ((col >> 16) & 0xff) / 255.0;
+//         double b = ((col >> 8) & 0xff) / 255.0;
+//         cairo_set_source_rgba(fl_wl_gc(), r, g, b, alpha_ / 255.0);
+//         fl_rectf(0, 0, this->w(), this->h());
+//         Widget_Derived<Win>::draw();
+//     }
+// #endif
 };
 
 #define WINDOW_CLASS(window) using window##_Derived = Window_Derived<window>;
