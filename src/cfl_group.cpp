@@ -363,9 +363,27 @@ void Fl_Terminal_clear_history(Fl_Terminal *self) {
     LOCK(self->clear_history());
 }
 
+// Fl_Terminal_clear() is defined in macros
+
+void Fl_Terminal_clear_to_color(Fl_Terminal *self, unsigned set) {
+    LOCK(self->clear((Fl_Color)set));
+}
+
+void Fl_Terminal_clear_screen(Fl_Terminal *self, int boolean) {
+    LOCK(self->clear_screen(boolean));
+}
+
+void Fl_Terminal_clear_screen_home(Fl_Terminal *self, int boolean) {
+    LOCK(self->clear_screen_home(boolean));
+}
+
 int Fl_Terminal_cursor_col(Fl_Terminal *self) {
     LOCK(auto ret = self->cursor_col());
     return ret;
+}
+
+void Fl_Terminal_cursor_home(Fl_Terminal *self) {
+    LOCK(self->cursor_home());
 }
 
 int Fl_Terminal_cursor_row(Fl_Terminal *self) {
@@ -468,12 +486,28 @@ void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set) {
     LOCK(self->margin_top(set));
 }
 
+unsigned Fl_Terminal_output_translate(Fl_Terminal *self) {// Returns OutFlags
+    LOCK(auto ret = self->output_translate());
+    return ret;
+} 
+
+void Fl_Terminal_set_output_translate(Fl_Terminal *self, unsigned set) {
+    LOCK(self->output_translate((Fl_Terminal::OutFlags) set));
+}
+
 void Fl_Terminal_print_char(Fl_Terminal *self, char c) {
     LOCK(self->print_char(c));
 }
 
 void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len) {
     LOCK(self->print_char(txt, len));
+}
+
+/// printf not used by Rust but might be useful for C programs using this
+/// interface
+void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
+    va_list args;
+    LOCK(self->vprintf(fmt, args));
 }
 
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col) {
@@ -579,6 +613,11 @@ void Fl_Terminal_set_text_bg_color_xterm(Fl_Terminal *self, unsigned char set) {
     LOCK(self->textbgcolor_xterm(set));
 }
 
+void Fl_Terminal_set_text_color(Fl_Terminal *self,
+                                unsigned set) { // Actually Fl_Color
+    LOCK(self->textcolor(set));
+}
+
 unsigned
 Fl_Terminal_text_fg_color(Fl_Terminal *self) { // Actually returns Fl_Color
     LOCK(auto ret = self->textfgcolor());
@@ -624,6 +663,12 @@ void Fl_Terminal_set_text_size(Fl_Terminal *self, int set) {
 const char *Fl_Terminal_selection_text(const Fl_Terminal *self) {
     LOCK(auto ret = ((Fl_Terminal_Derived *)self)->get_selection_text());
     return ret;
+}
+
+/// vprintf not used by Rust but might be useful for C programs using this
+/// interface
+void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, va_list ap) {
+    LOCK(self->vprintf(fmt, ap));
 }
 
 GROUP_DEFINE(Fl_Terminal)
