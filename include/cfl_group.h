@@ -1,8 +1,6 @@
 #ifndef __CFL_GROUP_H__
 #define __CFL_GROUP_H__
 
-#include <stdarg.h>
-
 #include "cfl_macros.h"
 
 #ifdef __cplusplus
@@ -312,10 +310,11 @@ void Fl_Terminal_set_text_font(Fl_Terminal *self, int set);
 int Fl_Terminal_text_size(Fl_Terminal *self);
 
 void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
+
 const char *Fl_Terminal_selection_text(const Fl_Terminal *self);
 
 // Note: Fl_Terminal_vprintf not supported for Rust
-void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, va_list ap);
+void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, ...);
 
 GROUP_DECLARE(Fl_Terminal)
 

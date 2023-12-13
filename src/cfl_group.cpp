@@ -17,6 +17,8 @@
 #include <FL/Fl_Wizard.H>
 #include <FL/fl_draw.H>
 
+#include <stdarg.h>
+
 WIDGET_CLASS(Fl_Group)
 
 WIDGET_DEFINE(Fl_Group)
@@ -667,8 +669,11 @@ const char *Fl_Terminal_selection_text(const Fl_Terminal *self) {
 
 /// vprintf not used by Rust but might be useful for C programs using this
 /// interface
-void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, va_list ap) {
+void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
     LOCK(self->vprintf(fmt, ap));
+    va_end(ap);
 }
 
 GROUP_DEFINE(Fl_Terminal)
