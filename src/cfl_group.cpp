@@ -505,13 +505,6 @@ void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len) {
     LOCK(self->print_char(txt, len));
 }
 
-/// printf not used by Rust but might be useful for C programs using this
-/// interface
-void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
-    va_list args;
-    LOCK(self->vprintf(fmt, args));
-}
-
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col) {
     LOCK(self->putchar(c, row, col));
 }
@@ -669,7 +662,7 @@ const char *Fl_Terminal_selection_text(const Fl_Terminal *self) {
 
 /// vprintf not used by Rust but might be useful for C programs using this
 /// interface
-void Fl_Terminal_vprintf(Fl_Terminal *self, const char *fmt, ...) {
+void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
     LOCK(self->vprintf(fmt, ap));
