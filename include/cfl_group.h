@@ -313,6 +313,21 @@ void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
 
 const char *Fl_Terminal_selection_text(const Fl_Terminal *self);
 
+
+// typedef struct Fl_Terminal_Derived::Utf8Char Fl_Terminal_Utf8Char;
+typedef void Fl_Terminal_Utf8Char;
+
+// Fl_Native_File_Chooser *Fl_Native_File_Chooser_new(int);
+
+// void Fl_Native_File_Chooser_delete(Fl_Native_File_Chooser *self);
+
+const unsigned char *Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char *self);
+
+int Fl_Terminal_Utf8Char_length(Fl_Terminal_Utf8Char *self);
+
+Fl_Terminal_Utf8Char *Fl_Terminal_Utf8Char_new_obj(char c);
+
+
 GROUP_DECLARE(Fl_Terminal)
 
 #ifdef __cplusplus

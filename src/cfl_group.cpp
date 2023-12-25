@@ -18,6 +18,7 @@
 #include <FL/fl_draw.H>
 
 #include <stdarg.h>
+#include <stdlib.h>
 
 WIDGET_CLASS(Fl_Group)
 
@@ -328,7 +329,23 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     const char *get_selection_text() const {
         return this->selection_text();
     }
+
+    struct Utf8Char {
+        /// Temp stub: create a Utf8Char for testing
+        static Fl_Terminal::Utf8Char * new_obj(char c) {
+            auto x = new Fl_Terminal::Utf8Char;
+            auto cs = Fl_Terminal::CharStyle(false);
+            x->text_ascii(c, cs);
+            return x;
+        };
+        const char* text_utf8(void) const { return ((Fl_Terminal::Utf8Char *) this)->text_utf8(); };
+        unsigned char length(void) const { return ((Fl_Terminal::Utf8Char *) this)->length(); };
+    };
 };
+
+// struct Utf8Char: public Fl_Terminal_Derived::Utf8Char {
+
+// };
 
 WIDGET_DEFINE(Fl_Terminal)
 
@@ -491,7 +508,7 @@ void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set) {
 unsigned Fl_Terminal_output_translate(Fl_Terminal *self) {// Returns OutFlags
     LOCK(auto ret = self->output_translate());
     return ret;
-} 
+}
 
 void Fl_Terminal_set_output_translate(Fl_Terminal *self, unsigned set) {
     LOCK(self->output_translate((Fl_Terminal::OutFlags) set));
@@ -660,13 +677,38 @@ const char *Fl_Terminal_selection_text(const Fl_Terminal *self) {
     return ret;
 }
 
-/// vprintf not used by Rust but might be useful for C programs using this
+/// printf not used by Rust but might be useful for C programs using this
 /// interface
 void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
     LOCK(self->vprintf(fmt, ap));
     va_end(ap);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Utf8Char class methods.
+// So far, only "getters" are implemented. No "setters" or constructors, so no way
+// to build a new Utf8 object.
+
+const unsigned char *Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = (const unsigned char *)self1->text_utf8());
+    return ret;
+}
+
+/// Get length of bytes in text_utf8: 1 for ASCII, >1 for UTF-8
+int Fl_Terminal_Utf8Char_length(Fl_Terminal_Utf8Char *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->length());
+    return ret;
+}
+
+/// TMP for testing: generate a UTF8Char
+Fl_Terminal_Utf8Char * Fl_Terminal_Utf8Char_new_obj(char c) {
+    // LOCK(auto ret = Fl_Terminal_Utf8Char_text_char(c));
+    LOCK(auto ret = Fl_Terminal_Derived::Utf8Char::new_obj(c));
+    return ret;
 }
 
 GROUP_DEFINE(Fl_Terminal)
