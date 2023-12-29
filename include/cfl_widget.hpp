@@ -62,12 +62,12 @@ struct Widget_Derived : public T {
         this->redraw();
     }
     void resize(int x, int y, int w, int h) override {
+        T::resize(x, y, w, h);
         if (this->as_window() == this->top_window()) {
             LOCK(Fl::handle(28, this->top_window()));
         }
         if (resize_handler)
             resize_handler(this, x, y, w, h, resize_data_);
-        T::resize(x, y, w, h);
     }
     int handle(int event) override {
         int ret = T::handle(event);
