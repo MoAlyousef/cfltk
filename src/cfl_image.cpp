@@ -79,11 +79,9 @@
     }                                                                          \
     image *image##_from_dyn_ptr(Fl_Image *other) {                             \
         return dynamic_cast<image *>(other);                                   \
-    }
-
-#define IMAGE_DELETE(image)                                                    \
+    }                                                                          \
     void image##_delete(image *self) {                                         \
-        delete self;                                                           \
+        self->release();                                                       \
     }
 
 void Fl_Image_set_scaling_algorithm(int algorithm) {
@@ -106,8 +104,6 @@ int Fl_RGB_Image_scaling_algorithm(void) {
 
 IMAGE_DEFINE(Fl_JPEG_Image)
 
-IMAGE_DELETE(Fl_JPEG_Image)
-
 Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_JPEG_Image(filename));
     return ret;
@@ -120,11 +116,7 @@ Fl_JPEG_Image *Fl_JPEG_Image_from(const unsigned char *data) {
 
 IMAGE_DEFINE(Fl_Image)
 
-IMAGE_DELETE(Fl_Image)
-
 IMAGE_DEFINE(Fl_PNG_Image)
-
-IMAGE_DELETE(Fl_PNG_Image)
 
 Fl_PNG_Image *Fl_PNG_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_PNG_Image(filename));
@@ -137,8 +129,6 @@ Fl_PNG_Image *Fl_PNG_Image_from(const unsigned char *data, int size) {
 }
 
 IMAGE_DEFINE(Fl_SVG_Image)
-
-IMAGE_DELETE(Fl_SVG_Image)
 
 Fl_SVG_Image *Fl_SVG_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_SVG_Image(filename));
@@ -156,8 +146,6 @@ void Fl_SVG_Image_normalize(Fl_SVG_Image *self) {
 
 IMAGE_DEFINE(Fl_BMP_Image)
 
-IMAGE_DELETE(Fl_BMP_Image)
-
 Fl_BMP_Image *Fl_BMP_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_BMP_Image(filename));
     return ret;
@@ -170,8 +158,6 @@ Fl_BMP_Image *Fl_BMP_Image_from(const unsigned char *data, long len) {
 
 IMAGE_DEFINE(Fl_GIF_Image)
 
-IMAGE_DELETE(Fl_GIF_Image)
-
 Fl_GIF_Image *Fl_GIF_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_GIF_Image(filename));
     return ret;
@@ -183,8 +169,6 @@ Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len) {
 }
 
 IMAGE_DEFINE(Fl_Anim_GIF_Image)
-
-IMAGE_DELETE(Fl_Anim_GIF_Image)
 
 Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_new(const char *filename, void *canvas,
                                          unsigned short flags) {
@@ -248,16 +232,12 @@ int Fl_Anim_GIF_Image_playing(const Fl_Anim_GIF_Image *self) {
 
 IMAGE_DEFINE(Fl_Pixmap)
 
-IMAGE_DELETE(Fl_Pixmap)
-
 Fl_Pixmap *Fl_Pixmap_new(const char *const *D) {
     LOCK(auto ret = new Fl_Pixmap(D));
     return ret;
 }
 
 IMAGE_DEFINE(Fl_XPM_Image)
-
-IMAGE_DELETE(Fl_XPM_Image)
 
 Fl_XPM_Image *Fl_XPM_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_XPM_Image(filename));
@@ -266,16 +246,12 @@ Fl_XPM_Image *Fl_XPM_Image_new(const char *filename) {
 
 IMAGE_DEFINE(Fl_XBM_Image)
 
-IMAGE_DELETE(Fl_XBM_Image)
-
 Fl_XBM_Image *Fl_XBM_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_XBM_Image(filename));
     return ret;
 }
 
 IMAGE_DEFINE(Fl_PNM_Image)
-
-IMAGE_DELETE(Fl_PNM_Image)
 
 Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
     LOCK(auto ret = new Fl_PNM_Image(filename));
@@ -284,16 +260,12 @@ Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
 
 IMAGE_DEFINE(Fl_Tiled_Image)
 
-IMAGE_DELETE(Fl_Tiled_Image)
-
 Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
     LOCK(auto ret = new Fl_Tiled_Image(i->copy(), w, h));
     return ret;
 }
 
 IMAGE_DEFINE(Fl_RGB_Image)
-
-IMAGE_DELETE(Fl_RGB_Image)
 
 Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H,
                                int depth, int ld) {
@@ -337,10 +309,6 @@ Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
 
 IMAGE_DEFINE(Fl_Shared_Image)
 
-void Fl_Shared_Image_delete(Fl_Shared_Image *self) {
-    LOCK(self->release());
-}
-
 Fl_Shared_Image *Fl_Shared_Image_get(const char *name, int W, int H) {
     LOCK(auto ret = Fl_Shared_Image::get(name, W, H));
     return ret;
@@ -352,8 +320,6 @@ Fl_Shared_Image *Fl_Shared_Image_from_rgb(Fl_RGB_Image *rgb, int own_it) {
 }
 
 IMAGE_DEFINE(Fl_ICO_Image)
-
-IMAGE_DELETE(Fl_ICO_Image)
 
 Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id) {
     LOCK(auto ret = new Fl_ICO_Image(filename, id));
