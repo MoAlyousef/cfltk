@@ -370,6 +370,7 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     const Fl_Terminal::Utf8Char *u8c_ring_row(int grow) const {
         return Fl_Terminal::u8c_ring_row(grow);
     }
+
 };
 
 
@@ -697,6 +698,7 @@ int Fl_Terminal_text_size(Fl_Terminal const *self) {
 void Fl_Terminal_set_text_size(Fl_Terminal *self, int set) {
     LOCK(self->textsize(set));
 }
+
 
 /// printf not used by Rust but might be useful for C programs using this
 /// interface
