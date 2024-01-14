@@ -104,7 +104,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr);                             \
     widget *widget##_from_derived_dyn_ptr(Fl_Widget *ptr);                     \
     void widget##_super_draw(Fl_Widget *ptr, int flag);                        \
-    void widget##_super_draw_first(Fl_Widget *ptr, int flag);
+    void widget##_super_draw_first(Fl_Widget *ptr, int flag);                  \
+    void widget##_super_handle(Fl_Widget *ptr, int flag);                      \
+    void widget##_super_handle_first(Fl_Widget *ptr, int flag);                
 
 #define WIDGET_CLASS(widget) using widget##_Derived = Widget_Derived<widget>;
 
@@ -415,6 +417,12 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                          \
     void widget##_super_draw_first(Fl_Widget *self, int flag) {                \
         ((widget##_Derived *)self)->super_draw_first = flag;                   \
+    }                                                                          \
+    void widget##_super_handle(Fl_Widget *self, int flag) {                    \
+        ((widget##_Derived *)self)->super_handle = flag;                       \
+    }                                                                          \
+    void widget##_super_handle_first(Fl_Widget *self, int flag) {              \
+        ((widget##_Derived *)self)->super_handle_first = flag;                 \
     }
 
 #define GROUP_DECLARE(widget)                                                  \

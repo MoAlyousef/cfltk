@@ -30,6 +30,8 @@ struct Widget_Derived : public T {
     void *deleter_data_ = nullptr;
     bool super_draw = true;
     bool super_draw_first = true;
+    bool super_handle = true;
+    bool super_handle_first = true;
 
     using handler = int (*)(Fl_Widget *, int, void *data);
     handler inner_handler = nullptr;
@@ -70,14 +72,16 @@ struct Widget_Derived : public T {
             resize_handler(this, x, y, w, h, resize_data_);
     }
     int handle(int event) override {
-        int ret = T::handle(event);
+        int ret = 0;
         int local = 0;
+        if (super_handle && super_handle_first)
+            ret = T::handle(event);
         if (inner_handler) {
             local = inner_handler(this, event, ev_data_);
-            return ret | local;
-        } else {
-            return ret;
         }
+        if (super_handle && !super_handle_first)
+            ret = T::handle(event);
+        return ret | local;
     }
     void draw() override {
         if constexpr (!is_same<T, Fl_Widget>::value) {
