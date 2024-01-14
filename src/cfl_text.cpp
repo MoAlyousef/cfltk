@@ -4,7 +4,7 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Image.H>
-#include <FL/Fl_Simple_Terminal.H>
+#include "Fl_Simple_Terminal.H"
 #include <FL/Fl_Text_Buffer.H>
 #include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Text_Editor.H>

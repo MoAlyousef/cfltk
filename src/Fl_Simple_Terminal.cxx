@@ -18,7 +18,7 @@
 #include <ctype.h>      /* isdigit */
 #include <string.h>     /* memset */
 #include <stdlib.h>     /* strtol */
-#include <FL/Fl_Simple_Terminal.H>
+#include "Fl_Simple_Terminal.H"
 #include <FL/Fl.H>
 #include <stdarg.h>
 
