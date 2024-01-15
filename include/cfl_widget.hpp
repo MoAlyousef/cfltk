@@ -30,7 +30,6 @@ struct Widget_Derived : public T {
     void *deleter_data_ = nullptr;
     bool super_draw = true;
     bool super_draw_first = true;
-    bool super_handle = true;
     bool super_handle_first = true;
 
     using handler = int (*)(Fl_Widget *, int, void *data);
