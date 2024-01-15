@@ -71,17 +71,28 @@ struct Widget_Derived : public T {
         if (resize_handler)
             resize_handler(this, x, y, w, h, resize_data_);
     }
+
+    // Widget event handler. Manages execution of both event handlers:
+    //   inner_handler is the handler defined by end-user program, and may not exist
+    //   T::handle is the built-in handler in the fltk widget
     int handle(int event) override {
-        int ret = 0;
-        int local = 0;
-        if (super_handle && super_handle_first)
-            ret = T::handle(event);
-        if (inner_handler) {
-            local = inner_handler(this, event, ev_data_);
+        if (super_handle_first) {   
+            // Both handlers always executed, T::handle executes first
+            int ret = T::handle(event);
+            if (inner_handler) {
+                int local = inner_handler(this, event, ev_data_);
+                return ret | local;
+            } else {
+                return ret;
+            }
+        } else { 
+            // inner_handler executes first. T::handle only executes if inner_handler returns false
+            if (inner_handler) {
+                if (inner_handler(this, event, ev_data_))
+                    return 1; // Local handler consumed the event
+            }
+            return T::handle(event); // Try the default handler
         }
-        if (super_handle && !super_handle_first)
-            ret = T::handle(event);
-        return ret | local;
     }
     void draw() override {
         if constexpr (!is_same<T, Fl_Widget>::value) {
