@@ -308,8 +308,9 @@ WIDGET_CLASS(Fl_Hor_Value_Slider)
 
 WIDGET_DEFINE(Fl_Hor_Value_Slider)
 
-void Fl_Hor_Value_Slider_set_text_color(Fl_Hor_Value_Slider *self,
-                                        unsigned int c) {
+void Fl_Hor_Value_Slider_set_text_color(
+    Fl_Hor_Value_Slider *self, unsigned int c
+) {
     LOCK(self->textcolor(c));
 }
 

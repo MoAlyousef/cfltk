@@ -12,8 +12,9 @@ template <typename Table>
 struct Table_Derived : public Widget_Derived<Table> {
     void *draw_cell_data_ = nullptr;
 
-    typedef void (*cell_drawer)(Fl_Widget *, int, int, int, int, int, int, int,
-                                void *data);
+    typedef void (*cell_drawer)(
+        Fl_Widget *, int, int, int, int, int, int, int, void *data
+    );
     cell_drawer inner_cell_drawer = nullptr;
 
     Table_Derived(int x, int y, int w, int h, const char *title = nullptr)
@@ -22,8 +23,9 @@ struct Table_Derived : public Widget_Derived<Table> {
     operator Table *() {
         return (Table *)this;
     }
-    void draw_cell(Fl_Table::TableContext context, int R, int C, int X, int Y,
-                   int W, int H) override {
+    void draw_cell(
+        Fl_Table::TableContext context, int R, int C, int X, int Y, int W, int H
+    ) override {
         Table::draw_cell(context, R, C, X, Y, W, H);
         if (inner_cell_drawer)
             inner_cell_drawer(this, context, R, C, X, Y, W, H, draw_cell_data_);
@@ -46,7 +48,7 @@ struct Table_Derived : public Widget_Derived<Table> {
     int cursor2rowcol_(int *r, int *c, int *flag) {
         int R = 0, C = 0;
         auto Flag = (Fl_Table::ResizeFlag)0;
-        auto ret = this->cursor2rowcol(R, C, Flag);
+        auto ret  = this->cursor2rowcol(R, C, Flag);
         *r = R, *c = C, *flag = (int)Flag;
         return (int)ret;
     }
@@ -76,8 +78,9 @@ struct Table_Derived : public Widget_Derived<Table> {
         LOCK(auto ret = self->cols());                                         \
         return ret;                                                            \
     }                                                                          \
-    void table##_visible_cells(table *self, int *r1, int *r2, int *c1,         \
-                               int *c2) {                                      \
+    void table##_visible_cells(                                                \
+        table *self, int *r1, int *r2, int *c1, int *c2                        \
+    ) {                                                                        \
         LOCK(self->visible_cells(*r1, *r2, *c1, *c2));                         \
     }                                                                          \
     int table##_is_interactive_resize(table *self) {                           \
@@ -199,16 +202,19 @@ struct Table_Derived : public Widget_Derived<Table> {
         LOCK(auto ret = self->is_selected(r, c));                              \
         return ret;                                                            \
     }                                                                          \
-    void table##_get_selection(table *self, int *row_top, int *col_left,       \
-                               int *row_bot, int *col_right) {                 \
+    void table##_get_selection(                                                \
+        table *self, int *row_top, int *col_left, int *row_bot, int *col_right \
+    ) {                                                                        \
         LOCK(self->get_selection(*row_top, *col_left, *row_bot, *col_right));  \
     }                                                                          \
-    void table##_set_selection(table *self, int row_top, int col_left,         \
-                               int row_bot, int col_right) {                   \
+    void table##_set_selection(                                                \
+        table *self, int row_top, int col_left, int row_bot, int col_right     \
+    ) {                                                                        \
         LOCK(self->set_selection(row_top, col_left, row_bot, col_right));      \
     }                                                                          \
-    int table##_move_cursor_with_shiftselect(table *self, int R, int C,        \
-                                             int shiftselect) {                \
+    int table##_move_cursor_with_shiftselect(                                  \
+        table *self, int R, int C, int shiftselect                             \
+    ) {                                                                        \
         LOCK(auto ret = self->move_cursor(R, C, shiftselect));                 \
         return ret;                                                            \
     }                                                                          \
@@ -233,8 +239,9 @@ struct Table_Derived : public Widget_Derived<Table> {
     void table##_draw_cell(                                                    \
         table *self,                                                           \
         void (*cb)(Fl_Widget *, int, int, int, int, int, int, int, void *),    \
-        void *data) {                                                          \
-        LOCK(((table##_Derived *)self)->draw_cell_data_ = data;                \
+        void *data                                                             \
+    ) {                                                                        \
+        LOCK(((table##_Derived *)self)->draw_cell_data_   = data;              \
              ((table##_Derived *)self)->inner_cell_drawer = cb);               \
     }                                                                          \
     void *table##_draw_cell_data(const table *self) {                          \
@@ -264,16 +271,26 @@ struct Table_Derived : public Widget_Derived<Table> {
         LOCK(auto ret = ((table##_Derived *)self)->hscrollbar());              \
         return ret;                                                            \
     }                                                                          \
-    int table##_find_cell(const table *self, int ctx, int r, int c, int *x,    \
-                          int *y, int *w, int *h) {                            \
+    int table##_find_cell(                                                     \
+        const table *self,                                                     \
+        int ctx,                                                               \
+        int r,                                                                 \
+        int c,                                                                 \
+        int *x,                                                                \
+        int *y,                                                                \
+        int *w,                                                                \
+        int *h                                                                 \
+    ) {                                                                        \
         LOCK(                                                                  \
             auto ret =                                                         \
-                ((table##_Derived *)self)->find_cell_(ctx, r, c, x, y, w, h)); \
+                ((table##_Derived *)self)->find_cell_(ctx, r, c, x, y, w, h)   \
+        );                                                                     \
         return ret;                                                            \
     }                                                                          \
     int table##_cursor2rowcol(const table *self, int *r, int *c, int *flag) {  \
-        LOCK(auto ret =                                                        \
-                 ((table##_Derived *)self)->cursor2rowcol_(r, c, flag));       \
+        LOCK(                                                                  \
+            auto ret = ((table##_Derived *)self)->cursor2rowcol_(r, c, flag)   \
+        );                                                                     \
         return (int)ret;                                                       \
     }
 

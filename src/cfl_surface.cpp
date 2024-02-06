@@ -22,8 +22,8 @@ Fl_Surface_Device *Fl_Surface_Device_surface(void) {
     return ret;
 }
 
-void Fl_Surface_Device_push_current(Fl_Surface_Device *new_current){
-    LOCK(Fl_Surface_Device::push_current(new_current))}
+void Fl_Surface_Device_push_current(Fl_Surface_Device *new_current
+){LOCK(Fl_Surface_Device::push_current(new_current))}
 
 Fl_Surface_Device *Fl_Surface_Device_pop_current(void) {
     Fl_Surface_Device *ret = nullptr;
@@ -72,18 +72,19 @@ void Fl_Image_Surface_rescale(Fl_Image_Surface *self) {
     LOCK(self->rescale());
 }
 
-void Fl_Image_Surface_draw(Fl_Image_Surface *self, void *widget, int delta_x,
-                           int delta_y) {
+void Fl_Image_Surface_draw(
+    Fl_Image_Surface *self, void *widget, int delta_x, int delta_y
+) {
     LOCK(self->draw((Fl_Widget *)widget, delta_x, delta_y));
 }
 
-void Fl_Image_Surface_draw_decorated_window(Fl_Image_Surface *self,
-                                            void *widget, int delta_x,
-                                            int delta_y){
-    LOCK(self->draw_decorated_window((Fl_Window *)widget, delta_x, delta_y))}
+void Fl_Image_Surface_draw_decorated_window(
+    Fl_Image_Surface *self, void *widget, int delta_x, int delta_y
+){LOCK(self->draw_decorated_window((Fl_Window *)widget, delta_x, delta_y))}
 
-Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(int width, int height,
-                                             const char *file) {
+Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(
+    int width, int height, const char *file
+) {
     fl_open_display();
     FILE *f = fopen(file, "w");
     LOCK(auto ret = new Fl_SVG_File_Surface(width, height, f));
@@ -98,19 +99,21 @@ void Fl_SVG_File_Surface_origin(Fl_SVG_File_Surface *self, int x, int y) {
     LOCK(self->origin(x, y));
 }
 
-int Fl_SVG_File_Surface_printable_rect(Fl_SVG_File_Surface *self, int *w,
-                                       int *h) {
+int Fl_SVG_File_Surface_printable_rect(
+    Fl_SVG_File_Surface *self, int *w, int *h
+) {
     LOCK(auto ret = self->printable_rect(w, h));
     return ret;
 }
 
-void Fl_SVG_File_Surface_draw(Fl_SVG_File_Surface *self, void *widget,
-                              int delta_x, int delta_y) {
+void Fl_SVG_File_Surface_draw(
+    Fl_SVG_File_Surface *self, void *widget, int delta_x, int delta_y
+) {
     LOCK(self->draw((Fl_Widget *)widget, delta_x, delta_y));
 }
 
-void Fl_SVG_File_Surface_draw_decorated_window(Fl_SVG_File_Surface *self,
-                                               void *widget, int delta_x,
-                                               int delta_y) {
+void Fl_SVG_File_Surface_draw_decorated_window(
+    Fl_SVG_File_Surface *self, void *widget, int delta_x, int delta_y
+) {
     LOCK(self->draw_decorated_window((Fl_Window *)widget, delta_x, delta_y));
 }

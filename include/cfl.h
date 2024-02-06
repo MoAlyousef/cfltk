@@ -115,14 +115,20 @@ int Fl_box_border_radius_max(void);
 
 void Fl_set_box_border_radius_max(int R);
 
-unsigned int Fl_get_rgb_color(unsigned char r, unsigned char g,
-                              unsigned char b);
+unsigned int
+Fl_get_rgb_color(unsigned char r, unsigned char g, unsigned char b);
 
-void Fl_set_color(unsigned int c, unsigned char r, unsigned char g,
-                  unsigned char b);
+void Fl_set_color(
+    unsigned int c, unsigned char r, unsigned char g, unsigned char b
+);
 
-void Fl_set_color_with_alpha(unsigned int c, unsigned char r, unsigned char g,
-                             unsigned char b, unsigned char a);
+void Fl_set_color_with_alpha(
+    unsigned int c,
+    unsigned char r,
+    unsigned char g,
+    unsigned char b,
+    unsigned char a
+);
 
 const char *Fl_get_font(int idx);
 
@@ -272,8 +278,9 @@ void Fl_screen_xywh(int *X, int *Y, int *W, int *H, int n);
 
 void Fl_screen_xywh_at(int *X, int *Y, int *W, int *H, int mx, int my);
 
-void Fl_screen_xywh_inside(int *X, int *Y, int *W, int *H, int mx, int my,
-                           int mw, int mh);
+void Fl_screen_xywh_inside(
+    int *X, int *Y, int *W, int *H, int mx, int my, int mw, int mh
+);
 
 void Fl_screen_xywh_mouse(int *X, int *Y, int *W, int *H);
 
@@ -315,8 +322,9 @@ unsigned int Fl_lighter(unsigned int c);
 
 unsigned int Fl_darker(unsigned int c);
 
-void Fl_set_box_type_cb(int, void (*cb)(int, int, int, int, unsigned int), int,
-                        int, int, int);
+void Fl_set_box_type_cb(
+    int, void (*cb)(int, int, int, int, unsigned int), int, int, int, int
+);
 
 int Fl_draw_box_active(void);
 
@@ -354,8 +362,9 @@ Fl_Widget *Fl_Widget_Tracker_widget(Fl_Widget_Tracker *t);
 
 int Fl_Widget_Tracker_exists(Fl_Widget_Tracker *t);
 
-void Fl_get_color_rgb(unsigned int col, unsigned char *r, unsigned char *g,
-                      unsigned char *b);
+void Fl_get_color_rgb(
+    unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b
+);
 
 int Fl_callback_reason(void);
 

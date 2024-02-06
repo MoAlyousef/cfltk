@@ -27,14 +27,14 @@ void Fl_Tree_set_root(Fl_Tree *self, Fl_Tree_Item *newitem);
 
 Fl_Tree_Item *Fl_Tree_add(Fl_Tree *self, const char *name);
 
-Fl_Tree_Item *Fl_Tree_add_item(Fl_Tree *self, const char *name,
-                               Fl_Tree_Item *item);
+Fl_Tree_Item *
+Fl_Tree_add_item(Fl_Tree *self, const char *name, Fl_Tree_Item *item);
 
-Fl_Tree_Item *Fl_Tree_insert_above(Fl_Tree *self, Fl_Tree_Item *above,
-                                   const char *name);
+Fl_Tree_Item *
+Fl_Tree_insert_above(Fl_Tree *self, Fl_Tree_Item *above, const char *name);
 
-Fl_Tree_Item *Fl_Tree_insert(Fl_Tree *self, Fl_Tree_Item *item,
-                             const char *name, int pos);
+Fl_Tree_Item *
+Fl_Tree_insert(Fl_Tree *self, Fl_Tree_Item *item, const char *name, int pos);
 
 const Fl_Tree_Item *Fl_Tree_find_item(const Fl_Tree *self, const char *path);
 
@@ -62,18 +62,18 @@ Fl_Tree_Item *Fl_Tree_last(Fl_Tree *self);
 
 Fl_Tree_Item *Fl_Tree_last_visible_item(Fl_Tree *self);
 
-Fl_Tree_Item *Fl_Tree_next_visible_item(Fl_Tree *self, Fl_Tree_Item *start,
-                                        int dir);
+Fl_Tree_Item *
+Fl_Tree_next_visible_item(Fl_Tree *self, Fl_Tree_Item *start, int dir);
 
 Fl_Tree_Item *Fl_Tree_first_selected_item(Fl_Tree *self);
 
 Fl_Tree_Item *Fl_Tree_last_selected_item(Fl_Tree *self);
 
-Fl_Tree_Item *Fl_Tree_next_item(Fl_Tree *self, Fl_Tree_Item *item, int dir,
-                                int visible);
+Fl_Tree_Item *
+Fl_Tree_next_item(Fl_Tree *self, Fl_Tree_Item *item, int dir, int visible);
 
-Fl_Tree_Item *Fl_Tree_next_selected_item(Fl_Tree *self, Fl_Tree_Item *item,
-                                         int dir);
+Fl_Tree_Item *
+Fl_Tree_next_selected_item(Fl_Tree *self, Fl_Tree_Item *item, int dir);
 
 int Fl_Tree_get_selected_items(Fl_Tree *self, Fl_Tree_Item_Array **arr);
 
@@ -101,12 +101,18 @@ int Fl_Tree_select_only(Fl_Tree *self, Fl_Tree_Item *selitem, int docallback);
 
 int Fl_Tree_select_all(Fl_Tree *self, Fl_Tree_Item *item, int docallback);
 
-int Fl_Tree_extend_selection_dir(Fl_Tree *self, Fl_Tree_Item *from,
-                                 Fl_Tree_Item *to, int dir, int val,
-                                 int visible);
+int Fl_Tree_extend_selection_dir(
+    Fl_Tree *self,
+    Fl_Tree_Item *from,
+    Fl_Tree_Item *to,
+    int dir,
+    int val,
+    int visible
+);
 
-int Fl_Tree_extend_selection(Fl_Tree *self, Fl_Tree_Item *from,
-                             Fl_Tree_Item *to, int val, int visible);
+int Fl_Tree_extend_selection(
+    Fl_Tree *self, Fl_Tree_Item *from, Fl_Tree_Item *to, int val, int visible
+);
 
 void Fl_Tree_set_item_focus(Fl_Tree *self, Fl_Tree_Item *item);
 
@@ -258,16 +264,20 @@ void Fl_Tree_set_callback_reason(Fl_Tree *self, int reason);
 
 int Fl_Tree_callback_reason(const Fl_Tree *self);
 
-int Fl_Tree_item_pathname(const Fl_Tree *self, char *pathname, int pathnamelen,
-                          const Fl_Tree_Item *item);
+int Fl_Tree_item_pathname(
+    const Fl_Tree *self,
+    char *pathname,
+    int pathnamelen,
+    const Fl_Tree_Item *item
+);
 
 /* TreeItems */
 
 Fl_Tree_Item *Fl_Tree_Item_new(Fl_Tree *tree, const char *txt);
 
-void Fl_Tree_Item_draw_item_content(Fl_Tree_Item *item,
-                                    int (*cb)(Fl_Tree_Item *self, int, void *),
-                                    void *data);
+void Fl_Tree_Item_draw_item_content(
+    Fl_Tree_Item *item, int (*cb)(Fl_Tree_Item *self, int, void *), void *data
+);
 
 void Fl_Tree_Item_set_user_data(Fl_Tree_Item *item, void *data);
 
@@ -331,22 +341,24 @@ int Fl_Tree_Item_remove_child(Fl_Tree_Item *self, const char *new_label);
 
 void Fl_Tree_Item_clear_children(Fl_Tree_Item *self);
 
-int Fl_Tree_Item_swap_children(Fl_Tree_Item *self, Fl_Tree_Item *a,
-                               Fl_Tree_Item *b);
+int Fl_Tree_Item_swap_children(
+    Fl_Tree_Item *self, Fl_Tree_Item *a, Fl_Tree_Item *b
+);
 
-const Fl_Tree_Item *Fl_Tree_Item_find_child_item(const Fl_Tree_Item *self,
-                                                 const char *name);
+const Fl_Tree_Item *
+Fl_Tree_Item_find_child_item(const Fl_Tree_Item *self, const char *name);
 
 Fl_Tree_Item *Fl_Tree_Item_replace(Fl_Tree_Item *self, Fl_Tree_Item *new_item);
 
-Fl_Tree_Item *Fl_Tree_Item_replace_child(Fl_Tree_Item *self,
-                                         Fl_Tree_Item *olditem,
-                                         Fl_Tree_Item *newitem);
+Fl_Tree_Item *Fl_Tree_Item_replace_child(
+    Fl_Tree_Item *self, Fl_Tree_Item *olditem, Fl_Tree_Item *newitem
+);
 
 Fl_Tree_Item *Fl_Tree_Item_deparent(Fl_Tree_Item *self, int index);
 
-int Fl_Tree_Item_reparent(Fl_Tree_Item *self, Fl_Tree_Item *newchild,
-                          int index);
+int Fl_Tree_Item_reparent(
+    Fl_Tree_Item *self, Fl_Tree_Item *newchild, int index
+);
 
 int Fl_Tree_Item_move(Fl_Tree_Item *self, int to, int from);
 
@@ -418,23 +430,30 @@ int Fl_Tree_Item_Array_move(Fl_Tree_Item_Array *self, int to, int from);
 
 int Fl_Tree_Item_Array_deparent(Fl_Tree_Item_Array *self, int pos);
 
-int Fl_Tree_Item_Array_reparent(Fl_Tree_Item_Array *self, Fl_Tree_Item *item,
-                                Fl_Tree_Item *newparent, int pos);
+int Fl_Tree_Item_Array_reparent(
+    Fl_Tree_Item_Array *self,
+    Fl_Tree_Item *item,
+    Fl_Tree_Item *newparent,
+    int pos
+);
 
 void Fl_Tree_Item_Array_clear(Fl_Tree_Item_Array *self);
 
 void Fl_Tree_Item_Array_add(Fl_Tree_Item_Array *self, Fl_Tree_Item *val);
 
-void Fl_Tree_Item_Array_insert(Fl_Tree_Item_Array *self, int pos,
-                               Fl_Tree_Item *new_item);
+void Fl_Tree_Item_Array_insert(
+    Fl_Tree_Item_Array *self, int pos, Fl_Tree_Item *new_item
+);
 
-void Fl_Tree_Item_Array_replace(Fl_Tree_Item_Array *self, int pos,
-                                Fl_Tree_Item *new_item);
+void Fl_Tree_Item_Array_replace(
+    Fl_Tree_Item_Array *self, int pos, Fl_Tree_Item *new_item
+);
 
 void Fl_Tree_Item_Array_remove(Fl_Tree_Item_Array *self, int index);
 
-int Fl_Tree_Item_Array_remove_item(Fl_Tree_Item_Array *self,
-                                   Fl_Tree_Item *item);
+int Fl_Tree_Item_Array_remove_item(
+    Fl_Tree_Item_Array *self, Fl_Tree_Item *item
+);
 
 Fl_Tree_Item *Fl_Tree_Item_Array_at(Fl_Tree_Item_Array *self, int index);
 

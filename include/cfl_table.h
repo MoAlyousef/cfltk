@@ -15,8 +15,9 @@ extern "C" {
     int table##_rows(table *self);                                             \
     void table##_set_cols(table *self, int val);                               \
     int table##_cols(table *self);                                             \
-    void table##_visible_cells(table *self, int *r1, int *r2, int *c1,         \
-                               int *c2);                                       \
+    void table##_visible_cells(                                                \
+        table *self, int *r1, int *r2, int *c1, int *c2                        \
+    );                                                                         \
     int table##_is_interactive_resize(table *self);                            \
     int table##_row_resize(table *self);                                       \
     void table##_set_row_resize(table *self, int flag);                        \
@@ -51,12 +52,15 @@ extern "C" {
     void table##_set_top_row(table *self, int row);                            \
     int table##_top_row(table *self);                                          \
     int table##_is_selected(table *self, int r, int c);                        \
-    void table##_get_selection(table *self, int *row_top, int *col_left,       \
-                               int *row_bot, int *col_right);                  \
-    void table##_set_selection(table *self, int row_top, int col_left,         \
-                               int row_bot, int col_right);                    \
-    int table##_move_cursor_with_shiftselect(table *self, int R, int C,        \
-                                             int shiftselect);                 \
+    void table##_get_selection(                                                \
+        table *self, int *row_top, int *col_left, int *row_bot, int *col_right \
+    );                                                                         \
+    void table##_set_selection(                                                \
+        table *self, int row_top, int col_left, int row_bot, int col_right     \
+    );                                                                         \
+    int table##_move_cursor_with_shiftselect(                                  \
+        table *self, int R, int C, int shiftselect                             \
+    );                                                                         \
     int table##_move_cursor(table *self, int R, int C);                        \
     int table##_scrollbar_size(const table *self);                             \
     void table##_set_scrollbar_size(table *self, int newSize);                 \
@@ -65,7 +69,8 @@ extern "C" {
     void table##_draw_cell(                                                    \
         table *self,                                                           \
         void (*)(Fl_Widget *, int, int, int, int, int, int, int, void *),      \
-        void *data);                                                           \
+        void *data                                                             \
+    );                                                                         \
     void *table##_draw_cell_data(const table *self);                           \
     void table##_set_draw_cell_data(table *self, void *data);                  \
     int table##_callback_col(table *);                                         \
@@ -73,8 +78,16 @@ extern "C" {
     int table##_callback_context(table *);                                     \
     void *table##_scrollbar(const table *);                                    \
     void *table##_hscrollbar(const table *);                                   \
-    int table##_find_cell(const table *self, int ctx, int r, int c, int *x,    \
-                          int *y, int *w, int *h);                             \
+    int table##_find_cell(                                                     \
+        const table *self,                                                     \
+        int ctx,                                                               \
+        int r,                                                                 \
+        int c,                                                                 \
+        int *x,                                                                \
+        int *y,                                                                \
+        int *w,                                                                \
+        int *h                                                                 \
+    );                                                                         \
     int table##_cursor2rowcol(const table *self, int *r, int *c, int *flag);
 
 WIDGET_DECLARE(Fl_Table)

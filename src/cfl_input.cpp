@@ -46,8 +46,9 @@
         LOCK(auto ret = self->mark());                                         \
         return ret;                                                            \
     }                                                                          \
-    int widget##_replace(widget *self, int b, int e, const char *text,         \
-                         int ilen) {                                           \
+    int widget##_replace(                                                      \
+        widget *self, int b, int e, const char *text, int ilen                 \
+    ) {                                                                        \
         LOCK(auto ret = self->replace(b, e, text, ilen));                      \
         return ret;                                                            \
     }                                                                          \
@@ -55,8 +56,9 @@
         LOCK(auto ret = self->insert(t, l));                                   \
         return ret;                                                            \
     }                                                                          \
-    int widget##_append(widget *self, const char *t, int l,                    \
-                        char keep_selection) {                                 \
+    int widget##_append(                                                       \
+        widget *self, const char *t, int l, char keep_selection                \
+    ) {                                                                        \
         LOCK(auto ret = self->append(t, l, keep_selection));                   \
         return ret;                                                            \
     }                                                                          \

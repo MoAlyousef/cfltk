@@ -3,9 +3,9 @@
 #include "cfl_button.h"
 #include "cfl_window.h"
 #include <cstdio>
-#include <thread>
-#include <string>
 #include <stdexcept>
+#include <string>
+#include <thread>
 
 using namespace std::chrono_literals;
 

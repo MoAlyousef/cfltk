@@ -36,8 +36,9 @@ typedef union {
     const void *widget##_shape(widget *self);                                  \
     int widget##_x_root(const widget *self);                                   \
     int widget##_y_root(const widget *self);                                   \
-    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, \
-                                   int hot_y);                                 \
+    void widget##_set_cursor_image(                                            \
+        widget *self, const void *image, int hot_x, int hot_y                  \
+    );                                                                         \
     void widget##_default_cursor(widget *self, int cursor);                    \
     int widget##_screen_num(widget *);                                         \
     void widget##_set_screen_num(widget *, int screen_num);                    \
@@ -103,8 +104,9 @@ WIDGET_DECLARE(Fl_Overlay_Window)
 
 GROUP_DECLARE(Fl_Overlay_Window)
 
-void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self,
-                                    custom_draw_callback cb, void *data);
+void Fl_Overlay_Window_draw_overlay(
+    Fl_Overlay_Window *self, custom_draw_callback cb, void *data
+);
 
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self);
 
@@ -186,8 +188,9 @@ int Fl_Glut_Window_can_do(Fl_Glut_Window *self);
 
 void *Fl_Glut_Window_context(const Fl_Glut_Window *self);
 
-void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx,
-                                int destroy_flag);
+void Fl_Glut_Window_set_context(
+    Fl_Glut_Window *self, void *ctx, int destroy_flag
+);
 
 void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self);
 

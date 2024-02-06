@@ -123,8 +123,9 @@ const void *Fl_Check_Browser_scrollbar(const Fl_Check_Browser *self);
 
 const void *Fl_Check_Browser_hscrollbar(const Fl_Check_Browser *self);
 
-void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self,
-                                        unsigned char mode);
+void Fl_Check_Browser_set_has_scrollbar(
+    Fl_Check_Browser *self, unsigned char mode
+);
 
 int Fl_Check_Browser_scrollbar_size(const Fl_Check_Browser *self);
 

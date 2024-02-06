@@ -41,8 +41,15 @@ void Fl_rectf(int x, int y, int w, int h);
 
 void Fl_rectf_with_color(int x, int y, int w, int h, unsigned int c);
 
-void Fl_rectf_with_rgb(int x, int y, int w, int h, unsigned char r,
-                       unsigned char g, unsigned char b);
+void Fl_rectf_with_rgb(
+    int x,
+    int y,
+    int w,
+    int h,
+    unsigned char r,
+    unsigned char g,
+    unsigned char b
+);
 
 void Fl_line(int x, int y, int x1, int y1);
 
@@ -96,8 +103,16 @@ void Fl_begin_polygon(void);
 
 void Fl_vertex(double x, double y);
 
-void Fl_curve(double X0, double Y0, double X1, double Y1, double X2, double Y2,
-              double X3, double Y3);
+void Fl_curve(
+    double X0,
+    double Y0,
+    double X1,
+    double Y1,
+    double X2,
+    double Y2,
+    double X3,
+    double Y3
+);
 
 void Fl_arc2(double x, double y, double r, double start, double end);
 
@@ -173,8 +188,16 @@ void Fl_rtl_draw(const char *str, int n, int x, int y);
 
 void Fl_measure(const char *str, int *x, int *y, int draw_symbols);
 
-void Fl_draw5(const char *str, int x, int y, int w, int h, int align,
-              void **img, int draw_symbols);
+void Fl_draw5(
+    const char *str,
+    int x,
+    int y,
+    int w,
+    int h,
+    int align,
+    void **img,
+    int draw_symbols
+);
 
 void Fl_frame(const char *s, int x, int y, int w, int h);
 
@@ -182,16 +205,18 @@ void Fl_frame2(const char *s, int x, int y, int w, int h);
 
 void Fl_draw_box(int box_type, int x, int y, int w, int h, unsigned int);
 
-void Fl_draw_image(const unsigned char *buf, int X, int Y, int W, int H, int D,
-                   int L);
+void Fl_draw_image(
+    const unsigned char *buf, int X, int Y, int W, int H, int D, int L
+);
 
-void Fl_draw_image_mono(const unsigned char *buf, int X, int Y, int W, int H,
-                        int D, int L);
+void Fl_draw_image_mono(
+    const unsigned char *buf, int X, int Y, int W, int H, int D, int L
+);
 
 char Fl_can_do_alpha_blending(void);
 
-unsigned char *Fl_read_image(unsigned char *p, int X, int Y, int W, int H,
-                             int alpha);
+unsigned char *
+Fl_read_image(unsigned char *p, int X, int Y, int W, int H, int alpha);
 
 unsigned char *Fl_capture_window_part(void *win, int x, int y, int w, int h);
 
@@ -217,8 +242,16 @@ void Fl_set_cursor(int cursor);
 
 void Fl_set_cursor2(int cursor, int fg, int bg);
 
-const char *Fl_expand_text(const char *from, char *buf, int maxbuf, double maxw,
-                           int *n, double *width, int wrap, int draw_symbols);
+const char *Fl_expand_text(
+    const char *from,
+    char *buf,
+    int maxbuf,
+    double maxw,
+    int *n,
+    double *width,
+    int wrap,
+    int draw_symbols
+);
 
 void Fl_set_status(int X, int Y, int W, int H);
 
@@ -228,8 +261,9 @@ void Fl_reset_spot(void);
 
 unsigned int Fl_show_colormap(unsigned int old_col);
 
-void Fl_copy_offscreen(int x, int y, int w, int h, void *pixmap, int srcx,
-                       int srcy);
+void Fl_copy_offscreen(
+    int x, int y, int w, int h, void *pixmap, int srcx, int srcy
+);
 
 void *Fl_create_offscreen(int w, int h);
 

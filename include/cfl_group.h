@@ -85,8 +85,9 @@ double Fl_Color_Chooser_g(Fl_Color_Chooser *self);
 
 double Fl_Color_Chooser_b(Fl_Color_Chooser *self);
 
-int Fl_Color_Chooser_set_rgb(Fl_Color_Chooser *self, double r, double g,
-                             double b);
+int Fl_Color_Chooser_set_rgb(
+    Fl_Color_Chooser *self, double r, double g, double b
+);
 
 GROUP_DECLARE(Fl_Color_Chooser)
 
@@ -120,16 +121,25 @@ void Fl_Grid_set_need_layout(Fl_Grid *self, int set);
 
 int Fl_Grid_need_layout(const Fl_Grid *self);
 
-void Fl_Grid_set_margin(Fl_Grid *self, int left, int top, int right,
-                        int bottom);
+void Fl_Grid_set_margin(
+    Fl_Grid *self, int left, int top, int right, int bottom
+);
 
 void Fl_Grid_set_gap(Fl_Grid *self, int row_gap, int col_gap);
 
-void *Fl_Grid_set_widget(Fl_Grid *self, Fl_Widget *wi, int row, int col,
-                         unsigned short align);
+void *Fl_Grid_set_widget(
+    Fl_Grid *self, Fl_Widget *wi, int row, int col, unsigned short align
+);
 
-void *Fl_Grid_set_widget_ext(Fl_Grid *self, Fl_Widget *wi, int row, int col,
-                             int rowspan, int colspan, unsigned short align);
+void *Fl_Grid_set_widget_ext(
+    Fl_Grid *self,
+    Fl_Widget *wi,
+    int row,
+    int col,
+    int rowspan,
+    int colspan,
+    unsigned short align
+);
 
 void Fl_Grid_set_col_width(Fl_Grid *self, int col, int value);
 
@@ -181,11 +191,13 @@ void Fl_Terminal_cursor_home(Fl_Terminal *self);
 
 int Fl_Terminal_cursor_row(Fl_Terminal const *self);
 
-unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_cursor_bg_color(Fl_Terminal *self, unsigned set);
 
-unsigned Fl_Terminal_cursor_fg_color(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_cursor_fg_color(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_cursor_fg_color(Fl_Terminal *self, unsigned set);
 
@@ -223,7 +235,8 @@ int Fl_Terminal_margin_top(Fl_Terminal const *self);
 
 void Fl_Terminal_set_margin_top(Fl_Terminal *self, int set);
 
-unsigned Fl_Terminal_output_translate(Fl_Terminal const *self); // Returns OutFlags
+unsigned Fl_Terminal_output_translate(Fl_Terminal const *self
+); // Returns OutFlags
 
 void Fl_Terminal_set_output_translate(Fl_Terminal *self, unsigned set);
 
@@ -236,14 +249,16 @@ void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...);
 
 void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col);
 
-void Fl_Terminal_put_char_utf8(Fl_Terminal *self, const char *txt, int len, int row,
-                           int col);
+void Fl_Terminal_put_char_utf8(
+    Fl_Terminal *self, const char *txt, int len, int row, int col
+);
 
 float Fl_Terminal_redraw_rate(Fl_Terminal const *self);
 
 void Fl_Terminal_set_redraw_rate(Fl_Terminal *self, float set);
 
-int Fl_Terminal_redraw_style(Fl_Terminal const *self); // Actually enum RedrawStyle
+int Fl_Terminal_redraw_style(Fl_Terminal const *self
+); // Actually enum RedrawStyle
 
 void Fl_Terminal_set_redraw_style(Fl_Terminal *self, int set);
 
@@ -255,11 +270,13 @@ int Fl_Terminal_scrollbar_size(Fl_Terminal const *self);
 
 void Fl_Terminal_set_scrollbar_size(Fl_Terminal *self, int set);
 
-unsigned Fl_Terminal_selection_bg_color(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_selection_bg_color(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_selection_bg_color(Fl_Terminal *self, unsigned set);
 
-unsigned Fl_Terminal_selection_fg_color(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_selection_fg_color(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_selection_fg_color(Fl_Terminal *self, unsigned set);
 
@@ -267,15 +284,18 @@ int Fl_Terminal_show_unknown(Fl_Terminal const *self);
 
 void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean);
 
-void Fl_Terminal_text_attrib(Fl_Terminal *self,
-                             unsigned set); // Actually Fl_Color
+void Fl_Terminal_text_attrib(
+    Fl_Terminal *self,
+    unsigned set
+); // Actually Fl_Color
 
-unsigned Fl_Terminal_text_bg_color(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_text_bg_color(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_text_bg_color(Fl_Terminal *self, unsigned set);
 
-unsigned
-Fl_Terminal_text_bg_color_default(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_text_bg_color_default(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_text_bg_color_default(Fl_Terminal *self, unsigned set);
 
@@ -283,12 +303,13 @@ void Fl_Terminal_set_text_bg_color_xterm(Fl_Terminal *self, unsigned char set);
 
 void Fl_Terminal_set_text_color(Fl_Terminal *self, unsigned set);
 
-unsigned Fl_Terminal_text_fg_color(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_text_fg_color(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_text_fg_color(Fl_Terminal *self, unsigned set);
 
-unsigned
-Fl_Terminal_text_fg_color_default(Fl_Terminal const *self); // Actually Fl_Color
+unsigned Fl_Terminal_text_fg_color_default(Fl_Terminal const *self
+); // Actually Fl_Color
 
 void Fl_Terminal_set_text_fg_color_default(Fl_Terminal *self, unsigned set);
 
@@ -308,13 +329,14 @@ typedef void Fl_Terminal_Utf8Char;
 
 unsigned char Fl_Terminal_Utf8Char_attrib(Fl_Terminal_Utf8Char const *self);
 
-unsigned Fl_Terminal_Utf8Char_bgcolor(
-    Fl_Terminal_Utf8Char const *self); // Actually returns Fl_Color
+unsigned Fl_Terminal_Utf8Char_bgcolor(Fl_Terminal_Utf8Char const *self
+); // Actually returns Fl_Color
 
-unsigned Fl_Terminal_Utf8Char_fgcolor(
-    Fl_Terminal_Utf8Char const *self); // Actually returns Fl_Color
+unsigned Fl_Terminal_Utf8Char_fgcolor(Fl_Terminal_Utf8Char const *self
+); // Actually returns Fl_Color
 
-const unsigned char *Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char const *self);
+const unsigned char *
+Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char const *self);
 
 unsigned char Fl_Terminal_Utf8Char_charflags(Fl_Terminal_Utf8Char const *self);
 
@@ -348,9 +370,12 @@ int Fl_Terminal_hist_use(Fl_Terminal const *self);
 
 int Fl_Terminal_hist_use_srow(Fl_Terminal const *self);
 
-int  Fl_Terminal_is_inside_selection(Fl_Terminal const *self, int row, int col);	// Actual return type is bool
+int Fl_Terminal_is_inside_selection(
+    Fl_Terminal const *self, int row, int col
+); // Actual return type is bool
 
-int Fl_Terminal_is_selection(Fl_Terminal const *self);	// Actual return type is bool
+int Fl_Terminal_is_selection(Fl_Terminal const *self
+); // Actual return type is bool
 
 int Fl_Terminal_offset(Fl_Terminal const *self);
 
@@ -362,22 +387,24 @@ int Fl_Terminal_ring_srow(Fl_Terminal const *self);
 
 int Fl_Terminal_ring_rows(Fl_Terminal const *self);
 
-const Fl_Terminal_Utf8Char *Fl_Terminal_u8c_disp_row(Fl_Terminal const *self, int drow);
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_disp_row(Fl_Terminal const *self, int drow);
 
-const Fl_Terminal_Utf8Char *Fl_Terminal_u8c_hist_row(Fl_Terminal const *self, int hrow);
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_hist_row(Fl_Terminal const *self, int hrow);
 
-const Fl_Terminal_Utf8Char *Fl_Terminal_u8c_hist_use_row(Fl_Terminal const *self,
-                                                   int hurow);
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_hist_use_row(Fl_Terminal const *self, int hurow);
 
-const Fl_Terminal_Utf8Char *Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow);
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow);
 
 const unsigned Fl_Terminal_Utf8Char_size(void);
 
-
 // todo: Protected methods still unimplemented here:
-//   clear_*, current_style, cursor_*, delete_*, draw_*, get_selection, h_to_row, insert_*,
-//   scroll, selection_extend, u8c_cursor, w_to_col, walk_selection, vscroll_width
-
+//   clear_*, current_style, cursor_*, delete_*, draw_*, get_selection,
+//   h_to_row, insert_*, scroll, selection_extend, u8c_cursor, w_to_col,
+//   walk_selection, vscroll_width
 
 GROUP_DECLARE(Fl_Terminal)
 

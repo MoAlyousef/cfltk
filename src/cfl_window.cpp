@@ -55,23 +55,33 @@ struct Window_Derived : public Widget_Derived<Win> {
 
     void set_alpha(unsigned char alpha) {
 #if defined(_WIN32)
-        HWND hwnd = fl_xid(this);
+        HWND hwnd        = fl_xid(this);
         LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
         if (!(exstyle & WS_EX_LAYERED)) {
             SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
         }
         SetLayeredWindowAttributes(hwnd, 0, BYTE(alpha), LWA_ALPHA);
 #elif defined(__APPLE__)
-        cfltk_setWindowTransparency((void *)fl_xid(this),
-                                    alpha); // definition in separate .m file
+        cfltk_setWindowTransparency(
+            (void *)fl_xid(this),
+            alpha
+        ); // definition in separate .m file
 #elif defined(__ANDROID__)
         // Do nothing
 #elif defined(FLTK_USE_X11)
         auto cardinal_alpha =
             (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
         Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
-        XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32,
-                        PropModeReplace, (unsigned char *)&cardinal_alpha, 1);
+        XChangeProperty(
+            fl_display,
+            fl_xid(this),
+            atom,
+            XA_CARDINAL,
+            32,
+            PropModeReplace,
+            (unsigned char *)&cardinal_alpha,
+            1
+        );
 #elif defined(FLTK_USE_WAYLAND)
 #else
 #endif
@@ -82,17 +92,17 @@ struct Window_Derived : public Widget_Derived<Win> {
         this->force_position(flag);
     }
 
-// #if FLTK_USE_WAYLAND && !CFLTK_USE_GL
-//     void draw() override {
-//         auto col = this->color();
-//         double r = ((col >> 24) & 0xff) / 255.0;
-//         double g = ((col >> 16) & 0xff) / 255.0;
-//         double b = ((col >> 8) & 0xff) / 255.0;
-//         cairo_set_source_rgba(fl_wl_gc(), r, g, b, alpha_ / 255.0);
-//         fl_rectf(0, 0, this->w(), this->h());
-//         Widget_Derived<Win>::draw();
-//     }
-// #endif
+    // #if FLTK_USE_WAYLAND && !CFLTK_USE_GL
+    //     void draw() override {
+    //         auto col = this->color();
+    //         double r = ((col >> 24) & 0xff) / 255.0;
+    //         double g = ((col >> 16) & 0xff) / 255.0;
+    //         double b = ((col >> 8) & 0xff) / 255.0;
+    //         cairo_set_source_rgba(fl_wl_gc(), r, g, b, alpha_ / 255.0);
+    //         fl_rectf(0, 0, this->w(), this->h());
+    //         Widget_Derived<Win>::draw();
+    //     }
+    // #endif
 };
 
 #define WINDOW_CLASS(window) using window##_Derived = Window_Derived<window>;
@@ -102,13 +112,15 @@ struct Window_Derived : public Widget_Derived<Win> {
         LOCK(                                                                  \
             if (boolean) { self->set_modal(); } else {                         \
                 self->set_non_modal();                                         \
-            })                                                                 \
+            }                                                                  \
+        )                                                                      \
     }                                                                          \
     void widget##_fullscreen(widget *self, unsigned int boolean) {             \
         LOCK(                                                                  \
             if (boolean) { self->fullscreen(); } else {                        \
                 self->fullscreen_off();                                        \
-            })                                                                 \
+            }                                                                  \
+        )                                                                      \
     }                                                                          \
     void widget##_make_current(widget *self) {                                 \
         LOCK(((Fl_Window *)self)->make_current());                             \
@@ -128,9 +140,10 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                            \
     }                                                                          \
     void *widget##_raw_handle(const widget *w) {                               \
-        LOCK(Window temp = fl_xid(w);                                          \
+        LOCK(Window temp                              = fl_xid(w);             \
              if (!temp) { return nullptr; } auto *xid = new Window;            \
-             if (!xid) return nullptr; memcpy(xid, &temp, sizeof(Window)));    \
+             if (!xid) return nullptr;                                         \
+             memcpy(xid, &temp, sizeof(Window)));                              \
         return xid;                                                            \
     }                                                                          \
     void widget##_set_border(widget *self, int flag) {                         \
@@ -147,7 +160,7 @@ struct Window_Derived : public Widget_Derived<Win> {
         return t->region;                                                      \
     }                                                                          \
     void widget##_set_region(widget *self, void *r) {                          \
-        LOCK(Fl_X *t = Fl_X::flx(self); if (!t) return;                        \
+        LOCK(Fl_X *t   = Fl_X::flx(self); if (!t) return;                      \
              t->region = (Fl_Region)r;)                                        \
     }                                                                          \
     void widget##_iconize(widget *self) {                                      \
@@ -168,8 +181,9 @@ struct Window_Derived : public Widget_Derived<Win> {
         LOCK(auto ret = self->decorated_h());                                  \
         return ret;                                                            \
     }                                                                          \
-    void widget##_size_range(widget *self, int minw, int minh, int maxw,       \
-                             int maxh) {                                       \
+    void widget##_size_range(                                                  \
+        widget *self, int minw, int minh, int maxw, int maxh                   \
+    ) {                                                                        \
         LOCK(self->size_range(minw, minh, maxw, maxh))                         \
     }                                                                          \
     void widget##_hotspot(widget *self, Fl_Widget *wid) {                      \
@@ -177,7 +191,8 @@ struct Window_Derived : public Widget_Derived<Win> {
     }                                                                          \
     void widget##_set_shape(widget *self, const void *image) {                 \
         LOCK(auto old = self->shape(); if (!image) self->shape(nullptr);       \
-             else self->shape(((Fl_Image *)image)->copy()); delete old;)       \
+             else self->shape(((Fl_Image *)image)->copy());                    \
+             delete old;)                                                      \
     }                                                                          \
     const void *widget##_shape(widget *self) {                                 \
         LOCK(auto temp = self->shape());                                       \
@@ -194,8 +209,9 @@ struct Window_Derived : public Widget_Derived<Win> {
         LOCK(auto ret = self->y_root());                                       \
         return ret;                                                            \
     }                                                                          \
-    void widget##_set_cursor_image(widget *self, const void *image, int hot_x, \
-                                   int hot_y) {                                \
+    void widget##_set_cursor_image(                                            \
+        widget *self, const void *image, int hot_x, int hot_y                  \
+    ) {                                                                        \
         LOCK(self->cursor((const Fl_RGB_Image *)image, hot_x, hot_y));         \
     }                                                                          \
     void widget##_default_cursor(widget *self, int cursor) {                   \
@@ -289,7 +305,7 @@ winid resolve_raw_handle(void *handle) {
 #if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
     w.opaque = *(Window *)handle;
 #elif defined(FLTK_USE_WAYLAND)
-    auto h = fl_wl_surface((wld_window *)(*(Window *)handle));
+    auto h   = fl_wl_surface((wld_window *)(*(Window *)handle));
     w.opaque = h;
 #else
     w.x_id = *(Window *)handle;
@@ -363,18 +379,19 @@ WINDOW_DEFINE(Fl_Menu_Window)
 
 struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
     Fl_Overlay_Window_Derived(const Fl_Overlay_Window_Derived &) = delete;
-    Fl_Overlay_Window_Derived(Fl_Overlay_Window_Derived &&) = delete;
-    Fl_Overlay_Window_Derived &
-    operator=(const Fl_Overlay_Window_Derived &other) = delete;
-    Fl_Overlay_Window_Derived &
-    operator=(Fl_Overlay_Window_Derived &&other) = delete;
-    void *overlay_draw_data_ = nullptr;
+    Fl_Overlay_Window_Derived(Fl_Overlay_Window_Derived &&)      = delete;
+    Fl_Overlay_Window_Derived &operator=(const Fl_Overlay_Window_Derived &other
+    )                                                            = delete;
+    Fl_Overlay_Window_Derived &operator=(Fl_Overlay_Window_Derived &&other
+    )                                                            = delete;
+    void *overlay_draw_data_                                     = nullptr;
 
     typedef void (*drawer)(Fl_Widget *, void *data);
     drawer inner_overlay_drawer = nullptr;
 
-    Fl_Overlay_Window_Derived(int x, int y, int w, int h,
-                              const char *title = nullptr)
+    Fl_Overlay_Window_Derived(
+        int x, int y, int w, int h, const char *title = nullptr
+    )
         : Window_Derived<Fl_Overlay_Window>(x, y, w, h, title) {
     }
 
@@ -400,7 +417,7 @@ struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
     ~Fl_Overlay_Window_Derived() {
         if (overlay_draw_data_)
             deleter(overlay_draw_data_);
-        overlay_draw_data_ = nullptr;
+        overlay_draw_data_   = nullptr;
         inner_overlay_drawer = nullptr;
     }
 };
@@ -409,9 +426,10 @@ WIDGET_DEFINE(Fl_Overlay_Window)
 
 GROUP_DEFINE(Fl_Overlay_Window)
 
-void Fl_Overlay_Window_draw_overlay(Fl_Overlay_Window *self,
-                                    custom_draw_callback cb, void *data) {
-    LOCK(((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_ = data;
+void Fl_Overlay_Window_draw_overlay(
+    Fl_Overlay_Window *self, custom_draw_callback cb, void *data
+) {
+    LOCK(((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_   = data;
          ((Fl_Overlay_Window_Derived *)self)->inner_overlay_drawer = cb);
 }
 
@@ -492,7 +510,8 @@ void Fl_Gl_Window_set_swap_interval(Fl_Gl_Window *self, int frames) {
 }
 
 int Fl_Gl_Window_swap_interval(const Fl_Gl_Window *self) {
-    LOCK(auto ret = self->swap_interval()); return ret;
+    LOCK(auto ret = self->swap_interval());
+    return ret;
 }
 
 void Fl_Gl_Window_ortho(Fl_Gl_Window *self) {
@@ -585,8 +604,9 @@ void *Fl_Glut_Window_context(const Fl_Glut_Window *self) {
     return ret;
 }
 
-void Fl_Glut_Window_set_context(Fl_Glut_Window *self, void *ctx,
-                                int destroy_flag) {
+void Fl_Glut_Window_set_context(
+    Fl_Glut_Window *self, void *ctx, int destroy_flag
+) {
     LOCK(self->context((GLContext)ctx, destroy_flag));
 }
 
@@ -599,7 +619,8 @@ void Fl_Glut_Window_set_swap_interval(Fl_Glut_Window *self, int frames) {
 }
 
 int Fl_Glut_Window_swap_interval(const Fl_Glut_Window *self) {
-    LOCK(auto ret = self->swap_interval()); return ret;
+    LOCK(auto ret = self->swap_interval());
+    return ret;
 }
 
 void Fl_Glut_Window_ortho(Fl_Glut_Window *self) {

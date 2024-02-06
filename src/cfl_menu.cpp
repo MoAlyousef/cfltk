@@ -14,13 +14,26 @@
 #include <FL/platform.H>
 
 #define MENU_DEFINE(widget)                                                    \
-    int widget##_add(widget *self, const char *name, int shortcut,             \
-                     Fl_Callback *cb, void *data, int flag) {                  \
+    int widget##_add(                                                          \
+        widget *self,                                                          \
+        const char *name,                                                      \
+        int shortcut,                                                          \
+        Fl_Callback *cb,                                                       \
+        void *data,                                                            \
+        int flag                                                               \
+    ) {                                                                        \
         LOCK(auto ret = self->add(name, shortcut, cb, data, flag));            \
         return ret;                                                            \
     }                                                                          \
-    int widget##_insert(widget *self, int index, const char *name,             \
-                        int shortcut, Fl_Callback *cb, void *data, int flag) { \
+    int widget##_insert(                                                       \
+        widget *self,                                                          \
+        int index,                                                             \
+        const char *name,                                                      \
+        int shortcut,                                                          \
+        Fl_Callback *cb,                                                       \
+        void *data,                                                            \
+        int flag                                                               \
+    ) {                                                                        \
         LOCK(auto ret = self->insert(index, name, shortcut, cb, data, flag));  \
         return ret;                                                            \
     }                                                                          \
@@ -119,8 +132,12 @@
     void widget##_global(widget *self) {                                       \
         LOCK(self->global());                                                  \
     }                                                                          \
-    int widget##_item_pathname(const widget *self, char *pathname,             \
-                               int pathnamelen, const Fl_Menu_Item *item) {    \
+    int widget##_item_pathname(                                                \
+        const widget *self,                                                    \
+        char *pathname,                                                        \
+        int pathnamelen,                                                       \
+        const Fl_Menu_Item *item                                               \
+    ) {                                                                        \
         char temp[256] = {0};                                                  \
         LOCK(auto ret = self->item_pathname(temp, 256, item);                  \
              if (ret == 0) strncpy(pathname, temp, strlen(temp) + 1););        \
@@ -156,7 +173,8 @@ WIDGET_DEFINE(Fl_Sys_Menu_Bar)
 
 void Fl_Sys_Menu_Bar_set_window_menu_style(int style) {
     LOCK(Fl_Sys_Menu_Bar::window_menu_style(
-        (Fl_Sys_Menu_Bar::window_menu_style_enum)style));
+        (Fl_Sys_Menu_Bar::window_menu_style_enum)style
+    ));
 }
 
 void Fl_Sys_Menu_Bar_about(Fl_Sys_Menu_Bar *self, Fl_Callback *cb, void *data) {
@@ -176,23 +194,32 @@ Fl_Menu_Item *Fl_Menu_Item_new(char **args, int sz) {
     return items;
 }
 
-Fl_Menu_Item *Fl_Menu_Item_new2(char **args, int *shortcuts, Fl_Callback **cb,
-                                int *flags, int *labeltype, int *labelfont,
-                                int *labelsize, unsigned int *labelcolor,
-                                int sz) {
+Fl_Menu_Item *Fl_Menu_Item_new2(
+    char **args,
+    int *shortcuts,
+    Fl_Callback **cb,
+    int *flags,
+    int *labeltype,
+    int *labelfont,
+    int *labelsize,
+    unsigned int *labelcolor,
+    int sz
+) {
     auto *items = new Fl_Menu_Item[sz + 1];
     if (!items)
         return nullptr;
     for (int i = 0; i < sz; i++) {
-        items[i] = Fl_Menu_Item{args[i],
-                                shortcuts[i],
-                                cb[i],
-                                (void *)0,
-                                flags[i],
-                                (uchar)labeltype[i],
-                                (Fl_Font)labelfont[i],
-                                (Fl_Fontsize)labelsize[i],
-                                (Fl_Color)labelcolor[i]};
+        items[i] = Fl_Menu_Item{
+            args[i],
+            shortcuts[i],
+            cb[i],
+            (void *)0,
+            flags[i],
+            (uchar)labeltype[i],
+            (Fl_Font)labelfont[i],
+            (Fl_Fontsize)labelsize[i],
+            (Fl_Color)labelcolor[i]
+        };
     }
     items[sz] = {nullptr};
     return items;
@@ -324,8 +351,15 @@ void Fl_Menu_Item_set_user_data(Fl_Menu_Item *self, void *data) {
     LOCK(self->user_data(data));
 }
 
-void Fl_Menu_Item_draw(const Fl_Menu_Item *self, int x, int y, int w, int h,
-                       const void *m, int selected) {
+void Fl_Menu_Item_draw(
+    const Fl_Menu_Item *self,
+    int x,
+    int y,
+    int w,
+    int h,
+    const void *m,
+    int selected
+) {
     fl_open_display();
     LOCK(self->draw(x, y, w, h, (const Fl_Menu_ *)m, selected));
 }
@@ -345,16 +379,17 @@ void Fl_Menu_Item_add_image(Fl_Menu_Item *self, void *image, int on_left) {
             temp = ((Fl_Image *)image)->copy();
         } auto *ml = new Fl_Multi_Label;
         if (on_left) {
-            ml->typea = FL_IMAGE_LABEL;
+            ml->typea  = FL_IMAGE_LABEL;
             ml->labela = (const char *)temp;
-            ml->typeb = FL_NORMAL_LABEL;
+            ml->typeb  = FL_NORMAL_LABEL;
             ml->labelb = self->label();
         } else {
-            ml->typeb = FL_IMAGE_LABEL;
+            ml->typeb  = FL_IMAGE_LABEL;
             ml->labelb = (const char *)temp;
-            ml->typea = FL_NORMAL_LABEL;
+            ml->typea  = FL_NORMAL_LABEL;
             ml->labela = self->label();
-        } self->label(FL_MULTI_LABEL, (const char *)ml));
+        } self->label(FL_MULTI_LABEL, (const char *)ml)
+    );
 }
 
 int Fl_Menu_Item_children(const Fl_Menu_Item *self) {
@@ -374,13 +409,26 @@ const Fl_Menu_Item *Fl_Menu_Item_at(const Fl_Menu_Item *self, int idx) {
     return ret;
 }
 
-int Fl_Menu_Item_add(Fl_Menu_Item *self, const char *name, int shortcut,
-                     Fl_Callback *cb, void *data, int flag) {
+int Fl_Menu_Item_add(
+    Fl_Menu_Item *self,
+    const char *name,
+    int shortcut,
+    Fl_Callback *cb,
+    void *data,
+    int flag
+) {
     LOCK(auto ret = self->add(name, shortcut, cb, data, flag));
     return ret;
 }
-int Fl_Menu_Item_insert(Fl_Menu_Item *self, int index, const char *name,
-                        int shortcut, Fl_Callback *cb, void *data, int flag) {
+int Fl_Menu_Item_insert(
+    Fl_Menu_Item *self,
+    int index,
+    const char *name,
+    int shortcut,
+    Fl_Callback *cb,
+    void *data,
+    int flag
+) {
     LOCK(auto ret = self->insert(index, name, shortcut, cb, data, flag));
     return ret;
 }
@@ -423,8 +471,8 @@ void Fl_Mac_App_Menu_set_print_no_titlebar(const char *print_no_titlebar) {
 #endif
 }
 
-void Fl_Mac_App_Menu_set_toggle_print_titlebar(
-    const char *toggle_print_titlebar) {
+void Fl_Mac_App_Menu_set_toggle_print_titlebar(const char *toggle_print_titlebar
+) {
 #ifdef __APPLE__
     LOCK(Fl_Mac_App_Menu::toggle_print_titlebar = toggle_print_titlebar);
 #endif
