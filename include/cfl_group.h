@@ -63,6 +63,8 @@ GROUP_DECLARE(Fl_Tabs)
 
 WIDGET_DECLARE(Fl_Tile)
 
+void Fl_Tile_move_intersection(Fl_Tile *self, int oldx, int oldy, int newx, int newy);
+
 GROUP_DECLARE(Fl_Tile)
 
 WIDGET_DECLARE(Fl_Wizard)
