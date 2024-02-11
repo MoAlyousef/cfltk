@@ -31,8 +31,8 @@ int box_cb(Fl_Widget *w, int e, void *data) {
 }
 
 int main() {
-    win = Fl_Window_new(100, 100, 400, 300, NULL);
-    Fl_Box *f = Fl_Box_new(0, 0, 400, 200, NULL);
+    win          = Fl_Window_new(100, 100, 400, 300, NULL);
+    Fl_Box *f    = Fl_Box_new(0, 0, 400, 200, NULL);
     Fl_Button *b = Fl_Button_new(160, 210, 80, 40, "Click me");
     Fl_Window_end(win);
     Fl_Window_show(win);

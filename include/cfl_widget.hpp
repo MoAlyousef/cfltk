@@ -20,28 +20,28 @@ struct Deleter {
 
 template <typename T>
 struct Widget_Derived : public T {
-    Widget_Derived(const Widget_Derived &) = delete;
-    Widget_Derived(Widget_Derived &&) = delete;
+    Widget_Derived(const Widget_Derived &)                 = delete;
+    Widget_Derived(Widget_Derived &&)                      = delete;
     Widget_Derived &operator=(const Widget_Derived &other) = delete;
-    Widget_Derived &operator=(Widget_Derived &&other) = delete;
-    void *ev_data_ = nullptr;
-    void *draw_data_ = nullptr;
-    void *resize_data_ = nullptr;
-    void *deleter_data_ = nullptr;
-    bool super_draw = true;
-    bool super_draw_first = true;
-    bool super_handle_first = true;
+    Widget_Derived &operator=(Widget_Derived &&other)      = delete;
+    void *ev_data_                                         = nullptr;
+    void *draw_data_                                       = nullptr;
+    void *resize_data_                                     = nullptr;
+    void *deleter_data_                                    = nullptr;
+    bool super_draw                                        = true;
+    bool super_draw_first                                  = true;
+    bool super_handle_first                                = true;
 
-    using handler = int (*)(Fl_Widget *, int, void *data);
-    handler inner_handler = nullptr;
-    using drawer = void (*)(Fl_Widget *, void *);
-    drawer inner_drawer = nullptr;
-    using deleter_fp = void (*)(void *);
-    deleter_fp deleter = nullptr;
-    using resizer = void (*)(Fl_Widget *, int, int, int, int, void *);
+    using handler          = int (*)(Fl_Widget *, int, void *data);
+    handler inner_handler  = nullptr;
+    using drawer           = void (*)(Fl_Widget *, void *);
+    drawer inner_drawer    = nullptr;
+    using deleter_fp       = void (*)(void *);
+    deleter_fp deleter     = nullptr;
+    using resizer          = void (*)(Fl_Widget *, int, int, int, int, void *);
     resizer resize_handler = nullptr;
-    using deleter_fp2 = void (*)(Fl_Widget *, void *);
-    deleter_fp2 deleter2 = nullptr;
+    using deleter_fp2      = void (*)(Fl_Widget *, void *);
+    deleter_fp2 deleter2   = nullptr;
 
     Widget_Derived(int x, int y, int w, int h, const char *title = nullptr)
         : T(x, y, w, h, title) {
@@ -72,10 +72,10 @@ struct Widget_Derived : public T {
     }
 
     // Widget event handler. Manages execution of both event handlers:
-    //   inner_handler is the handler defined by end-user program, and may not exist
-    //   T::handle is the built-in handler in the fltk widget
+    //   inner_handler is the handler defined by end-user program, and may not
+    //   exist T::handle is the built-in handler in the fltk widget
     int handle(int event) override {
-        if (super_handle_first) {   
+        if (super_handle_first) {
             // Both handlers always executed, T::handle executes first
             int ret = T::handle(event);
             if (inner_handler) {
@@ -84,8 +84,9 @@ struct Widget_Derived : public T {
             } else {
                 return ret;
             }
-        } else { 
-            // inner_handler executes first. T::handle only executes if inner_handler returns false
+        } else {
+            // inner_handler executes first. T::handle only executes if
+            // inner_handler returns false
             if (inner_handler) {
                 if (inner_handler(this, event, ev_data_))
                     return 1; // Local handler consumed the event
@@ -114,7 +115,7 @@ struct Widget_Derived : public T {
         } else if (deleter) {
             if (!Fl::wait()) {
                 resize_handler = nullptr;
-                inner_handler = nullptr;
+                inner_handler  = nullptr;
                 if (ev_data_)
                     deleter(ev_data_);
                 ev_data_ = nullptr;
@@ -123,29 +124,34 @@ struct Widget_Derived : public T {
                 resize_data_ = nullptr;
                 if (draw_data_)
                     deleter(draw_data_);
-                draw_data_ = nullptr;
+                draw_data_   = nullptr;
                 inner_drawer = nullptr;
                 if (this->user_data())
                     deleter(this->user_data());
                 this->user_data(nullptr);
                 this->callback((void (*)(Fl_Widget *, void *)) nullptr);
             } else {
-                void *d[4] = {this->user_data(), this->ev_data_,
-                              this->draw_data_, this->resize_data_};
-                auto data = new Deleter{};
+                void *d[4] = {
+                    this->user_data(),
+                    this->ev_data_,
+                    this->draw_data_,
+                    this->resize_data_
+                };
+                auto data     = new Deleter{};
                 data->deleter = deleter;
                 memcpy(data->d, d, sizeof(d));
                 Fl::add_timeout(
                     0.0001,
                     [](void *d) {
                         auto w = (Deleter *)d;
-                        for (auto & i : w->d) {
+                        for (auto &i : w->d) {
                             if (i)
                                 w->deleter(i);
                         }
                         delete w;
                     },
-                    data);
+                    data
+                );
             }
         }
     }

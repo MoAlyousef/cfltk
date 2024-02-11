@@ -3,9 +3,9 @@
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Window.H>
 #include <cstdio>
-#include <thread>
-#include <string>
 #include <stdexcept>
+#include <string>
+#include <thread>
 
 using namespace std::chrono_literals;
 

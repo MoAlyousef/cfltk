@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.4.23)
+set(CFLTK_PROJECT_VERSION 1.4.25)
 
 project(cfltk 
     HOMEPAGE_URL https://github.com/MoAlyousef/cfltk

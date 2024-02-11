@@ -70,7 +70,8 @@
     }                                                                          \
     void widget##_set_icon(widget *self, int line, void *icon) {               \
         LOCK(auto old = self->icon(line);                                      \
-             if (!icon) self->icon(line, nullptr); else {                      \
+             if (!icon) self->icon(line, nullptr);                             \
+             else {                                                            \
                  self->icon(line, ((Fl_Image *)icon)->copy());                 \
                  delete old;                                                   \
              })                                                                \
@@ -338,8 +339,9 @@ unsigned char Fl_Check_Browser_has_scrollbar(const Fl_Check_Browser *self) {
     return ret;
 }
 
-void Fl_Check_Browser_set_has_scrollbar(Fl_Check_Browser *self,
-                                        unsigned char mode) {
+void Fl_Check_Browser_set_has_scrollbar(
+    Fl_Check_Browser *self, unsigned char mode
+) {
     LOCK(self->has_scrollbar(mode));
 }
 

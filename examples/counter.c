@@ -19,7 +19,7 @@
 // the button's callback
 void cb(Fl_Widget *w, void *data) {
     Fl_Box *count = (Fl_Box *)data;
-    int val = atoi(Fl_Box_label(count));
+    int val       = atoi(Fl_Box_label(count));
     val++;
     char temp[12];
     snprintf(temp, sizeof(temp), "%d", val);
@@ -36,10 +36,11 @@ int main(void) {
     Fl_init_all(); // init all styles
     Fl_Window *w = Fl_Window_new(100, 100, WIDTH, HEIGHT, "Flutter-like");
     Fl_Flex *col = Fl_Flex_new(0, 0, WIDTH, HEIGHT, NULL);
-    Fl_Box *bar = Fl_Box_new(0, 0, 0, 0, "  FLTK App!");
+    Fl_Box *bar  = Fl_Box_new(0, 0, 0, 0, "  FLTK App!");
     Fl_Flex_set_size(col, (Fl_Widget *)bar, 60);
     Fl_Box_set_align(bar, Fl_Align_Left | Fl_Align_Inside);
-    Fl_Box *text = Fl_Box_new(0, 0, 0, 0, "You have pushed the button this many times:");
+    Fl_Box *text =
+        Fl_Box_new(0, 0, 0, 0, "You have pushed the button this many times:");
     Fl_Box_set_align(text, Fl_Align_Bottom | Fl_Align_Inside);
     Fl_Box *count = Fl_Box_new(0, 0, 0, 0, "0");
     Fl_Box_set_align(count, Fl_Align_Top | Fl_Align_Inside);
@@ -47,7 +48,8 @@ int main(void) {
     Fl_Flex_set_type(row, 1); // row
     Fl_Flex_set_size(col, (Fl_Widget *)row, 60);
     Fl_Box_new(0, 0, 0, 0, NULL);
-    Fl_Button *but = Fl_Button_new(WIDTH - 100, HEIGHT - 100, 60, 60, "@+6plus");
+    Fl_Button *but =
+        Fl_Button_new(WIDTH - 100, HEIGHT - 100, 60, 60, "@+6plus");
     Fl_Flex_set_size(row, (Fl_Widget *)but, 60);
     Fl_Box *spacing1 = Fl_Box_new(0, 0, 0, 0, NULL);
     Fl_Flex_set_size(row, (Fl_Widget *)spacing1, 20);

@@ -3,9 +3,9 @@
 
 #include <cfl.h> // Fl_init_all, Fl_lock, Fl_run
 #include <cfl_button.h>
+#include <cfl_enums.h>
 #include <cfl_widget.h>
 #include <cfl_window.h>
-#include <cfl_enums.h>
 #include <stdlib.h>
 
 void cb(Fl_Widget *w, void *data) {

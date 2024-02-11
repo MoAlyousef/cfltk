@@ -1,11 +1,11 @@
 #include <cfl.h> // Fl_init_all, Fl_lock, Fl_run
 #include <cfl_button.h>
+#include <cfl_group.h>
 #include <cfl_image.h> // Fl_register_images
 #include <cfl_widget.h>
 #include <cfl_window.h>
-#include <cfl_group.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void cb(Fl_Widget *w, void *data) {
     Fl_Group *parent = Fl_Widget_parent(w);

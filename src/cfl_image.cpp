@@ -24,8 +24,9 @@
     void image##_draw(image *self, int X, int Y, int W, int H) {               \
         LOCK(self->draw(X, Y, W, H));                                          \
     }                                                                          \
-    void image##_draw_ext(image *self, int X, int Y, int W, int H, int cx,     \
-                          int cy) {                                            \
+    void image##_draw_ext(                                                     \
+        image *self, int X, int Y, int W, int H, int cx, int cy                \
+    ) {                                                                        \
         LOCK(self->draw(X, Y, W, H, cx, cy));                                  \
     }                                                                          \
     int image##_width(image *self) {                                           \
@@ -50,8 +51,9 @@
     image *image##_copy_sized(image *self, int W, int H) {                     \
         return (image *)self->copy(W, H);                                      \
     }                                                                          \
-    void image##_scale(image *self, int width, int height, int proportional,   \
-                       int can_expand) {                                       \
+    void image##_scale(                                                        \
+        image *self, int width, int height, int proportional, int can_expand   \
+    ) {                                                                        \
         LOCK(self->scale(width, height, proportional, can_expand));            \
     }                                                                          \
     int image##_fail(image *self) {                                            \
@@ -170,19 +172,27 @@ Fl_GIF_Image *Fl_GIF_Image_from(const unsigned char *data, unsigned long len) {
 
 IMAGE_DEFINE(Fl_Anim_GIF_Image)
 
-Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_new(const char *filename, void *canvas,
-                                         unsigned short flags) {
-    LOCK(auto ret =
-             new Fl_Anim_GIF_Image(filename, (Fl_Widget *)canvas, flags));
+Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_new(
+    const char *filename, void *canvas, unsigned short flags
+) {
+    LOCK(
+        auto ret = new Fl_Anim_GIF_Image(filename, (Fl_Widget *)canvas, flags)
+    );
     return ret;
 }
 
-Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_from(const char *imagename,
-                                          const unsigned char *data,
-                                          const unsigned long length,
-                                          void *canvas, unsigned short flags) {
-    LOCK(auto ret = new Fl_Anim_GIF_Image(imagename, data, length,
-                                          (Fl_Widget *)canvas, flags));
+Fl_Anim_GIF_Image *Fl_Anim_GIF_Image_from(
+    const char *imagename,
+    const unsigned char *data,
+    const unsigned long length,
+    void *canvas,
+    unsigned short flags
+) {
+    LOCK(
+        auto ret = new Fl_Anim_GIF_Image(
+            imagename, data, length, (Fl_Widget *)canvas, flags
+        )
+    );
     return ret;
 }
 
@@ -191,8 +201,9 @@ double Fl_Anim_GIF_Image_delay(const Fl_Anim_GIF_Image *self, int frame_) {
     return ret;
 }
 
-void Fl_Anim_GIF_Image_set_delay(Fl_Anim_GIF_Image *self, int frame,
-                                 double delay) {
+void Fl_Anim_GIF_Image_set_delay(
+    Fl_Anim_GIF_Image *self, int frame, double delay
+) {
     LOCK(self->delay(frame, delay));
 }
 
@@ -267,39 +278,43 @@ Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
 
 IMAGE_DEFINE(Fl_RGB_Image)
 
-Fl_RGB_Image *Fl_RGB_Image_new(const unsigned char *bits, int W, int H,
-                               int depth, int ld) {
+Fl_RGB_Image *
+Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
     int temp = 0;
     if (ld == 0) {
         temp = abs(W * depth);
     } else {
         temp = abs(ld);
     }
-    auto sz = abs(temp * H);
+    auto sz   = abs(temp * H);
     auto *arr = new unsigned char[sz];
     if (!arr)
         return nullptr;
     memset(arr, 0, sz);
     memcpy(arr, bits, sz);
     LOCK(auto *img = new Fl_RGB_Image(arr, W, H, depth, ld);
-         if (!img) return nullptr; img->alloc_array = 1);
+         if (!img) return nullptr;
+         img->alloc_array = 1);
     return img;
 }
 
-Fl_RGB_Image *Fl_RGB_Image_from_data(const unsigned char *bits, int W, int H,
-                                     int depth, int ld) {
+Fl_RGB_Image *Fl_RGB_Image_from_data(
+    const unsigned char *bits, int W, int H, int depth, int ld
+) {
     LOCK(auto *img = new Fl_RGB_Image(bits, W, H, depth, ld);
-         if (!img) return nullptr; img->alloc_array = 0);
+         if (!img) return nullptr;
+         img->alloc_array = 0);
     return img;
 }
 
-extern int fl_convert_pixmap(const char *const *cdata, unsigned char *out,
-                             unsigned int bg);
+extern int fl_convert_pixmap(
+    const char *const *cdata, unsigned char *out, unsigned int bg
+);
 
 Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
     auto rgb = new Fl_RGB_Image(nullptr, pxm->data_w(), pxm->data_h(), 4);
     if (pxm && pxm->data_w() > 0 && pxm->data_h() > 0) {
-        rgb->array = new uchar[pxm->data_w() * pxm->data_h() * rgb->d()];
+        rgb->array       = new uchar[pxm->data_w() * pxm->data_h() * rgb->d()];
         rgb->alloc_array = 1;
         fl_convert_pixmap(pxm->data(), (uchar *)rgb->array, 49);
     }
@@ -326,14 +341,14 @@ Fl_ICO_Image *Fl_ICO_Image_new(const char *filename, int id) {
     return ret;
 }
 
-Fl_ICO_Image *Fl_ICO_Image_from_data(const unsigned char *bits,
-                                     unsigned long len, int id) {
+Fl_ICO_Image *
+Fl_ICO_Image_from_data(const unsigned char *bits, unsigned long len, int id) {
     LOCK(auto ret = new Fl_ICO_Image(nullptr, id, bits, len));
     return ret;
 }
 
-void *const Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self,
-                                      unsigned long *size) {
+void *const
+Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self, unsigned long *size) {
     LOCK(auto ret = self->icondirentry(); *size = self->idcount(););
     auto temp = new Fl_ICO_Image::IconDirEntry[*size];
     memcpy(temp, ret, *size);

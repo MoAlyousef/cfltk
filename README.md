@@ -51,7 +51,7 @@ add_subdirectory(cfltk)
 
 add_executable(main main.c)
 target_include_directories(main PRIVATE cfltk/include)
-target_link_libraries(main PRIVATE cfltk fltk fltk_images fltk_jpeg fltk_z fltk_png) # as needed
+target_link_libraries(main PRIVATE cfltk fltk::fltk fltk::images fltk::png fltk::z) # as needed
 
 # for windows, might be needed in some setups like creating a library
 target_link_libraries(main PRIVATE ws2_32 comctl32 gdi32 gdiplus oleaut32 ole32 uuid shell32 advapi32 comdlg32 winspool user32 kernel32 odbc32)
@@ -67,31 +67,29 @@ Options which can be used with cmake:
 ```
 $ cmake -B bin -S . \
     -DCMAKE_BUILD_TYPE=Release \
-    -DOPTION_USE_SYSTEM_LIBPNG=OFF \
-    -DOPTION_USE_SYSTEM_LIBJPEG=OFF \
-    -DOPTION_USE_SYSTEM_ZLIB=OFF \
-    -DOPTION_USE_GL=OFF \
+    -DFLTK_USE_SYSTEM_LIBPNG=OFF \
+    -DFLTK_USE_SYSTEM_LIBJPEG=OFF \
+    -DFLTK_USE_SYSTEM_ZLIB=OFF \
+    -DFLTK_BUILD_GL=OFF \
     -DFLTK_BUILD_EXAMPLES=OFF \
     -DFLTK_BUILD_TEST=OFF \
-    -DOPTION_USE_THREADS=ON \
-    -DOPTION_LARGE_FILE=ON \
-    -DOPTION_BUILD_HTML_DOCUMENTATION=OFF \
-    -DOPTION_BUILD_PDF_DOCUMENTATION=OFF \
+    -DFLTK_OPTION_LARGE_FILE=ON \
+    -DFLTK_BUILD_HTML_DOCS=OFF \
+    -DFLTK_BUILD_PDF_DOCS=OFF \
 ```
-For pango support on linux (for rtl and cjk text), you can use `-DOPTION_USE_PANGO=ON`.
+For pango support on linux (for rtl and cjk text), you can use `-DFLTK_USE_PANGO=ON`.
 
 Otherwise, these options can be added to the CMakeLists.txt file:
 ```cmake
-    set(OPTION_USE_SYSTEM_LIBPNG OFF CACHE BOOL " " FORCE)
-    set(OPTION_USE_SYSTEM_LIBJPEG OFF CACHE BOOL " " FORCE)
-    set(OPTION_USE_SYSTEM_ZLIB OFF CACHE BOOL " " FORCE)
-    set(OPTION_USE_GL OFF CACHE BOOL " " FORCE)
+    set(FLTK_USE_SYSTEM_LIBPNG OFF CACHE BOOL " " FORCE)
+    set(FLTK_USE_SYSTEM_LIBJPEG OFF CACHE BOOL " " FORCE)
+    set(FLTK_USE_SYSTEM_ZLIB OFF CACHE BOOL " " FORCE)
+    set(FLTK_BUILD_GL OFF CACHE BOOL " " FORCE)
     set(FLTK_BUILD_EXAMPLES OFF CACHE BOOL " " FORCE)
     set(FLTK_BUILD_TEST OFF CACHE BOOL " " FORCE)
-    set(OPTION_USE_THREADS ON CACHE BOOL " " FORCE)
     set(OPTION_LARGE_FILE ON CACHE BOOL " " FORCE)
-    set(OPTION_BUILD_HTML_DOCUMENTATION OFF CACHE BOOL " " FORCE)
-    set(OPTION_BUILD_PDF_DOCUMENTATION OFF CACHE BOOL " " FORCE)
+    set(FLTK_BUILD_HTML_DOCS OFF CACHE BOOL " " FORCE)
+    set(FLTK_BUILD_PDF_DOCS OFF CACHE BOOL " " FORCE)
 ```
 
 An example app:

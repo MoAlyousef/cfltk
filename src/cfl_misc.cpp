@@ -117,13 +117,15 @@ void Fl_Chart_add(Fl_Chart *self, double val, const char *str, unsigned col) {
     LOCK(self->add(val, str, col));
 }
 
-void Fl_Chart_insert(Fl_Chart *self, int ind, double val, const char *str,
-                     unsigned col) {
+void Fl_Chart_insert(
+    Fl_Chart *self, int ind, double val, const char *str, unsigned col
+) {
     LOCK(self->insert(ind, val, str, col));
 }
 
-void Fl_Chart_replace(Fl_Chart *self, int ind, double val, const char *str,
-                      unsigned col) {
+void Fl_Chart_replace(
+    Fl_Chart *self, int ind, double val, const char *str, unsigned col
+) {
     LOCK(self->replace(ind, val, str, col));
 }
 
@@ -256,8 +258,9 @@ void Fl_Tooltip_disable(void) {
     LOCK(Fl_Tooltip::disable());
 }
 
-void Fl_Tooltip_enter_area(Fl_Widget *w, int X, int Y, int W, int H,
-                           const char *tip) {
+void Fl_Tooltip_enter_area(
+    Fl_Widget *w, int X, int Y, int W, int H, const char *tip
+) {
     LOCK(Fl_Tooltip::enter_area(w, X, Y, W, H, tip));
 }
 

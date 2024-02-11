@@ -12,8 +12,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
 
 #define WIDGET_DECLARE(widget)                                                 \
     typedef struct widget widget;                                              \
-    widget *widget##_new(int x, int y, int width, int height,                  \
-                         const char *title);                                   \
+    widget *widget##_new(                                                      \
+        int x, int y, int width, int height, const char *title                 \
+    );                                                                         \
     int widget##_x(widget *);                                                  \
     int widget##_y(widget *);                                                  \
     int widget##_width(widget *);                                              \
@@ -27,8 +28,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_deactivate(widget *);                                        \
     void widget##_redraw_label(widget *);                                      \
     void widget##_resize(widget *, int x, int y, int width, int height);       \
-    void widget##_widget_resize(widget *, int x, int y, int width,             \
-                                int height);                                   \
+    void widget##_widget_resize(                                               \
+        widget *, int x, int y, int width, int height                          \
+    );                                                                         \
     const char *widget##_tooltip(widget *);                                    \
     void widget##_set_tooltip(widget *, const char *txt);                      \
     int widget##_get_type(widget *);                                           \
@@ -53,14 +55,16 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_align(widget *, int typ);                                \
     void widget##_delete(widget *);                                            \
     void widget##_set_image(widget *, void *);                                 \
-    void widget##_handle(widget *self, custom_handler_callback cb,             \
-                         void *data);                                          \
+    void widget##_handle(                                                      \
+        widget *self, custom_handler_callback cb, void *data                   \
+    );                                                                         \
     int widget##_handle_event(widget *self, int event);                        \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data);     \
     void widget##_resize_callback(                                             \
         widget *self,                                                          \
         void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *),           \
-        void *data);                                                           \
+        void *data                                                             \
+    );                                                                         \
     void widget##_set_when(widget *, int);                                     \
     int widget##_when(const widget *);                                         \
     const void *widget##_image(const widget *);                                \
@@ -85,8 +89,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_handle_data(widget *self, void *data);                   \
     unsigned char widget##_damage(const widget *self);                         \
     void widget##_set_damage(widget *self, unsigned char flag);                \
-    void widget##_set_damage_area(widget *self, unsigned char flag, int x,     \
-                                  int y, int w, int h);                        \
+    void widget##_set_damage_area(                                             \
+        widget *self, unsigned char flag, int x, int y, int w, int h           \
+    );                                                                         \
     void widget##_clear_damage(widget *self);                                  \
     void *widget##_as_window(widget *self);                                    \
     void *widget##_as_group(widget *self);                                     \
@@ -100,18 +105,20 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     int widget##_active_r(const widget *self);                                 \
     Fl_Callback *widget##_callback(const widget *self);                        \
     void widget##_set_deletion_callback(                                       \
-        widget *self, void (*)(Fl_Widget *, void *), void *data);              \
+        widget *self, void (*)(Fl_Widget *, void *), void *data                \
+    );                                                                         \
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr);                             \
     widget *widget##_from_derived_dyn_ptr(Fl_Widget *ptr);                     \
     void widget##_super_draw(Fl_Widget *ptr, int flag);                        \
     void widget##_super_draw_first(Fl_Widget *ptr, int flag);                  \
-    void widget##_super_handle_first(Fl_Widget *ptr, int flag);                
+    void widget##_super_handle_first(Fl_Widget *ptr, int flag);
 
 #define WIDGET_CLASS(widget) using widget##_Derived = Widget_Derived<widget>;
 
 #define WIDGET_DEFINE(widget)                                                  \
-    widget *widget##_new(int x, int y, int width, int height,                  \
-                         const char *title) {                                  \
+    widget *widget##_new(                                                      \
+        int x, int y, int width, int height, const char *title                 \
+    ) {                                                                        \
         LOCK(auto ret = new widget##_Derived(x, y, width, height, title));     \
         return ret;                                                            \
     }                                                                          \
@@ -159,8 +166,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_resize(widget *self, int x, int y, int width, int height) {  \
         LOCK(((widget##_Derived *)self)->resize(x, y, width, height));         \
     }                                                                          \
-    void widget##_widget_resize(widget *self, int x, int y, int width,         \
-                                int height) {                                  \
+    void widget##_widget_resize(                                               \
+        widget *self, int x, int y, int width, int height                      \
+    ) {                                                                        \
         LOCK(((widget##_Derived *)self)->widget_resize(x, y, width, height))   \
     }                                                                          \
     const char *widget##_tooltip(widget *self) {                               \
@@ -245,9 +253,10 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_image(widget *self, void *image) {                       \
         LOCK(self->bind_image(image ? ((Fl_Image *)image)->copy() : nullptr)); \
     }                                                                          \
-    void widget##_handle(widget *self, custom_handler_callback cb,             \
-                         void *data) {                                         \
-        LOCK(((widget##_Derived *)self)->ev_data_ = data;                      \
+    void widget##_handle(                                                      \
+        widget *self, custom_handler_callback cb, void *data                   \
+    ) {                                                                        \
+        LOCK(((widget##_Derived *)self)->ev_data_      = data;                 \
              ((widget##_Derived *)self)->inner_handler = cb);                  \
     }                                                                          \
     int widget##_handle_event(widget *self, int event) {                       \
@@ -266,14 +275,15 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return temp;                                                           \
     }                                                                          \
     void widget##_draw(widget *self, custom_draw_callback cb, void *data) {    \
-        LOCK(((widget##_Derived *)self)->draw_data_ = data;                    \
+        LOCK(((widget##_Derived *)self)->draw_data_   = data;                  \
              ((widget##_Derived *)self)->inner_drawer = cb);                   \
     }                                                                          \
     void widget##_resize_callback(                                             \
         widget *self,                                                          \
         void (*cb)(Fl_Widget *, int x, int y, int w, int h, void *),           \
-        void *data) {                                                          \
-        LOCK(((widget##_Derived *)self)->resize_data_ = data;                  \
+        void *data                                                             \
+    ) {                                                                        \
+        LOCK(((widget##_Derived *)self)->resize_data_   = data;                \
              ((widget##_Derived *)self)->resize_handler = cb);                 \
     }                                                                          \
     void *widget##_parent(const widget *self) {                                \
@@ -351,8 +361,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_damage(widget *self, unsigned char flag) {               \
         LOCK(self->damage(flag));                                              \
     }                                                                          \
-    void widget##_set_damage_area(widget *self, unsigned char flag, int x,     \
-                                  int y, int w, int h) {                       \
+    void widget##_set_damage_area(                                             \
+        widget *self, unsigned char flag, int x, int y, int w, int h           \
+    ) {                                                                        \
         LOCK(self->damage(flag, x, y, w, h));                                  \
     }                                                                          \
     void widget##_clear_damage(widget *self) {                                 \
@@ -367,8 +378,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return ret;                                                            \
     }                                                                          \
     void widget##_set_deimage(widget *self, void *image) {                     \
-        LOCK(self->bind_deimage(image ? ((Fl_Image *)image)->copy()            \
-                                      : nullptr));                             \
+        LOCK(self->bind_deimage(image ? ((Fl_Image *)image)->copy() : nullptr) \
+        );                                                                     \
     }                                                                          \
     const void *widget##_deimage(const widget *self) {                         \
         LOCK(auto temp = self->deimage());                                     \
@@ -401,8 +412,9 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return ret;                                                            \
     }                                                                          \
     void widget##_set_deletion_callback(                                       \
-        widget *self, void (*cb)(Fl_Widget *, void *), void *data) {           \
-        LOCK(((widget##_Derived *)self)->deleter2 = cb;                        \
+        widget *self, void (*cb)(Fl_Widget *, void *), void *data              \
+    ) {                                                                        \
+        LOCK(((widget##_Derived *)self)->deleter2      = cb;                   \
              ((widget##_Derived *)self)->deleter_data_ = data);                \
     }                                                                          \
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr) {                            \
@@ -509,10 +521,10 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         if (!(w->align() & 15) || (w->align() & FL_ALIGN_INSIDE))              \
             return;                                                            \
         Fl_Align a = w->align();                                               \
-        int X = w->x();                                                        \
-        int Y = w->y();                                                        \
-        int W = w->w();                                                        \
-        int H = w->h();                                                        \
+        int X      = w->x();                                                   \
+        int Y      = w->y();                                                   \
+        int W      = w->w();                                                   \
+        int H      = w->h();                                                   \
         int wx, wy;                                                            \
         if (const_cast<widget *>(self)->as_window()) {                         \
             wx = wy = 0;                                                       \
@@ -562,10 +574,12 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_draw_children(widget *self) {                                \
         LOCK(                                                                  \
             Fl_Widget *const *a = self->array(); if (self->clip_children()) {  \
-                fl_push_clip(self->x() + Fl::box_dx(self->box()),              \
-                             self->y() + Fl::box_dy(self->box()),              \
-                             self->w() - Fl::box_dw(self->box()),              \
-                             self->h() - Fl::box_dh(self->box()));             \
+                fl_push_clip(                                                  \
+                    self->x() + Fl::box_dx(self->box()),                       \
+                    self->y() + Fl::box_dy(self->box()),                       \
+                    self->w() - Fl::box_dw(self->box()),                       \
+                    self->h() - Fl::box_dh(self->box())                        \
+                );                                                             \
             } if (self->damage() & ~0x01) {                                    \
                 for (int i = self->children(); i--;) {                         \
                     Fl_Widget &o = **a++;                                      \
@@ -575,7 +589,8 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
             } else {                                                           \
                 for (int i = self->children(); i--;)                           \
                     widget##_update_child(self, *a++);                         \
-            } if (self->clip_children()) fl_pop_clip());                       \
+            } if (self->clip_children()) fl_pop_clip()                         \
+        );                                                                     \
     }
 
 #ifdef __cplusplus

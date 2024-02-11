@@ -146,8 +146,9 @@ VALUATOR_DECLARE(Fl_Hor_Nice_Slider)
 
 WIDGET_DECLARE(Fl_Hor_Value_Slider)
 
-void Fl_Hor_Value_Slider_set_text_color(Fl_Hor_Value_Slider *self,
-                                        unsigned int c);
+void Fl_Hor_Value_Slider_set_text_color(
+    Fl_Hor_Value_Slider *self, unsigned int c
+);
 
 unsigned int Fl_Hor_Value_Slider_text_color(Fl_Hor_Value_Slider *self);
 

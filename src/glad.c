@@ -77,7 +77,8 @@ int open_gl(void) {
         "../Frameworks/OpenGL.framework/OpenGL",
         "/Library/Frameworks/OpenGL.framework/OpenGL",
         "/System/Library/Frameworks/OpenGL.framework/OpenGL",
-        "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"};
+        "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"
+    };
 #else
     static const char *NAMES[] = {"libGL.so.1", "libGL.so"};
 #endif
@@ -90,8 +91,8 @@ int open_gl(void) {
 #if defined(__APPLE__) || defined(__HAIKU__)
             return 1;
 #else
-            gladGetProcAddressPtr = (PFNGLXGETPROCADDRESSPROC_PRIVATE)dlsym(
-                libGL, "glXGetProcAddressARB");
+            gladGetProcAddressPtr = (PFNGLXGETPROCADDRESSPROC_PRIVATE
+            )dlsym(libGL, "glXGetProcAddressARB");
             return gladGetProcAddressPtr != NULL;
 #endif
         }
