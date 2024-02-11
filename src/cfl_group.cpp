@@ -331,12 +331,19 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
             x->text_ascii(c, cs);
             return x;
         };
+        unsigned attr_bgcolor(Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_bg_color(grp); };
+        unsigned attr_color(unsigned col, Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_color(col, grp); };
+        unsigned attr_fgcolor(Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_fg_color(grp); };
         unsigned char attrib(void) const { return ((Fl_Terminal::Utf8Char *) this)->attrib(); };
         unsigned bgcolor(void) const { return ((Fl_Terminal::Utf8Char *) this)->bgcolor(); };
         unsigned fgcolor(void) const { return ((Fl_Terminal::Utf8Char *) this)->fgcolor(); };
+        int is_char(char c) const { return ((Fl_Terminal::Utf8Char *) this)->is_char(c); };     // boolean
         unsigned char charflags(void) const { return ((Fl_Terminal::Utf8Char *) this)->charflags(); };
         const char* text_utf8(void) const { return ((Fl_Terminal::Utf8Char *) this)->text_utf8(); };
-        unsigned char length(void) const { return ((Fl_Terminal::Utf8Char *) this)->length(); };
+        int length(void) const { return ((Fl_Terminal::Utf8Char *) this)->length(); };
+        int max_utf8(void) const { return ((Fl_Terminal::Utf8Char *) this)->max_utf8(); };
+        double pwidth(void) const { return ((Fl_Terminal::Utf8Char *) this)->pwidth(); };
+        int pwidth_int(void) const { return ((Fl_Terminal::Utf8Char *) this)->pwidth_int(); };
         static const unsigned size = sizeof(Fl_Terminal::Utf8Char);
     };
 
@@ -624,7 +631,12 @@ void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean) {
     LOCK(self->show_unknown(boolean));
 }
 
-void Fl_Terminal_text_attrib(Fl_Terminal *self, unsigned set) {
+unsigned char Fl_Terminal_text_attrib(Fl_Terminal const *self) {
+    LOCK(auto ret = self->textattrib());
+    return ret;
+}
+
+void Fl_Terminal_set_text_attrib(Fl_Terminal *self, unsigned char set) {
     LOCK(self->textattrib(set));
 }
 
@@ -714,6 +726,33 @@ void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
 // So far, only "getters" are implemented. No "setters", so no way
 // to modify a Utf8 object.
 
+/// Get the bg color of char `u8c` possibly influenced by BOLD or DIM.
+///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color be
+///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
+unsigned Fl_Terminal_Utf8Char_attr_bgcolor(Fl_Terminal_Utf8Char const *self, Fl_Terminal const *grp) { // Actually returns Fl_Color
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->attr_bgcolor(grp));
+    return ret;
+}
+
+/// Get the color `col` possibly influenced by BOLD or DIM.
+///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color `col` be
+///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
+unsigned Fl_Terminal_Utf8Char_attr_color(Fl_Terminal_Utf8Char const *self, unsigned col, Fl_Terminal const *grp) { // Actually returns Fl_Color
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->attr_color((Fl_Color) col, grp));
+    return ret;
+}
+
+/// Get the fg color of char `u8c` possibly influenced by BOLD or DIM.
+///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color be
+///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
+unsigned Fl_Terminal_Utf8Char_attr_fgcolor(Fl_Terminal_Utf8Char const *self, Fl_Terminal const *grp) { // Actually returns Fl_Color
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->attr_fgcolor(grp));
+    return ret;
+}
+
 /// Get attributes (NORMAL, BOLD, etc.) for this character. Return values are defined in Fl_Terminal::Attrib
 unsigned char Fl_Terminal_Utf8Char_attrib(Fl_Terminal_Utf8Char const *self) {
     auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
@@ -732,6 +771,31 @@ unsigned Fl_Terminal_Utf8Char_bgcolor(Fl_Terminal_Utf8Char const *self) { // Act
 unsigned Fl_Terminal_Utf8Char_fgcolor(Fl_Terminal_Utf8Char const *self) { // Actually returns Fl_Color
     auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->fgcolor());
+    return ret;
+}
+
+int Fl_Terminal_Utf8Char_is_char(Fl_Terminal_Utf8Char const *self, char c) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->is_char(c));
+    return ret;
+}
+
+/// Get maximum length of bytes in text_utf8 -- const 4 per RFC 3629
+int Fl_Terminal_Utf8Char_max_utf8(Fl_Terminal_Utf8Char const *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->max_utf8());
+    return ret;
+}
+
+double Fl_Terminal_Utf8Char_pwidth(Fl_Terminal_Utf8Char const *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->pwidth());
+    return ret;
+}
+
+int Fl_Terminal_Utf8Char_pwidth_int(Fl_Terminal_Utf8Char const *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->pwidth_int());
     return ret;
 }
 

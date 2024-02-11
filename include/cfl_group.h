@@ -267,8 +267,9 @@ int Fl_Terminal_show_unknown(Fl_Terminal const *self);
 
 void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean);
 
-void Fl_Terminal_text_attrib(Fl_Terminal *self,
-                             unsigned set); // Actually Fl_Color
+void Fl_Terminal_set_text_attrib(Fl_Terminal *self, unsigned char set); // Actually Fl_Terminal::Attrib
+
+unsigned char Fl_Terminal_text_attrib(Fl_Terminal const *self);
 
 unsigned Fl_Terminal_text_bg_color(Fl_Terminal const *self); // Actually Fl_Color
 
@@ -306,6 +307,15 @@ void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
 /// Utf8Char class, used to describe characters in the terminal ring buffer
 typedef void Fl_Terminal_Utf8Char;
 
+unsigned Fl_Terminal_Utf8Char_attr_bgcolor(
+    Fl_Terminal_Utf8Char const *self, const Fl_Terminal *grp); // Actually returns Fl_Color
+
+unsigned Fl_Terminal_Utf8Char_attr_color(
+    Fl_Terminal_Utf8Char const *self, unsigned col, const Fl_Terminal *grp); // Actually takes and returns Fl_Color
+
+unsigned Fl_Terminal_Utf8Char_attr_fgcolor(
+    Fl_Terminal_Utf8Char const *self, const Fl_Terminal *grp); // Actually returns Fl_Color
+
 unsigned char Fl_Terminal_Utf8Char_attrib(Fl_Terminal_Utf8Char const *self);
 
 unsigned Fl_Terminal_Utf8Char_bgcolor(
@@ -313,6 +323,17 @@ unsigned Fl_Terminal_Utf8Char_bgcolor(
 
 unsigned Fl_Terminal_Utf8Char_fgcolor(
     Fl_Terminal_Utf8Char const *self); // Actually returns Fl_Color
+
+int Fl_Terminal_Utf8Char_is_char(Fl_Terminal_Utf8Char const *self,
+                                 char c); // boolean
+
+int Fl_Terminal_Utf8Char_length(Fl_Terminal_Utf8Char const *self);
+
+int Fl_Terminal_Utf8Char_max_utf8(Fl_Terminal_Utf8Char const *self);
+
+double Fl_Terminal_Utf8Char_pwidth(Fl_Terminal_Utf8Char const *self);
+
+int Fl_Terminal_Utf8Char_pwidth_int(Fl_Terminal_Utf8Char const *self);
 
 const unsigned char *Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char const *self);
 
