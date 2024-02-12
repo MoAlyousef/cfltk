@@ -286,10 +286,12 @@ int Fl_Terminal_show_unknown(Fl_Terminal const *self);
 
 void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean);
 
-void Fl_Terminal_text_attrib(
+unsigned char Fl_Terminal_text_attrib(Fl_Terminal const *self); // Actually returns Attrib
+
+void Fl_Terminal_set_text_attrib(
     Fl_Terminal *self,
-    unsigned set
-); // Actually Fl_Color
+    unsigned char set
+); // Actually Attrib
 
 unsigned Fl_Terminal_text_bg_color(Fl_Terminal const *self
 ); // Actually Fl_Color
