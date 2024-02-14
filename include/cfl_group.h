@@ -179,6 +179,8 @@ void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt);
 
 void Fl_Terminal_append_utf8_u8(Fl_Terminal *self, const char *txt, int len);
 
+void Fl_Terminal_clear_mouse_selection(Fl_Terminal *self);
+
 void Fl_Terminal_clear_to_color(Fl_Terminal *self, unsigned set);
 
 void Fl_Terminal_clear_history(Fl_Terminal *self);
@@ -189,9 +191,23 @@ void Fl_Terminal_clear_screen_home(Fl_Terminal *self, int boolean);
 
 int Fl_Terminal_cursor_col(Fl_Terminal const *self);
 
+void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int val);
+
 void Fl_Terminal_cursor_home(Fl_Terminal *self);
 
 int Fl_Terminal_cursor_row(Fl_Terminal const *self);
+
+void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int val);
+
+void Fl_Terminal_cursor_up(Fl_Terminal *self, int count, int do_scroll);
+
+void Fl_Terminal_cursor_down(Fl_Terminal *self, int count, int do_scroll);
+
+void Fl_Terminal_cursor_left(Fl_Terminal *self, int count);
+
+void Fl_Terminal_cursor_right(Fl_Terminal *self, int count, int do_scroll);
+
+void Fl_Terminal_scroll(Fl_Terminal *self, int count);
 
 unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal const *self
 ); // Actually Fl_Color
@@ -218,6 +234,8 @@ void Fl_Terminal_set_history_lines(Fl_Terminal *self, int set);
 int Fl_Terminal_history_rows(Fl_Terminal const *self);
 
 void Fl_Terminal_set_history_rows(Fl_Terminal *self, int set);
+
+int Fl_Terminal_get_selection(Fl_Terminal const *self, int *retval);
 
 int Fl_Terminal_history_use(Fl_Terminal const *self);
 
@@ -410,6 +428,9 @@ int Fl_Terminal_ring_erow(Fl_Terminal const *self);
 int Fl_Terminal_ring_srow(Fl_Terminal const *self);
 
 int Fl_Terminal_ring_rows(Fl_Terminal const *self);
+
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_cursor(Fl_Terminal const *self);
 
 const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_disp_row(Fl_Terminal const *self, int drow);

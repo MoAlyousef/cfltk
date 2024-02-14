@@ -366,6 +366,43 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     const char *get_selection_text() const {
         return this->selection_text();
     }
+    void clear_mouse_selection(void) {
+        Fl_Terminal::clear_mouse_selection();
+    }
+
+    void set_cursor_col(int val) {
+        Fl_Terminal::cursor_col(val);
+    }
+
+    void set_cursor_row(int val) {
+        Fl_Terminal::cursor_row(val);
+    }
+
+    void cursor_up(int count, bool do_scroll) {
+        Fl_Terminal::cursor_up(count, do_scroll);
+    }
+
+    void cursor_down(int count, bool do_scroll) {
+        Fl_Terminal::cursor_down(count, do_scroll);
+    }
+
+    void cursor_left(int count) {
+        Fl_Terminal::cursor_left(count);
+    }
+
+    void cursor_right(int count, bool do_scroll) {
+        Fl_Terminal::cursor_right(count, do_scroll);
+    }
+
+    void scroll(int count) {
+        Fl_Terminal::scroll(count);
+    }
+
+    // returns bool false for no selection
+    int get_selection(int &srow, int &scol, int &erow, int &ecol) { 
+        return Fl_Terminal::get_selection(srow, scol, erow, ecol);
+    }
+
     int disp_erow(void) const {
         return Fl_Terminal::disp_erow();
     }
@@ -417,6 +454,10 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     int ring_rows(void) const {
         return Fl_Terminal::ring_rows();
     }
+    const Fl_Terminal::Utf8Char *u8c_cursor()  {
+        return Fl_Terminal::u8c_cursor();
+    }
+
     const Fl_Terminal::Utf8Char *u8c_disp_row(int drow) const {
         return Fl_Terminal::u8c_disp_row(drow);
     }
@@ -775,6 +816,55 @@ void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+// Protected Fl_Terminal methods:
+
+/// Clear any current mouse selection.
+void Fl_Terminal_clear_mouse_selection(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_mouse_selection());
+}
+
+/// Set the cursor's current column position on the screen.
+void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int val) {
+    // (Note: the cursor_col() getter is public, not protected) 
+    LOCK(((Fl_Terminal_Derived *) self)->set_cursor_col(val));
+}
+
+/// Set the cursor's current row position on the screen. 
+void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int val) {
+    // (Note: the cursor_row() getter is public, not protected) 
+    LOCK(((Fl_Terminal_Derived *) self)->set_cursor_row(val));
+}
+
+void Fl_Terminal_cursor_up(Fl_Terminal *self, int count, int do_scroll) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_up(count, (bool) do_scroll));
+}
+
+void Fl_Terminal_cursor_down(Fl_Terminal *self, int count, int do_scroll) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_down(count, (bool) do_scroll));
+}
+
+void Fl_Terminal_cursor_left(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_left(count));
+}
+
+void Fl_Terminal_cursor_right(Fl_Terminal *self, int count, int do_scroll) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_right(count, (bool) do_scroll));
+}
+
+void Fl_Terminal_scroll(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->scroll(count));
+}
+
+
+/// Places four integers (srow, scol, erow, ecol) into the provided buffer, which should be a uint32_t[4] array
+/// bool return falue is FALSE if no selection exists
+int Fl_Terminal_get_selection(Fl_Terminal const *self, int *results) {
+    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->get_selection(results[0], results[1], results[2], results[3]));
+    return ret;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // Utf8Char class methods.
 // So far, only "getters" are implemented. No "setters", so no way
 // to modify a Utf8 object.
@@ -882,7 +972,8 @@ Fl_Terminal_Utf8Char * Fl_Terminal_Utf8Char_new_obj(unsigned char c) {
     return ret;
 }
 
-//----------------------------------------------------------------------
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // The following are protected functions used to access ring buffer text:
 
 /// Return text selection (for copy()/paste() operations)
@@ -1017,6 +1108,13 @@ Fl_Terminal_u8c_hist_row(Fl_Terminal const *self, int hrow) {
 const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_hist_use_row(Fl_Terminal const *self, int hurow) {
     LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_hist_use_row(hurow));
+    return ret;
+}
+
+/// Return the Utf8Char* for character under cursor.
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_cursor(Fl_Terminal const *self) {
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_cursor());
     return ret;
 }
 
