@@ -209,6 +209,31 @@ void Fl_Terminal_cursor_right(Fl_Terminal *self, int count, int do_scroll);
 
 void Fl_Terminal_scroll(Fl_Terminal *self, int count);
 
+void Fl_Terminal_clear_eod(Fl_Terminal *self);
+
+void Fl_Terminal_clear_eol(Fl_Terminal *self);
+
+void Fl_Terminal_clear_cur_line(Fl_Terminal *self);
+
+void Fl_Terminal_clear_line(Fl_Terminal *self, int drow);
+
+void Fl_Terminal_clear_sod(Fl_Terminal *self);
+
+void Fl_Terminal_clear_sol(Fl_Terminal *self);
+
+void Fl_Terminal_insert_char(Fl_Terminal *self, char c, int rep);
+
+void Fl_Terminal_insert_char_eol(Fl_Terminal *self, char c, int drow, int dcol, int rep);
+
+void Fl_Terminal_insert_rows(Fl_Terminal *self, int count);
+
+void Fl_Terminal_delete_chars(Fl_Terminal *self, int drow, int dcol, int count);
+
+void Fl_Terminal_delete_cur_chars(Fl_Terminal *self, int count);
+
+void Fl_Terminal_delete_rows(Fl_Terminal *self, int count);
+
+
 unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal const *self
 ); // Actually Fl_Color
 
@@ -447,9 +472,7 @@ Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow);
 const unsigned Fl_Terminal_Utf8Char_size(void);
 
 // todo: Protected methods still unimplemented here:
-//   clear_*, current_style, cursor_*, delete_*, draw_*, get_selection,
-//   h_to_row, insert_*, scroll, selection_extend, u8c_cursor, w_to_col,
-//   walk_selection, vscroll_width
+//   current_style, h_to_row, selection_extend, w_to_col, walk_selection, vscroll_width
 
 GROUP_DECLARE(Fl_Terminal)
 

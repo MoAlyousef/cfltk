@@ -366,6 +366,7 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     const char *get_selection_text() const {
         return this->selection_text();
     }
+
     void clear_mouse_selection(void) {
         Fl_Terminal::clear_mouse_selection();
     }
@@ -397,6 +398,55 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     void scroll(int count) {
         Fl_Terminal::scroll(count);
     }
+
+    void clear_eod(void) {
+        Fl_Terminal::clear_eod();
+    }
+
+    void clear_eol(void) {
+        Fl_Terminal::clear_eol();
+    }
+
+    void clear_line(void) {
+        Fl_Terminal::clear_line();
+    }
+
+    void clear_line(int drow) {
+        Fl_Terminal::clear_line(drow);
+    }
+
+    void clear_sod(void) {
+        Fl_Terminal::clear_sod();
+    }
+
+    void clear_sol(void) {
+        Fl_Terminal::clear_sol();
+    }
+
+    void insert_char(char c, int rep) {
+        Fl_Terminal::insert_char(c, rep);
+    }
+
+    void insert_char_eol(char c, int drow, int dcol, int rep) {
+        Fl_Terminal::insert_char_eol(c, drow, dcol, rep);
+    }
+
+    void insert_rows(int count) {
+        Fl_Terminal::insert_rows(count);
+    }
+
+    void delete_cur_chars(int count) {
+        Fl_Terminal::delete_chars(count);
+    }
+
+    void delete_chars(int drow, int dcol, int count) {
+        Fl_Terminal::delete_chars(drow, dcol, count);
+    }
+
+    void delete_rows(int count) {
+        Fl_Terminal::delete_rows(count);
+    }
+
 
     // returns bool false for no selection
     int get_selection(int &srow, int &scol, int &erow, int &ecol) { 
@@ -855,6 +905,54 @@ void Fl_Terminal_scroll(Fl_Terminal *self, int count) {
     LOCK(((Fl_Terminal_Derived *) self)->scroll(count));
 }
 
+void Fl_Terminal_clear_eod(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_eod());
+}
+
+void Fl_Terminal_clear_eol(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_eol());
+}
+
+void Fl_Terminal_clear_cur_line(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_line());
+}
+
+void Fl_Terminal_clear_line(Fl_Terminal *self, int drow) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_line(drow));
+}
+
+void Fl_Terminal_clear_sod(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_sod());
+}
+
+void Fl_Terminal_clear_sol(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_sol());
+}
+
+void Fl_Terminal_insert_char(Fl_Terminal *self, char c, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->insert_char(c, rep));
+}
+
+void Fl_Terminal_insert_char_eol(Fl_Terminal *self, char c, int drow, int dcol, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->insert_char_eol(c, drow, dcol, rep));
+}
+
+void Fl_Terminal_insert_rows(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->insert_rows(count));
+}
+
+void Fl_Terminal_delete_cur_chars(Fl_Terminal *self, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->delete_cur_chars(rep));
+}
+
+void Fl_Terminal_delete_chars(Fl_Terminal *self, int drow, int dcol, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->delete_chars(drow, dcol, rep));
+}
+
+void Fl_Terminal_delete_rows(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->delete_rows(count));
+}
+
 
 /// Places four integers (srow, scol, erow, ecol) into the provided buffer, which should be a uint32_t[4] array
 /// bool return falue is FALSE if no selection exists
@@ -1129,13 +1227,6 @@ Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow) {
 // BuffRow class methods.
 // BuffRow is a Rust class, not corresponding to anything in the C++ code
 // It exists to allow clean indexing and iterators at the Rust level
-
-// /// Return a pointer indexed `idx` columns into the row
-// const Fl_Terminal_Utf8Char *Fl_Terminal_buff_row_col(const void *row, int
-// rcol) {
-    //     auto base = (const Fl_Terminal_Derived::Utf8Char *) row;
-    //     return (void *) base->col(rcol);
-// }
 
 const unsigned Fl_Terminal_Utf8Char_size(void) {
     return Fl_Terminal_Derived::Utf8Char::size;
