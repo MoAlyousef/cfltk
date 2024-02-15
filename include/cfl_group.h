@@ -179,6 +179,8 @@ void Fl_Terminal_append_utf8(Fl_Terminal *self, const char *txt);
 
 void Fl_Terminal_append_utf8_u8(Fl_Terminal *self, const char *txt, int len);
 
+void Fl_Terminal_clear_mouse_selection(Fl_Terminal *self);
+
 void Fl_Terminal_clear_to_color(Fl_Terminal *self, unsigned set);
 
 void Fl_Terminal_clear_history(Fl_Terminal *self);
@@ -189,9 +191,48 @@ void Fl_Terminal_clear_screen_home(Fl_Terminal *self, int boolean);
 
 int Fl_Terminal_cursor_col(Fl_Terminal const *self);
 
+void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int val);
+
 void Fl_Terminal_cursor_home(Fl_Terminal *self);
 
 int Fl_Terminal_cursor_row(Fl_Terminal const *self);
+
+void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int val);
+
+void Fl_Terminal_cursor_up(Fl_Terminal *self, int count, int do_scroll);
+
+void Fl_Terminal_cursor_down(Fl_Terminal *self, int count, int do_scroll);
+
+void Fl_Terminal_cursor_left(Fl_Terminal *self, int count);
+
+void Fl_Terminal_cursor_right(Fl_Terminal *self, int count, int do_scroll);
+
+void Fl_Terminal_scroll(Fl_Terminal *self, int count);
+
+void Fl_Terminal_clear_eod(Fl_Terminal *self);
+
+void Fl_Terminal_clear_eol(Fl_Terminal *self);
+
+void Fl_Terminal_clear_cur_line(Fl_Terminal *self);
+
+void Fl_Terminal_clear_line(Fl_Terminal *self, int drow);
+
+void Fl_Terminal_clear_sod(Fl_Terminal *self);
+
+void Fl_Terminal_clear_sol(Fl_Terminal *self);
+
+void Fl_Terminal_insert_char(Fl_Terminal *self, char c, int rep);
+
+void Fl_Terminal_insert_char_eol(Fl_Terminal *self, char c, int drow, int dcol, int rep);
+
+void Fl_Terminal_insert_rows(Fl_Terminal *self, int count);
+
+void Fl_Terminal_delete_chars(Fl_Terminal *self, int drow, int dcol, int count);
+
+void Fl_Terminal_delete_cur_chars(Fl_Terminal *self, int count);
+
+void Fl_Terminal_delete_rows(Fl_Terminal *self, int count);
+
 
 unsigned Fl_Terminal_cursor_bg_color(Fl_Terminal const *self
 ); // Actually Fl_Color
@@ -218,6 +259,8 @@ void Fl_Terminal_set_history_lines(Fl_Terminal *self, int set);
 int Fl_Terminal_history_rows(Fl_Terminal const *self);
 
 void Fl_Terminal_set_history_rows(Fl_Terminal *self, int set);
+
+int Fl_Terminal_get_selection(Fl_Terminal const *self, int *retval);
 
 int Fl_Terminal_history_use(Fl_Terminal const *self);
 
@@ -286,10 +329,12 @@ int Fl_Terminal_show_unknown(Fl_Terminal const *self);
 
 void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean);
 
-void Fl_Terminal_text_attrib(
+unsigned char Fl_Terminal_text_attrib(Fl_Terminal const *self); // Actually returns Attrib
+
+void Fl_Terminal_set_text_attrib(
     Fl_Terminal *self,
-    unsigned set
-); // Actually Fl_Color
+    unsigned char set
+); // Actually Attrib
 
 unsigned Fl_Terminal_text_bg_color(Fl_Terminal const *self
 ); // Actually Fl_Color
@@ -329,6 +374,15 @@ void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
 /// Utf8Char class, used to describe characters in the terminal ring buffer
 typedef void Fl_Terminal_Utf8Char;
 
+unsigned Fl_Terminal_Utf8Char_attr_bgcolor(
+    Fl_Terminal_Utf8Char const *self, const Fl_Terminal *grp); // Actually returns Fl_Color
+
+unsigned Fl_Terminal_Utf8Char_attr_color(
+    Fl_Terminal_Utf8Char const *self, unsigned col, const Fl_Terminal *grp); // Actually takes and returns Fl_Color
+
+unsigned Fl_Terminal_Utf8Char_attr_fgcolor(
+    Fl_Terminal_Utf8Char const *self, const Fl_Terminal *grp); // Actually returns Fl_Color
+
 unsigned char Fl_Terminal_Utf8Char_attrib(Fl_Terminal_Utf8Char const *self);
 
 unsigned Fl_Terminal_Utf8Char_bgcolor(Fl_Terminal_Utf8Char const *self
@@ -336,6 +390,17 @@ unsigned Fl_Terminal_Utf8Char_bgcolor(Fl_Terminal_Utf8Char const *self
 
 unsigned Fl_Terminal_Utf8Char_fgcolor(Fl_Terminal_Utf8Char const *self
 ); // Actually returns Fl_Color
+
+int Fl_Terminal_Utf8Char_is_char(Fl_Terminal_Utf8Char const *self,
+                                 char c); // boolean
+
+int Fl_Terminal_Utf8Char_length(Fl_Terminal_Utf8Char const *self);
+
+int Fl_Terminal_Utf8Char_max_utf8(Fl_Terminal_Utf8Char const *self);
+
+double Fl_Terminal_Utf8Char_pwidth(Fl_Terminal_Utf8Char const *self);
+
+int Fl_Terminal_Utf8Char_pwidth_int(Fl_Terminal_Utf8Char const *self);
 
 const unsigned char *
 Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char const *self);
@@ -390,6 +455,9 @@ int Fl_Terminal_ring_srow(Fl_Terminal const *self);
 int Fl_Terminal_ring_rows(Fl_Terminal const *self);
 
 const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_cursor(Fl_Terminal const *self);
+
+const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_disp_row(Fl_Terminal const *self, int drow);
 
 const Fl_Terminal_Utf8Char *
@@ -404,9 +472,7 @@ Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow);
 const unsigned Fl_Terminal_Utf8Char_size(void);
 
 // todo: Protected methods still unimplemented here:
-//   clear_*, current_style, cursor_*, delete_*, draw_*, get_selection,
-//   h_to_row, insert_*, scroll, selection_extend, u8c_cursor, w_to_col,
-//   walk_selection, vscroll_width
+//   current_style, h_to_row, selection_extend, w_to_col, walk_selection, vscroll_width
 
 GROUP_DECLARE(Fl_Terminal)
 

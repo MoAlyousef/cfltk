@@ -21,3 +21,4 @@ compile_commands.json
 /\.vs/cfltk/FileContentIndex
 /\.vs/cfltk/v17
 .*\.sqlite
+/build

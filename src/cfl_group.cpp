@@ -322,8 +322,8 @@ void Fl_Grid_debug(Fl_Grid *self, int level) {
 GROUP_DEFINE(Fl_Grid)
 
 struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
-    Fl_Terminal_Derived(const Fl_Terminal_Derived &)                 = delete;
-    Fl_Terminal_Derived(Fl_Terminal_Derived &&)                      = delete;
+    Fl_Terminal_Derived(const Fl_Terminal_Derived &) = delete;
+    Fl_Terminal_Derived(Fl_Terminal_Derived &&) = delete;
     Fl_Terminal_Derived &operator=(const Fl_Terminal_Derived &other) = delete;
     Fl_Terminal_Derived &operator=(Fl_Terminal_Derived &&other)      = delete;
 
@@ -337,36 +337,122 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
 
     struct Utf8Char {
         /// Create a Utf8Char for testing
-        static Fl_Terminal::Utf8Char *new_obj(char c) {
-            auto x  = new Fl_Terminal::Utf8Char;
+        static Fl_Terminal::Utf8Char * new_obj(char c) {
+            auto x = new Fl_Terminal::Utf8Char;
             auto cs = Fl_Terminal::CharStyle(false);
             x->text_ascii(c, cs);
             return x;
         };
+        unsigned attr_bgcolor(Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_bg_color(grp); };
+        unsigned attr_color(unsigned col, Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_color(col, grp); };
+        unsigned attr_fgcolor(Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_fg_color(grp); };
         unsigned char attrib(void) const {
-            return ((Fl_Terminal::Utf8Char *)this)->attrib();
+            return ((Fl_Terminal::Utf8Char *) this)->attrib(); 
         };
         unsigned bgcolor(void) const {
-            return ((Fl_Terminal::Utf8Char *)this)->bgcolor();
+            return ((Fl_Terminal::Utf8Char *) this)->bgcolor(); 
         };
-        unsigned fgcolor(void) const {
-            return ((Fl_Terminal::Utf8Char *)this)->fgcolor();
-        };
-        unsigned char charflags(void) const {
-            return ((Fl_Terminal::Utf8Char *)this)->charflags();
-        };
-        const char *text_utf8(void) const {
-            return ((Fl_Terminal::Utf8Char *)this)->text_utf8();
-        };
-        unsigned char length(void) const {
-            return ((Fl_Terminal::Utf8Char *)this)->length();
-        };
+        unsigned fgcolor(void) const { return ((Fl_Terminal::Utf8Char *) this)->fgcolor(); };
+        int is_char(char c) const { return ((Fl_Terminal::Utf8Char *) this)->is_char(c); };     // boolean
+        unsigned char charflags(void) const { return ((Fl_Terminal::Utf8Char *) this)->charflags(); };
+        const char* text_utf8(void) const { return ((Fl_Terminal::Utf8Char *) this)->text_utf8(); };
+        int length(void) const { return ((Fl_Terminal::Utf8Char *) this)->length(); };
+        int max_utf8(void) const { return ((Fl_Terminal::Utf8Char *) this)->max_utf8(); };
+        double pwidth(void) const { return ((Fl_Terminal::Utf8Char *) this)->pwidth(); };
+        int pwidth_int(void) const { return ((Fl_Terminal::Utf8Char *) this)->pwidth_int(); };
         static const unsigned size = sizeof(Fl_Terminal::Utf8Char);
     };
 
     const char *get_selection_text() const {
         return this->selection_text();
     }
+
+    void clear_mouse_selection(void) {
+        Fl_Terminal::clear_mouse_selection();
+    }
+
+    void set_cursor_col(int val) {
+        Fl_Terminal::cursor_col(val);
+    }
+
+    void set_cursor_row(int val) {
+        Fl_Terminal::cursor_row(val);
+    }
+
+    void cursor_up(int count, bool do_scroll) {
+        Fl_Terminal::cursor_up(count, do_scroll);
+    }
+
+    void cursor_down(int count, bool do_scroll) {
+        Fl_Terminal::cursor_down(count, do_scroll);
+    }
+
+    void cursor_left(int count) {
+        Fl_Terminal::cursor_left(count);
+    }
+
+    void cursor_right(int count, bool do_scroll) {
+        Fl_Terminal::cursor_right(count, do_scroll);
+    }
+
+    void scroll(int count) {
+        Fl_Terminal::scroll(count);
+    }
+
+    void clear_eod(void) {
+        Fl_Terminal::clear_eod();
+    }
+
+    void clear_eol(void) {
+        Fl_Terminal::clear_eol();
+    }
+
+    void clear_line(void) {
+        Fl_Terminal::clear_line();
+    }
+
+    void clear_line(int drow) {
+        Fl_Terminal::clear_line(drow);
+    }
+
+    void clear_sod(void) {
+        Fl_Terminal::clear_sod();
+    }
+
+    void clear_sol(void) {
+        Fl_Terminal::clear_sol();
+    }
+
+    void insert_char(char c, int rep) {
+        Fl_Terminal::insert_char(c, rep);
+    }
+
+    void insert_char_eol(char c, int drow, int dcol, int rep) {
+        Fl_Terminal::insert_char_eol(c, drow, dcol, rep);
+    }
+
+    void insert_rows(int count) {
+        Fl_Terminal::insert_rows(count);
+    }
+
+    void delete_cur_chars(int count) {
+        Fl_Terminal::delete_chars(count);
+    }
+
+    void delete_chars(int drow, int dcol, int count) {
+        Fl_Terminal::delete_chars(drow, dcol, count);
+    }
+
+    void delete_rows(int count) {
+        Fl_Terminal::delete_rows(count);
+    }
+
+
+    // returns bool false for no selection
+    int get_selection(int &srow, int &scol, int &erow, int &ecol) { 
+        return Fl_Terminal::get_selection(srow, scol, erow, ecol);
+    }
+
     int disp_erow(void) const {
         return Fl_Terminal::disp_erow();
     }
@@ -418,6 +504,10 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
     int ring_rows(void) const {
         return Fl_Terminal::ring_rows();
     }
+    const Fl_Terminal::Utf8Char *u8c_cursor()  {
+        return Fl_Terminal::u8c_cursor();
+    }
+
     const Fl_Terminal::Utf8Char *u8c_disp_row(int drow) const {
         return Fl_Terminal::u8c_disp_row(drow);
     }
@@ -597,7 +687,7 @@ unsigned Fl_Terminal_output_translate(Fl_Terminal const *self
 }
 
 void Fl_Terminal_set_output_translate(Fl_Terminal *self, unsigned set) {
-    LOCK(self->output_translate((Fl_Terminal::OutFlags)set));
+    LOCK(self->output_translate((Fl_Terminal::OutFlags) set));
 }
 
 void Fl_Terminal_print_char(Fl_Terminal *self, char c) {
@@ -684,7 +774,12 @@ void Fl_Terminal_set_show_unknown(Fl_Terminal *self, int boolean) {
     LOCK(self->show_unknown(boolean));
 }
 
-void Fl_Terminal_text_attrib(Fl_Terminal *self, unsigned set) {
+unsigned char Fl_Terminal_text_attrib(Fl_Terminal const *self) {
+    LOCK(auto ret = self->textattrib());
+    return ret;
+}
+
+void Fl_Terminal_set_text_attrib(Fl_Terminal *self, unsigned char set) {
     LOCK(self->textattrib(set));
 }
 
@@ -771,14 +866,138 @@ void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+// Protected Fl_Terminal methods:
+
+/// Clear any current mouse selection.
+void Fl_Terminal_clear_mouse_selection(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_mouse_selection());
+}
+
+/// Set the cursor's current column position on the screen.
+void Fl_Terminal_set_cursor_col(Fl_Terminal *self, int val) {
+    // (Note: the cursor_col() getter is public, not protected) 
+    LOCK(((Fl_Terminal_Derived *) self)->set_cursor_col(val));
+}
+
+/// Set the cursor's current row position on the screen. 
+void Fl_Terminal_set_cursor_row(Fl_Terminal *self, int val) {
+    // (Note: the cursor_row() getter is public, not protected) 
+    LOCK(((Fl_Terminal_Derived *) self)->set_cursor_row(val));
+}
+
+void Fl_Terminal_cursor_up(Fl_Terminal *self, int count, int do_scroll) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_up(count, (bool) do_scroll));
+}
+
+void Fl_Terminal_cursor_down(Fl_Terminal *self, int count, int do_scroll) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_down(count, (bool) do_scroll));
+}
+
+void Fl_Terminal_cursor_left(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_left(count));
+}
+
+void Fl_Terminal_cursor_right(Fl_Terminal *self, int count, int do_scroll) {
+    LOCK(((Fl_Terminal_Derived *) self)->cursor_right(count, (bool) do_scroll));
+}
+
+void Fl_Terminal_scroll(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->scroll(count));
+}
+
+void Fl_Terminal_clear_eod(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_eod());
+}
+
+void Fl_Terminal_clear_eol(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_eol());
+}
+
+void Fl_Terminal_clear_cur_line(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_line());
+}
+
+void Fl_Terminal_clear_line(Fl_Terminal *self, int drow) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_line(drow));
+}
+
+void Fl_Terminal_clear_sod(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_sod());
+}
+
+void Fl_Terminal_clear_sol(Fl_Terminal *self) {
+    LOCK(((Fl_Terminal_Derived *) self)->clear_sol());
+}
+
+void Fl_Terminal_insert_char(Fl_Terminal *self, char c, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->insert_char(c, rep));
+}
+
+void Fl_Terminal_insert_char_eol(Fl_Terminal *self, char c, int drow, int dcol, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->insert_char_eol(c, drow, dcol, rep));
+}
+
+void Fl_Terminal_insert_rows(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->insert_rows(count));
+}
+
+void Fl_Terminal_delete_cur_chars(Fl_Terminal *self, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->delete_cur_chars(rep));
+}
+
+void Fl_Terminal_delete_chars(Fl_Terminal *self, int drow, int dcol, int rep) {
+    LOCK(((Fl_Terminal_Derived *) self)->delete_chars(drow, dcol, rep));
+}
+
+void Fl_Terminal_delete_rows(Fl_Terminal *self, int count) {
+    LOCK(((Fl_Terminal_Derived *) self)->delete_rows(count));
+}
+
+
+/// Places four integers (srow, scol, erow, ecol) into the provided buffer, which should be a uint32_t[4] array
+/// bool return falue is FALSE if no selection exists
+int Fl_Terminal_get_selection(Fl_Terminal const *self, int *results) {
+    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->get_selection(results[0], results[1], results[2], results[3]));
+    return ret;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // Utf8Char class methods.
 // So far, only "getters" are implemented. No "setters", so no way
 // to modify a Utf8 object.
 
-/// Get attributes (NORMAL, BOLD, etc.) for this character. Return values are
-/// defined in Fl_Terminal::Attrib
+
+/// Get the bg color of char `u8c` possibly influenced by BOLD or DIM.
+///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color be
+///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
+unsigned Fl_Terminal_Utf8Char_attr_bgcolor(Fl_Terminal_Utf8Char const *self, Fl_Terminal const *grp) { // Actually returns Fl_Color
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->attr_bgcolor(grp));
+    return ret;
+}
+
+/// Get the color `col` possibly influenced by BOLD or DIM.
+///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color `col` be
+///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
+unsigned Fl_Terminal_Utf8Char_attr_color(Fl_Terminal_Utf8Char const *self, unsigned col, Fl_Terminal const *grp) { // Actually returns Fl_Color
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->attr_color((Fl_Color) col, grp));
+    return ret;
+}
+
+/// Get the fg color of char `u8c` possibly influenced by BOLD or DIM.
+///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color be
+///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
+unsigned Fl_Terminal_Utf8Char_attr_fgcolor(Fl_Terminal_Utf8Char const *self, Fl_Terminal const *grp) { // Actually returns Fl_Color
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->attr_fgcolor(grp));
+    return ret;
+}
+
+/// Get attributes (NORMAL, BOLD, etc.) for this character. Return values are defined in Fl_Terminal::Attrib
 unsigned char Fl_Terminal_Utf8Char_attrib(Fl_Terminal_Utf8Char const *self) {
-    auto self1 = (Fl_Terminal_Derived::Utf8Char *)self;
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->attrib());
     return ret;
 }
@@ -786,7 +1005,7 @@ unsigned char Fl_Terminal_Utf8Char_attrib(Fl_Terminal_Utf8Char const *self) {
 /// Get background color of this character
 unsigned Fl_Terminal_Utf8Char_bgcolor(Fl_Terminal_Utf8Char const *self
 ) { // Actually returns Fl_Color
-    auto self1 = (Fl_Terminal_Derived::Utf8Char *)self;
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->bgcolor());
     return ret;
 }
@@ -794,8 +1013,33 @@ unsigned Fl_Terminal_Utf8Char_bgcolor(Fl_Terminal_Utf8Char const *self
 /// Get foreground color of this character
 unsigned Fl_Terminal_Utf8Char_fgcolor(Fl_Terminal_Utf8Char const *self
 ) { // Actually returns Fl_Color
-    auto self1 = (Fl_Terminal_Derived::Utf8Char *)self;
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->fgcolor());
+    return ret;
+}
+
+int Fl_Terminal_Utf8Char_is_char(Fl_Terminal_Utf8Char const *self, char c) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->is_char(c));
+    return ret;
+}
+
+/// Get maximum length of bytes in text_utf8 -- const 4 per RFC 3629
+int Fl_Terminal_Utf8Char_max_utf8(Fl_Terminal_Utf8Char const *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->max_utf8());
+    return ret;
+}
+
+double Fl_Terminal_Utf8Char_pwidth(Fl_Terminal_Utf8Char const *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->pwidth());
+    return ret;
+}
+
+int Fl_Terminal_Utf8Char_pwidth_int(Fl_Terminal_Utf8Char const *self) {
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
+    LOCK(auto ret = self1->pwidth_int());
     return ret;
 }
 
@@ -808,25 +1052,26 @@ Fl_Terminal_Utf8Char_text_utf8(Fl_Terminal_Utf8Char const *self) {
 
 /// Get length of bytes in text_utf8: 1 for ASCII, >1 for UTF-8
 int Fl_Terminal_Utf8Char_length(Fl_Terminal_Utf8Char const *self) {
-    auto self1 = (Fl_Terminal_Derived::Utf8Char *)self;
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->length());
     return ret;
 }
 
 /// Get xterm CharFlags bits
 unsigned char Fl_Terminal_Utf8Char_charflags(Fl_Terminal_Utf8Char const *self) {
-    auto self1 = (Fl_Terminal_Derived::Utf8Char *)self;
+    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->charflags());
     return ret;
 }
 
 /// Construct a UTF8Char (useful for testing)
-Fl_Terminal_Utf8Char *Fl_Terminal_Utf8Char_new_obj(unsigned char c) {
+Fl_Terminal_Utf8Char * Fl_Terminal_Utf8Char_new_obj(unsigned char c) {
     LOCK(auto ret = Fl_Terminal_Derived::Utf8Char::new_obj(c));
     return ret;
 }
 
-//----------------------------------------------------------------------
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // The following are protected functions used to access ring buffer text:
 
 /// Return text selection (for copy()/paste() operations)
@@ -837,61 +1082,61 @@ const char *Fl_Terminal_selection_text(const Fl_Terminal *self) {
 
 ///  	Return the ending row# in the display area.
 int Fl_Terminal_disp_erow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->disp_erow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->disp_erow());
     return ret;
 }
 
 /// Return the number of rows in the display area.
 int Fl_Terminal_disp_rows(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->disp_rows());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->disp_rows());
     return ret;
 }
 
 /// Return the number of columns in the display area.
 int Fl_Terminal_disp_cols(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->disp_cols());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->disp_cols());
     return ret;
 }
 
 /// Return the starting row# in the display area.
 int Fl_Terminal_disp_srow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->disp_srow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->disp_srow());
     return ret;
 }
 
 /// Return the number of columns in the scrollback history.
 int Fl_Terminal_hist_cols(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->hist_cols());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->hist_cols());
     return ret;
 }
 
 /// Return the ending row# of the scrollback history.
 int Fl_Terminal_hist_erow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->hist_erow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->hist_erow());
     return ret;
 }
 
 /// Return the number of rows in the scrollback history.
 int Fl_Terminal_hist_rows(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->hist_rows());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->hist_rows());
     return ret;
 }
 
 /// Return the starting row# of the scrollback history.
 int Fl_Terminal_hist_srow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->hist_srow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->hist_srow());
     return ret;
 }
 
 /// Return number of rows in use by the scrollback history.
 int Fl_Terminal_hist_use(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->hist_use());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->hist_use());
     return ret;
 }
 
 /// Return the starting row of the "in use" scrollback history.
 int Fl_Terminal_hist_use_srow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->hist_use_srow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->hist_use_srow());
     return ret;
 }
 
@@ -908,51 +1153,51 @@ int Fl_Terminal_is_inside_selection(
 /// Returns true if there's a mouse selection.
 int Fl_Terminal_is_selection(Fl_Terminal const *self
 ) { // Actual return type is bool
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->is_selection());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->is_selection());
     return ret;
 }
 
 /// Returns the current offset into the ring buffer.
 int Fl_Terminal_offset(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->offset());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->offset());
     return ret;
 }
 
 /// Return the number of columns in the ring buffer.
 int Fl_Terminal_ring_cols(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->ring_cols());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->ring_cols());
     return ret;
 }
 
 /// Return the ending row# in the ring buffer (Always ring_rows()-1)
 int Fl_Terminal_ring_erow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->ring_erow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->ring_erow());
     return ret;
 }
 
 /// Return the starting row# in the ring buffer (Always 0)
 int Fl_Terminal_ring_srow(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->ring_srow());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->ring_srow());
     return ret;
 }
 
 /// Return the number of rows in the ring buffer.
 int Fl_Terminal_ring_rows(Fl_Terminal const *self) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->ring_rows());
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->ring_rows());
     return ret;
 }
 
 /// Return pointer to the first u8c character in row drow of the display.
 const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_disp_row(Fl_Terminal const *self, int drow) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->u8c_disp_row(drow));
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_disp_row(drow));
     return ret;
 }
 
 /// Return u8c for beginning of a row inside the scrollback history.
 const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_hist_row(Fl_Terminal const *self, int hrow) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->u8c_hist_row(hrow));
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_hist_row(hrow));
     return ret;
 }
 
@@ -960,14 +1205,21 @@ Fl_Terminal_u8c_hist_row(Fl_Terminal const *self, int hrow) {
 /// scrollback history.
 const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_hist_use_row(Fl_Terminal const *self, int hurow) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->u8c_hist_use_row(hurow));
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_hist_use_row(hurow));
+    return ret;
+}
+
+/// Return the Utf8Char* for character under cursor.
+const Fl_Terminal_Utf8Char *
+Fl_Terminal_u8c_cursor(Fl_Terminal const *self) {
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_cursor());
     return ret;
 }
 
 /// Return UTF-8 char for row grow in the ring buffer.
 const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow) {
-    LOCK(auto ret = ((Fl_Terminal_Derived *)self)->u8c_ring_row(grow));
+    LOCK(auto ret = ((Fl_Terminal_Derived *) self)->u8c_ring_row(grow));
     return ret;
 }
 
@@ -975,13 +1227,6 @@ Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow) {
 // BuffRow class methods.
 // BuffRow is a Rust class, not corresponding to anything in the C++ code
 // It exists to allow clean indexing and iterators at the Rust level
-
-// /// Return a pointer indexed `idx` columns into the row
-// const Fl_Terminal_Utf8Char *Fl_Terminal_buff_row_col(const void *row, int
-// rcol) {
-//     auto base = (const Fl_Terminal_Derived::Utf8Char *) row;
-//     return (void *) base->col(rcol);
-// }
 
 const unsigned Fl_Terminal_Utf8Char_size(void) {
     return Fl_Terminal_Derived::Utf8Char::size;
