@@ -377,9 +377,6 @@ typedef void Fl_Terminal_Utf8Char;
 unsigned Fl_Terminal_Utf8Char_attr_bgcolor(
     Fl_Terminal_Utf8Char const *self, const Fl_Terminal *grp); // Actually returns Fl_Color
 
-unsigned Fl_Terminal_Utf8Char_attr_color(
-    Fl_Terminal_Utf8Char const *self, unsigned col, const Fl_Terminal *grp); // Actually takes and returns Fl_Color
-
 unsigned Fl_Terminal_Utf8Char_attr_fgcolor(
     Fl_Terminal_Utf8Char const *self, const Fl_Terminal *grp); // Actually returns Fl_Color
 

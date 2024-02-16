@@ -344,7 +344,6 @@ struct Fl_Terminal_Derived : public Widget_Derived<Fl_Terminal> {
             return x;
         };
         unsigned attr_bgcolor(Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_bg_color(grp); };
-        unsigned attr_color(unsigned col, Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_color(col, grp); };
         unsigned attr_fgcolor(Fl_Terminal const *grp) const { return ((Fl_Terminal::Utf8Char *) this)->attr_fg_color(grp); };
         unsigned char attrib(void) const {
             return ((Fl_Terminal::Utf8Char *) this)->attrib(); 
@@ -974,15 +973,6 @@ int Fl_Terminal_get_selection(Fl_Terminal const *self, int *results) {
 unsigned Fl_Terminal_Utf8Char_attr_bgcolor(Fl_Terminal_Utf8Char const *self, Fl_Terminal const *grp) { // Actually returns Fl_Color
     auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
     LOCK(auto ret = self1->attr_bgcolor(grp));
-    return ret;
-}
-
-/// Get the color `col` possibly influenced by BOLD or DIM.
-///    If a `grp` widget is specified (i.e. not `NULL`), don't let the color `col` be
-///    influenced by the attribute bits *if* it matches the `grp` widget's own color().
-unsigned Fl_Terminal_Utf8Char_attr_color(Fl_Terminal_Utf8Char const *self, unsigned col, Fl_Terminal const *grp) { // Actually returns Fl_Color
-    auto self1 = (Fl_Terminal_Derived::Utf8Char *) self;
-    LOCK(auto ret = self1->attr_color((Fl_Color) col, grp));
     return ret;
 }
 
