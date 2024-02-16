@@ -852,3 +852,23 @@ void Fl_set_option(int opt, int val) {
 void Fl_load_system_icons(void) {
     Fl_File_Icon::load_system_icons();
 }
+
+void Fl_set_contrast_level(int level) {
+    fl_contrast_level(level);
+}
+
+int Fl_contrast_level() {
+    return fl_contrast_level();
+}
+
+void Fl_set_contrast_mode(int mode) {
+    fl_contrast_mode(mode);
+}
+
+int Fl_contrast_mode() {
+    return fl_contrast_mode();
+}
+
+void Fl_set_contrast_function(unsigned int (*f)(unsigned int, unsigned int, int, int)) {
+    fl_contrast_function(f);
+}

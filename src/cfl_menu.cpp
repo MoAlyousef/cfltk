@@ -142,6 +142,13 @@
         LOCK(auto ret = self->item_pathname(temp, 256, item);                  \
              if (ret == 0) strncpy(pathname, temp, strlen(temp) + 1););        \
         return ret;                                                            \
+    }                                                                          \
+    void widget##_set_menu_box(widget *self, int b) {                          \
+        LOCK(self->menu_box((Fl_Boxtype)b));                                   \
+    }                                                                          \
+    int widget##_menu_box(const widget *self) {                                \
+        LOCK(auto ret = self->menu_box());                                     \
+        return ret;                                                            \
     }
 
 WIDGET_CLASS(Fl_Menu_Bar)
@@ -231,6 +238,21 @@ void Fl_Menu_Item_delete(Fl_Menu_Item *self) {
 
 const Fl_Menu_Item *Fl_Menu_Item_popup(Fl_Menu_Item *self, int x, int y) {
     LOCK(auto ret = self->popup(x, y));
+    return ret;
+}
+
+const Fl_Menu_Item *Fl_Menu_Item_pulldown(
+    Fl_Menu_Item *self,
+    int X,
+    int Y,
+    int W,
+    int H,
+    const Fl_Menu_Item *picked,
+    const void *menu,
+    const Fl_Menu_Item *title,
+    int menubar
+) {
+    LOCK(auto ret = self->pulldown(X, Y, W, H, picked, (const Fl_Menu_ *)menu, title, menubar));
     return ret;
 }
 

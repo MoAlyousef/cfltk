@@ -51,7 +51,9 @@ extern "C" {
         char *pathname,                                                        \
         int pathnamelen,                                                       \
         const Fl_Menu_Item *item                                               \
-    );
+    );                                                                         \
+    void widget##_set_menu_box(widget *self, int b);                           \
+    int widget##_menu_box(const widget *self);
 
 typedef struct Fl_Menu_Item Fl_Menu_Item;
 
@@ -94,6 +96,18 @@ Fl_Menu_Item *Fl_Menu_Item_new2(
 void Fl_Menu_Item_delete(Fl_Menu_Item *self);
 
 const Fl_Menu_Item *Fl_Menu_Item_popup(Fl_Menu_Item *self, int x, int y);
+
+const Fl_Menu_Item *Fl_Menu_Item_pulldown(
+    Fl_Menu_Item *self,
+    int X,
+    int Y,
+    int W,
+    int H,
+    const Fl_Menu_Item *picked,
+    const void *,
+    const Fl_Menu_Item *title,
+    int menubar
+);
 
 const char *Fl_Menu_Item_label(Fl_Menu_Item *);
 
