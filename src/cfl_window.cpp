@@ -88,8 +88,8 @@ struct Window_Derived : public Widget_Derived<Win> {
         alpha_ = alpha;
     }
 
-    void force_pos(int flag) {
-        this->force_position(flag);
+    void force_position(int flag) {
+        Widget_Derived<Win>::force_position(flag);
     }
 
     // #if FLTK_USE_WAYLAND && !CFLTK_USE_GL
@@ -235,7 +235,7 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                            \
     }                                                                          \
     void widget##_force_position(widget *self, int flag) {                     \
-        LOCK(((widget##_Derived *)self)->force_pos(flag));                     \
+        LOCK(((widget##_Derived *)self)->force_position(flag));                \
     }                                                                          \
     const char *widget##_default_xclass(void) {                                \
         LOCK(auto ret = widget::default_xclass());                             \

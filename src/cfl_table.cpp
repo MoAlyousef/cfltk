@@ -38,17 +38,17 @@ struct Table_Derived : public Widget_Derived<Table> {
     void *hscrollbar() const {
         return (void *)Table::hscrollbar;
     }
-    int find_cell_(int ctx, int r, int c, int *x, int *y, int *w, int *h) {
+    int find_cell(int ctx, int r, int c, int *x, int *y, int *w, int *h) {
         int X = 0, Y = 0, W = 0, H = 0;
         int ret =
-            this->find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);
+            Widget_Derived<Table>::find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);
         *x = X, *y = Y, *w = W, *h = H;
         return ret;
     }
-    int cursor2rowcol_(int *r, int *c, int *flag) {
+    int cursor2rowcol(int *r, int *c, int *flag) {
         int R = 0, C = 0;
         auto Flag = (Fl_Table::ResizeFlag)0;
-        auto ret  = this->cursor2rowcol(R, C, Flag);
+        auto ret  = Widget_Derived<Table>::cursor2rowcol(R, C, Flag);
         *r = R, *c = C, *flag = (int)Flag;
         return (int)ret;
     }
@@ -283,13 +283,13 @@ struct Table_Derived : public Widget_Derived<Table> {
     ) {                                                                        \
         LOCK(                                                                  \
             auto ret =                                                         \
-                ((table##_Derived *)self)->find_cell_(ctx, r, c, x, y, w, h)   \
+                ((table##_Derived *)self)->find_cell(ctx, r, c, x, y, w, h)    \
         );                                                                     \
         return ret;                                                            \
     }                                                                          \
     int table##_cursor2rowcol(const table *self, int *r, int *c, int *flag) {  \
         LOCK(                                                                  \
-            auto ret = ((table##_Derived *)self)->cursor2rowcol_(r, c, flag)   \
+            auto ret = ((table##_Derived *)self)->cursor2rowcol(r, c, flag)    \
         );                                                                     \
         return (int)ret;                                                       \
     }

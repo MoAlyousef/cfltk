@@ -628,11 +628,11 @@ class Fl_Tree_Item_Derived : public Fl_Tree_Item {
     }
     int draw_item_content(int render) override {
         fl_open_display();
+        auto ret = Fl_Tree_Item::draw_item_content(render);
         if (cb) {
-            return cb(this, render, draw_data);
-        } else {
-            return 0;
+            ret = cb(this, render, draw_data);
         }
+        return ret;
     }
 };
 
