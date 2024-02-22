@@ -10,10 +10,6 @@ project(
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-# if (CMAKE_CROSSCOMPILING AND (CMAKE_SYSTEM_NAME EQUAL "Linux"))
-#   set(CMAKE_SYSTEM_VERSION ${CMAKE_HOST_SYSTEM_VERSION})
-# endif()
-
 option(CFLTK_BUILD_SHARED "Builds a shared library" OFF)
 option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
 option(CFLTK_USE_OPENGL "Uses OpenGL" OFF)
