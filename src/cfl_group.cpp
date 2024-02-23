@@ -138,6 +138,14 @@ void Fl_Tile_move_intersection(Fl_Tile *self, int oldx, int oldy, int newx, int 
     LOCK(self->move_intersection(oldx, oldy, newx, newy));
 }
 
+void Fl_Tile_size_range_by_index(Fl_Tile *self, int index, int minw, int minh, int maxw, int maxh) {
+    LOCK(self->size_range(index, minw, minh, maxw, maxh));
+}
+
+void Fl_Tile_size_range_by_child(Fl_Tile *self, Fl_Widget *w , int minw, int minh, int maxw, int maxh) {
+    LOCK(self->size_range(w, minw, minh, maxw, maxh));
+}
+
 GROUP_DEFINE(Fl_Tile)
 
 WIDGET_CLASS(Fl_Wizard)
