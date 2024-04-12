@@ -296,9 +296,9 @@ void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len);
 // Note: Fl_Terminal_printf not supported for Rust
 void Fl_Terminal_printf(Fl_Terminal *self, const char *fmt, ...);
 
-void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col);
+void Fl_Terminal_plot_char(Fl_Terminal *self, char c, int row, int col);
 
-void Fl_Terminal_put_char_utf8(
+void Fl_Terminal_plot_char_utf8(
     Fl_Terminal *self, const char *txt, int len, int row, int col
 );
 

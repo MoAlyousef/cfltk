@@ -705,14 +705,14 @@ void Fl_Terminal_print_char_utf8(Fl_Terminal *self, const char *txt, int len) {
     LOCK(self->print_char(txt, len));
 }
 
-void Fl_Terminal_put_char(Fl_Terminal *self, char c, int row, int col) {
-    LOCK(self->putchar(c, row, col));
+void Fl_Terminal_plot_char(Fl_Terminal *self, char c, int row, int col) {
+    LOCK(self->plot_char(c, row, col));
 }
 
-void Fl_Terminal_put_char_utf8(
+void Fl_Terminal_plot_char_utf8(
     Fl_Terminal *self, const char *txt, int len, int drow, int dcol
 ) {
-    LOCK(self->putchar(txt, len, drow, dcol));
+    LOCK(self->plot_char(txt, len, drow, dcol));
 }
 
 float Fl_Terminal_redraw_rate(Fl_Terminal const *self) {
