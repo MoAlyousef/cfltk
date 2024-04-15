@@ -364,6 +364,10 @@ void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p) {
     LOCK(self->callback(c, p));
 }
 
+void Fl_Menu_Item_do_callback(Fl_Menu_Item *self, Fl_Widget *w) {
+    LOCK(if (self->callback()) self->do_callback(w));
+}
+
 void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {
     LOCK(auto ret = self->user_data());
     return ret;

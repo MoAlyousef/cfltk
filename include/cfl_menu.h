@@ -157,6 +157,8 @@ Fl_Menu_Item *Fl_Menu_Item_next(Fl_Menu_Item *self, int idx);
 
 void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p);
 
+void Fl_Menu_Item_do_callback(Fl_Menu_Item *self, Fl_Widget *w);
+
 void *Fl_Menu_Item_user_data(const Fl_Menu_Item *);
 
 void Fl_Menu_Item_set_user_data(Fl_Menu_Item *, void *data);
