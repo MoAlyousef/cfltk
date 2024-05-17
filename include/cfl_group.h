@@ -254,12 +254,6 @@ void Fl_Terminal_set_display_columns(Fl_Terminal *self, int set);
 
 int Fl_Terminal_display_rows(Fl_Terminal const *self);
 
-void Fl_Terminal_set_display_rows(Fl_Terminal *self, int set);
-
-int Fl_Terminal_history_lines(Fl_Terminal const *self);
-
-void Fl_Terminal_set_history_lines(Fl_Terminal *self, int set);
-
 int Fl_Terminal_history_rows(Fl_Terminal const *self);
 
 void Fl_Terminal_set_history_rows(Fl_Terminal *self, int set);
@@ -319,6 +313,20 @@ int Fl_Terminal_scrollbar_size(Fl_Terminal const *self);
 
 void Fl_Terminal_set_scrollbar_size(Fl_Terminal *self, int set);
 
+// int Fl_Terminal_hscrollbar_actual_size(Fl_Terminal const *self);
+
+// int Fl_Terminal_hscrollbar_size(Fl_Terminal const *self);
+
+// void Fl_Terminal_set_hscrollbar_size(Fl_Terminal *self, int set);
+
+// int Fl_Terminal_hscroll_col(Fl_Terminal const *self);
+
+// void Fl_Terminal_set_hscroll_col(Fl_Terminal *self, int set);
+
+int Fl_Terminal_hscrollbar_style(Fl_Terminal const *self);   // Actually returns enum HScrollbarStyle
+
+void Fl_Terminal_set_hscrollbar_style(Fl_Terminal *self, int set);
+
 unsigned Fl_Terminal_selection_bg_color(Fl_Terminal const *self
 ); // Actually Fl_Color
 
@@ -374,6 +382,17 @@ int Fl_Terminal_text_size(Fl_Terminal const *self);
 
 void Fl_Terminal_set_text_size(Fl_Terminal *self, int set);
 
+const char* Fl_Terminal_text(Fl_Terminal const *self, int lines_below_cursor);       // Argument is bool
+
+const char *Fl_Terminal_selection_text(Fl_Terminal const *self);
+int Fl_Terminal_selection_text_len(Fl_Terminal const *self);
+
+//----------------------------------------------------------------------
+/// Access to terminal widget's vertical and horizontal scrollbar
+typedef void Fl_Terminal_Scrollbar;
+Fl_Terminal_Scrollbar * Fl_Terminal_scrollbar(Fl_Terminal *self);
+Fl_Terminal_Scrollbar * Fl_Terminal_hscrollbar(Fl_Terminal *self);
+
 //----------------------------------------------------------------------
 /// Utf8Char class, used to describe characters in the terminal ring buffer
 typedef void Fl_Terminal_Utf8Char;
@@ -416,27 +435,21 @@ Fl_Terminal_Utf8Char *Fl_Terminal_Utf8Char_new_obj(unsigned char c);
 //----------------------------------------------------------------------
 // The following are protected functions used to access ring buffer text:
 
-const char *Fl_Terminal_selection_text(Fl_Terminal const *self);
-
 int Fl_Terminal_disp_erow(Fl_Terminal const *self);
-
-int Fl_Terminal_disp_rows(Fl_Terminal const *self);
-
-int Fl_Terminal_disp_cols(Fl_Terminal const *self);
 
 int Fl_Terminal_disp_srow(Fl_Terminal const *self);
 
-int Fl_Terminal_hist_cols(Fl_Terminal const *self);
-
 int Fl_Terminal_hist_erow(Fl_Terminal const *self);
-
-int Fl_Terminal_hist_rows(Fl_Terminal const *self);
 
 int Fl_Terminal_hist_srow(Fl_Terminal const *self);
 
 int Fl_Terminal_hist_use(Fl_Terminal const *self);
 
 int Fl_Terminal_hist_use_srow(Fl_Terminal const *self);
+
+int Fl_Terminal_h_to_row(Fl_Terminal const *self, int H);
+
+int Fl_Terminal_w_to_col(Fl_Terminal const *self, int W);
 
 int Fl_Terminal_is_inside_selection(
     Fl_Terminal const *self, int row, int col
@@ -446,8 +459,6 @@ int Fl_Terminal_is_selection(Fl_Terminal const *self
 ); // Actual return type is bool
 
 int Fl_Terminal_offset(Fl_Terminal const *self);
-
-int Fl_Terminal_ring_cols(Fl_Terminal const *self);
 
 int Fl_Terminal_ring_erow(Fl_Terminal const *self);
 
@@ -471,6 +482,8 @@ const Fl_Terminal_Utf8Char *
 Fl_Terminal_u8c_ring_row(Fl_Terminal const *self, int grow);
 
 const unsigned Fl_Terminal_Utf8Char_size(void);
+
+void Fl_free_str(const char *str);
 
 // todo: Protected methods still unimplemented here:
 //   current_style, h_to_row, selection_extend, w_to_col, walk_selection, vscroll_width
