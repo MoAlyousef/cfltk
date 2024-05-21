@@ -219,6 +219,8 @@ void Fl_Input_Choice_clear(Fl_Input_Choice *self);
 
 const char *Fl_Input_Choice_value(const Fl_Input_Choice *self);
 
+int Fl_Input_Choice_value2(Fl_Input_Choice *self);
+
 void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val);
 
 void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val);
