@@ -466,6 +466,11 @@ const char *Fl_Input_Choice_value(const Fl_Input_Choice *self) {
     return ret;
 }
 
+int Fl_Input_Choice_value2(Fl_Input_Choice *self) {
+    LOCK(auto ret = self->menu()->value());
+    return ret;
+}
+
 void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val) {
     LOCK(self->value(val));
 }
