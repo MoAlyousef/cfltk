@@ -1242,7 +1242,7 @@ const unsigned Fl_Terminal_Utf8Char_size(void) {
 GROUP_DEFINE(Fl_Terminal)
 
 
-#include <malloc.h>
+#include <stdlib.h>
 // Free up string that was allocated in C++
 void Fl_free_str(const char *str) {
     if (str) free((void *) str);
