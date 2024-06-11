@@ -47,6 +47,10 @@
         LOCK(auto ret = self->select(line));                                   \
         return ret;                                                            \
     }                                                                          \
+    int widget##_select_ext(widget *self, int line, int val) {                 \
+        LOCK(auto ret = self->select(line, val));                              \
+        return ret;                                                            \
+    }                                                                          \
     int widget##_selected(const widget *self, int line) {                      \
         LOCK(auto ret = self->selected(line));                                 \
         return ret;                                                            \

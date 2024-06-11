@@ -17,6 +17,7 @@ extern "C" {
     void widget##_clear(widget *);                                             \
     int widget##_size(const widget *);                                         \
     int widget##_select(widget *, int line);                                   \
+    int widget##_select_ext(widget *, int line, int val);                      \
     int widget##_selected(const widget *, int line);                           \
     const char *widget##_text(const widget *, int line);                       \
     void widget##_set_text(widget *, int line, const char *newtext);           \
