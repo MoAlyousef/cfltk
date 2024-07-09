@@ -416,9 +416,7 @@ void *Fl_Tree_openicon(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_openicon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->openicon(); if (!val) self->openicon(nullptr);
-         else self->openicon(((Fl_Image *)val)->copy());
-         )
+    LOCK(self->openicon(((Fl_Image *)val)->copy()));
 }
 
 void *Fl_Tree_closeicon(const Fl_Tree *self) {
@@ -430,9 +428,7 @@ void *Fl_Tree_closeicon(const Fl_Tree *self) {
 }
 
 void Fl_Tree_set_closeicon(Fl_Tree *self, void *val) {
-    LOCK(auto old = self->closeicon(); if (!val) self->closeicon(nullptr);
-         else self->closeicon(((Fl_Image *)val)->copy());
-         )
+    LOCK(self->closeicon(((Fl_Image *)val)->copy()));
 }
 
 int Fl_Tree_showcollapse(const Fl_Tree *self) {
