@@ -244,7 +244,7 @@ int Fl_Anim_GIF_Image_playing(const Fl_Anim_GIF_Image *self) {
 IMAGE_DEFINE(Fl_Pixmap)
 
 Fl_Pixmap *Fl_Pixmap_new(const char *const *D) {
-    LOCK(auto temp = new Fl_Pixmap(D); auto ret = temp->copy(temp->w(), temp->h()); delete temp);
+    LOCK(Fl_Pixmap temp(D); auto ret = temp.copy(temp.w(), temp.h()));
     return (Fl_Pixmap *)ret;
 }
 
