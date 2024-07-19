@@ -140,11 +140,8 @@ struct Window_Derived : public Widget_Derived<Win> {
         return ret;                                                            \
     }                                                                          \
     void *widget##_raw_handle(const widget *w) {                               \
-        LOCK(Window temp                              = fl_xid(w);             \
-             if (!temp) { return nullptr; } auto *xid = new Window;            \
-             if (!xid) return nullptr;                                         \
-             memcpy(xid, &temp, sizeof(Window)));                              \
-        return xid;                                                            \
+        LOCK(void *temp = (void *)fl_xid(w));                                  \
+        return temp;                                                           \
     }                                                                          \
     void widget##_set_border(widget *self, int flag) {                         \
         LOCK(self->border(flag));                                              \
@@ -300,18 +297,13 @@ Fl_Window *Fl_Window_find_by_handle(void *handle) {
     return ret;
 }
 
-winid resolve_raw_handle(void *handle) {
-    winid w;
-#if defined(_WIN32) || defined(__APPLE__) || defined(__ANDROID__)
-    w.opaque = *(Window *)handle;
-#elif defined(FLTK_USE_WAYLAND)
+void *resolve_raw_handle(void *handle) {
+    void *ret = handle;
+#if defined(FLTK_USE_WAYLAND)
     auto h   = fl_wl_surface((wld_window *)(*(Window *)handle));
-    w.opaque = h;
-#else
-    w.x_id = *(Window *)handle;
+    ret = h;
 #endif
-    delete (Window *)handle;
-    return w;
+    return ret;
 }
 
 void *Fl_display(void) {
@@ -340,7 +332,7 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
         return;
 #if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) &&        \
     !defined(FLTK_USE_WAYLAND)
-    LOCK(Fl_X::set_xid(self, *(Window *)handle));
+    LOCK(Fl_X::set_xid(self, (Window )handle));
 #else
         // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window
         // *)handle; xp->xid = h;

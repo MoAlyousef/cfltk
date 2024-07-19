@@ -7,11 +7,6 @@
 extern "C" {
 #endif
 
-typedef union {
-    unsigned long x_id;
-    void *opaque;
-} winid;
-
 #define WINDOW_DECLARE(widget)                                                 \
     void widget##_make_modal(widget *, unsigned int boolean);                  \
     void widget##_fullscreen(widget *, unsigned int boolean);                  \
@@ -70,7 +65,7 @@ Fl_Window *Fl_Window_new_wh(int width, int height, const char *title);
 
 Fl_Window *Fl_Window_find_by_handle(void *handle);
 
-winid resolve_raw_handle(void *handle);
+void *resolve_raw_handle(void *handle);
 
 void *Fl_display(void);
 
