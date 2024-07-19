@@ -444,6 +444,58 @@ int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window *self) {
 
 WINDOW_DEFINE(Fl_Overlay_Window)
 
+#ifdef FLTK_USE_X11
+// use the answer from https://stackoverflow.com/a/16235920/9698906
+extern "C" void cfltk_setOnTop(Window xid) {
+    constexpr int _NET_WM_STATE_REMOVE = 0; // remove/unset property
+    constexpr int _NET_WM_STATE_ADD    = 1; // add/set property
+    constexpr int _NET_WM_STATE_TOGGLE = 2; // toggle property
+    auto mywin                         = xid;
+    auto display                       = fl_display;
+    auto root                          = DefaultRootWindow(display);
+    Atom wmStateAbove = XInternAtom(display, "_NET_WM_STATE_ABOVE", 1);
+    if (wmStateAbove != None) {
+        printf("_NET_WM_STATE_ABOVE has atom of %ld\n", (long)wmStateAbove);
+    } else {
+        printf("ERROR: cannot find atom for _NET_WM_STATE_ABOVE !\n");
+        return;
+    }
+
+    Atom wmNetWmState = XInternAtom(display, "_NET_WM_STATE", 1);
+    if (wmNetWmState != None) {
+        printf("_NET_WM_STATE has atom of %ld\n", (long)wmNetWmState);
+    } else {
+        printf("ERROR: cannot find atom for _NET_WM_STATE !\n");
+        return;
+    }
+
+    if (wmStateAbove != None) {
+        XClientMessageEvent xclient;
+        memset(&xclient, 0, sizeof(xclient));
+        xclient.type         = ClientMessage;
+        xclient.window       = mywin;
+        xclient.message_type = wmNetWmState;
+        xclient.format       = 32;
+        xclient.data.l[0]    = _NET_WM_STATE_ADD;
+        xclient.data.l[1]    = wmStateAbove;
+        xclient.data.l[2]    = 0;
+        xclient.data.l[3]    = 0;
+        xclient.data.l[4]    = 0;
+        XSendEvent(
+            display,
+            root,
+            False,
+            SubstructureRedirectMask | SubstructureNotifyMask,
+            (XEvent *)&xclient
+        );
+
+        XFlush(display);
+        return;
+    }
+    return;
+}
+#endif
+
 #ifdef CFLTK_USE_GL
 
 #include <FL/Fl_Gl_Window.H>
