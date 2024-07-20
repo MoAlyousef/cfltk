@@ -390,13 +390,15 @@ void Fl_load_system_icons(void);
 
 void Fl_set_contrast_level(int level);
 
-int Fl_contrast_level();
+int Fl_contrast_level(void);
 
 void Fl_set_contrast_mode(int mode);
 
-int Fl_contrast_mode();
+int Fl_contrast_mode(void);
 
 void Fl_set_contrast_function(unsigned int (*f)(unsigned int, unsigned int, int, int));
+
+int Fl_using_wayland(void);
 
 #ifdef __cplusplus
 }

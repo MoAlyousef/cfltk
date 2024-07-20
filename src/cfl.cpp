@@ -857,7 +857,7 @@ void Fl_set_contrast_level(int level) {
     fl_contrast_level(level);
 }
 
-int Fl_contrast_level() {
+int Fl_contrast_level(void) {
     return fl_contrast_level();
 }
 
@@ -865,10 +865,22 @@ void Fl_set_contrast_mode(int mode) {
     fl_contrast_mode(mode);
 }
 
-int Fl_contrast_mode() {
+int Fl_contrast_mode(void) {
     return fl_contrast_mode();
 }
 
-void Fl_set_contrast_function(unsigned int (*f)(unsigned int, unsigned int, int, int)) {
+void Fl_set_contrast_function(
+    unsigned int (*f)(unsigned int, unsigned int, int, int)
+) {
     fl_contrast_function(f);
+}
+
+int Fl_using_wayland(void) {
+#if defined(FLTK_USE_WAYLAND)
+    return FLTK_USE_WAYLAND == 1 && fl_wl_display();
+#elif defined(FLTK_USE_X11)
+    return FLTK_USE_X11 == 1 && fl_x11_display();
+#elif
+    return false;
+#endif
 }
