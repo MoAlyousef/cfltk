@@ -293,15 +293,14 @@ Fl_Window *Fl_Window_new_wh(int width, int height, const char *title) {
 }
 
 Fl_Window *Fl_Window_find_by_handle(void *handle) {
-    LOCK(auto ret = fl_find(*(Window *)handle));
+    LOCK(auto ret = fl_find((Window)handle));
     return ret;
 }
 
 void *resolve_raw_handle(void *handle) {
     void *ret = handle;
 #if defined(FLTK_USE_WAYLAND)
-    auto h   = fl_wl_surface((wld_window *)(*(Window *)handle));
-    ret = h;
+    ret   = fl_wl_surface((struct wld_window *)((Window)handle));
 #endif
     return ret;
 }
