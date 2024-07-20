@@ -880,7 +880,7 @@ int Fl_using_wayland(void) {
     return FLTK_USE_WAYLAND == 1 && fl_wl_display();
 #elif defined(FLTK_USE_X11)
     return FLTK_USE_X11 == 1 && fl_x11_display();
-#elif
+#else
     return false;
 #endif
 }
