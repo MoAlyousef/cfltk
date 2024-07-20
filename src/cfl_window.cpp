@@ -300,7 +300,7 @@ Fl_Window *Fl_Window_find_by_handle(void *handle) {
 void *resolve_raw_handle(void *handle) {
     void *ret = handle;
 #if defined(FLTK_USE_WAYLAND)
-    ret   = fl_wl_surface((struct wld_window *)((Window)handle));
+    ret = fl_wl_surface((struct wld_window *)((Window)handle));
 #endif
     return ret;
 }
@@ -309,7 +309,10 @@ void *Fl_display(void) {
 #if defined(__APPLE__) || defined(__ANDROID__)
     return 0;
 #elif defined(FLTK_USE_WAYLAND)
-    return fl_wl_display();
+    if (fl_wl_display())
+        return fl_wl_display();
+    else
+        return fl_display;
 #else
     return fl_display;
 #endif
@@ -331,7 +334,7 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
         return;
 #if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) &&        \
     !defined(FLTK_USE_WAYLAND)
-    LOCK(Fl_X::set_xid(self, (Window )handle));
+    LOCK(Fl_X::set_xid(self, (Window)handle));
 #else
         // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window
         // *)handle; xp->xid = h;
