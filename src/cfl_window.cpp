@@ -69,19 +69,22 @@ struct Window_Derived : public Widget_Derived<Win> {
 #elif defined(__ANDROID__)
         // Do nothing
 #elif defined(FLTK_USE_X11)
-        auto cardinal_alpha =
-            (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
-        Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
-        XChangeProperty(
-            fl_display,
-            fl_xid(this),
-            atom,
-            XA_CARDINAL,
-            32,
-            PropModeReplace,
-            (unsigned char *)&cardinal_alpha,
-            1
-        );
+        if (fl_x11_display()) {
+            auto cardinal_alpha =
+                (uint32_t)((UINT32_MAX * (((float)alpha) / 255.0)));
+            Atom atom =
+                XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
+            XChangeProperty(
+                fl_display,
+                fl_xid(this),
+                atom,
+                XA_CARDINAL,
+                32,
+                PropModeReplace,
+                (unsigned char *)&cardinal_alpha,
+                1
+            );
+        }
 #elif defined(FLTK_USE_WAYLAND)
 #else
 #endif
@@ -300,7 +303,8 @@ Fl_Window *Fl_Window_find_by_handle(void *handle) {
 void *resolve_raw_handle(void *handle) {
     void *ret = handle;
 #if defined(FLTK_USE_WAYLAND)
-    ret = fl_wl_surface((struct wld_window *)((Window)handle));
+    if (fl_wl_display())
+        ret = fl_wl_surface((struct wld_window *)((Window)handle));
 #endif
     return ret;
 }
@@ -319,7 +323,12 @@ void *Fl_display(void) {
 }
 
 void *Fl_gc(void) {
-#if !defined(__ANDROID__) && !defined(FLTK_USE_WAYLAND)
+#if defined(FLTK_USE_WAYLAND)
+    if (fl_wl_display())
+        return fl_wl_gc();
+    else
+        return fl_x11_gc();
+#elif !defined(__ANDROID__)
     return fl_gc;
 #endif
     return nullptr;
@@ -332,9 +341,10 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
     if (!handle)
         return;
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) &&        \
-    !defined(FLTK_USE_WAYLAND)
-    LOCK(Fl_X::set_xid(self, (Window)handle));
+#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__)
+    if (fl_x11_display()) {
+        LOCK(Fl_X::set_xid(self, (Window)handle));
+    }
 #else
         // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window
         // *)handle; xp->xid = h;
@@ -448,17 +458,16 @@ extern "C" void cfltk_setOnTop(Window xid) {
     auto display                       = fl_display;
     auto root                          = DefaultRootWindow(display);
     Atom wmStateAbove = XInternAtom(display, "_NET_WM_STATE_ABOVE", 1);
-    if (wmStateAbove != None) {
-        printf("_NET_WM_STATE_ABOVE has atom of %ld\n", (long)wmStateAbove);
-    } else {
-        printf("ERROR: cannot find atom for _NET_WM_STATE_ABOVE !\n");
+    if (wmStateAbove == None) {
+        printf(
+            "ERROR: cannot find atom for _NET_WM_STATE_ABOVE, make sure your "
+            "window manager supports Extended Window Manager Hints (EWMH)!\n"
+        );
         return;
     }
 
     Atom wmNetWmState = XInternAtom(display, "_NET_WM_STATE", 1);
-    if (wmNetWmState != None) {
-        printf("_NET_WM_STATE has atom of %ld\n", (long)wmNetWmState);
-    } else {
+    if (wmNetWmState == None) {
         printf("ERROR: cannot find atom for _NET_WM_STATE !\n");
         return;
     }
