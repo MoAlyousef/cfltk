@@ -149,6 +149,14 @@
     int widget##_menu_box(const widget *self) {                                \
         LOCK(auto ret = self->menu_box());                                     \
         return ret;                                                            \
+    }                                                                          \
+    Fl_Menu_Item *widget##_mvalue(const widget *self) {                        \
+        LOCK(auto ret = self->mvalue());                                       \
+        return (Fl_Menu_Item *)ret;                                            \
+    }                                                                          \
+    Fl_Menu_Item *widget##_prev_mvalue(const widget *self) {                   \
+        LOCK(auto ret = self->prev_mvalue());                                  \
+        return (Fl_Menu_Item *)ret;                                            \
     }
 
 WIDGET_CLASS(Fl_Menu_Bar)
@@ -252,7 +260,11 @@ const Fl_Menu_Item *Fl_Menu_Item_pulldown(
     const Fl_Menu_Item *title,
     int menubar
 ) {
-    LOCK(auto ret = self->pulldown(X, Y, W, H, picked, (const Fl_Menu_ *)menu, title, menubar));
+    LOCK(
+        auto ret = self->pulldown(
+            X, Y, W, H, picked, (const Fl_Menu_ *)menu, title, menubar
+        )
+    );
     return ret;
 }
 
@@ -365,7 +377,8 @@ void Fl_Menu_Item_set_callback(Fl_Menu_Item *self, Fl_Callback *c, void *p) {
 }
 
 void Fl_Menu_Item_do_callback(Fl_Menu_Item *self, Fl_Widget *w) {
-    LOCK(if (self->callback() && ((Fl_Menu_*)w)->find_index(self) >= 0) self->do_callback(w));
+    LOCK(if (self->callback() && ((Fl_Menu_ *)w)->find_index(self) >= 0)
+             self->do_callback(w));
 }
 
 void *Fl_Menu_Item_user_data(const Fl_Menu_Item *self) {

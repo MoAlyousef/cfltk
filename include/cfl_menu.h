@@ -53,7 +53,9 @@ extern "C" {
         const Fl_Menu_Item *item                                               \
     );                                                                         \
     void widget##_set_menu_box(widget *self, int b);                           \
-    int widget##_menu_box(const widget *self);
+    int widget##_menu_box(const widget *self);                                 \
+    Fl_Menu_Item *widget##_mvalue(const widget *);                             \
+    Fl_Menu_Item *widget##_prev_mvalue(const widget *);
 
 typedef struct Fl_Menu_Item Fl_Menu_Item;
 
