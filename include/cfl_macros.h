@@ -321,7 +321,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
         return ret;                                                            \
     }                                                                          \
     int widget##_take_focus(widget *self) {                                    \
-        LOCK(auto ret = self->take_focus());                                   \
+        LOCK(auto ret = ((Fl_Widget *)self)->take_focus());                    \
         return ret;                                                            \
     }                                                                          \
     void widget##_set_visible_focus(widget *self) {                            \

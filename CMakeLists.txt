@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-set(CFLTK_PROJECT_VERSION 1.4.33)
+set(CFLTK_PROJECT_VERSION 1.4.34)
 
 project(
   cfltk
@@ -69,10 +69,15 @@ set(CFLTK_SRCS
     src/cfl_font.cpp
     src/cfl_utils.cpp
     src/cfl_prefs.cpp
-    src/Fl_Simple_Terminal.cxx)
+    src/Fl_Simple_Terminal.cxx
+    )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CFLTK_SRCS ${CFLTK_SRCS} src/cfl_nswindow.m)
+endif()
+
+if(UNIX AND NOT APPLE)
+  set(CFLTK_SRCS ${CFLTK_SRCS} src/cfl_platform.cpp)
 endif()
 
 if(NOT ANDROID)
