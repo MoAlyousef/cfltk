@@ -317,6 +317,8 @@ void *Fl_display(void) {
         return fl_wl_display();
     else
         return fl_display;
+#elif defined(__EMSCRIPTEN__)
+    return 0;
 #else
     return fl_display;
 #endif
@@ -328,7 +330,7 @@ void *Fl_gc(void) {
         return fl_wl_gc();
     else
         return fl_x11_gc();
-#elif !defined(__ANDROID__)
+#elif !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
     return fl_gc;
 #endif
     return nullptr;
@@ -341,7 +343,7 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
     if (!handle)
         return;
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__)
+#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
     if (fl_x11_display()) {
         LOCK(Fl_X::set_xid(self, (Window)handle));
     }

@@ -53,6 +53,8 @@ static void v_unload_private_font(const char *pf) {
 } // v_unload_private_font
 #elif __ANDROID__
 // Nothing!
+#elif __EMSCRIPTEN__
+// also nothing!
 #else /* Assume X11 with XFT/fontconfig - this will break on systems using     \
          legacy Xlib fonts */
 #include <fontconfig/fontconfig.h>
@@ -67,15 +69,17 @@ static void v_unload_private_font(const char *pf) {
 #endif
 
 int Fl_load_font(const char *path) {
-#ifndef __ANDROID__
-    return i_load_private_font(path);
-#else
+#if defined(__ANDROID__) || defined(__EMSCRIPTEN__)
     return 0;
+#else
+    return i_load_private_font(path);
 #endif
 }
 
 void Fl_unload_font(const char *path) {
-#ifndef __ANDROID__
+#if defined(__ANDROID__) || defined(__EMSCRIPTEN__)
+    // nothing
+#else
     v_unload_private_font(path);
 #endif
 }
