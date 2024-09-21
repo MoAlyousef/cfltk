@@ -158,6 +158,15 @@ WIDGET_CLASS(Fl_Scrollbar)
 
 WIDGET_DEFINE(Fl_Scrollbar)
 
+void Fl_Scrollbar_set_linesize(Fl_Scrollbar *self, int sz) {
+    LOCK(self->linesize(sz));
+}
+
+int Fl_Scrollbar_linesize(const Fl_Scrollbar *self) {
+    LOCK(auto ret = self->linesize());
+    return ret;
+}
+
 VALUATOR_DEFINE(Fl_Scrollbar)
 
 WIDGET_CLASS(Fl_Value_Slider)

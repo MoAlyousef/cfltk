@@ -66,6 +66,10 @@ VALUATOR_DECLARE(Fl_Roller)
 
 WIDGET_DECLARE(Fl_Scrollbar)
 
+void Fl_Scrollbar_set_linesize(Fl_Scrollbar *self, int sz);
+
+int Fl_Scrollbar_linesize(const Fl_Scrollbar *self);
+
 VALUATOR_DECLARE(Fl_Scrollbar)
 
 WIDGET_DECLARE(Fl_Value_Slider)
