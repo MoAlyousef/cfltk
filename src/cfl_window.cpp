@@ -305,6 +305,8 @@ void *resolve_raw_handle(void *handle) {
 #if defined(FLTK_USE_WAYLAND)
     if (fl_wl_display())
         ret = fl_wl_surface((struct wld_window *)((Window)handle));
+#elif defined(__EMSCRIPTEN__)
+    ret = fl_em_find((Window)ret);
 #endif
     return ret;
 }
