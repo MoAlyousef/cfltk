@@ -104,6 +104,11 @@ void Fl_Slider_set_slider_box(Fl_Slider *self, int c) {
     LOCK(self->slider((Fl_Boxtype)c));
 }
 
+int Fl_Slider_scroll_value(Fl_Slider *self, int pos, int windowSize, int first_line, int total_lines) {
+    LOCK(auto ret = self->scrollvalue(pos, windowSize, first_line, total_lines));
+    return ret;
+}
+
 VALUATOR_DEFINE(Fl_Slider)
 
 WIDGET_CLASS(Fl_Nice_Slider)
@@ -164,6 +169,11 @@ void Fl_Scrollbar_set_linesize(Fl_Scrollbar *self, int sz) {
 
 int Fl_Scrollbar_linesize(const Fl_Scrollbar *self) {
     LOCK(auto ret = self->linesize());
+    return ret;
+}
+
+int Fl_Scrollbar_scroll_value(Fl_Scrollbar *self, int pos, int windowSize, int first_line, int total_lines) {
+    LOCK(auto ret = self->value(pos, windowSize, first_line, total_lines));
     return ret;
 }
 
