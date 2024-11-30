@@ -31,9 +31,8 @@ $ cd cfltk/fltk
 ```
 or by cloning the repo:
 ```
-$ git clone https://github.com/moalyousef/cfltk
+$ git clone https://github.com/moalyousef/cfltk --recurse-submodules
 $ cd cfltk
-$ git submodule update --init --recursive
 ```
 
 You can build your project using cmake on the command line or gui:
