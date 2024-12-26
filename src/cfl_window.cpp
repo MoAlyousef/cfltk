@@ -338,6 +338,13 @@ void *Fl_gc(void) {
     return nullptr;
 }
 
+void *Fl_cairo_gc(void) {
+#if FLTK_USE_CAIRO
+    return fl_cairo_gc();
+#endif
+    return NULL;
+}
+
 void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
     LOCK(w->show(argc, argv));
 }
