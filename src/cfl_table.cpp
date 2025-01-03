@@ -323,3 +323,7 @@ int Fl_Table_Row_select_row(Fl_Table_Row *self, int row, int flag) {
 void Fl_Table_Row_select_all_rows(Fl_Table_Row *self, int flag) {
     LOCK(self->select_all_rows(flag));
 }
+
+void Fl_Table_Row_clear_rows(Fl_Table_Row *self) {
+    LOCK(self->clear());
+}
