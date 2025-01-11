@@ -107,13 +107,13 @@ else()
   add_library(cfltk STATIC ${CFLTK_SRCS})
 endif()
 
-if(CFLTK_CARGO_BUILD AND (UNIX OR MSYS OR MINGW))
-  add_custom_command(
-    TARGET cfltk
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_INSTALL_PREFIX}/bin/fltk-config
-            "${CMAKE_INSTALL_PREFIX}/../../../../fltk-config")
-endif()
+# if(CFLTK_CARGO_BUILD AND (UNIX OR MSYS OR MINGW))
+#   add_custom_command(
+#     TARGET cfltk
+#     POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_INSTALL_PREFIX}/bin/fltk-config
+#             "${CMAKE_INSTALL_PREFIX}/../../../../fltk-config")
+# endif()
 
 target_compile_features(cfltk PRIVATE cxx_std_17)
 
