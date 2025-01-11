@@ -111,7 +111,7 @@ if(CFLTK_CARGO_BUILD AND (UNIX OR MSYS OR MINGW))
   add_custom_command(
     TARGET cfltk
     POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_PREFIX}/bin/fltk-config
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_INSTALL_PREFIX}/bin/fltk-config
             "${CMAKE_INSTALL_PREFIX}/../../../../fltk-config")
 endif()
 
