@@ -795,3 +795,11 @@ void Fl_rounded_rect(int x, int y, int w, int h, int r) {
 void Fl_rounded_rectf(int x, int y, int w, int h, int r) {
     fl_rounded_rectf(x, y, w, h, r);
 }
+
+float Fl_override_scale(void) {
+    return fl_override_scale();
+}
+
+void Fl_restore_scale(float s) {
+    fl_restore_scale(s);
+}

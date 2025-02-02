@@ -285,6 +285,10 @@ void Fl_rounded_rect(int x, int y, int w, int h, int r);
 
 void Fl_rounded_rectf(int x, int y, int w, int h, int r);
 
+float Fl_override_scale(void);
+
+void Fl_restore_scale(float s);
+
 #ifdef __cplusplus
 }
 #endif
