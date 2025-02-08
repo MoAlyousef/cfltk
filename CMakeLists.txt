@@ -117,6 +117,8 @@ endif()
 
 target_compile_features(cfltk PRIVATE cxx_std_17)
 
+get_target_property(FLTK_INCLUDES fltk::fltk INCLUDE_DIRECTORIES)
+
 if(USE_SYSTEM_FLTK)
   target_include_directories(
     cfltk
@@ -124,6 +126,7 @@ if(USE_SYSTEM_FLTK)
       $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
       $<INSTALL_INTERFACE:include/cfltk>
       ${FLTK_INCLUDE_DIRS}
+      ${FLTK_INCLUDES}
     )
 else()
   target_include_directories(
@@ -134,6 +137,7 @@ else()
     PRIVATE
       ${CMAKE_CURRENT_SOURCE_DIR}/fltk
       ${CMAKE_CURRENT_BINARY_DIR}/fltk
+      ${FLTK_INCLUDES}
     )
 endif()
 
