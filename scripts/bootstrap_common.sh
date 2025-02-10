@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e  # Exit immediately on error
+set -e
 
 # Detect environment
 if [ -n "$MSYSTEM" ]; then
@@ -51,7 +51,7 @@ elif [[ "$(uname -s)" == "Darwin" ]]; then
     -DFLTK_BUILD_FLTK_OPTIONS=OFF
 
   cmake --build bin --parallel
-  sudo cmake --install bin
+  cmake --install bin
 
 else
   #################################
@@ -79,6 +79,5 @@ else
     -DFLTK_BACKEND_WAYLAND=OFF
 
   cmake --build bin --parallel
-  # On most Linux/BSD systems, 'sudo' is typically available. If you prefer 'doas' on BSD, you can adjust here.
-  sudo cmake --install bin
+  cmake --install bin
 fi
