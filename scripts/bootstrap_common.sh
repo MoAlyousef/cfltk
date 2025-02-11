@@ -75,8 +75,7 @@ else
     -DFLTK_GRAPHICS_CAIRO=ON \
     -DFLTK_USE_LIBDECOR_GTK=OFF \
     -DFLTK_BUILD_FLUID=OFF \
-    -DFLTK_BUILD_FLTK_OPTIONS=OFF \
-    -DFLTK_BACKEND_WAYLAND=OFF
+    -DFLTK_BUILD_FLTK_OPTIONS=OFF 
 
   cmake --build bin --parallel
   cmake --install bin

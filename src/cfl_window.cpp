@@ -328,9 +328,8 @@ void *Fl_display(void) {
 
 void *Fl_gc(void) {
 #if defined(FLTK_USE_WAYLAND)
-    if (fl_wl_display())
         return fl_wl_gc();
-    else
+#elif defined(FLTK_USE_X11)
         return fl_x11_gc();
 #elif !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
     return fl_gc;
