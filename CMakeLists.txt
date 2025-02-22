@@ -117,7 +117,10 @@ endif()
 
 target_compile_features(cfltk PRIVATE cxx_std_17)
 
-get_target_property(FLTK_INCLUDES fltk::fltk INCLUDE_DIRECTORIES)
+set(FLTK_INCLUDES)
+if (NOT EMSCRIPTEN)
+  get_target_property(FLTK_INCLUDES fltk::fltk INCLUDE_DIRECTORIES)
+endif()
 
 if(USE_SYSTEM_FLTK)
   target_include_directories(
