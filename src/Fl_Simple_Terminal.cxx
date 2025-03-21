@@ -1046,7 +1046,8 @@ void Fl_Simple_Terminal::draw() {
 #define RIGHT_MARGIN 3
   int buflen = buf->length();
   // Force cursor to EOF so it doesn't draw at user's last left-click
-  insert_position(buflen);
+  if (stay_at_bottom_)
+    insert_position(buflen);
   // Let widget draw itself
   Fl_Text_Display::draw();
   // Now draw cursor at the end of the buffer
