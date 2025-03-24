@@ -13,11 +13,6 @@ struct is_same<T, T> {
     constexpr static inline bool value = true;
 };
 
-struct Deleter {
-    void (*deleter)(void *d);
-    void *d[4];
-};
-
 template <typename T>
 struct Widget_Derived : public T {
     Widget_Derived(const Widget_Derived &)                 = delete;
@@ -36,12 +31,10 @@ struct Widget_Derived : public T {
     handler inner_handler  = nullptr;
     using drawer           = void (*)(Fl_Widget *, void *);
     drawer inner_drawer    = nullptr;
-    using deleter_fp       = void (*)(void *);
-    deleter_fp deleter     = nullptr;
     using resizer          = void (*)(Fl_Widget *, int, int, int, int, void *);
     resizer resize_handler = nullptr;
-    using deleter_fp2      = void (*)(Fl_Widget *, void *);
-    deleter_fp2 deleter2   = nullptr;
+    using deleter_fp      = void (*)(Fl_Widget *, void *);
+    deleter_fp deleter   = nullptr;
 
     Widget_Derived(int x, int y, int w, int h, const char *title = nullptr)
         : T(x, y, w, h, title) {
@@ -77,12 +70,11 @@ struct Widget_Derived : public T {
     int handle(int event) override {
         if (super_handle_first) {
             // Both handlers always executed, T::handle executes first
-            int ret = T::handle(event);
             if (inner_handler) {
                 int local = inner_handler(this, event, ev_data_);
-                return ret | local;
+                return T::handle(event) | local;
             } else {
-                return ret;
+                return T::handle(event);
             }
         } else {
             // inner_handler executes first. T::handle only executes if
@@ -110,25 +102,8 @@ struct Widget_Derived : public T {
     }
 
     ~Widget_Derived() {
-        if (deleter2 && deleter_data_) {
-            deleter2(this, deleter_data_);
-        } else if (deleter) {
-            resize_handler = nullptr;
-            inner_handler  = nullptr;
-            if (ev_data_)
-                deleter(ev_data_);
-            ev_data_ = nullptr;
-            if (resize_data_)
-                deleter(resize_data_);
-            resize_data_ = nullptr;
-            if (draw_data_)
-                deleter(draw_data_);
-            draw_data_   = nullptr;
-            inner_drawer = nullptr;
-            if (this->user_data())
-                deleter(this->user_data());
-            this->user_data(nullptr);
-            this->callback((void (*)(Fl_Widget *, void *)) nullptr);
+        if (deleter) {
+            deleter(this, deleter_data_);
         }
     }
 };

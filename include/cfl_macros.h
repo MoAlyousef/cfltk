@@ -98,7 +98,6 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_deimage(widget *, void *);                               \
     const void *widget##_deimage(const widget *);                              \
     void widget##_set_callback(widget *, Fl_Callback *, void *);               \
-    void widget##_set_deleter(widget *, void (*)(void *));                     \
     int widget##_visible(const widget *self);                                  \
     int widget##_visible_r(const widget *self);                                \
     unsigned int widget##_active(const widget *self);                          \
@@ -388,9 +387,6 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_callback(widget *self, Fl_Callback *cb, void *data) {    \
         LOCK(self->callback(cb, data));                                        \
     }                                                                          \
-    void widget##_set_deleter(widget *self, void (*deleter)(void *)) {         \
-        LOCK(((widget##_Derived *)self)->deleter = deleter;)                   \
-    }                                                                          \
     int widget##_visible(const widget *self) {                                 \
         LOCK(auto ret = ((Fl_Widget *)self)->visible());                       \
         return ret;                                                            \
@@ -414,7 +410,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_deletion_callback(                                       \
         widget *self, void (*cb)(Fl_Widget *, void *), void *data              \
     ) {                                                                        \
-        LOCK(((widget##_Derived *)self)->deleter2      = cb;                   \
+        LOCK(((widget##_Derived *)self)->deleter      = cb;                    \
              ((widget##_Derived *)self)->deleter_data_ = data);                \
     }                                                                          \
     widget *widget##_from_dyn_ptr(Fl_Widget *ptr) {                            \
