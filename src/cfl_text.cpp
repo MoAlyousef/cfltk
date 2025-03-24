@@ -2,7 +2,6 @@
 #include "cfl_lock.h"
 #include "cfl_widget.hpp"
 
-#include "Fl_Simple_Terminal.H"
 #include <FL/Fl.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Text_Buffer.H>
@@ -758,94 +757,6 @@ void Fl_Text_Editor_remove_key_binding(
 ) {
     LOCK(self->remove_key_binding(key, state));
 }
-
-WIDGET_CLASS(Fl_Simple_Terminal)
-
-WIDGET_DEFINE(Fl_Simple_Terminal)
-
-void Fl_Simple_Terminal_init(Fl_Simple_Terminal *self) {
-    LOCK(auto *buff = new Fl_Text_Buffer(); self->buffer(buff));
-}
-
-Fl_Text_Buffer *Fl_Simple_Terminal_get_buffer(Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->buffer());
-    return ret;
-}
-
-void Fl_Simple_Terminal_set_buffer(
-    Fl_Simple_Terminal *self, Fl_Text_Buffer *buf
-) {
-    LOCK(self->buffer(buf));
-}
-
-Fl_Text_Buffer *Fl_Simple_Terminal_get_style_buffer(Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->style_buffer());
-    return ret;
-}
-
-void Fl_Simple_Terminal_set_stay_at_bottom(Fl_Simple_Terminal *self, int flag) {
-    LOCK(self->stay_at_bottom(flag));
-}
-
-int Fl_Simple_Terminal_stay_at_bottom(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->stay_at_bottom());
-    return ret;
-}
-
-void Fl_Simple_Terminal_set_history_lines(Fl_Simple_Terminal *self, int cnt) {
-    LOCK(self->history_lines(cnt));
-}
-
-int Fl_Simple_Terminal_history_lines(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->history_lines());
-    return ret;
-}
-
-void Fl_Simple_Terminal_set_ansi(Fl_Simple_Terminal *self, int val) {
-    LOCK(self->ansi(val));
-}
-
-int Fl_Simple_Terminal_ansi(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->ansi());
-    return ret;
-}
-
-void Fl_Simple_Terminal_append(Fl_Simple_Terminal *self, const char *s) {
-    LOCK(self->append(s));
-}
-
-void Fl_Simple_Terminal_append2(
-    Fl_Simple_Terminal *self, const char *s, int len
-) {
-    LOCK(self->append(s, len));
-}
-
-void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s) {
-    LOCK(self->text(s));
-}
-
-void Fl_Simple_Terminal_set_text2(
-    Fl_Simple_Terminal *self, const char *s, int len
-) {
-    LOCK(self->text(s, len));
-}
-
-const char *Fl_Simple_Terminal_text(const Fl_Simple_Terminal *self) {
-    LOCK(auto ret = self->text());
-    return ret;
-}
-
-void Fl_Simple_Terminal_clear(Fl_Simple_Terminal *self) {
-    LOCK(self->clear());
-}
-
-void Fl_Simple_Terminal_remove_lines(
-    Fl_Simple_Terminal *self, int start, int count
-) {
-    LOCK(self->remove_lines(start, count));
-}
-
-DISPLAY_DEFINE(Fl_Simple_Terminal)
 
 void Fl_delete_stable(void *stable) {
     delete[] (Fl_Text_Display::Style_Table_Entry *)stable;
