@@ -429,10 +429,10 @@ struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
     }
 
     ~Fl_Overlay_Window_Derived() {
-        if (overlay_draw_data_)
-            deleter(overlay_draw_data_);
-        overlay_draw_data_   = nullptr;
-        inner_overlay_drawer = nullptr;
+        // if (overlay_draw_data_)
+        //     deleter(overlay_draw_data_);
+        // overlay_draw_data_   = nullptr;
+        // inner_overlay_drawer = nullptr;
     }
 };
 
