@@ -314,199 +314,192 @@ void *resolve_raw_handle(void *handle) {
 void *Fl_display(void) {
 #if defined(__APPLE__) || defined(__ANDROID__)
     return 0;
-#elif defined(FLTK_USE_WAYLAND)
-    if (fl_wl_display())
+#elif defined(FLTK_USE_WAYLAND) && defined(FLTK_USE_X11)
+    if (fl_wl_display()) {
         return fl_wl_display();
-    else
-        return fl_display;
+    } else {
+        return fl_x11_display();
+    }
+#elif defined(FLTK_USE_WAYLAND) && !defined(FLTK_USE_X11)
+    return fl_wl_display();
+#elif defined(FLTK_USE_X11)
+    return fl_x11_display();
 #elif defined(__EMSCRIPTEN__)
-    return 0;
+        return 0;
 #else
-    return fl_display;
+        return fl_display;
 #endif
-}
+    }
 
-void *Fl_gc(void) {
+    void *Fl_gc(void) {
 #if defined(FLTK_USE_WAYLAND)
         return fl_wl_gc();
 #elif defined(FLTK_USE_X11)
-        return fl_x11_gc();
+    return fl_x11_gc();
 #elif !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
-    return fl_gc;
+        return fl_gc;
 #endif
-    return nullptr;
-}
+        return nullptr;
+    }
 
-void *Fl_cairo_gc(void) {
-#if FLTK_USE_CAIRO
-    return fl_cairo_gc();
+    void *Fl_cairo_gc(void) {
+#if defined(FLTK_USE_WAYLAND)
+        return fl_wl_gc();
+#elif defined(FLTK_USE_X11) && defined(FLTK_USE_CAIRO)
+        return fl_cairo_gc();
 #endif
-    return NULL;
-}
-
-void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
-    LOCK(w->show(argc, argv));
-}
-
-void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
-    if (!handle)
-        return;
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
-    if (fl_x11_display()) {
-        LOCK(Fl_X::set_xid(self, (Window)handle));
-    }
-#else
-        // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window
-        // *)handle; xp->xid = h;
-        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i =
-        //      Fl_X::flx(self); if (!i) return; i = xp; Fl_X::first = xp;)
-#endif
-}
-
-WINDOW_CLASS(Fl_Single_Window)
-
-WIDGET_DEFINE(Fl_Single_Window)
-
-GROUP_DEFINE(Fl_Single_Window)
-
-WINDOW_DEFINE(Fl_Single_Window)
-
-WINDOW_CLASS(Fl_Double_Window)
-
-WIDGET_DEFINE(Fl_Double_Window)
-
-void Fl_Double_Window_flush(Fl_Double_Window *w) {
-    LOCK(w->flush());
-}
-
-GROUP_DEFINE(Fl_Double_Window)
-
-WINDOW_DEFINE(Fl_Double_Window)
-
-WINDOW_CLASS(Fl_Menu_Window);
-
-WIDGET_DEFINE(Fl_Menu_Window)
-
-GROUP_DEFINE(Fl_Menu_Window)
-
-WINDOW_DEFINE(Fl_Menu_Window)
-
-struct Fl_Overlay_Window_Derived : public Window_Derived<Fl_Overlay_Window> {
-    Fl_Overlay_Window_Derived(const Fl_Overlay_Window_Derived &) = delete;
-    Fl_Overlay_Window_Derived(Fl_Overlay_Window_Derived &&)      = delete;
-    Fl_Overlay_Window_Derived &operator=(const Fl_Overlay_Window_Derived &other
-    )                                                            = delete;
-    Fl_Overlay_Window_Derived &operator=(Fl_Overlay_Window_Derived &&other
-    )                                                            = delete;
-    void *overlay_draw_data_                                     = nullptr;
-
-    typedef void (*drawer)(Fl_Widget *, void *data);
-    drawer inner_overlay_drawer = nullptr;
-
-    Fl_Overlay_Window_Derived(
-        int x, int y, int w, int h, const char *title = nullptr
-    )
-        : Window_Derived<Fl_Overlay_Window>(x, y, w, h, title) {
+        return NULL;
     }
 
-    operator Fl_Overlay_Window *() {
-        return (Fl_Overlay_Window *)this;
+    void Fl_Window_show_with_args(Fl_Window * w, int argc, char **argv) {
+        LOCK(w->show(argc, argv));
     }
 
-    void set_overlay_drawer(drawer h) {
-        inner_overlay_drawer = h;
+    WINDOW_CLASS(Fl_Single_Window)
+
+    WIDGET_DEFINE(Fl_Single_Window)
+
+    GROUP_DEFINE(Fl_Single_Window)
+
+    WINDOW_DEFINE(Fl_Single_Window)
+
+    WINDOW_CLASS(Fl_Double_Window)
+
+    WIDGET_DEFINE(Fl_Double_Window)
+
+    void Fl_Double_Window_flush(Fl_Double_Window * w) {
+        LOCK(w->flush());
     }
 
-    void set_overlay_drawer_data(void *data) {
-        overlay_draw_data_ = data;
-    }
+    GROUP_DEFINE(Fl_Double_Window)
 
-    void draw_overlay() override {
-        if (inner_overlay_drawer)
-            inner_overlay_drawer(this, overlay_draw_data_);
-        else {
+    WINDOW_DEFINE(Fl_Double_Window)
+
+    WINDOW_CLASS(Fl_Menu_Window);
+
+    WIDGET_DEFINE(Fl_Menu_Window)
+
+    GROUP_DEFINE(Fl_Menu_Window)
+
+    WINDOW_DEFINE(Fl_Menu_Window)
+
+    struct Fl_Overlay_Window_Derived
+        : public Window_Derived<Fl_Overlay_Window> {
+        Fl_Overlay_Window_Derived(const Fl_Overlay_Window_Derived &) = delete;
+        Fl_Overlay_Window_Derived(Fl_Overlay_Window_Derived &&)      = delete;
+        Fl_Overlay_Window_Derived &
+        operator=(const Fl_Overlay_Window_Derived &other) = delete;
+        Fl_Overlay_Window_Derived &operator=(Fl_Overlay_Window_Derived &&other
+        )                                                 = delete;
+        void *overlay_draw_data_                          = nullptr;
+
+        typedef void (*drawer)(Fl_Widget *, void *data);
+        drawer inner_overlay_drawer = nullptr;
+
+        Fl_Overlay_Window_Derived(
+            int x, int y, int w, int h, const char *title = nullptr
+        )
+            : Window_Derived<Fl_Overlay_Window>(x, y, w, h, title) {
         }
+
+        operator Fl_Overlay_Window *() {
+            return (Fl_Overlay_Window *)this;
+        }
+
+        void set_overlay_drawer(drawer h) {
+            inner_overlay_drawer = h;
+        }
+
+        void set_overlay_drawer_data(void *data) {
+            overlay_draw_data_ = data;
+        }
+
+        void draw_overlay() override {
+            if (inner_overlay_drawer)
+                inner_overlay_drawer(this, overlay_draw_data_);
+            else {
+            }
+        }
+
+        ~Fl_Overlay_Window_Derived() {
+            // if (overlay_draw_data_)
+            //     deleter(overlay_draw_data_);
+            // overlay_draw_data_   = nullptr;
+            // inner_overlay_drawer = nullptr;
+        }
+    };
+
+    WIDGET_DEFINE(Fl_Overlay_Window)
+
+    GROUP_DEFINE(Fl_Overlay_Window)
+
+    void Fl_Overlay_Window_draw_overlay(
+        Fl_Overlay_Window * self, custom_draw_callback cb, void *data
+    ) {
+        LOCK(((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_   = data;
+             ((Fl_Overlay_Window_Derived *)self)->inner_overlay_drawer = cb);
     }
 
-    ~Fl_Overlay_Window_Derived() {
-        // if (overlay_draw_data_)
-        //     deleter(overlay_draw_data_);
-        // overlay_draw_data_   = nullptr;
-        // inner_overlay_drawer = nullptr;
+    void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window * self) {
+        LOCK(self->redraw_overlay());
     }
-};
 
-WIDGET_DEFINE(Fl_Overlay_Window)
+    int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window * self) {
+        LOCK(auto ret = self->can_do_overlay());
+        return ret;
+    }
 
-GROUP_DEFINE(Fl_Overlay_Window)
-
-void Fl_Overlay_Window_draw_overlay(
-    Fl_Overlay_Window *self, custom_draw_callback cb, void *data
-) {
-    LOCK(((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_   = data;
-         ((Fl_Overlay_Window_Derived *)self)->inner_overlay_drawer = cb);
-}
-
-void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self) {
-    LOCK(self->redraw_overlay());
-}
-
-int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window *self) {
-    LOCK(auto ret = self->can_do_overlay());
-    return ret;
-}
-
-WINDOW_DEFINE(Fl_Overlay_Window)
+    WINDOW_DEFINE(Fl_Overlay_Window)
 
 #ifdef FLTK_USE_X11
-// use the answer from https://stackoverflow.com/a/16235920/9698906
-extern "C" void cfltk_setOnTop(Window xid) {
-    constexpr int _NET_WM_STATE_REMOVE = 0; // remove/unset property
-    constexpr int _NET_WM_STATE_ADD    = 1; // add/set property
-    constexpr int _NET_WM_STATE_TOGGLE = 2; // toggle property
-    auto mywin                         = xid;
-    auto display                       = fl_display;
-    auto root                          = DefaultRootWindow(display);
-    Atom wmStateAbove = XInternAtom(display, "_NET_WM_STATE_ABOVE", 1);
-    if (wmStateAbove == None) {
-        printf(
-            "ERROR: cannot find atom for _NET_WM_STATE_ABOVE, make sure your "
-            "window manager supports Extended Window Manager Hints (EWMH)!\n"
-        );
+    // use the answer from https://stackoverflow.com/a/16235920/9698906
+    extern "C" void cfltk_setOnTop(Window xid) {
+        constexpr int _NET_WM_STATE_REMOVE = 0; // remove/unset property
+        constexpr int _NET_WM_STATE_ADD    = 1; // add/set property
+        constexpr int _NET_WM_STATE_TOGGLE = 2; // toggle property
+        auto mywin                         = xid;
+        auto display                       = fl_display;
+        auto root                          = DefaultRootWindow(display);
+        Atom wmStateAbove = XInternAtom(display, "_NET_WM_STATE_ABOVE", 1);
+        if (wmStateAbove == None) {
+            printf("ERROR: cannot find atom for _NET_WM_STATE_ABOVE, make sure "
+                   "your "
+                   "window manager supports Extended Window Manager Hints "
+                   "(EWMH)!\n");
+            return;
+        }
+
+        Atom wmNetWmState = XInternAtom(display, "_NET_WM_STATE", 1);
+        if (wmNetWmState == None) {
+            printf("ERROR: cannot find atom for _NET_WM_STATE !\n");
+            return;
+        }
+
+        if (wmStateAbove != None) {
+            XClientMessageEvent xclient;
+            memset(&xclient, 0, sizeof(xclient));
+            xclient.type         = ClientMessage;
+            xclient.window       = mywin;
+            xclient.message_type = wmNetWmState;
+            xclient.format       = 32;
+            xclient.data.l[0]    = _NET_WM_STATE_ADD;
+            xclient.data.l[1]    = wmStateAbove;
+            xclient.data.l[2]    = 0;
+            xclient.data.l[3]    = 0;
+            xclient.data.l[4]    = 0;
+            XSendEvent(
+                display,
+                root,
+                False,
+                SubstructureRedirectMask | SubstructureNotifyMask,
+                (XEvent *)&xclient
+            );
+
+            XFlush(display);
+            return;
+        }
         return;
     }
-
-    Atom wmNetWmState = XInternAtom(display, "_NET_WM_STATE", 1);
-    if (wmNetWmState == None) {
-        printf("ERROR: cannot find atom for _NET_WM_STATE !\n");
-        return;
-    }
-
-    if (wmStateAbove != None) {
-        XClientMessageEvent xclient;
-        memset(&xclient, 0, sizeof(xclient));
-        xclient.type         = ClientMessage;
-        xclient.window       = mywin;
-        xclient.message_type = wmNetWmState;
-        xclient.format       = 32;
-        xclient.data.l[0]    = _NET_WM_STATE_ADD;
-        xclient.data.l[1]    = wmStateAbove;
-        xclient.data.l[2]    = 0;
-        xclient.data.l[3]    = 0;
-        xclient.data.l[4]    = 0;
-        XSendEvent(
-            display,
-            root,
-            False,
-            SubstructureRedirectMask | SubstructureNotifyMask,
-            (XEvent *)&xclient
-        );
-
-        XFlush(display);
-        return;
-    }
-    return;
-}
 #endif
 
 #ifdef CFLTK_USE_GL
@@ -514,228 +507,232 @@ extern "C" void cfltk_setOnTop(Window xid) {
 #include <FL/Fl_Gl_Window.H>
 #include <FL/glut.H>
 
-void Fl_gl_start(void) {
-    gl_start();
-}
+    void Fl_gl_start(void) {
+        gl_start();
+    }
 
-void Fl_gl_finish(void) {
-    gl_finish();
-}
+    void Fl_gl_finish(void) {
+        gl_finish();
+    }
 
-WINDOW_CLASS(Fl_Gl_Window)
+    WINDOW_CLASS(Fl_Gl_Window)
 
-WIDGET_DEFINE(Fl_Gl_Window)
+    WIDGET_DEFINE(Fl_Gl_Window)
 
-GROUP_DEFINE(Fl_Gl_Window)
+    GROUP_DEFINE(Fl_Gl_Window)
 
-WINDOW_DEFINE(Fl_Gl_Window)
+    WINDOW_DEFINE(Fl_Gl_Window)
 
-void Fl_Gl_Window_flush(Fl_Gl_Window *self) {
-    LOCK(self->flush());
-}
+    void Fl_Gl_Window_flush(Fl_Gl_Window * self) {
+        LOCK(self->flush());
+    }
 
-char Fl_Gl_Window_valid(const Fl_Gl_Window *self) {
-    LOCK(auto ret = self->valid());
-    return ret;
-}
+    char Fl_Gl_Window_valid(const Fl_Gl_Window *self) {
+        LOCK(auto ret = self->valid());
+        return ret;
+    }
 
-void Fl_Gl_Window_set_valid(Fl_Gl_Window *self, char v) {
-    LOCK(self->valid(v));
-}
+    void Fl_Gl_Window_set_valid(Fl_Gl_Window * self, char v) {
+        LOCK(self->valid(v));
+    }
 
-char Fl_Gl_Window_context_valid(const Fl_Gl_Window *self) {
-    LOCK(auto ret = self->context_valid());
-    return ret;
-}
+    char Fl_Gl_Window_context_valid(const Fl_Gl_Window *self) {
+        LOCK(auto ret = self->context_valid());
+        return ret;
+    }
 
-void Fl_Gl_Window_set_context_valid(Fl_Gl_Window *self, char v) {
-    LOCK(self->context_valid(v));
-}
+    void Fl_Gl_Window_set_context_valid(Fl_Gl_Window * self, char v) {
+        LOCK(self->context_valid(v));
+    }
 
-int Fl_Gl_Window_can_do(Fl_Gl_Window *self) {
-    LOCK(auto ret = self->can_do());
-    return ret;
-}
+    int Fl_Gl_Window_can_do(Fl_Gl_Window * self) {
+        LOCK(auto ret = self->can_do());
+        return ret;
+    }
 
-void *Fl_Gl_Window_context(const Fl_Gl_Window *self) {
-    LOCK(auto ret = self->context());
-    return ret;
-}
+    void *Fl_Gl_Window_context(const Fl_Gl_Window *self) {
+        LOCK(auto ret = self->context());
+        return ret;
+    }
 
-void Fl_Gl_Window_set_context(Fl_Gl_Window *self, void *ctx, int destroy_flag) {
-    LOCK(self->context((GLContext)ctx, destroy_flag));
-}
+    void Fl_Gl_Window_set_context(
+        Fl_Gl_Window * self, void *ctx, int destroy_flag
+    ) {
+        LOCK(self->context((GLContext)ctx, destroy_flag));
+    }
 
-void Fl_Gl_Window_swap_buffers(Fl_Gl_Window *self) {
-    LOCK(self->swap_buffers());
-}
+    void Fl_Gl_Window_swap_buffers(Fl_Gl_Window * self) {
+        LOCK(self->swap_buffers());
+    }
 
-void Fl_Gl_Window_set_swap_interval(Fl_Gl_Window *self, int frames) {
-    LOCK(self->swap_interval(frames));
-}
+    void Fl_Gl_Window_set_swap_interval(Fl_Gl_Window * self, int frames) {
+        LOCK(self->swap_interval(frames));
+    }
 
-int Fl_Gl_Window_swap_interval(const Fl_Gl_Window *self) {
-    LOCK(auto ret = self->swap_interval());
-    return ret;
-}
+    int Fl_Gl_Window_swap_interval(const Fl_Gl_Window *self) {
+        LOCK(auto ret = self->swap_interval());
+        return ret;
+    }
 
-void Fl_Gl_Window_ortho(Fl_Gl_Window *self) {
-    LOCK(self->ortho());
-}
+    void Fl_Gl_Window_ortho(Fl_Gl_Window * self) {
+        LOCK(self->ortho());
+    }
 
-int Fl_Gl_Window_can_do_overlay(Fl_Gl_Window *self) {
-    LOCK(auto ret = self->can_do_overlay());
-    return ret;
-}
+    int Fl_Gl_Window_can_do_overlay(Fl_Gl_Window * self) {
+        LOCK(auto ret = self->can_do_overlay());
+        return ret;
+    }
 
-void Fl_Gl_Window_redraw_overlay(Fl_Gl_Window *self) {
-    LOCK(self->redraw_overlay());
-}
+    void Fl_Gl_Window_redraw_overlay(Fl_Gl_Window * self) {
+        LOCK(self->redraw_overlay());
+    }
 
-void Fl_Gl_Window_hide_overlay(Fl_Gl_Window *self) {
-    LOCK(self->hide_overlay());
-}
+    void Fl_Gl_Window_hide_overlay(Fl_Gl_Window * self) {
+        LOCK(self->hide_overlay());
+    }
 
-void Fl_Gl_Window_make_overlay_current(Fl_Gl_Window *self) {
-    LOCK(self->make_overlay_current());
-}
+    void Fl_Gl_Window_make_overlay_current(Fl_Gl_Window * self) {
+        LOCK(self->make_overlay_current());
+    }
 
-float Fl_Gl_Window_pixels_per_unit(Fl_Gl_Window *self) {
-    LOCK(auto ret = self->pixels_per_unit());
-    return ret;
-}
+    float Fl_Gl_Window_pixels_per_unit(Fl_Gl_Window * self) {
+        LOCK(auto ret = self->pixels_per_unit());
+        return ret;
+    }
 
-int Fl_Gl_Window_pixel_w(Fl_Gl_Window *self) {
-    LOCK(auto ret = self->pixel_w());
-    return ret;
-}
+    int Fl_Gl_Window_pixel_w(Fl_Gl_Window * self) {
+        LOCK(auto ret = self->pixel_w());
+        return ret;
+    }
 
-int Fl_Gl_Window_pixel_h(Fl_Gl_Window *self) {
-    LOCK(auto ret = self->pixel_h());
-    return ret;
-}
+    int Fl_Gl_Window_pixel_h(Fl_Gl_Window * self) {
+        LOCK(auto ret = self->pixel_h());
+        return ret;
+    }
 
-int Fl_Gl_Window_mode(const Fl_Gl_Window *self) {
-    LOCK(auto ret = self->mode());
-    return ret;
-}
+    int Fl_Gl_Window_mode(const Fl_Gl_Window *self) {
+        LOCK(auto ret = self->mode());
+        return ret;
+    }
 
-void Fl_Gl_Window_set_mode(Fl_Gl_Window *self, int mode) {
-    LOCK(self->mode(mode));
-}
+    void Fl_Gl_Window_set_mode(Fl_Gl_Window * self, int mode) {
+        LOCK(self->mode(mode));
+    }
 
-void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window *self, const char *s) {
-    LOCK(auto ret = (void *)glutGetProcAddress(s));
-    return ret;
-}
+    void *Fl_Gl_Window_get_proc_address(Fl_Gl_Window * self, const char *s) {
+        LOCK(auto ret = (void *)glutGetProcAddress(s));
+        return ret;
+    }
 
-WINDOW_CLASS(Fl_Glut_Window)
+    WINDOW_CLASS(Fl_Glut_Window)
 
-WIDGET_DEFINE(Fl_Glut_Window)
+    WIDGET_DEFINE(Fl_Glut_Window)
 
-GROUP_DEFINE(Fl_Glut_Window)
+    GROUP_DEFINE(Fl_Glut_Window)
 
-WINDOW_DEFINE(Fl_Glut_Window)
+    WINDOW_DEFINE(Fl_Glut_Window)
 
-void Fl_Glut_Window_flush(Fl_Glut_Window *self) {
-    LOCK(self->flush());
-}
+    void Fl_Glut_Window_flush(Fl_Glut_Window * self) {
+        LOCK(self->flush());
+    }
 
-char Fl_Glut_Window_valid(const Fl_Glut_Window *self) {
-    LOCK(auto ret = self->valid());
-    return ret;
-}
+    char Fl_Glut_Window_valid(const Fl_Glut_Window *self) {
+        LOCK(auto ret = self->valid());
+        return ret;
+    }
 
-void Fl_Glut_Window_set_valid(Fl_Glut_Window *self, char v) {
-    LOCK(self->valid(v));
-}
+    void Fl_Glut_Window_set_valid(Fl_Glut_Window * self, char v) {
+        LOCK(self->valid(v));
+    }
 
-char Fl_Glut_Window_context_valid(const Fl_Glut_Window *self) {
-    LOCK(auto ret = self->context_valid());
-    return ret;
-}
+    char Fl_Glut_Window_context_valid(const Fl_Glut_Window *self) {
+        LOCK(auto ret = self->context_valid());
+        return ret;
+    }
 
-void Fl_Glut_Window_set_context_valid(Fl_Glut_Window *self, char v) {
-    LOCK(self->context_valid(v));
-}
+    void Fl_Glut_Window_set_context_valid(Fl_Glut_Window * self, char v) {
+        LOCK(self->context_valid(v));
+    }
 
-int Fl_Glut_Window_can_do(Fl_Glut_Window *self) {
-    LOCK(auto ret = self->can_do());
-    return ret;
-}
+    int Fl_Glut_Window_can_do(Fl_Glut_Window * self) {
+        LOCK(auto ret = self->can_do());
+        return ret;
+    }
 
-void *Fl_Glut_Window_context(const Fl_Glut_Window *self) {
-    LOCK(auto ret = self->context());
-    return ret;
-}
+    void *Fl_Glut_Window_context(const Fl_Glut_Window *self) {
+        LOCK(auto ret = self->context());
+        return ret;
+    }
 
-void Fl_Glut_Window_set_context(
-    Fl_Glut_Window *self, void *ctx, int destroy_flag
-) {
-    LOCK(self->context((GLContext)ctx, destroy_flag));
-}
+    void Fl_Glut_Window_set_context(
+        Fl_Glut_Window * self, void *ctx, int destroy_flag
+    ) {
+        LOCK(self->context((GLContext)ctx, destroy_flag));
+    }
 
-void Fl_Glut_Window_swap_buffers(Fl_Glut_Window *self) {
-    LOCK(self->swap_buffers());
-}
+    void Fl_Glut_Window_swap_buffers(Fl_Glut_Window * self) {
+        LOCK(self->swap_buffers());
+    }
 
-void Fl_Glut_Window_set_swap_interval(Fl_Glut_Window *self, int frames) {
-    LOCK(self->swap_interval(frames));
-}
+    void Fl_Glut_Window_set_swap_interval(Fl_Glut_Window * self, int frames) {
+        LOCK(self->swap_interval(frames));
+    }
 
-int Fl_Glut_Window_swap_interval(const Fl_Glut_Window *self) {
-    LOCK(auto ret = self->swap_interval());
-    return ret;
-}
+    int Fl_Glut_Window_swap_interval(const Fl_Glut_Window *self) {
+        LOCK(auto ret = self->swap_interval());
+        return ret;
+    }
 
-void Fl_Glut_Window_ortho(Fl_Glut_Window *self) {
-    LOCK(self->ortho());
-}
+    void Fl_Glut_Window_ortho(Fl_Glut_Window * self) {
+        LOCK(self->ortho());
+    }
 
-int Fl_Glut_Window_can_do_overlay(Fl_Glut_Window *self) {
-    LOCK(auto ret = self->can_do_overlay());
-    return ret;
-}
+    int Fl_Glut_Window_can_do_overlay(Fl_Glut_Window * self) {
+        LOCK(auto ret = self->can_do_overlay());
+        return ret;
+    }
 
-void Fl_Glut_Window_redraw_overlay(Fl_Glut_Window *self) {
-    LOCK(self->redraw_overlay());
-}
+    void Fl_Glut_Window_redraw_overlay(Fl_Glut_Window * self) {
+        LOCK(self->redraw_overlay());
+    }
 
-void Fl_Glut_Window_hide_overlay(Fl_Glut_Window *self) {
-    LOCK(self->hide_overlay());
-}
+    void Fl_Glut_Window_hide_overlay(Fl_Glut_Window * self) {
+        LOCK(self->hide_overlay());
+    }
 
-void Fl_Glut_Window_make_overlay_current(Fl_Glut_Window *self) {
-    LOCK(self->make_overlay_current());
-}
+    void Fl_Glut_Window_make_overlay_current(Fl_Glut_Window * self) {
+        LOCK(self->make_overlay_current());
+    }
 
-float Fl_Glut_Window_pixels_per_unit(Fl_Glut_Window *self) {
-    LOCK(auto ret = self->pixels_per_unit());
-    return ret;
-}
+    float Fl_Glut_Window_pixels_per_unit(Fl_Glut_Window * self) {
+        LOCK(auto ret = self->pixels_per_unit());
+        return ret;
+    }
 
-int Fl_Glut_Window_pixel_w(Fl_Glut_Window *self) {
-    LOCK(auto ret = self->pixel_w());
-    return ret;
-}
+    int Fl_Glut_Window_pixel_w(Fl_Glut_Window * self) {
+        LOCK(auto ret = self->pixel_w());
+        return ret;
+    }
 
-int Fl_Glut_Window_pixel_h(Fl_Glut_Window *self) {
-    LOCK(auto ret = self->pixel_h());
-    return ret;
-}
+    int Fl_Glut_Window_pixel_h(Fl_Glut_Window * self) {
+        LOCK(auto ret = self->pixel_h());
+        return ret;
+    }
 
-int Fl_Glut_Window_mode(const Fl_Glut_Window *self) {
-    LOCK(auto ret = self->mode());
-    return ret;
-}
+    int Fl_Glut_Window_mode(const Fl_Glut_Window *self) {
+        LOCK(auto ret = self->mode());
+        return ret;
+    }
 
-void Fl_Glut_Window_set_mode(Fl_Glut_Window *self, int mode) {
-    LOCK(self->mode(mode));
-}
+    void Fl_Glut_Window_set_mode(Fl_Glut_Window * self, int mode) {
+        LOCK(self->mode(mode));
+    }
 
-void *Fl_Glut_Window_get_proc_address(Fl_Glut_Window *self, const char *s) {
-    LOCK(auto ret = (void *)glutGetProcAddress(s));
-    return ret;
-}
+    void *Fl_Glut_Window_get_proc_address(
+        Fl_Glut_Window * self, const char *s
+    ) {
+        LOCK(auto ret = (void *)glutGetProcAddress(s));
+        return ret;
+    }
 
 #endif

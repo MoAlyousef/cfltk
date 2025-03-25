@@ -75,8 +75,6 @@ void *Fl_cairo_gc(void);
 
 void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv);
 
-void Fl_Window_set_raw_handle(Fl_Window *self, void *handle);
-
 WIDGET_DECLARE(Fl_Single_Window)
 
 GROUP_DECLARE(Fl_Single_Window)
