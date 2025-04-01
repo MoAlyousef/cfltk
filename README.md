@@ -43,7 +43,7 @@ $ cmake --build bin --parallel
 
 An example CMakeLists.txt file:
 ```cmake
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.15)
 project(app)
 
 add_subdirectory(cfltk)

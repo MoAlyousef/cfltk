@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.15)
 project(cfltk_examples)
 
 set(FLTK_USE_SYSTEM_LIBPNG OFF CACHE BOOL " " FORCE)
