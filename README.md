@@ -43,7 +43,7 @@ $ cmake --build bin --parallel
 
 An example CMakeLists.txt file:
 ```cmake
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.15)
 project(app)
 
 add_subdirectory(cfltk)
@@ -123,7 +123,7 @@ More examples can be found in the examples directory.
 
 ## Dependencies
 
-CMake (version > 3.7), Git and a C++17 compiler need to be installed and in your PATH for a crossplatform build from source.
+CMake (version > 3.15), Git and a C++17 compiler need to be installed and in your PATH for a crossplatform build from source.
 
 - Windows: 
     - MSVC: Windows SDK
