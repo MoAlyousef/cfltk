@@ -248,7 +248,7 @@ struct Table_Derived : public Widget_Derived<Table> {
         LOCK(auto ret = ((table##_Derived *)self)->draw_cell_data_);           \
         return ret;                                                            \
     }                                                                          \
-    void table##_draw_cell_data(table *self, void *data) {                     \
+    void table##_set_draw_cell_data(table *self, void *data) {                 \
         LOCK(((table##_Derived *)self)->draw_cell_data_ = data)                \
     }                                                                          \
     int table##_callback_col(table *self) {                                    \
