@@ -18,6 +18,7 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(FLTK_BACKEND_X11 ON CACHE BOOL " " FORCE)
 endif()
 
+set(CMAKE_CXX_STANDARD 14)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/.. cfltk)
 
 add_executable(hello hello.c)
