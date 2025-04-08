@@ -18,7 +18,7 @@ cmake -B bin -S . ^
     %*
 
 cmake --build bin --config Release
-cmake --install bin
+cmake --install bin --config Release
 
 echo.
 echo Done!
