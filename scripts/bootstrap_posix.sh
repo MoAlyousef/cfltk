@@ -61,5 +61,5 @@ else
     "$@"
 fi
 
-cmake --build bin --parallel
-cmake --install bin
+cmake --build bin --parallel --config Release
+cmake --install bin --config Release
