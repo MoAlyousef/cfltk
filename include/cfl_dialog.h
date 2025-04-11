@@ -35,6 +35,12 @@ void Fl_Native_File_Chooser_set_title(
 
 void Fl_Native_File_Chooser_set_filter(Fl_Native_File_Chooser *, const char *f);
 
+const char *Fl_Native_File_Chooser_filter(Fl_Native_File_Chooser *self);
+
+int Fl_Native_File_Chooser_filter_value(Fl_Native_File_Chooser *self);
+
+void Fl_Native_File_Chooser_set_filter_value(Fl_Native_File_Chooser *self, int f);
+
 void Fl_Native_File_Chooser_set_preset_file(
     Fl_Native_File_Chooser *, const char *f
 );

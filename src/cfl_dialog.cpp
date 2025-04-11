@@ -84,6 +84,18 @@ void Fl_Native_File_Chooser_set_filter(
     LOCK(self->filter(f));
 }
 
+const char *Fl_Native_File_Chooser_filter(Fl_Native_File_Chooser *self) {
+    LOCK(auto ret = self->filter()); return ret;
+}
+
+int Fl_Native_File_Chooser_filter_value(Fl_Native_File_Chooser *self) {
+    LOCK(auto ret = self->filter_value()); return ret;
+}
+
+void Fl_Native_File_Chooser_set_filter_value(Fl_Native_File_Chooser *self, int f) {
+    LOCK(self->filter_value(f));
+}
+
 void Fl_Native_File_Chooser_set_preset_file(
     Fl_Native_File_Chooser *self, const char *f
 ) {
