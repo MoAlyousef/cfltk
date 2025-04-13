@@ -148,7 +148,7 @@ void Fl_line(int x, int y, int x1, int y1) {
     fl_line(x, y, x1, y1);
 }
 
-void Fl_line2(int x, int y, int x1, int y1, int x2, int y2) {
+void Fl_polyline(int x, int y, int x1, int y1, int x2, int y2) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -162,7 +162,7 @@ void Fl_loop(int x, int y, int x1, int y1, int x2, int y2) {
     fl_loop(x, y, x1, y1, x2, y2);
 }
 
-void Fl_loop2(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
+void Fl_loop_4sided(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -176,7 +176,7 @@ void Fl_polygon(int x, int y, int x1, int y1, int x2, int y2) {
     fl_polygon(x, y, x1, y1, x2, y2);
 }
 
-void Fl_polygon2(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
+void Fl_polygon_4sided(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -253,14 +253,14 @@ void Fl_pop_matrix(void) {
     fl_pop_matrix();
 }
 
-void Fl_scale(double x, double y) {
+void Fl_scale_xy(double x, double y) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
     fl_scale(x, y);
 }
 
-void Fl_scale2(double x) {
+void Fl_scale(double x) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -341,7 +341,7 @@ void Fl_curve(
     fl_curve(X0, Y0, X1, Y1, X2, Y2, X3, Y3);
 }
 
-void Fl_arc2(double x, double y, double r, double start, double end) {
+void Fl_arc_with_radius(double x, double y, double r, double start, double end) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -475,15 +475,11 @@ int Fl_descent(void) {
     return fl_descent();
 }
 
-double Fl_width(const char *txt) {
-    return fl_width(txt);
-}
-
-double Fl_width2(const char *txt, int n) {
+double Fl_width(const char *txt, int n) {
     return fl_width(txt, n);
 }
 
-double Fl_width3(unsigned int c) {
+double Fl_char_width(unsigned int c) {
     return fl_width(c);
 }
 
@@ -491,7 +487,7 @@ void Fl_text_extents(const char *txt, int *dx, int *dy, int *w, int *h) {
     return fl_text_extents(txt, *dx, *dy, *w, *h);
 }
 
-void Fl_text_extents2(const char *t, int n, int *dx, int *dy, int *w, int *h) {
+void Fl_text_extents_n(const char *t, int n, int *dx, int *dy, int *w, int *h) {
     return fl_text_extents(t, n, *dx, *dy, *w, *h);
 }
 
@@ -518,21 +514,21 @@ void Fl_draw(const char *str, int x, int y) {
     fl_draw(str, x, y);
 }
 
-void Fl_draw2(int angle, const char *str, int x, int y) {
+void Fl_draw_text_angled(int angle, const char *str, int x, int y) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
     fl_draw(angle, str, x, y);
 }
 
-void Fl_draw3(const char *str, int n, int x, int y) {
+void Fl_draw_text_n(const char *str, int n, int x, int y) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
     fl_draw(str, n, x, y);
 }
 
-void Fl_draw4(int angle, const char *str, int n, int x, int y) {
+void Fl_draw_text_angled_n(int angle, const char *str, int n, int x, int y) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -689,7 +685,7 @@ void Fl_set_cursor(int cursor) {
     return fl_cursor((Fl_Cursor)cursor);
 }
 
-void Fl_set_cursor2(int cursor, int fg, int bg) {
+void Fl_set_cursor_with_color(int cursor, int fg, int bg) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -768,7 +764,7 @@ void Fl_rescale_offscreen(void **ctx) {
     fl_rescale_offscreen(*(Fl_Offscreen *)ctx);
 }
 
-void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
+void Fl_draw_text_boxed(const char *str, int x, int y, int w, int h, int align) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();

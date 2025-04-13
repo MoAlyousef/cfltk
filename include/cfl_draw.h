@@ -53,15 +53,15 @@ void Fl_rectf_with_rgb(
 
 void Fl_line(int x, int y, int x1, int y1);
 
-void Fl_line2(int x, int y, int x1, int y1, int x2, int y2);
+void Fl_polyline(int x, int y, int x1, int y1, int x2, int y2);
 
 void Fl_loop(int x, int y, int x1, int y1, int x2, int y2);
 
-void Fl_loop2(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3);
+void Fl_loop_4sided(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3);
 
 void Fl_polygon(int x, int y, int x1, int y1, int x2, int y2);
 
-void Fl_polygon2(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3);
+void Fl_polygon_4sided(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3);
 
 void Fl_xyline(int x, int y, int x1);
 
@@ -83,9 +83,9 @@ void Fl_push_matrix(void);
 
 void Fl_pop_matrix(void);
 
-void Fl_scale(double x, double y);
+void Fl_scale_xy(double x, double y);
 
-void Fl_scale2(double x);
+void Fl_scale(double x);
 
 void Fl_translate(double x, double y);
 
@@ -114,7 +114,7 @@ void Fl_curve(
     double Y3
 );
 
-void Fl_arc2(double x, double y, double r, double start, double end);
+void Fl_arc_with_radius(double x, double y, double r, double start, double end);
 
 void Fl_circle(double x, double y, double r);
 
@@ -158,15 +158,13 @@ int Fl_set_height(int font, int size);
 
 int Fl_descent(void);
 
-double Fl_width(const char *txt);
+double Fl_width(const char *txt, int n);
 
-double Fl_width2(const char *txt, int n);
-
-double Fl_width3(unsigned int c);
+double Fl_char_width(unsigned int c);
 
 void Fl_text_extents(const char *, int *dx, int *dy, int *w, int *h);
 
-void Fl_text_extents2(const char *t, int n, int *dx, int *dy, int *w, int *h);
+void Fl_text_extents_n(const char *t, int n, int *dx, int *dy, int *w, int *h);
 
 const char *Fl_latin1_to_local(const char *t, int n);
 
@@ -178,11 +176,11 @@ const char *Fl_local_to_mac_roman(const char *t, int n);
 
 void Fl_draw(const char *str, int x, int y);
 
-void Fl_draw2(int angle, const char *str, int x, int y);
+void Fl_draw_text_angled(int angle, const char *str, int x, int y);
 
-void Fl_draw3(const char *str, int n, int x, int y);
+void Fl_draw_text_n(const char *str, int n, int x, int y);
 
-void Fl_draw4(int angle, const char *str, int n, int x, int y);
+void Fl_draw_text_angled_n(int angle, const char *str, int n, int x, int y);
 
 void Fl_rtl_draw(const char *str, int n, int x, int y);
 
@@ -240,7 +238,7 @@ void Fl_overlay_clear(void);
 
 void Fl_set_cursor(int cursor);
 
-void Fl_set_cursor2(int cursor, int fg, int bg);
+void Fl_set_cursor_with_color(int cursor, int fg, int bg);
 
 const char *Fl_expand_text(
     const char *from,
@@ -275,7 +273,7 @@ void Fl_delete_offscreen(void *bitmap);
 
 void Fl_rescale_offscreen(void **ctx);
 
-void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align);
+void Fl_draw_text_boxed(const char *str, int x, int y, int w, int h, int align);
 
 void Fl_draw_check(int x, int y, int w, int h, unsigned int col);
 
