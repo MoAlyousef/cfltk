@@ -111,7 +111,7 @@ void Fl_Text_Buffer_set_text(Fl_Text_Buffer *self, const char *txt);
 
 void Fl_Text_Buffer_append(Fl_Text_Buffer *self, const char *txt);
 
-void Fl_Text_Buffer_append2(Fl_Text_Buffer *self, const char *txt, int len);
+void Fl_Text_Buffer_append_bytes(Fl_Text_Buffer *self, const char *txt, int len);
 
 void Fl_Text_Buffer_remove(Fl_Text_Buffer *self, int start, int end);
 

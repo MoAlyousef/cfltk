@@ -377,11 +377,11 @@ void Fl_Help_View_select_all(Fl_Help_View *self) {
     LOCK(self->select_all());
 }
 
-void Fl_Help_View_set_topline(Fl_Help_View *self, const char *n) {
+void Fl_Help_View_set_topline_str(Fl_Help_View *self, const char *n) {
     LOCK(self->topline(n));
 }
 
-void Fl_Help_View_set_topline2(Fl_Help_View *self, int v) {
+void Fl_Help_View_set_topline(Fl_Help_View *self, int v) {
     LOCK(self->topline(v));
 }
 
@@ -466,7 +466,7 @@ const char *Fl_Input_Choice_value(const Fl_Input_Choice *self) {
     return ret;
 }
 
-int Fl_Input_Choice_value2(Fl_Input_Choice *self) {
+int Fl_Input_Choice_value_index(Fl_Input_Choice *self) {
     LOCK(auto ret = self->menu()->value());
     return ret;
 }
@@ -475,7 +475,7 @@ void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val) {
     LOCK(self->value(val));
 }
 
-void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val) {
+void Fl_Input_Choice_set_value_index(Fl_Input_Choice *self, int val) {
     LOCK(self->value(val));
 }
 

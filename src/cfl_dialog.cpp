@@ -107,49 +107,15 @@ const char *Fl_Native_File_Chooser_errmsg(Fl_Native_File_Chooser *self) {
     return ret;
 }
 
-void Fl_message(int x, int y, const char *txt) {
-    LOCK(fl_message_position(x, y, 0); fl_message("%s", txt));
-}
-
-void Fl_message2(const char *txt) {
+void Fl_message(const char *txt) {
     LOCK(fl_message("%s", txt));
 }
 
-void Fl_alert(int x, int y, const char *txt) {
-    LOCK(fl_message_position(x, y, 0); fl_alert("%s", txt));
-}
-
-void Fl_alert2(const char *txt) {
+void Fl_alert(const char *txt) {
     LOCK(fl_alert("%s", txt));
 }
 
 int Fl_choice(
-    int x,
-    int y,
-    const char *txt,
-    const char *b0,
-    const char *b1,
-    const char *b2
-) {
-    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = nullptr;
-         auto ret = fl_choice("%s", b0, b1, b2, txt));
-    return ret;
-}
-
-int Fl_choice_n(
-    int x,
-    int y,
-    const char *txt,
-    const char *b0,
-    const char *b1,
-    const char *b2
-) {
-    LOCK(fl_message_position(x, y, 0); if (strlen(b2) == 0) b2 = nullptr;
-         auto ret = fl_choice_n("%s", b0, b1, b2, txt));
-    return ret;
-}
-
-int Fl_choice2(
     const char *txt, const char *b0, const char *b1, const char *b2
 ) {
     if (strlen(b2) == 0)
@@ -158,7 +124,7 @@ int Fl_choice2(
     return ret;
 }
 
-int Fl_choice2_n(
+int Fl_choice_n(
     const char *txt, const char *b0, const char *b1, const char *b2
 ) {
     if (strlen(b2) == 0)
@@ -167,24 +133,12 @@ int Fl_choice2_n(
     return ret;
 }
 
-const char *Fl_input(int x, int y, const char *txt, const char *deflt) {
-    fl_message_position(x, y, 0);
+const char *Fl_input(const char *txt, const char *deflt) {
     LOCK(auto ret = fl_input("%s", deflt, txt));
     return ret;
 }
 
-const char *Fl_input2(const char *txt, const char *deflt) {
-    LOCK(auto ret = fl_input("%s", deflt, txt));
-    return ret;
-}
-
-const char *Fl_password(int x, int y, const char *txt, const char *deflt) {
-    fl_message_position(x, y, 0);
-    LOCK(auto ret = fl_password("%s", deflt, txt));
-    return ret;
-}
-
-const char *Fl_password2(const char *txt, const char *deflt) {
+const char *Fl_password(const char *txt, const char *deflt) {
     LOCK(auto ret = fl_password("%s", deflt, txt));
     return ret;
 }
@@ -591,6 +545,10 @@ void Fl_message_set_font(int f, int s) {
 
 void Fl_message_icon_label(const char *label) {
     LOCK(fl_message_icon_label(label));
+}
+
+void Fl_message_position(int x, int y) {
+    LOCK(fl_message_position(x, y));
 }
 
 #undef LOCK

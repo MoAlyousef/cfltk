@@ -305,7 +305,7 @@ const char *Fl_get_font_name(int idx) {
     return Fl::get_font_name(idx);
 }
 
-const char *Fl_get_font_name2(int idx, int *attributes) {
+const char *Fl_get_font_name_with_attr(int idx, int *attributes) {
     return Fl::get_font_name(idx, attributes);
 }
 
@@ -321,7 +321,7 @@ void Fl_set_font(int o, int n) {
     Fl::set_font(o, n);
 }
 
-void Fl_set_font2(int o, const char *n) {
+void Fl_set_font_by_name(int o, const char *n) {
     Fl::set_font(o, n);
 }
 
@@ -728,7 +728,7 @@ unsigned int Fl_rgb_color(unsigned char r, unsigned char g, unsigned char b) {
     return fl_rgb_color(r, g, b);
 }
 
-unsigned int Fl_rgb_color2(unsigned char g) {
+unsigned int Fl_rgb_color_grayscale(unsigned char g) {
     return fl_rgb_color(g);
 }
 

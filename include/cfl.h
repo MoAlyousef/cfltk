@@ -134,7 +134,7 @@ const char *Fl_get_font(int idx);
 
 const char *Fl_get_font_name(int idx);
 
-const char *Fl_get_font_name2(int idx, int *attributes);
+const char *Fl_get_font_name_with_attr(int idx, int *attributes);
 
 int Fl_get_font_sizes(int font, int **sizep);
 
@@ -142,7 +142,7 @@ int Fl_set_fonts(const char *c);
 
 void Fl_set_font(int, int);
 
-void Fl_set_font2(int, const char *);
+void Fl_set_font_by_name(int, const char *);
 
 void Fl_set_font_size(int);
 
@@ -336,7 +336,7 @@ unsigned int Fl_contrast(unsigned int c1, unsigned int c2);
 
 unsigned int Fl_rgb_color(unsigned char r, unsigned char g, unsigned char b);
 
-unsigned int Fl_rgb_color2(unsigned char g);
+unsigned int Fl_rgb_color_grayscale(unsigned char g);
 
 unsigned int Fl_cmap(unsigned int c);
 

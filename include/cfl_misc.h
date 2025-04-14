@@ -179,9 +179,9 @@ void Fl_Help_View_clear_selection(Fl_Help_View *self);
 
 void Fl_Help_View_select_all(Fl_Help_View *self);
 
-void Fl_Help_View_set_topline(Fl_Help_View *self, const char *n);
+void Fl_Help_View_set_topline_str(Fl_Help_View *self, const char *n);
 
-void Fl_Help_View_set_topline2(Fl_Help_View *self, int);
+void Fl_Help_View_set_topline(Fl_Help_View *self, int);
 
 int Fl_Help_View_topline(const Fl_Help_View *self);
 
@@ -219,11 +219,11 @@ void Fl_Input_Choice_clear(Fl_Input_Choice *self);
 
 const char *Fl_Input_Choice_value(const Fl_Input_Choice *self);
 
-int Fl_Input_Choice_value2(Fl_Input_Choice *self);
+int Fl_Input_Choice_value_index(Fl_Input_Choice *self);
 
 void Fl_Input_Choice_set_value(Fl_Input_Choice *self, const char *val);
 
-void Fl_Input_Choice_set_value2(Fl_Input_Choice *self, int val);
+void Fl_Input_Choice_set_value_index(Fl_Input_Choice *self, int val);
 
 void *Fl_Input_Choice_input(Fl_Input_Choice *self);
 

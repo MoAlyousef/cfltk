@@ -47,45 +47,19 @@ void Fl_Native_File_Chooser_set_preset_file(
 
 const char *Fl_Native_File_Chooser_errmsg(Fl_Native_File_Chooser *);
 
-void Fl_message(int x, int y, const char *txt);
+void Fl_message(const char *txt);
 
-void Fl_alert(int x, int y, const char *txt);
+void Fl_alert(const char *txt);
 
-int Fl_choice(
-    int x,
-    int y,
-    const char *txt,
-    const char *b0,
-    const char *b1,
-    const char *b2
-);
+int Fl_choice(const char *txt, const char *b0, const char *b1, const char *b2);
 
 int Fl_choice_n(
-    int x,
-    int y,
-    const char *txt,
-    const char *b0,
-    const char *b1,
-    const char *b2
-);
-
-const char *Fl_input(int x, int y, const char *txt, const char *deflt);
-
-const char *Fl_password(int x, int y, const char *txt, const char *deflt);
-
-void Fl_message2(const char *txt);
-
-void Fl_alert2(const char *txt);
-
-int Fl_choice2(const char *txt, const char *b0, const char *b1, const char *b2);
-
-int Fl_choice2_n(
     const char *txt, const char *b0, const char *b1, const char *b2
 );
 
-const char *Fl_input2(const char *txt, const char *deflt);
+const char *Fl_input(const char *txt, const char *deflt);
 
-const char *Fl_password2(const char *txt, const char *deflt);
+const char *Fl_password(const char *txt, const char *deflt);
 
 typedef struct Fl_Help_Dialog Fl_Help_Dialog;
 
@@ -277,6 +251,8 @@ int Fl_message_hotspot(void);
 void Fl_message_set_font(int f, int s);
 
 void Fl_message_icon_label(const char *label);
+
+void Fl_message_position(int x, int y);
 
 #ifdef __cplusplus
 }
