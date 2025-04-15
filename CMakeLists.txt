@@ -70,6 +70,7 @@ set(CFLTK_SRCS
     src/cfl_utils.cpp
     src/cfl_prefs.cpp
     src/Fl_Simple_Terminal.cxx
+    src/cfl_term.cpp
     )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
