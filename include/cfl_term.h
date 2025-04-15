@@ -1,5 +1,5 @@
-#ifndef __CFL_GROUP_H__
-#define __CFL_GROUP_H__
+#ifndef __CFL_TERM_H__
+#define __CFL_TERM_H__
 
 #include "cfl_macros.h"
 
