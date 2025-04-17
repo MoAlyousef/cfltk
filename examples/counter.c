@@ -45,7 +45,7 @@ int main(void) {
     Fl_Box *count = Fl_Box_new(0, 0, 0, 0, "0");
     Fl_Box_set_align(count, Fl_Align_Top | Fl_Align_Inside);
     Fl_Flex *row = Fl_Flex_new(0, 0, 0, 0, NULL);
-    Fl_Flex_set_type(row, 1); // row
+    Fl_Flex_set_type(row, Fl_FlexType_Row);
     Fl_Flex_set_size(col, (Fl_Widget *)row, 60);
     Fl_Box_new(0, 0, 0, 0, NULL);
     Fl_Button *but =
