@@ -613,8 +613,8 @@ enum Fl_MenuButtonType {
 };
 
 enum Fl_FlexType {
-    Fl_FlexType_Row = 0,
-    Fl_FlexType_Column,
+    Fl_FlexType_Column = 0,
+    Fl_FlexType_Row,
 };
 
 enum Fl_RgbScaling {
