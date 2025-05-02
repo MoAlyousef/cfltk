@@ -96,6 +96,23 @@ enum Fl_FileChooserType {
     Fl_FileChooserType_Directory = 4,
 };
 
+enum Fl_NativeFileChooserType {
+    Fl_NativeFileChooserType_BrowseFile = 0,
+    Fl_NativeFileChooserType_BrowseDirectory,
+    Fl_NativeFileChooserType_MultiFile,
+    Fl_NativeFileChooserType_MultiDirectory,
+    Fl_NativeFileChooserType_SaveFile,
+    Fl_NativeFileChooserType_SaveDirectory
+};
+
+enum Fl_NativeFileChooserOption {
+    Fl_NativeFileChooserOption_NoOptions     = 0x0000,
+    Fl_NativeFileChooserOption_SaveAsConfirm = 0x0001,
+    Fl_NativeFileChooserOption_NewFolder     = 0x0002,
+    Fl_NativeFileChooserOption_Preview       = 0x0004,
+    Fl_NativeFileChooserOption_UseFilterExt  = 0x0008
+};
+
 enum Fl_LineStyle {
     Fl_LineStyle_Solid = 0,
     Fl_LineStyle_Dash,
