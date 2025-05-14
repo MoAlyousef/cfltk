@@ -27,7 +27,7 @@ void Fl_Native_File_Chooser_delete(Fl_Native_File_Chooser *self) {
 
 const char *Fl_Native_File_Chooser_filename(Fl_Native_File_Chooser *self) {
     LOCK(const char *x = self->filename());
-    if (!strcmp(x, ""))
+    if (!x || !strcmp(x, ""))
         return nullptr;
     else
         return x;
@@ -36,7 +36,7 @@ const char *Fl_Native_File_Chooser_filename(Fl_Native_File_Chooser *self) {
 const char *
 Fl_Native_File_Chooser_filenames(Fl_Native_File_Chooser *self, int cnt) {
     LOCK(const char *x = self->filename(cnt));
-    if (!strcmp(x, ""))
+    if (!x || !strcmp(x, ""))
         return nullptr;
     else
         return x;
