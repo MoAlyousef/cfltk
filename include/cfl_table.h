@@ -88,6 +88,7 @@ extern "C" {
         int *w,                                                                \
         int *h                                                                 \
     );                                                                         \
+    void *table##_scroll(const table *);                                       \
     int table##_cursor2rowcol(const table *self, int *r, int *c, int *flag);
 
 WIDGET_DECLARE(Fl_Table)
@@ -109,7 +110,6 @@ int Fl_Table_Row_select_row(Fl_Table_Row *self, int row, int flag);
 void Fl_Table_Row_select_all_rows(Fl_Table_Row *self, int flag);
 
 void Fl_Table_Row_clear_rows(Fl_Table_Row *self);
-
 
 #ifdef __cplusplus
 }
