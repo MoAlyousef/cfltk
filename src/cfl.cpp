@@ -59,10 +59,6 @@ int Fl_ready(void) {
     return Fl::ready();
 }
 
-void Fl_release(void) {
-    Fl::release();
-}
-
 int Fl_reload_scheme(void) {
     return Fl::reload_scheme();
 }
@@ -360,22 +356,6 @@ int Fl_box_dw(int boxtype) {
 
 int Fl_box_dh(int boxtype) {
     return Fl::box_dh((Fl_Boxtype)boxtype);
-}
-
-void Fl_awake_msg(void *msg) {
-#ifndef __ANDROID__
-    LOCK(Fl::awake(msg));
-#else
-    android_buffer.send(msg);
-#endif
-}
-
-void *Fl_thread_msg(void) {
-#ifndef __ANDROID__
-    return Fl::thread_message();
-#else
-    return android_buffer.recv();
-#endif
 }
 
 int Fl_wait(void) {

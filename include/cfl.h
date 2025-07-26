@@ -17,8 +17,6 @@ int Fl_check(void);
 
 int Fl_ready(void);
 
-void Fl_release(void);
-
 int Fl_reload_scheme(void);
 
 int Fl_menu_linespacing(void);
@@ -149,10 +147,6 @@ void Fl_set_font_size(int);
 int Fl_font_size(void);
 
 void Fl_add_handler(int (*ev_handler)(int ev));
-
-void Fl_awake_msg(void *msg);
-
-void *Fl_thread_msg(void);
 
 int Fl_wait(void);
 
