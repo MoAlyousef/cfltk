@@ -88,6 +88,7 @@ extern "C" {
         int *w,                                                                \
         int *h                                                                 \
     );                                                                         \
+    void *table##_scroll(const table *);                                       \
     int table##_cursor2rowcol(const table *self, int *r, int *c, int *flag);
 
 WIDGET_DECLARE(Fl_Table)

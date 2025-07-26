@@ -38,10 +38,14 @@ struct Table_Derived : public Widget_Derived<Table> {
     void *hscrollbar() const {
         return (void *)Table::hscrollbar;
     }
+    void *scroll() const {
+        return (void *)Table::table;
+    }
     int find_cell(int ctx, int r, int c, int *x, int *y, int *w, int *h) {
         int X = 0, Y = 0, W = 0, H = 0;
-        int ret =
-            Widget_Derived<Table>::find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);
+        int ret = Widget_Derived<Table>::find_cell(
+            (Fl_Table::TableContext)ctx, r, c, X, Y, W, H
+        );
         *x = X, *y = Y, *w = W, *h = H;
         return ret;
     }
@@ -288,10 +292,12 @@ struct Table_Derived : public Widget_Derived<Table> {
         return ret;                                                            \
     }                                                                          \
     int table##_cursor2rowcol(const table *self, int *r, int *c, int *flag) {  \
-        LOCK(                                                                  \
-            auto ret = ((table##_Derived *)self)->cursor2rowcol(r, c, flag)    \
-        );                                                                     \
+        LOCK(auto ret = ((table##_Derived *)self)->cursor2rowcol(r, c, flag)); \
         return (int)ret;                                                       \
+    }                                                                          \
+    void *table##_scroll(const table *self) {                                  \
+        LOCK(auto ret = ((table##_Derived *)self)->scroll());                  \
+        return ret;                                                            \
     }
 
 TABLE_CLASS(Fl_Table)
