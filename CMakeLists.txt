@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-set(CFLTK_PROJECT_VERSION 0.1.4)
+set(CFLTK_PROJECT_VERSION 0.1.5)
 
 project(
   cfltk2
