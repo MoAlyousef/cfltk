@@ -772,7 +772,7 @@ void Fl_draw_text2(const char *str, int x, int y, int w, int h, int align) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
-    fl_draw(str, x, y, w, h, (Fl_Align)align, nullptr, 1);
+    fl_draw(str, x, y, w, h, (Fl_Align)align, nullptr, 0);
 }
 
 void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {
