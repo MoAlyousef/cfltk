@@ -258,6 +258,9 @@
     }                                                                          \
     void widget##_overstrike(widget *self, const char *text) {                 \
         LOCK(self->overstrike(text));                                          \
+    }                                                                          \
+    void widget##_redisplay_range(widget *self, int start, int end) {          \
+        LOCK(self->redisplay_range(start, end));                               \
     }
 
 Fl_Text_Buffer *Fl_Text_Buffer_new(void) {
@@ -455,6 +458,11 @@ char *Fl_Text_Buffer_line_text(const Fl_Text_Buffer *self, int pos) {
 
 int Fl_Text_Buffer_line_start(const Fl_Text_Buffer *self, int pos) {
     LOCK(auto ret = self->line_start(pos));
+    return ret;
+}
+
+int Fl_Text_Buffer_line_end(const Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = self->line_end(pos));
     return ret;
 }
 

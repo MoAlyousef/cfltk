@@ -88,7 +88,8 @@ extern "C" {
     );                                                                         \
     unsigned int widget##_secondary_selection_color(const widget *self);       \
     void widget##_show_insert_position(widget *self);                          \
-    void widget##_overstrike(widget *self, const char *text);
+    void widget##_overstrike(widget *self, const char *text);                  \
+    void widget##_redisplay_range(widget *self, int start, int end);
 
 typedef void (*Fl_Text_Modify_Cb)(
     int pos,
@@ -196,6 +197,8 @@ char *Fl_Text_Buffer_highlight_text(Fl_Text_Buffer *self);
 char *Fl_Text_Buffer_line_text(const Fl_Text_Buffer *self, int pos);
 
 int Fl_Text_Buffer_line_start(const Fl_Text_Buffer *self, int pos);
+
+int Fl_Text_Buffer_line_end(const Fl_Text_Buffer *self, int pos);
 
 int Fl_Text_Buffer_word_start(const Fl_Text_Buffer *self, int pos);
 
