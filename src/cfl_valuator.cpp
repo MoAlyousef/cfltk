@@ -124,7 +124,6 @@ WIDGET_DEFINE(Fl_Counter)
 
 VALUATOR_DEFINE(Fl_Counter)
 
-// Fl_Simple_Counter
 WIDGET_CLASS(Fl_Simple_Counter)
 
 WIDGET_DEFINE(Fl_Simple_Counter)
