@@ -363,6 +363,15 @@ void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
 #endif
 }
 
+void Fl_Window_allow_expand_outside_parent(Fl_Window *self) {
+    LOCK(self->allow_expand_outside_parent());
+}
+
+uintptr_t Fl_Window_os_id(Fl_Window *self) {
+    LOCK(auto ret = (uintptr_t)self->os_id());
+    return ret;
+}
+
 WINDOW_CLASS(Fl_Single_Window)
 
 WIDGET_DEFINE(Fl_Single_Window)

@@ -2,6 +2,7 @@
 #define __CFL_WINDOW_H__
 
 #include "cfl_macros.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,6 +77,10 @@ void *Fl_cairo_gc(void);
 void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv);
 
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle);
+
+void Fl_Window_allow_expand_outside_parent(Fl_Window *self);
+
+uintptr_t Fl_Window_os_id(Fl_Window *self);
 
 WIDGET_DECLARE(Fl_Single_Window)
 

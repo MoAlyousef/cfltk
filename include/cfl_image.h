@@ -31,6 +31,16 @@ extern "C" {
 
 IMAGE_DECLARE(Fl_Image)
 
+void Fl_Image_color_average(Fl_Image *self, unsigned int c, float i);
+
+void Fl_Image_desaturate(Fl_Image *self);
+
+void Fl_Image_uncache(Fl_Image *self);
+
+void Fl_Image_label_widget(Fl_Image *self, void *w);
+
+void Fl_Image_label_menu_item(Fl_Image *self, void *m);
+
 void Fl_Image_set_scaling_algorithm(int algorithm);
 
 int Fl_Image_scaling_algorithm(void);

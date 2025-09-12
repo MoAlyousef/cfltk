@@ -10,6 +10,13 @@
 #include <FL/Fl_Text_Editor.H>
 #include <FL/Fl_Widget.H>
 
+struct Fl_Text_Display_Accessor : public Fl_Text_Display {
+    using Fl_Text_Display::maintain_absolute_top_line_number;
+    using Fl_Text_Display::absolute_top_line_number;
+    using Fl_Text_Display::maintaining_absolute_top_line_number;
+    using Fl_Text_Display::reset_absolute_top_line_number;
+};
+
 #define DISPLAY_DEFINE(widget)                                                 \
     int widget##_text_font(const widget *self) {                               \
         LOCK(auto ret = self->textfont());                                     \
@@ -261,6 +268,36 @@
     }                                                                          \
     void widget##_redisplay_range(widget *self, int start, int end) {          \
         LOCK(self->redisplay_range(start, end));                               \
+    }                                                                          \
+    void widget##_set_linenumber_format(widget *self, const char *val) {       \
+        LOCK(self->linenumber_format(val));                                    \
+    }                                                                          \
+    const char *widget##_linenumber_format(const widget *self) {               \
+        LOCK(auto ret = self->linenumber_format());                            \
+        return ret;                                                            \
+    }                                                                          \
+    int widget##_position_style(                                               \
+        const widget *self, int lineStartPos, int lineLen, int lineIndex       \
+    ) {                                                                        \
+        LOCK(auto ret = self->position_style(lineStartPos, lineLen, lineIndex));\
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_maintain_absolute_top_line_number(widget *self, int state) { \
+        LOCK(((Fl_Text_Display_Accessor*)self)->maintain_absolute_top_line_number(state)); \
+    }                                                                          \
+    int widget##_get_absolute_top_line_number(const widget *self) {            \
+        LOCK(auto ret = self->get_absolute_top_line_number());                 \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_absolute_top_line_number(widget *self, int oldFirstChar) {   \
+        LOCK(((Fl_Text_Display_Accessor*)self)->absolute_top_line_number(oldFirstChar)); \
+    }                                                                          \
+    int widget##_maintaining_absolute_top_line_number(const widget *self) {    \
+        LOCK(auto ret = ((Fl_Text_Display_Accessor*)self)->maintaining_absolute_top_line_number()); \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_reset_absolute_top_line_number(widget *self) {               \
+        LOCK(((Fl_Text_Display_Accessor*)self)->reset_absolute_top_line_number()); \
     }
 
 Fl_Text_Buffer *Fl_Text_Buffer_new(void) {
@@ -483,6 +520,36 @@ int Fl_Text_Buffer_count_lines(
     return ret;
 }
 
+unsigned int Fl_Text_Buffer_char_at(const Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = self->char_at(pos));
+    return ret;
+}
+
+unsigned char Fl_Text_Buffer_byte_at(const Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = (unsigned char)self->byte_at(pos));
+    return ret;
+}
+
+const char *Fl_Text_Buffer_address(const Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = self->address(pos));
+    return ret;
+}
+
+char *Fl_Text_Buffer_address2(Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = self->address(pos));
+    return ret;
+}
+
+int Fl_Text_Buffer_utf8_align(const Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = self->utf8_align(pos));
+    return ret;
+}
+
+int Fl_Text_Buffer_is_word_separator(const Fl_Text_Buffer *self, int pos) {
+    LOCK(auto ret = self->is_word_separator(pos));
+    return ret;
+}
+
 void Fl_Text_Buffer_add_modify_callback(
     Fl_Text_Buffer *self, Fl_Text_Modify_Cb bufModifiedCB, void *cbArg
 ) {
@@ -556,6 +623,42 @@ int Fl_Text_Buffer_redo(Fl_Text_Buffer *self, int *cp) {
 
 int Fl_Text_Buffer_can_redo(const Fl_Text_Buffer *self) {
     LOCK(int ret = self->can_redo());
+    return ret;
+}
+
+int Fl_Text_Buffer_insertfile(
+    Fl_Text_Buffer *self, const char *file, int pos, int buflen
+) {
+    LOCK(int ret = self->insertfile(file, pos, buflen));
+    return ret;
+}
+
+// P2 additions: pre-delete callbacks
+void Fl_Text_Buffer_add_predelete_callback(
+    Fl_Text_Buffer *self, Fl_Text_Predelete_Cb bufPredeleteCB, void *cbArg
+) {
+    LOCK(self->add_predelete_callback(bufPredeleteCB, cbArg));
+}
+
+void Fl_Text_Buffer_remove_predelete_callback(
+    Fl_Text_Buffer *self, Fl_Text_Predelete_Cb bufPredeleteCB, void *cbArg
+) {
+    LOCK(self->remove_predelete_callback(bufPredeleteCB, cbArg));
+}
+
+void Fl_Text_Buffer_call_predelete_callbacks(Fl_Text_Buffer *self) {
+    LOCK(self->call_predelete_callbacks());
+}
+
+int Fl_Text_Buffer_appendfile(Fl_Text_Buffer *self, const char *file, int buflen) {
+    LOCK(int ret = self->appendfile(file, buflen));
+    return ret;
+}
+
+int Fl_Text_Buffer_outputfile(
+    Fl_Text_Buffer *self, const char *file, int start, int end, int buflen
+) {
+    LOCK(int ret = self->outputfile(file, start, end, buflen));
     return ret;
 }
 

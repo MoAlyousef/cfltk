@@ -89,7 +89,17 @@ extern "C" {
     unsigned int widget##_secondary_selection_color(const widget *self);       \
     void widget##_show_insert_position(widget *self);                          \
     void widget##_overstrike(widget *self, const char *text);                  \
-    void widget##_redisplay_range(widget *self, int start, int end);
+    void widget##_redisplay_range(widget *self, int start, int end);           \
+    void widget##_set_linenumber_format(widget *self, const char *val);        \
+    const char *widget##_linenumber_format(const widget *self);                \
+    int widget##_position_style(                                               \
+        const widget *self, int lineStartPos, int lineLen, int lineIndex       \
+    );                                                                         \
+    void widget##_maintain_absolute_top_line_number(widget *self, int state);  \
+    int widget##_get_absolute_top_line_number(const widget *self);             \
+    void widget##_absolute_top_line_number(widget *self, int oldFirstChar);    \
+    int widget##_maintaining_absolute_top_line_number(const widget *self);     \
+    void widget##_reset_absolute_top_line_number(widget *self);
 
 typedef void (*Fl_Text_Modify_Cb)(
     int pos,
@@ -99,6 +109,8 @@ typedef void (*Fl_Text_Modify_Cb)(
     const char *deletedText,
     void *cbArg
 );
+
+typedef void (*Fl_Text_Predelete_Cb)(int pos, int nDeleted, void *cbArg);
 
 typedef struct Fl_Text_Buffer Fl_Text_Buffer;
 
@@ -208,6 +220,18 @@ int Fl_Text_Buffer_count_lines(
     const Fl_Text_Buffer *self, int startPos, int endPos
 );
 
+unsigned int Fl_Text_Buffer_char_at(const Fl_Text_Buffer *self, int pos);
+
+unsigned char Fl_Text_Buffer_byte_at(const Fl_Text_Buffer *self, int pos);
+
+const char *Fl_Text_Buffer_address(const Fl_Text_Buffer *self, int pos);
+
+char *Fl_Text_Buffer_address2(Fl_Text_Buffer *self, int pos);
+
+int Fl_Text_Buffer_utf8_align(const Fl_Text_Buffer *self, int pos);
+
+int Fl_Text_Buffer_is_word_separator(const Fl_Text_Buffer *self, int pos);
+
 void Fl_Text_Buffer_add_modify_callback(
     Fl_Text_Buffer *self, Fl_Text_Modify_Cb bufModifiedCB, void *cbArg
 );
@@ -251,6 +275,28 @@ int Fl_Text_Buffer_findchar_backward(
 int Fl_Text_Buffer_redo(Fl_Text_Buffer *self, int *cp);
 
 int Fl_Text_Buffer_can_redo(const Fl_Text_Buffer *self);
+
+int Fl_Text_Buffer_insertfile(
+    Fl_Text_Buffer *self, const char *file, int pos, int buflen
+);
+
+int Fl_Text_Buffer_appendfile(
+    Fl_Text_Buffer *self, const char *file, int buflen
+);
+
+int Fl_Text_Buffer_outputfile(
+    Fl_Text_Buffer *self, const char *file, int start, int end, int buflen
+);
+
+void Fl_Text_Buffer_add_predelete_callback(
+    Fl_Text_Buffer *self, Fl_Text_Predelete_Cb bufPredeleteCB, void *cbArg
+);
+
+void Fl_Text_Buffer_remove_predelete_callback(
+    Fl_Text_Buffer *self, Fl_Text_Predelete_Cb bufPredeleteCB, void *cbArg
+);
+
+void Fl_Text_Buffer_call_predelete_callbacks(Fl_Text_Buffer *self);
 
 WIDGET_DECLARE(Fl_Text_Display)
 

@@ -5,6 +5,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Adjuster.H>
 #include <FL/Fl_Counter.H>
+#include <FL/Fl_Simple_Counter.H>
 #include <FL/Fl_Dial.H>
 #include <FL/Fl_Fill_Dial.H>
 #include <FL/Fl_Fill_Slider.H>
@@ -122,6 +123,13 @@ WIDGET_CLASS(Fl_Counter)
 WIDGET_DEFINE(Fl_Counter)
 
 VALUATOR_DEFINE(Fl_Counter)
+
+// Fl_Simple_Counter
+WIDGET_CLASS(Fl_Simple_Counter)
+
+WIDGET_DEFINE(Fl_Simple_Counter)
+
+VALUATOR_DEFINE(Fl_Simple_Counter)
 
 WIDGET_CLASS(Fl_Dial)
 

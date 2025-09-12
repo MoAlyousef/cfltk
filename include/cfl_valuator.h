@@ -46,6 +46,10 @@ WIDGET_DECLARE(Fl_Counter)
 
 VALUATOR_DECLARE(Fl_Counter)
 
+WIDGET_DECLARE(Fl_Simple_Counter)
+
+VALUATOR_DECLARE(Fl_Simple_Counter)
+
 WIDGET_DECLARE(Fl_Dial)
 
 short Fl_Dial_angle1(const Fl_Dial *self);
