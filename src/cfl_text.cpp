@@ -11,10 +11,12 @@
 #include <FL/Fl_Widget.H>
 
 struct Fl_Text_Display_Accessor : public Fl_Text_Display {
-    using Fl_Text_Display::maintain_absolute_top_line_number;
     using Fl_Text_Display::absolute_top_line_number;
+    using Fl_Text_Display::maintain_absolute_top_line_number;
     using Fl_Text_Display::maintaining_absolute_top_line_number;
     using Fl_Text_Display::reset_absolute_top_line_number;
+    using Fl_Text_Display::xy_to_position;
+    using Fl_Text_Display::xy_to_rowcol;
 };
 
 #define DISPLAY_DEFINE(widget)                                                 \
@@ -279,25 +281,56 @@ struct Fl_Text_Display_Accessor : public Fl_Text_Display {
     int widget##_position_style(                                               \
         const widget *self, int lineStartPos, int lineLen, int lineIndex       \
     ) {                                                                        \
-        LOCK(auto ret = self->position_style(lineStartPos, lineLen, lineIndex));\
+        LOCK(                                                                  \
+            auto ret = self->position_style(lineStartPos, lineLen, lineIndex)  \
+        );                                                                     \
         return ret;                                                            \
     }                                                                          \
     void widget##_maintain_absolute_top_line_number(widget *self, int state) { \
-        LOCK(((Fl_Text_Display_Accessor*)self)->maintain_absolute_top_line_number(state)); \
+        LOCK(((Fl_Text_Display_Accessor *)self)                                \
+                 ->maintain_absolute_top_line_number(state));                  \
     }                                                                          \
     int widget##_get_absolute_top_line_number(const widget *self) {            \
         LOCK(auto ret = self->get_absolute_top_line_number());                 \
         return ret;                                                            \
     }                                                                          \
     void widget##_absolute_top_line_number(widget *self, int oldFirstChar) {   \
-        LOCK(((Fl_Text_Display_Accessor*)self)->absolute_top_line_number(oldFirstChar)); \
+        LOCK(((Fl_Text_Display_Accessor *)self)                                \
+                 ->absolute_top_line_number(oldFirstChar));                    \
     }                                                                          \
     int widget##_maintaining_absolute_top_line_number(const widget *self) {    \
-        LOCK(auto ret = ((Fl_Text_Display_Accessor*)self)->maintaining_absolute_top_line_number()); \
+        LOCK(                                                                  \
+            auto ret = ((Fl_Text_Display_Accessor *)self)                      \
+                           ->maintaining_absolute_top_line_number()            \
+        );                                                                     \
         return ret;                                                            \
     }                                                                          \
     void widget##_reset_absolute_top_line_number(widget *self) {               \
-        LOCK(((Fl_Text_Display_Accessor*)self)->reset_absolute_top_line_number()); \
+        LOCK(((Fl_Text_Display_Accessor *)self)                                \
+                 ->reset_absolute_top_line_number());                          \
+    }                                                                          \
+    int widget##_scroll_row(const widget *self) {                              \
+        LOCK(auto ret = ((Fl_Text_Display_Accessor *)self)->scroll_row());     \
+        return ret;                                                            \
+    }                                                                          \
+    int widget##_scroll_col(const widget *self) {                              \
+        LOCK(auto ret = ((Fl_Text_Display_Accessor *)self)->scroll_col());     \
+        return ret;                                                            \
+    }                                                                          \
+    int widget##_xy_to_position(                                               \
+        const widget *self, int x, int y, int PosType                          \
+    ) {                                                                        \
+        LOCK(                                                                  \
+            auto ret = ((Fl_Text_Display_Accessor *)self)                      \
+                           ->xy_to_position(x, y, PosType)                     \
+        );                                                                     \
+        return ret;                                                            \
+    }                                                                          \
+    void widget##_xy_to_rowcol(                                                \
+        const widget *self, int x, int y, int *row, int *column, int PosType   \
+    ) {                                                                        \
+        LOCK(((Fl_Text_Display_Accessor *)self)                                \
+                 ->xy_to_rowcol(x, y, row, column, PosType));                  \
     }
 
 Fl_Text_Buffer *Fl_Text_Buffer_new(void) {
@@ -650,7 +683,9 @@ void Fl_Text_Buffer_call_predelete_callbacks(Fl_Text_Buffer *self) {
     LOCK(self->call_predelete_callbacks());
 }
 
-int Fl_Text_Buffer_appendfile(Fl_Text_Buffer *self, const char *file, int buflen) {
+int Fl_Text_Buffer_appendfile(
+    Fl_Text_Buffer *self, const char *file, int buflen
+) {
     LOCK(int ret = self->appendfile(file, buflen));
     return ret;
 }

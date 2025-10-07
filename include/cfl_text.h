@@ -99,7 +99,15 @@ extern "C" {
     int widget##_get_absolute_top_line_number(const widget *self);             \
     void widget##_absolute_top_line_number(widget *self, int oldFirstChar);    \
     int widget##_maintaining_absolute_top_line_number(const widget *self);     \
-    void widget##_reset_absolute_top_line_number(widget *self);
+    void widget##_reset_absolute_top_line_number(widget *self);                \
+    int widget##_scroll_row(const widget *self);                               \
+    int widget##_scroll_col(const widget *self);                               \
+    int widget##_xy_to_position(                                               \
+        const widget *self, int x, int y, int PosType                          \
+    );                                                                         \
+    void widget##_xy_to_rowcol(                                                \
+        const widget *self, int x, int y, int *row, int *column, int PosType   \
+    );
 
 typedef void (*Fl_Text_Modify_Cb)(
     int pos,
