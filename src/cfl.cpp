@@ -882,3 +882,15 @@ int Fl_using_wayland(void) {
     return false;
 #endif
 }
+
+void Fl_watch_widget_pointer(Fl_Widget *w) {
+    if (w) {
+        Fl::watch_widget_pointer(w);
+    }
+}
+
+void Fl_release_widget_pointer(Fl_Widget *w) {
+    if (w) {
+        Fl::release_widget_pointer(w);
+    }
+}

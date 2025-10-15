@@ -400,6 +400,10 @@ void Fl_set_contrast_function(unsigned int (*f)(unsigned int, unsigned int, int,
 
 int Fl_using_wayland(void);
 
+void Fl_watch_widget_pointer(Fl_Widget *w);
+
+void Fl_release_widget_pointer(Fl_Widget *w);
+
 #ifdef __cplusplus
 }
 #endif
