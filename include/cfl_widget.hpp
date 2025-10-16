@@ -69,12 +69,13 @@ struct Widget_Derived : public T {
     //   exist T::handle is the built-in handler in the fltk widget
     int handle(int event) override {
         if (super_handle_first) {
+            int ret = T::handle(event);
             // Both handlers always executed, T::handle executes first
             if (inner_handler) {
                 int local = inner_handler(this, event, ev_data_);
-                return T::handle(event) | local;
+                return ret | local;
             } else {
-                return T::handle(event);
+                return ret;
             }
         } else {
             // inner_handler executes first. T::handle only executes if
