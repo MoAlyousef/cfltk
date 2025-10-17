@@ -34,7 +34,9 @@ int Fl_Slider_slider_box(const Fl_Slider *self);
 
 void Fl_Slider_set_slider_box(Fl_Slider *self, int c);
 
-int Fl_Slider_scroll_value(Fl_Slider *self, int pos, int windowSize, int first_line, int total_lines);
+int Fl_Slider_scroll_value(
+    Fl_Slider *self, int pos, int windowSize, int first_line, int total_lines
+);
 
 VALUATOR_DECLARE(Fl_Slider)
 
@@ -72,7 +74,9 @@ void Fl_Scrollbar_set_linesize(Fl_Scrollbar *self, int sz);
 
 int Fl_Scrollbar_linesize(const Fl_Scrollbar *self);
 
-int Fl_Scrollbar_scroll_value(Fl_Scrollbar *self, int pos, int windowSize, int first_line, int total_lines);
+int Fl_Scrollbar_scroll_value(
+    Fl_Scrollbar *self, int pos, int windowSize, int first_line, int total_lines
+);
 
 VALUATOR_DECLARE(Fl_Scrollbar)
 
@@ -169,6 +173,10 @@ void Fl_Hor_Value_Slider_set_text_size(Fl_Hor_Value_Slider *self, int s);
 int Fl_Hor_Value_Slider_text_size(Fl_Hor_Value_Slider *self);
 
 VALUATOR_DECLARE(Fl_Hor_Value_Slider)
+
+WIDGET_DECLARE(Fl_Simple_Counter)
+
+VALUATOR_DECLARE(Fl_Simple_Counter)
 
 #ifdef __cplusplus
 }

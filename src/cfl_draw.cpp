@@ -162,7 +162,9 @@ void Fl_loop(int x, int y, int x1, int y1, int x2, int y2) {
     fl_loop(x, y, x1, y1, x2, y2);
 }
 
-void Fl_loop_4sided(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
+void Fl_loop_4sided(
+    int x, int y, int x1, int y1, int x2, int y2, int x3, int y3
+) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -176,7 +178,9 @@ void Fl_polygon(int x, int y, int x1, int y1, int x2, int y2) {
     fl_polygon(x, y, x1, y1, x2, y2);
 }
 
-void Fl_polygon_4sided(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3) {
+void Fl_polygon_4sided(
+    int x, int y, int x1, int y1, int x2, int y2, int x3, int y3
+) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -341,7 +345,9 @@ void Fl_curve(
     fl_curve(X0, Y0, X1, Y1, X2, Y2, X3, Y3);
 }
 
-void Fl_arc_with_radius(double x, double y, double r, double start, double end) {
+void Fl_arc_with_radius(
+    double x, double y, double r, double start, double end
+) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
@@ -764,11 +770,13 @@ void Fl_rescale_offscreen(void **ctx) {
     fl_rescale_offscreen(*(Fl_Offscreen *)ctx);
 }
 
-void Fl_draw_text_boxed(const char *str, int x, int y, int w, int h, int align) {
+void Fl_draw_text_boxed(
+    const char *str, int x, int y, int w, int h, int align
+) {
     if (!fl_graphics_driver)
         return;
     fl_open_display();
-    fl_draw(str, x, y, w, h, (Fl_Align)align, nullptr, 1);
+    fl_draw(str, x, y, w, h, (Fl_Align)align, nullptr, 0);
 }
 
 void Fl_draw_check(int x, int y, int w, int h, unsigned int col) {

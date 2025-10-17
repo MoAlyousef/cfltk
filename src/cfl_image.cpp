@@ -9,6 +9,7 @@
 #include <FL/Fl_ICO_Image.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_JPEG_Image.H>
+#include <FL/Fl_Menu_Item.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_PNM_Image.H>
 #include <FL/Fl_Pixmap.H>
@@ -117,6 +118,26 @@ Fl_JPEG_Image *Fl_JPEG_Image_from(const unsigned char *data) {
 }
 
 IMAGE_DEFINE(Fl_Image)
+
+void Fl_Image_color_average(Fl_Image *self, unsigned int c, float i) {
+    LOCK(self->color_average((Fl_Color)c, i));
+}
+
+void Fl_Image_desaturate(Fl_Image *self) {
+    LOCK(self->desaturate());
+}
+
+void Fl_Image_uncache(Fl_Image *self) {
+    LOCK(self->uncache());
+}
+
+void Fl_Image_label_widget(Fl_Image *self, void *w) {
+    LOCK(self->label((Fl_Widget *)w));
+}
+
+void Fl_Image_label_menu_item(Fl_Image *self, void *m) {
+    LOCK(self->label((Fl_Menu_Item *)m));
+}
 
 IMAGE_DEFINE(Fl_PNG_Image)
 

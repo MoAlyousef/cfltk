@@ -33,8 +33,8 @@ struct Widget_Derived : public T {
     drawer inner_drawer    = nullptr;
     using resizer          = void (*)(Fl_Widget *, int, int, int, int, void *);
     resizer resize_handler = nullptr;
-    using deleter_fp      = void (*)(Fl_Widget *, void *);
-    deleter_fp deleter   = nullptr;
+    using deleter_fp       = void (*)(Fl_Widget *, void *);
+    deleter_fp deleter     = nullptr;
 
     Widget_Derived(int x, int y, int w, int h, const char *title = nullptr)
         : T(x, y, w, h, title) {
@@ -69,12 +69,13 @@ struct Widget_Derived : public T {
     //   exist T::handle is the built-in handler in the fltk widget
     int handle(int event) override {
         if (super_handle_first) {
+            int ret = T::handle(event);
             // Both handlers always executed, T::handle executes first
             if (inner_handler) {
                 int local = inner_handler(this, event, ev_data_);
-                return T::handle(event) | local;
+                return ret | local;
             } else {
-                return T::handle(event);
+                return ret;
             }
         } else {
             // inner_handler executes first. T::handle only executes if

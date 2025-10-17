@@ -88,7 +88,26 @@ extern "C" {
     );                                                                         \
     unsigned int widget##_secondary_selection_color(const widget *self);       \
     void widget##_show_insert_position(widget *self);                          \
-    void widget##_overstrike(widget *self, const char *text);
+    void widget##_overstrike(widget *self, const char *text);                  \
+    void widget##_redisplay_range(widget *self, int start, int end);           \
+    void widget##_set_linenumber_format(widget *self, const char *val);        \
+    const char *widget##_linenumber_format(const widget *self);                \
+    int widget##_position_style(                                               \
+        const widget *self, int lineStartPos, int lineLen, int lineIndex       \
+    );                                                                         \
+    void widget##_maintain_absolute_top_line_number(widget *self, int state);  \
+    int widget##_get_absolute_top_line_number(const widget *self);             \
+    void widget##_absolute_top_line_number(widget *self, int oldFirstChar);    \
+    int widget##_maintaining_absolute_top_line_number(const widget *self);     \
+    void widget##_reset_absolute_top_line_number(widget *self);                \
+    int widget##_scroll_row(const widget *self);                               \
+    int widget##_scroll_col(const widget *self);                               \
+    int widget##_xy_to_position(                                               \
+        const widget *self, int x, int y, int PosType                          \
+    );                                                                         \
+    void widget##_xy_to_rowcol(                                                \
+        const widget *self, int x, int y, int *row, int *column, int PosType   \
+    );
 
 typedef void (*Fl_Text_Modify_Cb)(
     int pos,
@@ -98,6 +117,8 @@ typedef void (*Fl_Text_Modify_Cb)(
     const char *deletedText,
     void *cbArg
 );
+
+typedef void (*Fl_Text_Predelete_Cb)(int pos, int nDeleted, void *cbArg);
 
 typedef struct Fl_Text_Buffer Fl_Text_Buffer;
 
@@ -111,7 +132,7 @@ void Fl_Text_Buffer_set_text(Fl_Text_Buffer *self, const char *txt);
 
 void Fl_Text_Buffer_append(Fl_Text_Buffer *self, const char *txt);
 
-void Fl_Text_Buffer_append_bytes(Fl_Text_Buffer *self, const char *txt, int len);
+void Fl_Text_Buffer_append2(Fl_Text_Buffer *self, const char *txt, int len);
 
 void Fl_Text_Buffer_remove(Fl_Text_Buffer *self, int start, int end);
 
@@ -197,6 +218,8 @@ char *Fl_Text_Buffer_line_text(const Fl_Text_Buffer *self, int pos);
 
 int Fl_Text_Buffer_line_start(const Fl_Text_Buffer *self, int pos);
 
+int Fl_Text_Buffer_line_end(const Fl_Text_Buffer *self, int pos);
+
 int Fl_Text_Buffer_word_start(const Fl_Text_Buffer *self, int pos);
 
 int Fl_Text_Buffer_word_end(const Fl_Text_Buffer *self, int pos);
@@ -204,6 +227,18 @@ int Fl_Text_Buffer_word_end(const Fl_Text_Buffer *self, int pos);
 int Fl_Text_Buffer_count_lines(
     const Fl_Text_Buffer *self, int startPos, int endPos
 );
+
+unsigned int Fl_Text_Buffer_char_at(const Fl_Text_Buffer *self, int pos);
+
+unsigned char Fl_Text_Buffer_byte_at(const Fl_Text_Buffer *self, int pos);
+
+const char *Fl_Text_Buffer_address(const Fl_Text_Buffer *self, int pos);
+
+char *Fl_Text_Buffer_address2(Fl_Text_Buffer *self, int pos);
+
+int Fl_Text_Buffer_utf8_align(const Fl_Text_Buffer *self, int pos);
+
+int Fl_Text_Buffer_is_word_separator(const Fl_Text_Buffer *self, int pos);
 
 void Fl_Text_Buffer_add_modify_callback(
     Fl_Text_Buffer *self, Fl_Text_Modify_Cb bufModifiedCB, void *cbArg
@@ -248,6 +283,28 @@ int Fl_Text_Buffer_findchar_backward(
 int Fl_Text_Buffer_redo(Fl_Text_Buffer *self, int *cp);
 
 int Fl_Text_Buffer_can_redo(const Fl_Text_Buffer *self);
+
+int Fl_Text_Buffer_insertfile(
+    Fl_Text_Buffer *self, const char *file, int pos, int buflen
+);
+
+int Fl_Text_Buffer_appendfile(
+    Fl_Text_Buffer *self, const char *file, int buflen
+);
+
+int Fl_Text_Buffer_outputfile(
+    Fl_Text_Buffer *self, const char *file, int start, int end, int buflen
+);
+
+void Fl_Text_Buffer_add_predelete_callback(
+    Fl_Text_Buffer *self, Fl_Text_Predelete_Cb bufPredeleteCB, void *cbArg
+);
+
+void Fl_Text_Buffer_remove_predelete_callback(
+    Fl_Text_Buffer *self, Fl_Text_Predelete_Cb bufPredeleteCB, void *cbArg
+);
+
+void Fl_Text_Buffer_call_predelete_callbacks(Fl_Text_Buffer *self);
 
 WIDGET_DECLARE(Fl_Text_Display)
 
@@ -340,6 +397,50 @@ void Fl_Text_Editor_add_key_binding(
 void Fl_Text_Editor_remove_key_binding(
     Fl_Text_Editor *self, int key, int state
 );
+
+WIDGET_DECLARE(Fl_Simple_Terminal)
+
+void Fl_Simple_Terminal_init(Fl_Simple_Terminal *);
+
+Fl_Text_Buffer *Fl_Simple_Terminal_get_buffer(Fl_Simple_Terminal *);
+
+void Fl_Simple_Terminal_set_buffer(Fl_Simple_Terminal *, Fl_Text_Buffer *);
+
+Fl_Text_Buffer *Fl_Simple_Terminal_get_style_buffer(Fl_Simple_Terminal *);
+
+void Fl_Simple_Terminal_set_stay_at_bottom(Fl_Simple_Terminal *self, int);
+
+int Fl_Simple_Terminal_stay_at_bottom(const Fl_Simple_Terminal *self);
+
+void Fl_Simple_Terminal_set_history_lines(Fl_Simple_Terminal *self, int);
+
+int Fl_Simple_Terminal_history_lines(const Fl_Simple_Terminal *self);
+
+void Fl_Simple_Terminal_set_ansi(Fl_Simple_Terminal *self, int val);
+
+int Fl_Simple_Terminal_ansi(const Fl_Simple_Terminal *self);
+
+void Fl_Simple_Terminal_append(Fl_Simple_Terminal *self, const char *s);
+
+void Fl_Simple_Terminal_append2(
+    Fl_Simple_Terminal *self, const char *s, int len
+);
+
+void Fl_Simple_Terminal_set_text(Fl_Simple_Terminal *self, const char *s);
+
+void Fl_Simple_Terminal_set_text2(
+    Fl_Simple_Terminal *self, const char *s, int len
+);
+
+const char *Fl_Simple_Terminal_text(const Fl_Simple_Terminal *self);
+
+void Fl_Simple_Terminal_clear(Fl_Simple_Terminal *self);
+
+void Fl_Simple_Terminal_remove_lines(
+    Fl_Simple_Terminal *self, int start, int count
+);
+
+DISPLAY_DECLARE(Fl_Simple_Terminal)
 
 void Fl_delete_stable(void *);
 

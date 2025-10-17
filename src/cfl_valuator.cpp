@@ -17,6 +17,7 @@
 #include <FL/Fl_Nice_Slider.H>
 #include <FL/Fl_Roller.H>
 #include <FL/Fl_Scrollbar.H>
+#include <FL/Fl_Simple_Counter.H>
 #include <FL/Fl_Slider.H>
 #include <FL/Fl_Value_Input.H>
 #include <FL/Fl_Value_Output.H>
@@ -104,8 +105,12 @@ void Fl_Slider_set_slider_box(Fl_Slider *self, int c) {
     LOCK(self->slider((Fl_Boxtype)c));
 }
 
-int Fl_Slider_scroll_value(Fl_Slider *self, int pos, int windowSize, int first_line, int total_lines) {
-    LOCK(auto ret = self->scrollvalue(pos, windowSize, first_line, total_lines));
+int Fl_Slider_scroll_value(
+    Fl_Slider *self, int pos, int windowSize, int first_line, int total_lines
+) {
+    LOCK(
+        auto ret = self->scrollvalue(pos, windowSize, first_line, total_lines)
+    );
     return ret;
 }
 
@@ -172,7 +177,9 @@ int Fl_Scrollbar_linesize(const Fl_Scrollbar *self) {
     return ret;
 }
 
-int Fl_Scrollbar_scroll_value(Fl_Scrollbar *self, int pos, int windowSize, int first_line, int total_lines) {
+int Fl_Scrollbar_scroll_value(
+    Fl_Scrollbar *self, int pos, int windowSize, int first_line, int total_lines
+) {
     LOCK(auto ret = self->value(pos, windowSize, first_line, total_lines));
     return ret;
 }
@@ -357,3 +364,9 @@ int Fl_Hor_Value_Slider_text_size(Fl_Hor_Value_Slider *self) {
 }
 
 VALUATOR_DEFINE(Fl_Hor_Value_Slider)
+
+WIDGET_CLASS(Fl_Simple_Counter)
+
+WIDGET_DEFINE(Fl_Simple_Counter)
+
+VALUATOR_DEFINE(Fl_Simple_Counter)
