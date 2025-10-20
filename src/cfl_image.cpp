@@ -88,7 +88,7 @@
         self->release();                                                       \
     }
 
-void Fl_load_system_icons(void) {
+extern "C" void Fl_load_system_icons(void) {
     Fl_File_Icon::load_system_icons();
 }
 
