@@ -2,8 +2,6 @@
 
 include_guard(GLOBAL)
 
-include(CMakePackageConfigHelpers)
-
 if(UNIX AND NOT APPLE)
   string(
     APPEND

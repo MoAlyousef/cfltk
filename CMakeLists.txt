@@ -187,6 +187,8 @@ target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
 
 set_target_properties(cfltk PROPERTIES VERSION ${CFLTK_PROJECT_VERSION})
 
+include(CMakePackageConfigHelpers)
+
 set(cfltk_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/cfltk")
 
 install(
