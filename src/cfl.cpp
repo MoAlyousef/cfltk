@@ -3,7 +3,6 @@
 #include "cfl.h"
 
 #include <FL/Enumerations.H>
-#include <FL/Fl_File_Icon.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Window.H>
 #include <FL/platform.H>
@@ -827,10 +826,6 @@ int Fl_option(int opt) {
 
 void Fl_set_option(int opt, int val) {
     Fl::option((Fl::Fl_Option)opt, val);
-}
-
-void Fl_load_system_icons(void) {
-    Fl_File_Icon::load_system_icons();
 }
 
 void Fl_set_contrast_level(int level) {
