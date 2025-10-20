@@ -5,6 +5,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Anim_GIF_Image.H>
 #include <FL/Fl_BMP_Image.H>
+#include <FL/Fl_File_Icon.H>
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl_ICO_Image.H>
 #include <FL/Fl_Image.H>
@@ -86,6 +87,10 @@
     void image##_delete(image *self) {                                         \
         self->release();                                                       \
     }
+
+void Fl_load_system_icons(void) {
+    Fl_File_Icon::load_system_icons();
+}
 
 void Fl_Image_set_scaling_algorithm(int algorithm) {
     LOCK(Fl_Image::scaling_algorithm((Fl_RGB_Scaling)algorithm));
