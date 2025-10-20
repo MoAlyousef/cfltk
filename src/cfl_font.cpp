@@ -1,6 +1,6 @@
 #include <FL/Fl.H> // Has to be the first include!
 
-#include "cfl.h"
+#include <cfltk/cfl.h>
 
 #include <stdarg.h>
 #include <stdint.h>

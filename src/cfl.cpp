@@ -1,6 +1,6 @@
 #include <FL/Fl.H> // Has to be the first include!
 
-#include "cfl.h"
+#include <cfltk/cfl.h>
 
 #include <FL/Enumerations.H>
 #include <FL/Fl_Widget.H>

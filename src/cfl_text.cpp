@@ -1,6 +1,6 @@
-#include "cfl_text.h"
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
+#include <cfltk/cfl_text.h>
+#include <cfltk/cfl_lock.h>
+#include <cfltk/cfl_widget.hpp>
 
 #include "Fl_Simple_Terminal.H"
 #include <FL/Fl.H>

@@ -1,14 +1,21 @@
-cmake_minimum_required(VERSION 3.15)
-set(CFLTK_PROJECT_VERSION 1.5.18)
+cmake_minimum_required(VERSION 3.28)
+set(CFLTK_PROJECT_VERSION 1.5.20)
 
 project(
   cfltk
   HOMEPAGE_URL https://github.com/MoAlyousef/cfltk
   DESCRIPTION "C Bindings for FLTK"
-  VERSION ${CFLTK_PROJECT_VERSION})
+  VERSION ${CFLTK_PROJECT_VERSION}
+  LANGUAGES C CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
+include(GNUInstallDirs)
+
+if(APPLE)
+  enable_language(OBJC)
+endif()
 
 option(CFLTK_BUILD_SHARED "Builds a shared library" OFF)
 option(USE_SYSTEM_FLTK "Finds and uses the installed FLTK library" OFF)
@@ -18,6 +25,11 @@ option(CFLTK_LINK_IMAGES "Links image libraries" ON)
 option(CFLTK_CARGO_BUILD "cfltk is built using Cargo" OFF)
 option(CFLTK_MSVC_CRT_STATIC "cfltk is built with crt-static" OFF)
 option(CFLTK_USE_CAIROEXT "Uses CairoExt FLTK feature" OFF)
+option(CFLTK_USE_FPIC "Compile code with -fPIC to allow incorporation into shared lib." OFF)
+
+if (CFLTK_USE_FPIC OR CFLTK_BUILD_SHARED)
+  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
 
 if(MSVC)
   string(REGEX REPLACE "/EHsc" "/EHs-c-" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -97,20 +109,31 @@ endif()
 if(CFLTK_USE_CAIROEXT)
   find_package(PkgConfig REQUIRED)
   pkg_check_modules(CAIRO REQUIRED IMPORTED_TARGET "cairo")
-  include_directories(cfltk PUBLIC ${CAIRO_INCLUDE_DIRS})
 endif()
 
 if(CFLTK_BUILD_SHARED)
-  add_library(cfltk SHARED ${CFLTK_SRCS})
-  if(CFLTK_CARGO_BUILD)
-    add_custom_command(
-      TARGET cfltk
-      POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cfltk>
-              "${CMAKE_INSTALL_PREFIX}/../../../../$<TARGET_FILE_NAME:cfltk>")
-  endif()
+  add_library(cfltk SHARED)
 else()
-  add_library(cfltk STATIC ${CFLTK_SRCS})
+  add_library(cfltk STATIC)
+endif()
+
+add_library(cfltk::cfltk ALIAS cfltk)
+
+target_sources(
+  cfltk
+  PRIVATE ${CFLTK_SRCS}
+  PUBLIC
+    FILE_SET HEADERS
+    BASE_DIRS ${CMAKE_CURRENT_LIST_DIR}/include
+    FILES ${CFLTK_HEADER_FILES}
+)
+
+if(CFLTK_CARGO_BUILD AND CFLTK_BUILD_SHARED)
+  add_custom_command(
+    TARGET cfltk
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cfltk>
+            "${CMAKE_INSTALL_PREFIX}/../../../../$<TARGET_FILE_NAME:cfltk>")
 endif()
 
 # if(CFLTK_CARGO_BUILD AND (UNIX OR MSYS OR MINGW))
@@ -123,46 +146,19 @@ endif()
 
 target_compile_features(cfltk PRIVATE cxx_std_17)
 
-set(FLTK_INCLUDES)
-if (NOT EMSCRIPTEN)
-  get_target_property(FLTK_INCLUDES fltk::fltk INCLUDE_DIRECTORIES)
-endif()
-
-if(USE_SYSTEM_FLTK)
-  target_include_directories(
-    cfltk
-    PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:include/cfltk>
-      ${FLTK_INCLUDE_DIRS}
-      ${FLTK_INCLUDES}
-    )
-else()
-  target_include_directories(
-    cfltk
-    PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:include/cfltk>
-    PRIVATE
-      ${CMAKE_CURRENT_SOURCE_DIR}/fltk
-      ${CMAKE_CURRENT_BINARY_DIR}/fltk
-      ${FLTK_INCLUDES}
-    )
-endif()
-
-set(CFLTK_LIBS fltk)
+set(CFLTK_LIBS fltk::fltk)
 set(pc_req_private)
 set(pc_libs_private "-lfltk")
 set(other_c_flags)
 
 if(CFLTK_LINK_IMAGES)
-  set(CFLTK_LIBS ${CFLTK_LIBS} fltk_images fltk_z fltk_jpeg fltk_png)
+  set(CFLTK_LIBS ${CFLTK_LIBS} fltk::images fltk::z fltk::jpeg fltk::png)
   string(APPEND pc_libs_private
          " -lfltk_images -lfltk_z -lfltk_jpeg -lfltk_png")
 endif()
 
 if(CFLTK_USE_OPENGL)
-  set(CFLTK_LIBS ${CFLTK_LIBS} fltk_gl)
+  set(CFLTK_LIBS ${CFLTK_LIBS} fltk::gl)
   target_compile_definitions(cfltk PUBLIC CFLTK_USE_GL)
   string(APPEND pc_libs_private " -lfltk_gl")
   string(APPEND other_c_flags "-DCFLTK_USE_GL")
@@ -179,6 +175,7 @@ if(CFLTK_USE_CAIROEXT)
   if(WIN32 OR APPLE)
     string(APPEND pc_req_private " cairo")
   endif()
+  target_link_libraries(cfltk PUBLIC PkgConfig::CAIRO)
 endif()
 
 if(CFLTK_SINGLE_THREADED)
@@ -186,96 +183,46 @@ if(CFLTK_SINGLE_THREADED)
   string(APPEND other_c_flags " -DCFLTK_SINGLE_THREADED")
 endif()
 
-if(CFLTK_BUILD_SHARED OR USE_SYSTEM_FLTK)
-  target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
-  if(APPLE)
-    target_link_libraries(cfltk PUBLIC "-framework Cocoa")
-  endif()
-  if(WIN32)
-    target_link_libraries(
-      cfltk
-      PUBLIC ws2_32
-             comctl32
-             gdi32
-             gdiplus
-             oleaut32
-             ole32
-             uuid
-             shell32
-             advapi32
-             comdlg32
-             winspool
-             user32
-             kernel32
-             odbc32)
-  endif()
-endif()
-
-set_target_properties(cfltk PROPERTIES PUBLIC_HEADER "${CFLTK_HEADER_FILES}")
+target_link_libraries(cfltk PUBLIC ${CFLTK_LIBS})
 
 set_target_properties(cfltk PROPERTIES VERSION ${CFLTK_PROJECT_VERSION})
 
-include(CMakePackageConfigHelpers)
+set(cfltk_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/cfltk")
+
+install(
+  TARGETS cfltk
+  EXPORT cfltkTargets
+  FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cfltk
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(
+  EXPORT cfltkTargets
+  FILE cfltkTargets.cmake
+  NAMESPACE cfltk::
+  DESTINATION "${cfltk_INSTALL_CMAKEDIR}"
+)
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_LIST_DIR}/cmake/cfltkConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfig.cmake"
+  INSTALL_DESTINATION "${cfltk_INSTALL_CMAKEDIR}"
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
+)
 
 write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake
-  VERSION ${CFLTK_PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion)
+  "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake"
+  VERSION       ${CFLTK_PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
 
 install(
-  TARGETS cfltk
-  EXPORT cfltkConfig
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include/cfltk)
+  FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake"
+  DESTINATION "${cfltk_INSTALL_CMAKEDIR}"
+)
 
-export(
-  TARGETS cfltk
-  NAMESPACE cfltk::
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/cfltkConfig.cmake")
-
-install(
-  EXPORT cfltkConfig
-  DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk"
-  NAMESPACE cfltk::)
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cfltkConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/cfltk)
-
-# gen pkg-config
-include(GNUInstallDirs)
-
-if(UNIX AND NOT APPLE)
-  string(
-    APPEND
-    pc_req_private
-    " x11 xinerama xcursor xfixes xext xrender xft fontconfig cairo pango pangoxft pangocairo gobject-2.0 wayland-client wayland-cursor xkbcommon"
-  )
-  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    string(APPEND pc_libs_private " -ldbus-1 -lsupc++ -ldl -pthread")
-  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    string(APPEND pc_libs_private " -ldbus-1 -lcxxrt")
-  endif()
-elseif(APPLE)
-  string(
-    APPEND
-    pc_libs_private
-    " -framework Cocoa -framework Carbon -framework ApplicationServices -framework OpenGL -lc++abi"
-  )
-elseif(WIN32)
-  string(
-    APPEND
-    pc_libs_private
-    " -lgdiplus -lws2_32 -lcomctl32 -lgdi32 -loleaut32 -lole32 -luuid -lshell32 -ladvapi32 -lcomdlg32 -lwinspool -luser32 -lkernel32 -lodbc32"
-  )
-  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    string(APPEND pc_libs_private " -lgcc -lsupc++ -pthread")
-  endif()
-endif()
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cfltk.pc.in
-               ${CMAKE_CURRENT_BINARY_DIR}/cfltk.pc @ONLY)
-
-install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/cfltk-pkgconfig.cmake)

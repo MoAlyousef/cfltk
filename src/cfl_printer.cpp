@@ -1,6 +1,6 @@
-#include "cfl_printer.h"
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
+#include <cfltk/cfl_printer.h>
+#include <cfltk/cfl_lock.h>
+#include <cfltk/cfl_widget.hpp>
 
 #include "FL/Fl_Widget.H"
 #include "FL/Fl_Window.H"

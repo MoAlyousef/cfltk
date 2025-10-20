@@ -15,9 +15,9 @@ extern "C" void cfltk_setWindowTransparency(void *, unsigned char);
 #include <FL/Enumerations.H>
 #define FL_INTERNALS
 
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
-#include "cfl_window.h"
+#include <cfltk/cfl_lock.h>
+#include <cfltk/cfl_widget.hpp>
+#include <cfltk/cfl_window.h>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>

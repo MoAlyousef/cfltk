@@ -1,6 +1,6 @@
-#include "cfl_image.h"
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
+#include <cfltk/cfl_image.h>
+#include <cfltk/cfl_lock.h>
+#include <cfltk/cfl_widget.hpp>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Anim_GIF_Image.H>

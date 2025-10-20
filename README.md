@@ -49,8 +49,7 @@ project(app)
 add_subdirectory(cfltk)
 
 add_executable(main main.c)
-target_include_directories(main PRIVATE cfltk/include)
-target_link_libraries(main PRIVATE cfltk fltk::fltk fltk::images fltk::png fltk::z) # as needed
+target_link_libraries(main PRIVATE cfltk::cfltk fltk::fltk fltk::images fltk::png fltk::z) # as needed
 
 # for windows, might be needed in some setups like creating a library
 target_link_libraries(main PRIVATE ws2_32 comctl32 gdi32 gdiplus oleaut32 ole32 uuid shell32 advapi32 comdlg32 winspool user32 kernel32 odbc32)

@@ -1,6 +1,6 @@
-#include "cfl_surface.h"
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
+#include <cfltk/cfl_surface.h>
+#include <cfltk/cfl_lock.h>
+#include <cfltk/cfl_widget.hpp>
 
 #include "FL/Fl.H"
 #include <FL/Fl_Image_Surface.H>
