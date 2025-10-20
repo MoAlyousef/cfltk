@@ -1,7 +1,7 @@
 #ifndef __CFL_MENU_H__
 #define __CFL_MENU_H__
 
-#include <cfltk/cfl_macros.h>
+#include "cfl_macros.h"
 
 #ifdef __cplusplus
 extern "C" {

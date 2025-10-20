@@ -1,7 +1,7 @@
 #ifndef __CFL_TEXT_H__
 #define __CFL_TEXT_H__
 
-#include <cfltk/cfl_macros.h>
+#include "cfl_macros.h"
 
 #ifdef __cplusplus
 extern "C" {

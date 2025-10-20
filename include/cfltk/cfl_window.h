@@ -1,7 +1,7 @@
 #ifndef __CFL_WINDOW_H__
 #define __CFL_WINDOW_H__
 
-#include <cfltk/cfl_macros.h>
+#include "cfl_macros.h"
 #include <stdint.h>
 
 #ifdef __cplusplus
