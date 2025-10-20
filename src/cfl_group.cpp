@@ -1,6 +1,6 @@
-#include "cfl_group.h"
-#include "cfl_lock.h"
-#include "cfl_widget.hpp"
+#include <cfltk2/cfl_group.h>
+#include <cfltk2/cfl_lock.h>
+#include <cfltk2/cfl_widget.hpp>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Color_Chooser.H>

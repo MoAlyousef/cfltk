@@ -27,12 +27,10 @@ To add to your project, you can add this project as a submodule:
 ```
 $ git submodule add https://github.com/moalyousef/cfltk
 $ git submodule update --init --recursive
-$ cd cfltk/fltk
 ```
 or by cloning the repo:
 ```
 $ git clone https://github.com/moalyousef/cfltk --recurse-submodules
-$ cd cfltk
 ```
 
 You can build your project using cmake on the command line or gui:
@@ -49,8 +47,7 @@ project(app)
 add_subdirectory(cfltk)
 
 add_executable(main main.c)
-target_include_directories(main PRIVATE cfltk/include)
-target_link_libraries(main PRIVATE cfltk fltk::fltk fltk::images fltk::png fltk::z) # as needed
+target_link_libraries(main PRIVATE cfltk2::cfltk2 fltk::fltk fltk::images fltk::png fltk::z) # as needed
 
 # for windows, might be needed in some setups like creating a library
 target_link_libraries(main PRIVATE ws2_32 comctl32 gdi32 gdiplus oleaut32 ole32 uuid shell32 advapi32 comdlg32 winspool user32 kernel32 odbc32)

@@ -1,7 +1,7 @@
-#include "cfl.h"
-#include "cfl_box.h"
-#include "cfl_button.h"
-#include "cfl_window.h"
+#include <cfltk2/cfl.h>
+#include <cfltk2/cfl_box.h>
+#include <cfltk2/cfl_button.h>
+#include <cfltk2/cfl_window.h>
 #include <cstdio>
 #include <stdexcept>
 #include <string>

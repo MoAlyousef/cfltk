@@ -1,4 +1,4 @@
-#include "cfl_prefs.h"
+#include <cfltk2/cfl_prefs.h>
 
 #include <FL/Fl_Preferences.H>
 

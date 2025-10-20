@@ -1,8 +1,8 @@
-#include <cfl.h> // Fl_init_all, Fl_lock, Fl_run
-#include <cfl_box.h>
-#include <cfl_enums.h>
-#include <cfl_image.h> // Fl_register_images
-#include <cfl_window.h>
+#include <cfltk2/cfl.h> // Fl_init_all, Fl_lock, Fl_run
+#include <cfltk2/cfl_box.h>
+#include <cfltk2/cfl_enums.h>
+#include <cfltk2/cfl_image.h> // Fl_register_images
+#include <cfltk2/cfl_window.h>
 
 #define TRUE 1
 #define FALSE 0

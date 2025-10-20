@@ -1,12 +1,12 @@
-#include <cfl.h> // Fl_init_all, Fl_lock, Fl_run
-#include <cfl_box.h>
-#include <cfl_button.h>
-#include <cfl_draw.h>
-#include <cfl_enums.h>
-#include <cfl_group.h>
-#include <cfl_image.h> // Fl_register_images
-#include <cfl_widget.h>
-#include <cfl_window.h>
+#include <cfltk2/cfl.h> // Fl_init_all, Fl_lock, Fl_run
+#include <cfltk2/cfl_box.h>
+#include <cfltk2/cfl_button.h>
+#include <cfltk2/cfl_draw.h>
+#include <cfltk2/cfl_enums.h>
+#include <cfltk2/cfl_group.h>
+#include <cfltk2/cfl_image.h> // Fl_register_images
+#include <cfltk2/cfl_widget.h>
+#include <cfltk2/cfl_window.h>
 #include <stdio.h>
 #include <stdlib.h>
 

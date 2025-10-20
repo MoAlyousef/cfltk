@@ -1,8 +1,8 @@
-#include <cfl.h> // Fl_init_all
-#include <cfl_box.h>
-#include <cfl_button.h>
-#include <cfl_enums.h> // EventNames, Event_PUSH
-#include <cfl_window.h>
+#include <cfltk2/cfl.h> // Fl_init_all
+#include <cfltk2/cfl_box.h>
+#include <cfltk2/cfl_button.h>
+#include <cfltk2/cfl_enums.h> // EventNames, Event_PUSH
+#include <cfltk2/cfl_window.h>
 #include <stdio.h>
 #include <stdlib.h>
 

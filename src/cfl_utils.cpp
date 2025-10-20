@@ -1,4 +1,4 @@
-#include "cfl_utils.h"
+#include <cfltk2/cfl_utils.h>
 
 #include <FL/Fl_Widget.H>
 #include <FL/filename.H>
