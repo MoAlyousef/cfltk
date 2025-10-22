@@ -50,7 +50,7 @@ endif()
 # If cmake can't find the installed fltk, you might have to set the FLTK_DIR
 # enviromental variable, export FLTK_DIR=/path/to/fltk
 if(USE_SYSTEM_FLTK)
-  find_package(FLTK REQUIRED NO_MODULE)
+  find_package(FLTK 1.4 CONFIG REQUIRED)
 else()
   file(GLOB RESULT "fltk")
   list(LENGTH RESULT RES_LEN)
