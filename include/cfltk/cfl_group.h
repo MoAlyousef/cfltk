@@ -15,6 +15,10 @@ void Fl_Group_set_current(Fl_Group *grp);
 
 GROUP_DECLARE(Fl_Group)
 
+WIDGET_DECLARE(Fl_Overlay_Group)
+
+GROUP_DECLARE(Fl_Overlay_Group)
+
 WIDGET_DECLARE(Fl_Pack)
 
 int Fl_Pack_spacing(Fl_Pack *self);

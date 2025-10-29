@@ -32,6 +32,26 @@ void Fl_Group_set_current(Fl_Group *grp) {
 
 GROUP_DEFINE(Fl_Group)
 
+class Fl_Overlay_Group : public Fl_Group {
+public:
+    using Fl_Group::Fl_Group;
+    void resize(int X, int Y, int W, int H) override {
+        Fl_Group::resize(X, Y, W, H);
+        // Resize ALL children to exactly fill this group
+        for (int i = 0; i < children(); ++i) {
+            Fl_Widget* c = child(i);
+            c->resize(X, Y, W, H);
+        }
+        redraw();
+    }
+};
+
+WIDGET_CLASS(Fl_Overlay_Group)
+
+WIDGET_DEFINE(Fl_Overlay_Group)
+
+GROUP_DEFINE(Fl_Overlay_Group)
+
 WIDGET_CLASS(Fl_Pack)
 
 WIDGET_DEFINE(Fl_Pack)
