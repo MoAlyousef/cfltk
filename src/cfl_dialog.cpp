@@ -189,6 +189,8 @@ const char *Fl_password2(const char *txt, const char *deflt) {
     return ret;
 }
 
+#ifdef CFLTK_USE_IMAGES
+
 Fl_Help_Dialog *Fl_Help_Dialog_new(void) {
     LOCK(auto ret = new Fl_Help_Dialog());
     return ret;
@@ -263,6 +265,8 @@ int Fl_Help_Dialog_y(Fl_Help_Dialog *self) {
     LOCK(auto ret = self->y());
     return ret;
 }
+
+#endif
 
 void Fl_beep(int type) {
     LOCK(fl_beep(type));

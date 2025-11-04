@@ -82,6 +82,8 @@ void Fl_Image_Surface_draw_decorated_window(
     Fl_Image_Surface *self, void *widget, int delta_x, int delta_y
 ){LOCK(self->draw_decorated_window((Fl_Window *)widget, delta_x, delta_y))}
 
+#ifdef CFLTK_USE_IMAGES
+
 Fl_SVG_File_Surface *Fl_SVG_File_Surface_new(
     int width, int height, const char *file
 ) {
@@ -117,3 +119,5 @@ void Fl_SVG_File_Surface_draw_decorated_window(
 ) {
     LOCK(self->draw_decorated_window((Fl_Window *)widget, delta_x, delta_y));
 }
+
+#endif

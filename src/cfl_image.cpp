@@ -88,9 +88,6 @@
         self->release();                                                       \
     }
 
-extern "C" void Fl_load_system_icons(void) {
-    Fl_File_Icon::load_system_icons();
-}
 
 void Fl_Image_set_scaling_algorithm(int algorithm) {
     LOCK(Fl_Image::scaling_algorithm((Fl_RGB_Scaling)algorithm));
@@ -108,18 +105,6 @@ void Fl_RGB_Image_set_scaling_algorithm(int algorithm) {
 int Fl_RGB_Image_scaling_algorithm(void) {
     LOCK(auto ret = Fl_Image::RGB_scaling());
     return (int)ret;
-}
-
-IMAGE_DEFINE(Fl_JPEG_Image)
-
-Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename) {
-    LOCK(auto ret = new Fl_JPEG_Image(filename));
-    return ret;
-}
-
-Fl_JPEG_Image *Fl_JPEG_Image_from(const unsigned char *data) {
-    LOCK(auto ret = new Fl_JPEG_Image(nullptr, data));
-    return ret;
 }
 
 IMAGE_DEFINE(Fl_Image)
@@ -142,6 +127,104 @@ void Fl_Image_label_widget(Fl_Image *self, void *w) {
 
 void Fl_Image_label_menu_item(Fl_Image *self, void *m) {
     LOCK(self->label((Fl_Menu_Item *)m));
+}
+
+
+IMAGE_DEFINE(Fl_Tiled_Image)
+
+Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
+    LOCK(auto ret = new Fl_Tiled_Image(i->copy(), w, h));
+    return ret;
+}
+
+IMAGE_DEFINE(Fl_RGB_Image)
+
+Fl_RGB_Image *
+Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
+    int temp = 0;
+    if (ld == 0) {
+        temp = abs(W * depth);
+    } else {
+        temp = abs(ld);
+    }
+    auto sz   = abs(temp * H);
+    auto *arr = new unsigned char[sz];
+    if (!arr)
+        return nullptr;
+    memset(arr, 0, sz);
+    memcpy(arr, bits, sz);
+    LOCK(auto *img = new Fl_RGB_Image(arr, W, H, depth, ld);
+         if (!img) return nullptr;
+         img->alloc_array = 1);
+    return img;
+}
+
+Fl_RGB_Image *Fl_RGB_Image_from_data(
+    const unsigned char *bits, int W, int H, int depth, int ld
+) {
+    LOCK(auto *img = new Fl_RGB_Image(bits, W, H, depth, ld);
+         if (!img) return nullptr;
+         img->alloc_array = 0);
+    return img;
+}
+
+extern int fl_convert_pixmap(
+    const char *const *cdata, unsigned char *out, unsigned int bg
+);
+
+Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
+    auto rgb = new Fl_RGB_Image(nullptr, pxm->data_w(), pxm->data_h(), 4);
+    if (pxm && pxm->data_w() > 0 && pxm->data_h() > 0) {
+        rgb->array       = new uchar[pxm->data_w() * pxm->data_h() * rgb->d()];
+        rgb->alloc_array = 1;
+        fl_convert_pixmap(pxm->data(), (uchar *)rgb->array, 49);
+    }
+    rgb->scale(pxm->w(), pxm->h(), 0, 1);
+    return rgb;
+}
+
+
+IMAGE_DEFINE(Fl_Pixmap)
+
+Fl_Pixmap *Fl_Pixmap_new(const char *const *D) {
+    LOCK(Fl_Pixmap temp(D); auto ret = temp.copy(temp.w(), temp.h()));
+    return (Fl_Pixmap *)ret;
+}
+
+IMAGE_DEFINE(Fl_XPM_Image)
+
+Fl_XPM_Image *Fl_XPM_Image_new(const char *filename) {
+    LOCK(auto ret = new Fl_XPM_Image(filename));
+    return ret;
+}
+
+IMAGE_DEFINE(Fl_XBM_Image)
+
+Fl_XBM_Image *Fl_XBM_Image_new(const char *filename) {
+    LOCK(auto ret = new Fl_XBM_Image(filename));
+    return ret;
+}
+
+#ifdef CFLTK_USE_IMAGES
+
+void Fl_register_images(void) {
+    LOCK(fl_register_images());
+}
+
+extern "C" void Fl_load_system_icons(void) {
+    Fl_File_Icon::load_system_icons();
+}
+
+IMAGE_DEFINE(Fl_JPEG_Image)
+
+Fl_JPEG_Image *Fl_JPEG_Image_new(const char *filename) {
+    LOCK(auto ret = new Fl_JPEG_Image(filename));
+    return ret;
+}
+
+Fl_JPEG_Image *Fl_JPEG_Image_from(const unsigned char *data) {
+    LOCK(auto ret = new Fl_JPEG_Image(nullptr, data));
+    return ret;
 }
 
 IMAGE_DEFINE(Fl_PNG_Image)
@@ -267,27 +350,6 @@ int Fl_Anim_GIF_Image_playing(const Fl_Anim_GIF_Image *self) {
     return ret;
 }
 
-IMAGE_DEFINE(Fl_Pixmap)
-
-Fl_Pixmap *Fl_Pixmap_new(const char *const *D) {
-    LOCK(Fl_Pixmap temp(D); auto ret = temp.copy(temp.w(), temp.h()));
-    return (Fl_Pixmap *)ret;
-}
-
-IMAGE_DEFINE(Fl_XPM_Image)
-
-Fl_XPM_Image *Fl_XPM_Image_new(const char *filename) {
-    LOCK(auto ret = new Fl_XPM_Image(filename));
-    return ret;
-}
-
-IMAGE_DEFINE(Fl_XBM_Image)
-
-Fl_XBM_Image *Fl_XBM_Image_new(const char *filename) {
-    LOCK(auto ret = new Fl_XBM_Image(filename));
-    return ret;
-}
-
 IMAGE_DEFINE(Fl_PNM_Image)
 
 Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
@@ -295,58 +357,6 @@ Fl_PNM_Image *Fl_PNM_Image_new(const char *filename) {
     return ret;
 }
 
-IMAGE_DEFINE(Fl_Tiled_Image)
-
-Fl_Tiled_Image *Fl_Tiled_Image_new(Fl_Image *i, int w, int h) {
-    LOCK(auto ret = new Fl_Tiled_Image(i->copy(), w, h));
-    return ret;
-}
-
-IMAGE_DEFINE(Fl_RGB_Image)
-
-Fl_RGB_Image *
-Fl_RGB_Image_new(const unsigned char *bits, int W, int H, int depth, int ld) {
-    int temp = 0;
-    if (ld == 0) {
-        temp = abs(W * depth);
-    } else {
-        temp = abs(ld);
-    }
-    auto sz   = abs(temp * H);
-    auto *arr = new unsigned char[sz];
-    if (!arr)
-        return nullptr;
-    memset(arr, 0, sz);
-    memcpy(arr, bits, sz);
-    LOCK(auto *img = new Fl_RGB_Image(arr, W, H, depth, ld);
-         if (!img) return nullptr;
-         img->alloc_array = 1);
-    return img;
-}
-
-Fl_RGB_Image *Fl_RGB_Image_from_data(
-    const unsigned char *bits, int W, int H, int depth, int ld
-) {
-    LOCK(auto *img = new Fl_RGB_Image(bits, W, H, depth, ld);
-         if (!img) return nullptr;
-         img->alloc_array = 0);
-    return img;
-}
-
-extern int fl_convert_pixmap(
-    const char *const *cdata, unsigned char *out, unsigned int bg
-);
-
-Fl_RGB_Image *Fl_RGB_Image_from_pixmap(const Fl_Pixmap *pxm) {
-    auto rgb = new Fl_RGB_Image(nullptr, pxm->data_w(), pxm->data_h(), 4);
-    if (pxm && pxm->data_w() > 0 && pxm->data_h() > 0) {
-        rgb->array       = new uchar[pxm->data_w() * pxm->data_h() * rgb->d()];
-        rgb->alloc_array = 1;
-        fl_convert_pixmap(pxm->data(), (uchar *)rgb->array, 49);
-    }
-    rgb->scale(pxm->w(), pxm->h(), 0, 1);
-    return rgb;
-}
 
 IMAGE_DEFINE(Fl_Shared_Image)
 
@@ -381,6 +391,4 @@ Fl_ICO_Image_icondirentry(const Fl_ICO_Image *self, unsigned long *size) {
     return temp;
 }
 
-void Fl_register_images(void) {
-    LOCK(fl_register_images());
-}
+#endif

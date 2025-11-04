@@ -26,6 +26,9 @@ option(CFLTK_CARGO_BUILD "cfltk is built using Cargo" OFF)
 option(CFLTK_MSVC_CRT_STATIC "cfltk is built with crt-static" OFF)
 option(CFLTK_USE_CAIROEXT "Uses CairoExt FLTK feature" OFF)
 option(CFLTK_USE_FPIC "Compile code with -fPIC to allow incorporation into shared lib." OFF)
+option(CFLTK_SYSTEM_JPEG "Link installed libjpeg" OFF)
+option(CFLTK_SYSTEM_PNG "Link installed libpng" OFF)
+option(CFLTK_SYSTEM_ZLIB "Link installed zlib" OFF)
 
 if (CFLTK_USE_FPIC OR CFLTK_BUILD_SHARED)
   set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -152,9 +155,25 @@ set(pc_libs_private "-lfltk")
 set(other_c_flags)
 
 if(CFLTK_LINK_IMAGES)
-  set(CFLTK_LIBS ${CFLTK_LIBS} fltk::images fltk::z fltk::jpeg fltk::png)
+  target_compile_definitions(cfltk PUBLIC CFLTK_USE_IMAGES)
+  list(APPEND CFLTK_LIBS fltk::images)
   string(APPEND pc_libs_private
-         " -lfltk_images -lfltk_z -lfltk_jpeg -lfltk_png")
+      " -lfltk_images")
+  if (NOT CFLTK_SYSTEM_JPEG)
+    list(APPEND CFLTK_LIBS fltk::jpeg)
+    string(APPEND pc_libs_private
+      " -lfltk_jpeg")
+  endif()
+  if (NOT CFLTK_SYSTEM_PNG)
+    list(APPEND CFLTK_LIBS fltk::png)
+    string(APPEND pc_libs_private
+      " -lfltk_png")
+  endif()
+  if (NOT CFLTK_SYSTEM_ZLIB)
+    list(APPEND CFLTK_LIBS fltk::z)
+    string(APPEND pc_libs_private
+      " -lfltk_z")
+  endif()
 endif()
 
 if(CFLTK_USE_OPENGL)
