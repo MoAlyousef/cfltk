@@ -53,6 +53,12 @@ Fl_Tree_add_item(Fl_Tree *self, const char *name, Fl_Tree_Item *item) {
 }
 
 Fl_Tree_Item *
+Fl_Tree_add_to_parent(Fl_Tree *self, Fl_Tree_Item *parent_item, const char *name) {
+    LOCK(auto ret = self->add(parent_item, name));
+    return ret;
+}
+
+Fl_Tree_Item *
 Fl_Tree_insert_above(Fl_Tree *self, Fl_Tree_Item *above, const char *name) {
     LOCK(auto ret = self->insert_above(above, name));
     return ret;
