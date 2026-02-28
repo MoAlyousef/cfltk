@@ -314,11 +314,16 @@ void *resolve_raw_handle(void *handle) {
 void *Fl_display(void) {
 #if defined(__APPLE__) || defined(__ANDROID__)
     return 0;
-#elif defined(FLTK_USE_WAYLAND)
-    if (fl_wl_display())
+#elif defined(FLTK_USE_WAYLAND) && defined(FLTK_USE_X11)
+    if (fl_wl_display()) {
         return fl_wl_display();
-    else
-        return fl_display;
+    } else {
+        return fl_x11_display();
+    }
+#elif defined(FLTK_USE_WAYLAND) && !defined(FLTK_USE_X11)
+    return fl_wl_display();
+#elif defined(FLTK_USE_X11)
+    return fl_x11_display();
 #elif defined(__EMSCRIPTEN__)
     return 0;
 #else
@@ -338,7 +343,9 @@ void *Fl_gc(void) {
 }
 
 void *Fl_cairo_gc(void) {
-#if FLTK_USE_CAIRO
+#if defined(FLTK_USE_WAYLAND)
+    return fl_wl_gc();
+#elif defined(FLTK_USE_X11) && defined(FLTK_USE_CAIRO)
     return fl_cairo_gc();
 #endif
     return NULL;
@@ -349,18 +356,7 @@ void Fl_Window_show_with_args(Fl_Window *w, int argc, char **argv) {
 }
 
 void Fl_Window_set_raw_handle(Fl_Window *self, void *handle) {
-    if (!handle)
-        return;
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
-    if (fl_x11_display()) {
-        LOCK(Fl_X::set_xid(self, (Window)handle));
-    }
-#else
-        // LOCK(Fl_X *xp = new Fl_X; if (!xp) return; Window h = *(Window
-        // *)handle; xp->xid = h;
-        //      xp->w = self; xp->next = Fl_X::first; xp->region = 0; Fl_X *i =
-        //      Fl_X::flx(self); if (!i) return; i = xp; Fl_X::first = xp;)
-#endif
+    return;
 }
 
 void Fl_Window_allow_expand_outside_parent(Fl_Window *self) {
