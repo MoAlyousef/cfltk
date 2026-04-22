@@ -38,7 +38,7 @@ if(MSVC)
   string(REGEX REPLACE "/EHsc" "/EHs-c-" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   add_definitions("/D_CRT_SECURE_NO_WARNINGS /wd4099 /wd4996")
   if(CFLTK_MSVC_CRT_STATIC)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Release>:Release>")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
     string(REGEX REPLACE "/MD" "/MT" CMAKE_CXX_FLAGS_RELEASE
                          "${CMAKE_CXX_FLAGS_RELEASE}")
     string(REGEX REPLACE "/MD" "/MT" CMAKE_C_FLAGS_RELEASE
@@ -60,6 +60,9 @@ else()
   if(RES_LEN EQUAL 0)
     message(FATAL_ERROR "fltk submodule not initialized! Run: git submodule update --init --recursive")
   endif()
+  set(FLTK_USE_SYSTEM_LIBJPEG ${CFLTK_SYSTEM_JPEG} CACHE BOOL "" FORCE)
+  set(FLTK_USE_SYSTEM_LIBPNG ${CFLTK_SYSTEM_PNG} CACHE BOOL "" FORCE)
+  set(FLTK_USE_SYSTEM_ZLIB ${CFLTK_SYSTEM_ZLIB} CACHE BOOL "" FORCE)
   add_subdirectory(fltk)
 endif()
 
@@ -247,4 +250,3 @@ install(
 )
 
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/cfltk-pkgconfig.cmake)
-
