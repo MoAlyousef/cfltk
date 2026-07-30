@@ -319,6 +319,9 @@ unsigned int Fl_darker(unsigned int c);
 void Fl_set_box_type_cb(
     int, void (*cb)(int, int, int, int, unsigned int), int, int, int, int
 );
+void Fl_set_box_type_with_focus_cb(
+    int, void (*cb)(int, int, int, int, unsigned int), int, int, int, int, void (*cbf)(Fl_Boxtype, int, int, int, int, unsigned int, unsigned int)
+);
 
 int Fl_draw_box_active(void);
 
