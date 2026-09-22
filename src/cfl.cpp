@@ -436,16 +436,6 @@ void Fl_Widget_Tracker_delete(Fl_Widget_Tracker *self) {
 }
 
 void Fl_init_all(void) {
-    fl_define_FL_ROUND_UP_BOX();
-    fl_define_FL_SHADOW_BOX();
-    fl_define_FL_ROUNDED_BOX();
-    fl_define_FL_RFLAT_BOX();
-    fl_define_FL_RSHADOW_BOX();
-    fl_define_FL_DIAMOND_BOX();
-    fl_define_FL_OVAL_BOX();
-    fl_define_FL_PLASTIC_UP_BOX();
-    fl_define_FL_GTK_UP_BOX();
-    fl_define_FL_GLEAM_UP_BOX();
     fl_define_FL_SHADOW_LABEL();
     fl_define_FL_ENGRAVED_LABEL();
     fl_define_FL_EMBOSSED_LABEL();
