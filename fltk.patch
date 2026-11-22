@@ -1,5 +1,5 @@
 diff --git a/src/Fl_win32.cxx b/src/Fl_win32.cxx
-index e7539737f..e7d92a206 100644
+index 12be823b0..574870306 100644
 --- a/src/Fl_win32.cxx
 +++ b/src/Fl_win32.cxx
 @@ -572,16 +572,16 @@ class Fl_Win32_At_Exit {
@@ -29,16 +29,16 @@ index e7539737f..e7d92a206 100644
  #if USE_GDIPLUS
      Fl_GDIplus_Graphics_Driver::shutdown();
  #endif
-@@ -1200,6 +1200,8 @@ static Fl_Window *resize_bug_fix;
- extern void fl_save_pen(void);
- extern void fl_restore_pen(void);
+@@ -1232,6 +1232,8 @@ static BOOL CALLBACK child_window_cb(HWND child_xid, LPARAM data) {
+ 
+ static bool sizing_window = false;
  
 +static bool left_window = true;
 +
  static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
- 
    // Copy the message to fl_msg so add_handler code can see it.
-@@ -1373,6 +1375,14 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
+   // It is already there if this is called by DispatchMessage,
+@@ -1440,6 +1442,14 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
        }
  
        case WM_MOUSEMOVE:
@@ -53,9 +53,9 @@ index e7539737f..e7d92a206 100644
  #ifdef USE_TRACK_MOUSE
          if (track_mouse_win != window) {
            TRACKMOUSEEVENT tme;
-@@ -1392,6 +1402,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
-           while (tw->parent()) // find top level window
-             tw = tw->window();
+@@ -1469,6 +1479,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
+             Fl::e_y = clamp(int(pt.y / scale), 0, window->h() - 1);
+           }
            Fl::belowmouse(0);
 +          left_window = true;
            Fl::handle(FL_LEAVE, tw);
