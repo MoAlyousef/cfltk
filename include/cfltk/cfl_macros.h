@@ -85,6 +85,7 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     void widget##_set_user_data(widget *, void *data);                         \
     void *widget##_draw_data(const widget *self);                              \
     void *widget##_handle_data(const widget *self);                            \
+    void *widget##_resize_data(const widget *self);                            \
     void widget##_set_draw_data(widget *self, void *data);                     \
     void widget##_set_handle_data(widget *self, void *data);                   \
     unsigned char widget##_damage(const widget *self);                         \
@@ -345,6 +346,10 @@ typedef void (*custom_draw_callback)(Fl_Widget *, void *);
     }                                                                          \
     void *widget##_handle_data(const widget *self) {                           \
         LOCK(auto ret = ((widget##_Derived *)self)->ev_data_);                 \
+        return ret;                                                            \
+    }                                                                          \
+    void *widget##_resize_data(const widget *self) {                           \
+        LOCK(auto ret = ((widget##_Derived *)self)->resize_data_);             \
         return ret;                                                            \
     }                                                                          \
     void widget##_set_draw_data(widget *self, void *data) {                    \
