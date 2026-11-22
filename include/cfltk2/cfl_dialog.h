@@ -254,6 +254,28 @@ void Fl_message_icon_label(const char *label);
 
 void Fl_message_position(int x, int y);
 
+// The labels of the buttons of FLTK's common dialogs. The setters copy the label
+
+const char *Fl_dialog_no_label(void);
+
+void Fl_dialog_set_no_label(const char *label);
+
+const char *Fl_dialog_yes_label(void);
+
+void Fl_dialog_set_yes_label(const char *label);
+
+const char *Fl_dialog_ok_label(void);
+
+void Fl_dialog_set_ok_label(const char *label);
+
+const char *Fl_dialog_cancel_label(void);
+
+void Fl_dialog_set_cancel_label(const char *label);
+
+const char *Fl_dialog_close_label(void);
+
+void Fl_dialog_set_close_label(const char *label);
+
 #ifdef __cplusplus
 }
 #endif

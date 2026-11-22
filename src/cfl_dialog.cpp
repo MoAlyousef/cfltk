@@ -10,6 +10,7 @@
 #include <FL/Fl_Native_File_Chooser.H>
 #include <FL/fl_ask.H>
 #include <FL/platform.H>
+#include <stdlib.h>
 #include <string.h>
 
 Fl_Native_File_Chooser *Fl_Native_File_Chooser_new(int val) {
@@ -550,5 +551,39 @@ void Fl_message_icon_label(const char *label) {
 void Fl_message_position(int x, int y) {
     LOCK(fl_message_position(x, y));
 }
+
+// FLTK only stores the pointer of these labels, so a copy is kept alive. A
+// replaced copy is not freed, since an open dialog may still be showing it.
+static const char *copy_dialog_label(const char *label) {
+    if (!label)
+        return nullptr;
+    size_t len = strlen(label) + 1;
+    char *copy = (char *)malloc(len);
+    if (copy)
+        memcpy(copy, label, len);
+    return copy;
+}
+
+#define DIALOG_LABEL_DEFINE(name)                                              \
+    const char *Fl_dialog_##name##_label(void) {                               \
+        LOCK(auto ret = fl_##name);                                            \
+        return ret;                                                            \
+    }                                                                          \
+    void Fl_dialog_set_##name##_label(const char *label) {                     \
+        const char *copy = copy_dialog_label(label);                           \
+        if (copy) {                                                            \
+            LOCK(fl_##name = copy);                                            \
+        }                                                                      \
+    }
+
+DIALOG_LABEL_DEFINE(no)
+
+DIALOG_LABEL_DEFINE(yes)
+
+DIALOG_LABEL_DEFINE(ok)
+
+DIALOG_LABEL_DEFINE(cancel)
+
+DIALOG_LABEL_DEFINE(close)
 
 #undef LOCK
