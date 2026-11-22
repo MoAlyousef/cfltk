@@ -694,9 +694,11 @@ void Fl_set_box_type_with_focus_cb(
     int y,
     int w,
     int h,
-    void (*cbf)(Fl_Boxtype, int, int, int, int, unsigned int, unsigned int)
+    void (*cbf)(int, int, int, int, int, unsigned int, unsigned int)
 ) {
-    Fl::set_boxtype((Fl_Boxtype)box, cb, x, y, w, h, cbf);
+    Fl::set_boxtype(
+        (Fl_Boxtype)box, cb, x, y, w, h, (Fl_Box_Draw_Focus_F *)cbf
+    );
 }
 
 int Fl_draw_box_active(void) {
