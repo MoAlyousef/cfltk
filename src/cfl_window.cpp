@@ -448,6 +448,11 @@ void Fl_Overlay_Window_draw_overlay(
          ((Fl_Overlay_Window_Derived *)self)->inner_overlay_drawer = cb);
 }
 
+void *Fl_Overlay_Window_overlay_draw_data(const Fl_Overlay_Window *self) {
+    LOCK(auto ret = ((Fl_Overlay_Window_Derived *)self)->overlay_draw_data_);
+    return ret;
+}
+
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self) {
     LOCK(self->redraw_overlay());
 }

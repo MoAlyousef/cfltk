@@ -108,6 +108,8 @@ void Fl_Overlay_Window_draw_overlay(
     Fl_Overlay_Window *self, custom_draw_callback cb, void *data
 );
 
+void *Fl_Overlay_Window_overlay_draw_data(const Fl_Overlay_Window *self);
+
 void Fl_Overlay_Window_redraw_overlay(Fl_Overlay_Window *self);
 
 int Fl_Overlay_Window_can_do_overlay(Fl_Overlay_Window *self);
